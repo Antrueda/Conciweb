@@ -1,0 +1,56 @@
+1. INFORMACIÓN BÁSICA
+2. VESTUARIO
+3. RESIDENCIA						PARAMETROS OK (VERIFICAR)
+4. ESCUELA							PARAMETROS OK
+5. COMPOSICIÓN FAMILIAR				
+6. SALUD							PARAMETROS OK
+7. GENERACIÓN DE INGRESOS			PARAMETROS OK
+8. ACTIVIDADES DE TIEMPO LIBRE		PARAMETROS OK
+9. REDES DE APOYO
+10. JUSTICIA RESTAURATIVA
+11. CONSUMO SPA						PARAMETROS OK
+12. VIOLENCIAS Y COND ESPECIAL 		NO TIENE PARAMETRO CONDICIÓN, DTO Y MUNICIPIO
+13. SITUACION ESPECIAL Y ESCNNA		PARAMETROS OK (VERIFICAR)
+14. CONTACTO CON IDIPRON 			CREAR TEMAS Y PARAMETROS
+15. BIENVENIDA						PARAMETROS OK
+16. AUTORIZACIÓN					PARAMETROS OK
+17. RAZONES PARA ENTRAR AL IDIPRON	PARAMETROS OK
+
+
+
+UPDATE
+return $this->grabar($request->all(), FiGeneracionIngreso::where('id',$id)->first(), 'Generación de ingresos actualizada con exito');
+
+
+
+GRABAR
+->route('fi.ingresos.editar', [$dataxxxx['sis_nnaj_id'], FiGeneracionIngreso::transaccion($dataxxxx,  $objetoxx)->id])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

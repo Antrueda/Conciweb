@@ -1,0 +1,1 @@
+<a class="btn btn-sm btn-warning " href="{{ route($requestx->routexxx[0].'.editmigr', $queryxxx->id) }}">MIGRAR</a>

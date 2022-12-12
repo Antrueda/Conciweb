@@ -1,0 +1,39 @@
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="alert alert-success" role="alert">
+      <small class="text-justify">
+        <div class="row">
+          <div class="col-md-11">
+            <b>Documentos necesarios para la solicitud</b>
+          </div>
+          <div class="col-md-1">
+          </div>
+        </div>
+        <hr>
+        <p>
+          Señor(a) solicitante,<br>
+          Para el registro de su solicitud de conciliación es OBLIGATORIO diligenciar el formato <a href="/downloadFileWord" class="mr-2">05-FR-40</a>
+          <br>
+          <p>
+              <center>
+                <a href="/downloadFileWord"><i class="fas fa-file-word fa-4x"></i></a><br>
+                <a href="/downloadFileWord">Descargar Formato 05-FR-40</a>
+              </center>
+          </p>
+          <p>
+            Adicional al Formato <a href="/downloadFileWord">05-FR-40</a>, debe anexar los siguientes documentos:
+          </p>
+          <ul>
+            @foreach ($data['detalleAbc'] as $info)
+            <li style="text-justify">{!! $info->descripcion !!}</li> 
+            @endforeach
+          </ul>  
+          <p>
+            Tenga en cuenta que TODOS los soportes descritos debe adjuntarlos en un (1) solo archivo, en formato PDF y en tamaño oficio.
+          </p>
+        </p>
+      </small>
+    </div>
+  </div>
+</div>

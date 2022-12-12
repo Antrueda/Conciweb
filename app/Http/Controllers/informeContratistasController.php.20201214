@@ -1,0 +1,560 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use DB;
+use App\User;
+use Session;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Crypt;
+
+
+class informeContratistasController extends Controller
+{
+
+    /****************************************** V3 INFORME DE CONTRATISTYAS **************************/
+        //EXTRAER LOS CONTRATOS DE USUARIO
+    public function informeActividades($cc){
+
+        //EXTRAER NOMBRE DEL USUARIO
+        $this->DatosBasicosUsuario($cc);
+
+        $tipo='"TIPO"';
+
+        // CONTRATOS PREVIOS PARA DILIGENCIAR
+        $contratosPrevios = DB::connection('sicapita')->table('co_proveedor as cp')
+            ->select('coc.vigencia','coc.num_contrato',\DB::raw("'NORMAL' AS $tipo"))
+            ->join('co_orden_contrato as coc','coc.interno_proveedor','cp.interno_proveedor')
+            ->where('cp.num_identificacion',$cc)
+            ->whereIn('coc.vigencia', [2019, 2020]);
+            //->get();
+        // CONTRATOS PREVIOS CEDIDOS PARA DILIGENCIAR
+        $contratosPreviosCedidos = DB::connection('sicapita')->table('co_cesion_contrato as c')
+            ->select('COO.vigencia','COO.num_contrato',\DB::raw(" 'CECION' AS $tipo"  ))
+            ->join('co_proveedor as p','c.interno_cesionario','p.INTERNO_PROVEEDOR')
+            ->join('co_orden_contrato as COO','COO.INTERNO_PROVEEDOR','C.INTERNO_CEDENTE')
+            ->where('p.NUM_IDENTIFICACION',$cc)
+            ->union($contratosPrevios)
+            ->whereIn('COO.vigencia', [2019, 2020])
+            ->get();
+
+        $data=array("contratosPrevios"=>$contratosPreviosCedidos);
+
+        return((String)\View::make("informeContratistas.contratosPrevios", array("data" => $data)));
+    }
+        //EXTRAER DATOS DEL CONTRATO SELECCIONADO POR EL USUARIO
+    public function datosContratoSeleccionado(Request $request){
+
+        $datoContrato = explode("_@@_", $request->contrato);
+         $datoContrato[0]; // contrato
+         $datoContrato[1]; // vigencia
+         $datoContrato[2]; // tipo
+        $cc = Session::get('numDoc');
+
+        if($datoContrato[2]!=='NORMAL') { $cc = $this->DocumentoContratoCedido(Session::get('numDoc'),$datoContrato[0],$datoContrato[1]); }
+
+        $contratoActual = DB::connection('sicapita')->table('co_proveedor as cp')
+            ->select("cp.razon_social", "cp.interno_proveedor","cp.id_tercero", "coo.tipo_orden_contrato","coo.num_contrato",
+                "coo.cuantia", "coo.objeto", "coo.dependencia_destino","coo.vigencia",
+                \DB::raw("TO_CHAR(coo.fecha_inicio,'DD/MM/YYYY') fecha_inicio"),
+                \DB::raw("TO_CHAR(coo.fecha_final,'DD/MM/YYYY') fecha_final")
+            )
+            ->join("co_orden_contrato as coo","coo.interno_proveedor","cp.interno_proveedor")
+            ->where("cp.num_identificacion",$cc)
+            ->where("coo.vigencia",$datoContrato[1])
+            ->where("coo.num_contrato",$datoContrato[0])
+            ->orderByDesc("coo.num_contrato")
+            ->get();
+
+            //dd( $contratoActual );
+
+        $informesPrevios = DB::connection('sicapita')->table('co_proveedor as cp')
+            ->select("cie.id_informe","cie.interno_oc","coc.num_contrato","coc.vigencia", "cp.razon_social",
+                \DB::raw("TO_CHAR(cie.per_fin_informe,'Month / DD','NLS_DATE_LANGUAGE=spanish') per_fin_informe"),
+                \DB::raw("TO_CHAR(cie.per_ini_informe,'Month / DD','NLS_DATE_LANGUAGE=spanish') per_ini_informe"),
+                \DB::raw("TO_CHAR(FECHA_PRESENTACION,'Month','NLS_DATE_LANGUAGE=spanish') fechaREg"),
+                \DB::raw("TO_CHAR(FECHA_PRESENTACION,'MM') fechaRegMes")
+            )
+            ->join("co_orden_contrato as coc","coc.interno_proveedor","cp.interno_proveedor")
+            ->join("co_inf_ejecucion as cie","cie.interno_oc","coc.interno_oc")
+            ->where("cp.num_identificacion",$cc)
+            ->where("coc.vigencia",$datoContrato[1])
+            ->where("coc.num_contrato",$datoContrato[0])
+            ->orderBy("cie.id_informe")
+            ->get();
+
+           
+
+        $data=array("contratoActual"=>$contratoActual,"informesPrevios"=>$informesPrevios, 
+        "numContrato"=>$datoContrato[0],"vigenciaContrato" => $datoContrato[1], "tipoContrato"=>$datoContrato[2]);
+        return ((String)\View::make("informeContratistas.datosDelContrato", array("data" => $data)));
+    }
+        //MOSTRAR MODAL CON LOS DATOS DEL CONTRATO
+    public function ModalEdicionInformeV3(Request $request){
+
+        $idInforme = $request->input("idInforme");
+        $InternoOc = $request->input("InternoOc");
+        $datosContrato= $request->input("codigoTransaccion");
+        $cc=Session::get('numDoc');
+
+
+        $datoContrato = explode("_@@_", $datosContrato );
+            $datoContrato[0]; // contrato
+            $datoContrato[1]; // vigencia
+            $datoContrato[2]; // tipo
+
+        //DETERMINAR SI EL USUARIO TIENE EL CONTRATO CEDIDO O SI ES DE EL
+            //SI EL CONTRATO ES CEDIDO SE REMPLAZA LA CEDULA POR LA DEL CEDIENTE
+        if($datoContrato[2]!='NORMAL') {
+            $cc = $this->DocumentoContratoCedido($cc,$datoContrato[0],$datoContrato[1]);
+        }
+
+        //DATOS DE CABECERA REGISTRADAS
+        $datosDelInforme = DB::connection('sicapita')->table('co_inf_ejecucion')
+            ->where("interno_oc",$InternoOc)
+            ->where("id_informe",$idInforme)
+            ->get();
+
+        //OBLIGACIONES REGISTRADAS
+        $obligacionesRegistradas = DB::connection('sicapita')->table('co_inf_ejec_oblig ')
+            ->where("interno_oc",$InternoOc)
+            ->where("id_informe",$idInforme)
+            ->orderBy('tipo_oblig')
+            ->orderBy('secuencia')
+            ->get();
+
+        //ID DEPENDECIA DEL FUNCIONARIO
+        $depUsuario=$this->dependenciaDelUsuario($cc,$datoContrato[1]);
+
+        // LISTA DEW FUNCIONARIOS EN LA DEPENDENCIA
+        $funcionariosDep=DB::connection('sicapita')->table('empleado_intra as ei')
+            ->where("ei.codigo_dependencia",$depUsuario)
+            ->get();
+
+        //ID Y NOMBRE DEL ACTUA JEFE DEL INFORME
+        $datosJefe = explode("_@@_", $this->JefeDelInfome($InternoOc,$idInforme ));
+            $jefeId = $datosJefe[0];
+            $jefeNombre = $datosJefe[1];
+
+        // DATOS DEL JEFE DE LA ACTUAL DEPENDENCIA
+        $datosJefeActual = explode("_@@_", $this->JefeActualDependencia($depUsuario));
+            $jefeNombreCargo = $datosJefeActual[0];
+            $jefeGradoCargo = $datosJefeActual[1];
+            $jefeEncargo = $datosJefeActual[2];
+
+
+        $data=array("datosDelInforme"=>$datosDelInforme,"obligacionesRegistradas"=>$obligacionesRegistradas,
+            "idInforme"=>$idInforme,"InternoOc"=>$InternoOc,"num_contrato"=>$datoContrato[0], "vigencia_contrato"=>$datoContrato[1],
+            "funcionariosDep"=>$funcionariosDep,"jefeId"=>$jefeId,"jefeNombre"=>$jefeNombre,"jefeNombreCargo"=>$jefeNombreCargo,
+            "jefeGradoCargo"=>$jefeGradoCargo,"jefeEncargo"=>$jefeEncargo,"tipoContrato"=>$datoContrato[2]);
+
+        return((String)\View::make("informeContratistas.modal.ModalEdicionInformeV3", array("data" => $data)));
+
+    }
+        //REGISTRO DEL INFROME EDITADO
+    public function registroEdicionInformeEjecucionV3(Request $request){
+        //DATOS BNASICSO DE LA SOLICITUD
+        $numContrato = $request->input("numContrato");
+        $vigenciaContrato = $request->input("vigenciaContrato");
+        $TipoContrato= $request->input("tipoContrato");
+        $cc=Session::get('numDoc');
+
+        $interno_oc=$request->input("interno_oc");
+        $idInforme=$request->input("id_informe");
+
+
+        $fechaPresentacion=$request->input("fechaPresentacion");
+        $fechaInicia=$request->input("fechaInicia");
+        $fechaTerminacion=$request->input("fechaTerminacion");
+        $numeroPlanilla=$request->input("numeroPlanilla");
+        $fechaPagoPlanilla=$request->input("fechaPagoPlanilla");
+        $numContrato=$request->input("numContrato");
+        $vigenciaContrato=$request->input("vigenciaContrato");
+        $jefeId=$request->input("jefeId");
+        $jefeNombreCargo=$request->input("jefeCargo");
+        $jefeGradoCargo=$request->input("jefeGradoCargo");
+        $jefeEncargo=$request->input("jefeEncargo");
+        $cantidadObligaciones=$request->input("cantidadObligaciones");
+
+        $date = date_create(Carbon::now()->endOfMonth());
+        $dia = $date->format('m/Y');
+
+        // IDENTEIFICAR EL TIP ODE CONTRATO Y LA CEDULA A LA CUAL ESTA REGISTRADA
+        if($TipoContrato!=='NORMAL') { $cc = $this->DocumentoContratoCedido(Session::get('numDoc'),$numContrato,$vigenciaContrato); }
+        
+        //dd($this->datosContratoActual($cc,$vigenciaContrato));
+
+        //IDENTIFICAR DATOS DEL ACTUAL CONTRATO
+        $datosContratoActual = explode("_@@_", $this->datosContratoActual($cc,$vigenciaContrato,$numContrato));
+            $internoOc = $datosContratoActual[0];
+            $internoProveedor = $datosContratoActual[1];
+    
+        $internoInterventor=$jefeId;
+        $gradoSup=$jefeGradoCargo;
+
+
+        /********************* UPDATE DE LOS DATOS BASICOS DE LA CUENTA ******************/
+
+        try {
+            DB::connection('sicapita')->table('co_inf_ejecucion')
+                ->where('INTERNO_OC', $interno_oc)
+                ->where('ID_INFORME', $idInforme)
+                ->update(
+                    ['CARGO_SUPERVISOR'=>$jefeNombreCargo,
+                        'FECHA_PRESENTACION' => \DB::raw("TO_DATE('".$fechaPresentacion."','DD/MM/YYYY HH24:MI:SS')"),
+                        'PER_INI_INFORME' => \DB::raw("TO_DATE('".$fechaInicia."','DD/MM/YYYY HH24:MI:SS')"),
+                        'PER_FIN_INFORME'=>\DB::raw("TO_DATE('".$fechaTerminacion."','DD/MM/YYYY HH24:MI:SS')"),
+                        'NUM_PLANILLA_PAGO'=>\DB::raw("'". $numeroPlanilla."'"), 'FECHA_PAGO'=>\DB::raw("TO_DATE('".$fechaPagoPlanilla."','DD/MM/YYYY HH24:MI:SS')"),
+                        'NOMBRE_INT_DOC_ANEXO'=>\DB::raw("' '"), 'EXTENSION_DOC_ANEXO'=>\DB::raw("' '"), 'DESCRIPCION_DOC_ANEXO'=>\DB::raw("' '"),
+                        'NUM_PAGO'=>$idInforme, 'INTERNO_INTERVENTOR'=>$internoInterventor, 'GRADO_SUP'=>$gradoSup,
+                        'CODIGO_CARGO_SUP'=>$jefeEncargo,
+                    ]);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return '|0|Problema al ACTUALZIAR la informacion al sistema co_inf_ejecucion '.$e;
+        }
+
+
+        /************************ UPDATE DE LAS OLBIGACIONES ****************************/
+
+        for($i=1; $i<=$cantidadObligaciones; $i++){
+            $infoActividad=$request->input("datosActividad_++_".$i);
+            $dato = explode("_ROOT_", $infoActividad);
+            $item=$dato[0];
+            //$secuencia=$dato[1];
+            //$obligacionDe=$dato[2];
+
+            $actividadRealizada=$request->input("actividad_++_".$i);
+            $soporteRegistrado=$request->input("Soporte_++_".$i);
+
+            try {
+                DB::connection('sicapita')->table('co_inf_ejec_oblig')
+                    ->where('INTERNO_OC', $interno_oc)
+                    ->where('ID_INFORME', $idInforme)
+                    ->where('ID_OBLIGACION', $item)
+                    ->update(['ACTIVIDAD_REALIZADA'=>\DB::raw("'".$actividadRealizada."'"), 'SOPORTES'=>\DB::raw("'".$soporteRegistrado."'")]);
+            } catch (\Exception $e) {
+                DB::rollback();
+                return '|0|Problema al ACTUALZIAR la informacion al sistema co_inf_ejec_oblig '.$e;
+            }
+        }
+        DB::commit();
+        return '|1| La transacción culmino de forma exitosa .';
+
+    }
+        // DATOS PARA LA MUESTRA DEL MODAL
+    public function ModalRegistroInformeV3(Request $request){
+        //DATOS BNASICSO DE LA SOLICITUD
+        $numContrato = $request->input("numContrato");
+        $vigenciaContrato = $request->input("vigenciaContrato");
+        $TipoContrato= $request->input("TipoContrato");
+        $cc=Session::get('numDoc');
+
+        $date = date_create(Carbon::now()->endOfMonth());
+        $lasDateOfMonth=date_format($date, 'd/m/Y');
+
+        // IDENTEIFICAR EL TIP ODE CONTRATO Y LA CEDULA A LA CUAL ESTA REGISTRADA
+        if($TipoContrato!=='NORMAL') { $cc = $this->DocumentoContratoCedido(Session::get('numDoc'),$numContrato,$vigenciaContrato); }
+        //VERIFICAR SI EXISTES OBLIGACIONES MODIFICADAS
+        $modificacionContrato = $this->modificacionContrato($cc,$numContrato,$vigenciaContrato);
+        $obligacionesEspecificas = $this->obligacionesEspecificas($cc,$modificacionContrato,$numContrato,$vigenciaContrato);
+        $obligacionesGenerales = $this->obligacionesGenerales($cc,$numContrato,$vigenciaContrato);
+        //ID DEPENDECIA DEL FUNCIONARIO
+        $depUsuario=$this->dependenciaDelUsuario($cc,$vigenciaContrato);
+        // DATOS DEL JEFE DE LA ACTUAL DEPENDENCIA
+        $datosJefeActual = explode("_@@_", $this->JefeActualDependencia($depUsuario));
+            $jefeNombreCargo = $datosJefeActual[0];
+            $jefeGradoCargo = $datosJefeActual[1];
+            $jefeEncargo = $datosJefeActual[2];
+            $jefeId = $datosJefeActual[3];
+            $jefeNombre = $datosJefeActual[4];
+        // TRAER LA DEPENDECIA DEL USUARIOº
+        $funcionariosDep = $this->funcionariosDeLaDependecia($depUsuario);
+
+
+        //DATOS ENVIADOS 
+        $data=array("lasDateOfMonth" => $lasDateOfMonth,"numContrato" => $numContrato,"vigenciaContrato" => $vigenciaContrato,"tipoContrato" => $TipoContrato,
+        "jefeId"=>$jefeId, "jefeGradoCargo" => $jefeGradoCargo, "jefeEncargo" => $jefeEncargo, "jefeNombre"=>$jefeNombre, "jefeNombreCargo" => $jefeNombreCargo,
+        "funcionariosDep" => $funcionariosDep, "obligacionesEsp" => $obligacionesEspecificas,"obligacionesGen" => $obligacionesGenerales);    
+
+        return((String)\View::make("informeContratistas.modal.ModalRegistroInformeV3", array("data" => $data)));
+    }
+        // REGISTRO DEL NUEVO INFORME EN BASE DE DATOS
+    public function registroInformeEjecucionV3(Request $request){
+
+        $date = date_create(Carbon::now()->endOfMonth());
+        $dia = $date->format('m/Y');
+        $cc = Session::get('numDoc');
+
+        $fechaPresentacion=$request->input("fechaPresentacion");
+        $fechaInicia=$request->input("fechaInicia");
+        $fechaTerminacion=$request->input("fechaTerminacion");
+        $numeroPlanilla=$request->input("numeroPlanilla");
+        $fechaPagoPlanilla=$request->input("fechaPagoPlanilla");
+        $numContrato=$request->input("numContrato");
+        $vigenciaContrato=$request->input("vigenciaContrato");
+        $jefeId=$request->input("jefeId");
+        $jefeNombreCargo=$request->input("jefeCargo");
+        $jefeGradoCargo=$request->input("jefeGradoCargo");
+        $jefeEncargo=$request->input("jefeEncargo");
+        $cantidadObligaciones=$request->input("cantidadObligaciones");
+        $TipoContrato=$request->input("tipoContrato");
+
+
+        if($TipoContrato!=='NORMAL') { $cc = $this->DocumentoContratoCedido(Session::get('numDoc'),$numContrato,$vigenciaContrato); }
+
+        //$datosContratoActual = $this->datosContratoActual($cc,$vigenciaContrato);
+
+        $datosContratoActual = explode("_@@_", $this->datosContratoActual($cc,$vigenciaContrato,$numContrato));
+            $internoOc = $datosContratoActual[0];
+            $internoProveedor = $datosContratoActual[1];
+
+        $internoInterventor=$jefeId;
+        $gradoSup=$jefeGradoCargo;
+
+    
+        $user = DB::connection('sicapita')->table('co_inf_ejecucion')->where('interno_oc',$internoOc)->max('id_informe');
+        $contador=$user+1;
+
+        //INSERT DE LA INFORMACION EN TABLA PRINCIPAL CO_INF_EJEUCION
+        try {
+            DB::connection('sicapita')->table('co_inf_ejecucion')->insert(
+                [
+                    ['INTERNO_OC' => $internoOc, 'ID_INFORME' => $contador,
+                        'FECHA_PRESENTACION' => \DB::raw("TO_DATE('".$fechaPresentacion."','DD/MM/YYYY HH24:MI:SS')"),
+                        'PER_INI_INFORME' => \DB::raw("TO_DATE('".$fechaInicia."','DD/MM/YYYY HH24:MI:SS')"),
+                        'PER_FIN_INFORME'=>\DB::raw("TO_DATE('".$fechaTerminacion."','DD/MM/YYYY HH24:MI:SS')"),
+                        'NUM_PLANILLA_PAGO'=>\DB::raw("'". $numeroPlanilla."'"),
+                        'FECHA_PAGO'=>\DB::raw("TO_DATE('".$fechaPagoPlanilla."','DD/MM/YYYY HH24:MI:SS')"),
+                        'NOMBRE_INT_DOC_ANEXO'=>\DB::raw("' '"), 'EXTENSION_DOC_ANEXO'=>\DB::raw("' '"),
+                        'DESCRIPCION_DOC_ANEXO'=>\DB::raw("' '"), 'NUM_PAGO'=>$contador, 'INTERNO_INTERVENTOR'=>$internoInterventor, 'GRADO_SUP'=>$gradoSup,
+                        'CODIGO_CARGO_SUP'=>$jefeEncargo, 'CARGO_SUPERVISOR'=>\DB::raw("'". $jefeNombreCargo."'"),
+                    ]
+                ]
+            );
+        } catch (\Exception $e) {
+            DB::rollback();
+            return '|0|Problema al Insertar la informacion al sistema co_inf_ejecucion '.$e;
+        }
+
+        //RECORRER LA CANTIDAD DE OBLIGACIONES GENERALES Y ESPECIFICAS JUNTO CON EL TEXTO INGRESADO EN CADA UAN
+        for($i=1; $i<=$cantidadObligaciones; $i++){
+
+            if ( ! isset($infoActividad[$request->input("datosActividad_++_".$i)])) {
+                $infoActividad=$request->input("datosActividad_++_".$i);
+                $dato = explode("_ROOT_", $infoActividad);
+                $item=$request->input("datosActividad_++_".$i);
+                $item=$dato[0];
+                $secuencia=$dato[1];
+                $obligacionDe=$dato[2];
+
+                $obligacion=$request->input("obligacion++_".$i);
+                $actividadRealizada=$request->input("actividad_++_".$i);
+                $soporteRegistrado=$request->input("Soporte_++_".$i);
+
+                try {
+                    DB::connection('sicapita')->table('co_inf_ejec_oblig')->insert(
+                        [
+                            ['INTERNO_OC' => $internoOc, 'ID_INFORME' => $contador, 'ID_OBLIGACION' => $item,
+                                'OBLIGACION_CONTRACTUAL' => \DB::raw("'".$obligacion."'"), 'ACTIVIDAD_REALIZADA'=>\DB::raw("'".$actividadRealizada."'"),
+                                'SOPORTES'=>\DB::raw("'".$soporteRegistrado."'"), 'SECUENCIA'=>$secuencia, 'TIPO_OBLIG'=>\DB::raw("'".$obligacionDe."'")
+                            ]
+                        ]
+                    );
+                } catch (\Exception $e) {
+                    DB::rollback();
+                    return '|0|Problema al Insertar la informacion al sistema co_inf_ejec_oblig '.$e;
+                }
+            }else{
+                //SI LA OBLIGACION NO EXISTE DADO QUE FUE UNA MODIFICACION ESTA LA PASA POR ALTO
+                //dd(' NO Existe::: '.$i);
+            }
+        }
+
+        DB::commit();
+        return '|1| La transacción culmino de forma exitosa.';
+
+    }
+
+    /******* FUNCIONES ***********/
+    public function DatosBasicosUsuario($cc){
+        $user = DB::connection('sicapita')->table('co_proveedor')->where('NUM_IDENTIFICACION',$cc)->first();
+        \Session::put("nombreUsuario",$user->razon_social);
+        \Session::put("numDoc",$cc);
+        \Session::save();
+    }
+    public function DocumentoContratoCedido($cc,$numContrato,$vigencia){
+        $datosBasicosEntregoContrato = DB::connection('sicapita')->table('co_proveedor as p')
+            ->select(
+                \DB::raw(" (SELECT NUM_IDENTIFICACION
+                                FROM  CO_PROVEEDOR cp 
+                                    INNER JOIN CO_ORDEN_CONTRATO coo on COO.INTERNO_PROVEEDOR = CP.INTERNO_PROVEEDOR 
+                                    INNER  JOIN co_minuta_contrato cmc ON (cmc.interno_mc = coo.interno_mc)
+                                where CP.INTERNO_PROVEEDOR = ccc.interno_cedente 
+                                AND COO.VIGENCIA=$vigencia AND coo.NUM_CONTRATO=$numContrato ) as cc_entrego")
+            )
+            ->join("co_cesion_contrato as ccc","ccc.interno_cesionario","p.INTERNO_PROVEEDOR")
+            ->leftJoin("co_orden_contrato as coc" ,"coc.interno_proveedor","p.interno_proveedor")
+            ->where("p.NUM_IDENTIFICACION",$cc)
+            ->first();
+        return  $datosBasicosEntregoContrato->cc_entrego;
+    }
+    public function JefeDelInfome($InternoOc,$idInforme){
+        $jefeActualDelInforme=DB::connection('sicapita')->table('co_inf_ejecucion cie')
+            ->select("INTERNO_INTERVENTOR","rh.empleado_intra.nombres_empleado")
+            ->join("co_orden_contrato as coo","coo.interno_oc","cie.interno_oc")
+            ->join("co_proveedor as cp","cp.interno_proveedor","coo.interno_proveedor")
+            ->join("rh.empleado_intra","rh.empleado_intra.funcionario","cie.interno_interventor")
+            ->where("coo.interno_oc",$InternoOc)
+            ->where("cie.id_informe", $idInforme )
+            ->first();
+        $jefeId=$jefeActualDelInforme->interno_interventor;
+        $jefeNombre=$jefeActualDelInforme->nombres_empleado;
+
+        return $jefeId."_@@_".$jefeNombre;
+    }
+    public function dependenciaDelUsuario($cc,$vigencia){
+        $datosBasicos = DB::connection('sicapita')->table('co_proveedor as cp')
+            ->select("coo.dependencia_destino","coo.num_contrato")
+            ->join("co_orden_contrato as coo","coo.interno_proveedor","cp.interno_proveedor")
+            ->where("cp.num_identificacion",$cc)
+            ->where("coo.vigencia",$vigencia)
+            ->first();
+        return $datosBasicos->dependencia_destino;
+    }
+    public function JefeActualDependencia($depUsuario){
+        $jefeActual = DB::connection('sicapita')->table('empleado_intra as ei')
+            ->select("ei.funcionario","ei.nombres_empleado","ei.nom_encargo","ei.gra_encargo","ei.car_encargo")
+            ->where("ei.codigo_dependencia",$depUsuario)
+            ->where("ei.funcionario",  \DB::raw("ei.cod_jefe") )
+            ->first();
+        return $jefeActual->nom_encargo."_@@_".$jefeActual->gra_encargo."_@@_".$jefeActual->car_encargo."_@@_".$jefeActual->funcionario."_@@_".$jefeActual->nombres_empleado;
+    }
+    public function modificacionContrato($cc,$numContrato,$vigencia){
+        $query="SELECT COUNT(vigencia) total
+        FROM CO_MINUTA_ADICION WHERE interno_mc IN 
+        (SELECT interno_mc FROM co_minuta_contrato 
+        WHERE consecutivo_contrato=$numContrato AND vigencia=$vigencia)";
+        $datosOtroSiContrato=DB::connection('sicapita')->select($query);
+        return $datosOtroSiContrato[0]->total;
+    }
+    public function obligacionesGenerales($cc,$numContrato,$vigencia){
+        $obligacionesGen=DB::connection('sicapita')->table('co_minuta_contrato as c')
+        ->select("g.secuencia", "g.item", "g.obligacion","g.obligacion_de")
+        ->join("co_proveedor as p","c.interno_proveedor","p.interno_proveedor")
+        ->join('co_minuta_interventor i', function($join)
+        {
+            $join->on("c.vigencia","=","i.vigencia")
+                ->on("c.interno_mc","=","i.interno_mc");
+        })
+        ->join("co_orden_contrato o","o.interno_mc","i.interno_mc")
+        ->join('co_sol_adq_obligacion g', function($join)
+        {
+            $join->on("o.vigencia","=","g.vigencia")
+                ->on("o.num_sol_adq","=","g.num_sol_adq");
+        })
+        ->where("p.num_identificacion",$cc)
+        ->where("c.consecutivo_contrato",$numContrato)
+        ->where("c.vigencia",$vigencia)
+        ->where("g.obligacion_de", \DB::raw("'G'") )
+        ->orderBy('g.item')
+        ->get();
+        $i=$obligacionesGen[0]->item;
+        foreach ($obligacionesGen as $p) {
+            if($i!=$p->item){
+                $error="El usuario Tiene un item Faltante en sus obligaciones Generales.  VALOR ::$i ITEM:: $p->item";
+                $data=array("error"=>$error);
+                return((String)\View::make("informeContratistas.errorUsrSinproc", array("data" => $data)));
+            }else{ $i++; }
+        }
+        return $obligacionesGen;
+    }
+    public function obligacionesEspecificas($cc,$contratoMod,$numContrato,$vigencia){
+        if($contratoMod!=0){
+            $obligacionesEsp=DB::connection('sicapita')->table('co_sol_adq_mod_oblig')
+            ->select("secuencia", "item", "obligacion","obligacion_de")
+            ->whereRaw(\DB::raw(" (vigencia,num_sol_adq) in  (select vigencia,num_sol_adq 
+            from CO_MINUTA_ADICION where interno_mc in (select interno_mc from co_minuta_contrato 
+                where consecutivo_contrato=$numContrato and vigencia=$vigencia))"))
+            ->orderBy('item')
+            ->get();
+            if ($obligacionesEsp->isEmpty()) {
+                $obligacionesEsp=DB::connection('sicapita')->table('co_minuta_contrato as c')
+                    ->select("g.secuencia", "g.item", "g.obligacion","g.obligacion_de")
+                    ->join("co_proveedor as p","c.interno_proveedor","p.interno_proveedor")
+                    ->join('co_minuta_interventor i', function($join)
+                    {
+                        $join->on("c.vigencia","=","i.vigencia")
+                            ->on("c.interno_mc","=","i.interno_mc");
+                    })
+                    ->join("co_orden_contrato o","o.interno_mc","i.interno_mc")
+                    ->join('co_sol_adq_obligacion g', function($join)
+                    {
+                        $join->on("o.vigencia","=","g.vigencia")
+                            ->on("o.num_sol_adq","=","g.num_sol_adq");
+                    })
+                    ->where("p.num_identificacion",$cc)
+                    ->where("c.consecutivo_contrato",$numContrato)
+                    ->where("c.vigencia",$vigencia)
+                    ->where("g.obligacion_de", \DB::raw("'C'") )
+                    ->orderBy('g.secuencia')
+                    ->get();
+            }
+        }else{
+            $obligacionesEsp=DB::connection('sicapita')->table('co_minuta_contrato as c')
+                    ->select("g.secuencia", "g.item", "g.obligacion","g.obligacion_de")
+                    ->join("co_proveedor as p","c.interno_proveedor","p.interno_proveedor")
+                    ->join('co_minuta_interventor i', function($join)
+                    {
+                        $join->on("c.vigencia","=","i.vigencia")
+                            ->on("c.interno_mc","=","i.interno_mc");
+                    })
+                    ->join("co_orden_contrato o","o.interno_mc","i.interno_mc")
+                    ->join('co_sol_adq_obligacion g', function($join)
+                    {
+                        $join->on("o.vigencia","=","g.vigencia")
+                            ->on("o.num_sol_adq","=","g.num_sol_adq");
+                    })
+                    ->where("p.num_identificacion",$cc)
+                    ->where("c.consecutivo_contrato",$numContrato)
+                    ->where("c.vigencia",$vigencia)
+                    ->where("g.obligacion_de", \DB::raw("'C'") )
+                    ->orderBy('g.secuencia')
+                    ->get();
+        }
+
+        return $obligacionesEsp;
+
+    }
+    public function funcionariosDeLaDependecia($depUsuario){
+        $funcionariosDep=DB::connection('sicapita')->table('empleado_intra as ei')->where("ei.codigo_dependencia",$depUsuario)->get();
+        return $funcionariosDep;
+    }
+    public function datosContratoActual($cc,$vigencia,$numContrato ){
+
+        $datosContratoActual = DB::connection('sicapita')->table('co_proveedor as cp')
+            ->select("coo.interno_oc","coo.interno_proveedor")
+            ->join("co_orden_contrato as coo","coo.interno_proveedor","cp.interno_proveedor")
+            ->where("cp.num_identificacion",$cc )
+            ->where("coo.vigencia",$vigencia)
+            ->where("coo.num_contrato",$numContrato)
+            ->orderByDesc("coo.num_contrato")
+            ->limit(1)
+            ->first();
+
+        return $datosContratoActual->interno_oc."_@@_".$datosContratoActual->interno_proveedor;
+    }
+    public function consultaCargoFuncionario(Request $request){
+        $idFuncionario=$request->input("idFuncionario");
+        $jefeActual = DB::connection('sicapita')->table('empleado_intra as ei')
+            ->select("ei.nom_encargo")
+            ->where("ei.funcionario",$idFuncionario )
+            ->first();
+        return $jefeCargo=$jefeActual->nom_encargo;
+    }
+
+}
+
+
+
