@@ -8,7 +8,15 @@
 @endsection
 
 @section('content')
-
+{{-- 
+  Nombre
+  Fecha
+  Asunto
+  SubAsunto
+  Cuantia
+  Textarea
+  
+  --}}
 <div class="row">
   <div class="col-md-12">
     <div class="alert alert-success" role="alert">

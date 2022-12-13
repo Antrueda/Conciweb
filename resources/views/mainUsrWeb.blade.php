@@ -47,11 +47,11 @@
                 background-attachment: fixed;
                 width: 100%;
             }
-            /* .btn-primary{
+            .btn-perso{
              background-color: #003e65;
                 border-color:#003e65;
                 color: white;
-            } */
+            }
             .form-label {
              margin-bottom: 1.5rem;
             }

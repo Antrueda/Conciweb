@@ -1,6 +1,6 @@
 @extends('../mainUsrWeb')
 
-@section('title','DATOS DEL DE CIUDADANO')
+@section('title','CONSULTAR SOLICITUD')
 
 @section('AddScritpHeader')
 
@@ -23,14 +23,22 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <div class="row">
-                                    <div class="col-md-4">
-                                        <label for="name">Numero de Solicitud</label>
-                                        <input type="text" name="num_solicitud" id="num_solicitud" class="form-control" autocomplete="off">
+                                    <div class="col-md-5">
+                                      <div class="form-floating mb-3">
+                              
+                                        <input type="text" name="num_solicitud" id="num_solicitud" class="form-control" autocomplete="off" placeholder="0">
+                                        <label for="num_solicitud">Numero de Solicitud</label>
+                                      </div>
                                     </div>
-                                    <div class="col-md-4">
-                                    <label for="name">Codigo</label>
-                                    <input type="text" name="codigo" id="codigo" class="form-control" autocomplete="off">
+                                    <div class="col-md-5">
+                                      <div class="form-floating mb-3">
+                                   
+                                    <input type="text" name="codigo" id="codigo" class="form-control" autocomplete="off" placeholder="0">
+                                    <label for="codigo">Codigo</label>
                                     </div>
+                                </div>
+                                <div class="col-sm-1" style="padding: 6px;margin-top:7px;width:60px;height:60px">
+                                <button type="submit" class="btn btn-perso btn-block btn-md"><i class="fas fa-search-plus"></i> </button>
                                 </div>
                                 </div>
                                 <div id="product_list"></div>
@@ -42,70 +50,7 @@
             </div>
         </div>
     </div>  
-    <div class="modal" tabindex="-1" role="dialog" id="certifica">
-        <div class="modal-dialog modal-lg" role="document">
-          <div class="modal-content">
-              <div class="alert alert-danger" style="display:none"></div>
-            <div class="modal-header">
-                
-              <h5 class="modal-title">Agregar Diagnostico</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <div class="row">
-                  <div class="form-group col-md-4">
-                    {{ Form::label('diag_id', 'Diagnostico', ['class' => 'control-label col-form-label-sm']) }}
-                    
-                    @if($errors->has('diag_id'))
-                    <div class="invalid-feedback d-block">
-                      {{ $errors->first('diag_id') }}
-                    </div>
-                 @endif
-                </div>
-        
-                    <div class="form-group col-md-4">
-                        {{ Form::label('codigo', 'Codigo', ['class' => 'control-label col-form-label-sm']) }}
-                        {{ Form::text('codigo', null, ['class' => $errors->first('codigo') ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm','id' =>'codigo' ]) }}
-                        @if($errors->has('codigo'))
-                        <div class="invalid-feedback d-block">
-                          {{ $errors->first('codigo') }}
-                        </div>
-                     @endif
-                    </div>
-                </div>
-                <div class="row">
-                   <div class="form-group col-md-4">
-                    {{ Form::label('esta_id', 'Estado', ['class' => 'control-label col-form-label-sm']) }}
-                    
-                    @if($errors->has('esta_id'))
-                    <div class="invalid-feedback d-block">
-                      {{ $errors->first('esta_id') }}
-                    </div>
-                 @endif
-                    </div>
-                </div>
-                <div class="row">
-                  <div class="form-group col-md-12">
-                    {{ Form::label('concepto', 'Conducta y Evolución', ['class' => 'control-label col-form-label-sm']) }}
-                   
-                    <p id="contadorconcepto">0/4000</p>
-                    @if($errors->has('concepto'))
-                      <div class="invalid-feedback d-block">
-                        {{ $errors->first('concepto') }}4
-                      </div>
-                   @endif
-                  </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-              <button  class="btn btn-success" id="ajaxSubmit">Guardar</button>
-              </div>
-          </div>
-        </div>
-      </div>
+
 </form>
 
 <div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel"

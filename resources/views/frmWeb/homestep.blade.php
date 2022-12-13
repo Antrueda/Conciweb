@@ -26,7 +26,7 @@
     <div class="row">
         <center>
         <div class="col-md-6">
-            <h5><b class="text-justify">SOLICITUD DE CONCILIACIÓN VIA WEB</b></h5>
+            <h5><b class="text-justify">SOLICITUD DE CONCILIACIÓN</b></h5>
         </div>
     </center>
         <div class="col-md-1"> </div>
@@ -50,9 +50,11 @@
     <!-- INICIO DATOS DEL SOLICITANTE -->
     <div class="card tab" id="tab-1"">
         <div class="card-header">
+            <center>
             <b>DATOS DEL SOLICITANTE</b>
+        </center>
         </div>
-        <div class="card-body" style="margin-bottom: 40px;">
+        <div class="card-body" style="margin-bottom: 40px; height">
             <div class="row g-2">
                 <div class="col-md-6">
                     <div class="form-floating">
@@ -179,7 +181,9 @@
     <!-- INICIO DATOS DE LOS CONVOCADOS -->
     <div class="card tab" id="tab-2">
         <div class="card-header">
+            <center>
             <b>DATOS DEL CONVOCADO/S</b>
+        </center>
         </div>
         <div class="card-body">
             <p class="text-justify">Si es un numero plural de convocados indique los correos electrónicos de cada uno de ellos. Se advierte que la invitación a la audiencia de conciliación virtual se realizará por correo electrónico, y por tanto deben ser verídicos. Si no cuenta con ellos, adelante la solicitud de conciliación presencial en la Sedes de Conciliación del Personería de Bogotá D.C. que se encuentra publicadas en la página web de la Entidad.</p>
@@ -187,7 +191,7 @@
             <div class="row">
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
-                    <input type="text" class="form-control form-control-sm validate" name="nomConvocante[]" id="primerNombre" autocomplete="off" placeholder="0">
+                    <input type="text" class="form-control form-control-sm validate" name="nomConvocante[]" id="nomConvocante" autocomplete="off" placeholder="0">
                         <label for="nomConvocante">Nombre completo convocado</label>
                     </label>
                 </div>
@@ -255,7 +259,9 @@
 
         <div class="card tab" id="tab-3">
             <div class="card-header">
+                <center>
                 <b>DATOS DEL APODERADO</b>
+            </center>
             </div>
             <div class="card-body" >
                 <div class="row">
@@ -376,7 +382,9 @@
 
         <div class="card tab" id="tab-4">
             <div class="card-header">
+                <center>
                 <b>DATOS DE LA AUDIENCIA</b>
+            </center>
             </div>
             <div class="card-body">
 
@@ -460,9 +468,9 @@
                             <div class="form-floating mb-3">
                                 <textarea class="form-control form-control-sm validate[required, maxSize[1000]]" name="detalle" id="detalle" placeholder="Resumen" ></textarea>
                                 <label for="detalle"> 15. Resumen de la pretensión o conflicto (Máximo 1000 caracteres)*</label>
-                 
-                            </div>
-                            <span id="chars"></span>
+                                <span id="chars"></span>
+                                </div>
+             
                         </div>
                     </div>
                     <div class="row">
@@ -501,7 +509,7 @@
                     <span class="badge badge-light"><i class="fas fa-sync fa-2x" onclick="getCapchaValue()"></i></span>
                 </div>
                 <div class="col-md-3" style="padding: .75rem 1.25rem;">
-                    <div class="form-floating mb-3">
+                    <div class="form-floating mb-5">
                         <input type="text" class="form-control form-control-sm validate" name="captcha" id="captcha" autocomplete="off" placeholder="0">
                         <input type="hidden" name="captchaOrg" id="captchaOrg">
                         <label for="captcha"> Digite los caracteres de la imagen *</label>
@@ -703,7 +711,7 @@
      html+='<div class="row" id="lista">'
      html+='<div class="col-md-3">'
      html+='<div class="form-floating mb-3">'
-     html+='<input type="text" class="form-control form-control-sm validate" name="nomConvocante[]" id="primerNombre" autocomplete="off" placeholder="0">'
+     html+='<input type="text" class="form-control form-control-sm validate" name="nomConvocante[]" id="nomConvocante" autocomplete="off" placeholder="0">'
      html+='<label for="nomConvocante">Nombre completo convocado</label>'
      html+='</label>'
      html+='</div>'

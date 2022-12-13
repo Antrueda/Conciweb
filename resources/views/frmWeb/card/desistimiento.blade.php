@@ -23,14 +23,28 @@
           </div>
         </div>
         <hr>
+        <div class="row">
             <div class="col-md-12">
+        
               <select class="form-control form-control-sm custom-select" name="desistir" id="desistir" required>
                 <option value=" ">- Seleccione una opcion -</option>
                 <option value="Cancelado">Si</option>
                 <option value="Remitido">No</option>
             </select>
-            </div>
+      
+          </div>
+        </div>
             <br>
+            <div class="row">
+              <div class="col-md-12">
+                  <div class="form-floating mb-3">
+                      <textarea class="form-control form-control-sm validate[required, maxSize[1000]]" name="observaciones" id="observaciones" placeholder="Resumen" required></textarea>
+                      <label for="detalle"> Observaciones*</label>
+                      <span id="chars"> </span>
+                      </div>
+   
+              </div>
+          </div>
             <div class="row">
               <div class="col-md-4" style="align-content: center;">
                 {{ Form::submit('Actualizar', ['class' => 'btn btn-primary' ]) }}
@@ -49,3 +63,26 @@
 @endsection
 
 @section('AddScriptFooter')
+<script>
+
+(function($) {
+            $.fn.extend( {
+                limiter: function(limit, elem) {
+                    $(this).on("keyup focus", function() {
+                        setCount(this, elem);
+                    });
+                    function setCount(src, elem) {
+                        var chars = src.value.length;
+                        if (chars > limit) {
+                            src.value = src.value.substr(0, limit);
+                            chars = limit;
+                        }
+                        elem.html( chars+"/1000" );
+                    }
+                    setCount($(this)[0], elem);
+                }
+            });
+        })(jQuery);
+        var elem = $("#chars");
+        $("#observaciones").limiter(1000, elem);
+</script>

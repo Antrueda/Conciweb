@@ -23,13 +23,15 @@
     <hr>
     <span class="text-secondary">El siguiente codigo le servira para ingresar y adjuntar los archivos correspondientes a su solicitud.      {{$llaveingreso}} </span>
     <br>
-
+    <a href="{{ route('search') }} ">Actualizar Datos</a>
+    <br>
     <hr>
     <h6 class="text-secondary">Línea de Atención 24 horas Teléfono: 143 o Teléfono: (601) 3820450/80. -
-        <a href="https://www.personeriabogota.gov.co">Portal Web</a>  <a href="{{ route('search') }} ">Actualizar Datos</a>
+        <a href="https://www.personeriabogota.gov.co">Portal Web</a>  
     </h6>
     <center><img src="{{URL::asset('imagen/logo-personeria-azul.png')}}" class="rounded mx-auto d-block" width="20%"></center>
 </div>
 
 </body>
 </html>
+
