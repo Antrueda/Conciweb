@@ -169,7 +169,7 @@
             </div>
             <!-- FIN TIPO SOLICITUD -->
             <center>
-                <div class="btn btn-primary" onclick="run(1, 2);" style="width: 120px">Siguiente</div>
+                <div class="btn btn-primary" onclick="run(1, 2);" style="width: 120px">Siguiente <i class="fas fa-angle-right"></i></div>
             </center>
             <br>
         </div>
@@ -183,8 +183,35 @@
         </div>
         <div class="card-body">
             <p class="text-justify">Si es un numero plural de convocados indique los correos electrónicos de cada uno de ellos. Se advierte que la invitación a la audiencia de conciliación virtual se realizará por correo electrónico, y por tanto deben ser verídicos. Si no cuenta con ellos, adelante la solicitud de conciliación presencial en la Sedes de Conciliación del Personería de Bogotá D.C. que se encuentra publicadas en la página web de la Entidad.</p>
-           
-            <table class="table">
+            <div class="agregar">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-floating mb-3">
+                    <input type="text" class="form-control form-control-sm validate" name="nomConvocante[]" id="primerNombre" autocomplete="off" placeholder="0">
+                        <label for="nomConvocante">Nombre completo convocado</label>
+                    </label>
+                </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-floating mb-3">
+                    
+                        <input type="email" class="form-control form-control-sm validate[required, custom[email]]" name="emailConvocante[]" id="emailConU" autocomplete="off" placeholder="0">
+                        <label for="email"> Correo electronico</label>
+                     </div> 
+                </div>
+                <div class="col-md-3">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control form-control-sm validate[required, custom[email]]" name="emailCon" id="emailConUC" autocomplete="off" placeholder="0">
+                        <label for="emailCon"> Confirme correo electronico</label>
+                    </div> 
+                </div>
+                <div class="col-md-3">
+                <button type="button" class="btn btn-primary" id="add_btn" style="height: 50px; width: 120px">Agregar <i class="fas fa-plus"></i></button>
+              </div>
+            </div>
+ 
+        </div>
+            {{-- <table class="table">
                 <thead class="thead">
                   <tr>
                     <th scope="col">Nombre completo convocado</th>
@@ -202,20 +229,20 @@
                   </tr>
                  
                 </tbody>
-              </table>
+              </table> --}}
            
         </div>
         <div id="apode_id">
         <center>
-        <div class="btn btn-primary" onclick="run(2, 1);" style="width: 120px">Anterior</div>
-        <div class="btn btn-primary" onclick="run(2, 3);" style="width: 120px">Siguiente</div>
+        <div class="btn btn-primary" onclick="run(2, 1);" style="width: 120px"><i class="fas fa-angle-left"></i> Anterior</div>
+        <div class="btn btn-primary" onclick="run(2, 3);" style="width: 120px">Siguiente<i class="fas fa-angle-right"></i></div>
         </center>
         </div>
         <div id="dire_id">
 
             <center>
-            <div class="btn btn-primary" onclick="run(2, 1);" style="width: 120px">Anterior</div>
-            <div class="btn btn-primary" onclick="run(2, 4);" style="width: 120px">Siguiente</div>
+            <div class="btn btn-primary" onclick="run(2, 1);" style="width: 120px"><i class="fas fa-angle-left"></i> Anterior</div>
+            <div class="btn btn-primary" onclick="run(2, 4);" style="width: 120px">Siguiente<i class="fas fa-angle-right"></i></div>
             </center>
             </div>
         <br>
@@ -233,94 +260,101 @@
             <div class="card-body" >
                 <div class="row">
                     <div class="col-md-6">
-                        <label class="form-group has-float-label">
-                            <span> 11.1. Tipo Documento *</span>
-                        
-                        {{ Form::select('tipoDocApoderado', $data['listaTipoDoc'], null, ['class' => $errors->first('tipoDocApoderado') ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm']) }}
+                        <div class="form-floating mb-3">
+                            {{ Form::select('tipoDocApoderado', $data['listaTipoDoc'], null, ['class' => $errors->first('tipoDocApoderado') ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm']) }}
                         @if($errors->has('tipoDocApoderado'))
                             <div class="invalid-feedback d-block">
                                 {{ $errors->first('tipoDocApoderado') }}
                             </div>
                         @endif
-                       
+                        <label for="tipoDocApoderado"> 11.1. Tipo Documento *</label>
+                        </div>
                     </div>
-                    <div class="col-md-6">
-                        <label class="form-group has-float-label">
-                            <input type="text" class="form-control form-control-sm validate[required, minSize[4], maxSize[10]]" name="numDocApoderado" id="numDocApoderado" autocomplete="off">
-                            <span> 11.2. No. de cédula *</span>
-                        </label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <label class="form-group has-float-label">
-                            <input type="text" class="form-control form-control-sm validate" name="primerNombreApoderado" id="primerNombreApoderado" autocomplete="off">
-                            <span> 11.3. Primer Nombre *</span>
-                        </label>
-                    </div>
-                    <div class="col-md-3">
-                        <label class="form-group has-float-label">
-                            <input type="text" class="form-control form-control-sm" name="segundoNombreApoderado" id="segundoNombreApoderado" autocomplete="off">
-                            <span> 11.4. Segundo Nombre </span>
-                        </label>
-                    </div>
-                    <div class="col-md-3">
-                        <label class="form-group has-float-label">
-                            <input type="text" class="form-control form-control-sm validate" name="primerApellidoApoderado" id="primerApellidoApoderado" autocomplete="off">
-                            <span> 11.5. Primer Apellido *</span>
-                        </label>
-                    </div>
-                    <div class="col-md-3">
-                        <label class="form-group has-float-label">
-                            <input type="text" class="form-control form-control-sm" name="segundoApellidoApoderado" id="segundoApellidoApoderado" autocomplete="off">
-                            <span> 11.6. Segundo Apellido </span>
-                        </label>
+                     <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control form-control-sm validate[required, minSize[4], maxSize[10]]" name="numDocApoderado" id="numDocApoderado" autocomplete="off" placeholder="0">
+                            <label for="numDocApoderado"> 11.2. No. de cédula *</label>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-3">
-                        <label class="form-group has-float-label">
-                            <input type="text" class="form-control form-control-sm validate" name="tarjetaProfesional" id="tarjetaProfesional" autocomplete="off">
-                            <span> 11.7. No. tarjeta Profesional *</span>
-                        </label>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control form-control-sm validate" name="primerNombreApoderado" id="primerNombreApoderado" autocomplete="off" placeholder="0">
+                            <label for="primerNombreApoderado"> 11.3. Primer Nombre *</label>
+                           
+                        </div>
                     </div>
                     <div class="col-md-3">
-                        <label class="form-group has-float-label">
-                            <input type="text" class="form-control form-control-sm" name="direccionApoderado" id="direccionApoderado" autocomplete="off">
-                            <span> 11.8. Dirección *</span>
+                      <div class="form-floating mb-3">
+                            <input type="text" class="form-control form-control-sm" name="segundoNombreApoderado" id="segundoNombreApoderado" autocomplete="off" placeholder="0">
+                            <label for="segundoNombreApoderado"> 11.4. Segundo Nombre</label>
                         </label>
                     </div>
+                </div>
                     <div class="col-md-3">
-                        <label class="form-group has-float-label">
-                            <input type="text" class="form-control form-control-sm validate[required, minSize[10], maxSize[10]]" name="primerTelefonoApoderado" id="primerTelefonoApoderado" autocomplete="off">
-                            <span> 11.9. Teléfono Celular *</span>
-                        </label>
+                      <div class="form-floating mb-3">
+                            <input type="text" class="form-control form-control-sm validate" name="primerApellidoApoderado" id="primerApellidoApoderado" autocomplete="off" placeholder="0">
+                            <label for="primerApellidoApoderado"> 11.5. Primer Apellido *</label>
+
+                        </div>
                     </div>
                     <div class="col-md-3">
-                        <label class="form-group has-float-label">
-                            <input type="text" class="form-control form-control-sm validate[required minSize[7], maxSize[10]]" name="segundoTelefonoApoderado" id="segundoTelefonoApoderado" autocomplete="off">
-                            <span> 11.10. Teléfono fijo </span>
-                        </label>
+                      <div class="form-floating mb-3">
+                            <input type="text" class="form-control form-control-sm" name="segundoApellidoApoderado" id="segundoApellidoApoderado" autocomplete="off" placeholder="0">
+                            <label for="segundoApellidoApoderado"> 11.6. Segundo Apellido</label>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                      <div class="form-floating mb-3">
+                            <input type="text" class="form-control form-control-sm validate" name="tarjetaProfesional" id="tarjetaProfesional" autocomplete="off" placeholder="0">
+                            <label for="tarjetaProfesional"> 11.7. No. tarjeta Profesional *</label>
+                
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-floating mb-3">
+                            <input type="text" class="form-control form-control-sm" name="direccionApoderado" id="direccionApoderado" autocomplete="off" placeholder="0">
+                            <label for="tarjetaProfesional"> 11.8. Dirección *</label>
+                           
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-floating mb-3">
+                            <input type="text" class="form-control form-control-sm validate[required, minSize[10], maxSize[10]]" name="primerTelefonoApoderado" id="primerTelefonoApoderado" autocomplete="off" placeholder="0">
+                            <label for="primerTelefonoApoderado"> 11.9. Teléfono Celular *</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-floating mb-3">
+                            <input type="text" class="form-control form-control-sm validate[required minSize[7], maxSize[10]]" name="segundoTelefonoApoderado" id="segundoTelefonoApoderado" autocomplete="off" placeholder="0">
+                            <label for="segundoTelefonoApoderado"> 11.10. Teléfono fijo</label>
+               
+                        </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <label class="form-group has-float-label">
-                            <input type="text" class="form-control form-control-sm validate[required, custom[email]]" name="emailApoderado" id="emailApoderado" autocomplete="off">
-                            <span> 11.11. Correo electronico *</span>
-                        </label>
+                      <div class="form-floating mb-3">
+                            <input type="text" class="form-control form-control-sm validate[required, custom[email]]" name="emailApoderado" id="emailApoderado" autocomplete="off" placeholder="0">
+                            <label for="emailApoderado"> 11.10. Teléfono fijo</label>
+                 
+                        </div>
                     </div>
                     <div class="col-md-6">
-                        <label class="form-group has-float-label">
-                            <input type="text" class="form-control form-control-sm validate[required, custom[email]]" name="emailApoderadoCon" id="emailApoderadoCon" autocomplete="off">
-                            <span> 11.12. Confirme correo electronico *</span>
-                        </label>
+                      <div class="form-floating mb-3">
+                            <input type="text" class="form-control form-control-sm validate[required, custom[email]]" name="emailApoderadoCon" id="emailApoderadoCon" autocomplete="off" placeholder="0">
+                            <label for="emailApoderadoCon"> 11.12. Confirme correo electronico *</label>
+                        </div>
                     </div>
                 </div>
             </div>
             <center>
-            <div class="btn btn-primary" onclick="run(3, 2);" style="width: 120px">Anterior</div>
-            <div class="btn btn-primary" onclick="run(3, 4);" style="width: 120px">Siguiente</div>
+            <div class="btn btn-primary" onclick="run(3, 2);" style="width: 120px"><i class="fas fa-angle-left"></i> Anterior</div>
+            <div class="btn btn-primary" onclick="run(3, 4);" style="width: 120px">Siguiente <i class="fas fa-angle-right"></i></div>
         </center>
         <br>
         </div>
@@ -393,38 +427,41 @@
                     </div>
                 </div>
 
+
                 <!-- INICIO DATOS AUDIENCIA -->
                 <div id="datosConciliacion">
                     <div class="row">
                         <div class="col-md-12">
-                            <label class="form-group has-float-label">
-                                <span> 14. Asunto *</span>
-                            {{ Form::select('asunto', $data['listaAsuntos'], null, ['class' => $errors->first('asunto') ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm','id'=>'asunto']) }}
+                            <div class="form-floating mb-3">
+                 
+                        {{ Form::select('asunto', $data['listaAsuntos'], null, ['class' => $errors->first('asunto') ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm','id'=>'asunto']) }}
                             @if($errors->has('asunto'))
                                 <div class="invalid-feedback d-block">
                                     {{ $errors->first('asunto') }}
                                 </div>
                             @endif
-                        
+                            <label for="asunto"> 14. Asunto *</label>
+                        </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <label class="form-group has-float-label">
+                            <div class="form-floating mb-3">
                                 <select class="form-control form-control-sm custom-select validate[required]" name="subAsunto" id="subAsunto">
                                     <option value=" ">- Seleccione una opcion -</option>
                                 </select>
-                                <span> 14.1. Sub Asunto *</span>
-                            </label>
+                                <label for="subAsunto"> 14.1. Sub Asunto *</label>
+                            </div>
+                         
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <label class="form-group has-float-label">
-                                <textarea class="form-control form-control-sm validate[required, maxSize[1000]]" name="detalle" id="detalle"></textarea>
-                        
-                                <span> 15. Resumen de la pretensión o conflicto (Máximo 1000 caracteres)* </span>
-                            </label>
+                            <div class="form-floating mb-3">
+                                <textarea class="form-control form-control-sm validate[required, maxSize[1000]]" name="detalle" id="detalle" placeholder="Resumen" ></textarea>
+                                <label for="detalle"> 15. Resumen de la pretensión o conflicto (Máximo 1000 caracteres)*</label>
+                 
+                            </div>
                             <span id="chars"></span>
                         </div>
                     </div>
@@ -438,10 +475,10 @@
 
                     <div class="row">
                         <div class="col-md-3">
-                            <label class="form-group has-float-label">
-                                <input class="form-control form-control-sm validate" type="number" name="cuantia" id="cuantia" autocomplete="off">
-                                <span> 16. Valor de la Cuantía *</span>
-                            </label>
+                            <div class="form-floating mb-3">
+                                <input class="form-control form-control-sm validate" type="number" name="cuantia" id="cuantia" autocomplete="off" placeholder="0">
+                                <label for="cuantia"> 16. Valor de la Cuantía *</label>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -464,15 +501,16 @@
                     <span class="badge badge-light"><i class="fas fa-sync fa-2x" onclick="getCapchaValue()"></i></span>
                 </div>
                 <div class="col-md-3" style="padding: .75rem 1.25rem;">
-                    <label class="form-group has-float-label">
-                        <input type="text" class="form-control form-control-sm validate" name="captcha" id="captcha" autocomplete="off">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control form-control-sm validate" name="captcha" id="captcha" autocomplete="off" placeholder="0">
                         <input type="hidden" name="captchaOrg" id="captchaOrg">
-                        <span> Digite los caracteres de la imagen *</span>
-                    </label>
+                        <label for="captcha"> Digite los caracteres de la imagen *</label>
+     
+                    </div>
                 </div>
                 <center>
-                <div class="btn btn-primary" onclick="run(4, 3);" id="full_div" style="width: 120px">Anterior</div>
-                <div class="btn btn-primary" onclick="run(4, 2);" id="audi_div" style="width: 120px">Anterior</div>
+                <div class="btn btn-primary" onclick="run(4, 3);" id="full_div" style="width: 120px"><i class="fas fa-angle-left"></i> Anterior</div>
+                <div class="btn btn-primary" onclick="run(4, 2);" id="audi_div" style="width: 120px"><i class="fas fa-angle-left"></i> Anterior</div>
                 <br>
                 <hr>
                 <div class="row" id="btnRegistro" style="display:none">
@@ -661,16 +699,69 @@
     }
     $('#add_btn').on('click',function(){
      var html='';
+     html+='<br>'
+     html+='<div class="row" id="lista">'
+     html+='<div class="col-md-3">'
+     html+='<div class="form-floating mb-3">'
+     html+='<input type="text" class="form-control form-control-sm validate" name="nomConvocante[]" id="primerNombre" autocomplete="off" placeholder="0">'
+     html+='<label for="nomConvocante">Nombre completo convocado</label>'
+     html+='</label>'
+     html+='</div>'
+     html+='</div>'
+     html+='<div class="col-md-3">'
+     html+='<div class="form-floating mb-3">'
+     html+='<input type="email" class="form-control form-control-sm validate[required, custom[email]]" name="emailConvocante[]" id="email" autocomplete="off" placeholder="0">'
+     html+='<label for="email"> Correo electronico</label>'
+     html+='         </div>' 
+     html+='    </div>'
+     html+='    <div class="col-md-3">'
+     html+='       <div class="form-floating mb-3">'
+     html+='           <input type="text" class="form-control form-control-sm validate[required, custom[email]]" name="emailCon" id="emailConUC" autocomplete="off" placeholder="0">'
+     html+='           <label for="emailCon"> Confirme correo electronico</label>'
+     html+='       </div>' 
+     html+='     </div>'
+     html+='<div class="col-md-3">'
+     html+='<button type="button" class="btn btn-primary" id="remove" style="height: 50px; width: 120px">Eliminar <i class="fas fa-minus"></i></button>'
+     html+='   </div>';
+     html+='</div>'
+     html+='<br>'
+
+     /*
+
+        tbody
      html+='<tr>';
      html+='<td><input type="text" class="form-control form-control-sm validate" name="nomConvocante[]" autocomplete="off"></td>';
      html+='<td><input type="text" class="form-control form-control-sm" name="emailConvocante[]" id="emailConU" autocomplete="off"></td>';
      html+='<td><input type="text" class="form-control form-control-sm" id="emailConUC[]" autocomplete="off"></td>';
      html+='<td><button type="button" class="btn btn-primary" id="remove"><i class="fas fa-minus"></i></button></td>';
      html+='</tr>';
-     $('tbody').append(html);
+     html+='<br>
+     html+='<div class="row">
+     html+='<div class="col-md-3">
+     html+='<div class="form-floating mb-3">
+     html+='<input type="text" class="form-control form-control-sm validate" name="nomConvocante[]" id="primerNombre" autocomplete="off" placeholder="0">
+     html+='<label for="nomConvocante">Nombre completo convocado</label>
+     html+='</label>
+     html+='</div>
+     html+='</div>
+     html+='<div class="col-md-3">
+     html+='<div class="form-floating mb-3">
+     html+='<input type="email" class="form-control form-control-sm validate[required, custom[email]]" name="emailConvocante[]" id="email" autocomplete="off" placeholder="0">
+     html+='<label for="email"> Correo electronico</label>
+     html+='         </div> 
+     html+='    </div>
+     html+='    <div class="col-md-3">
+     html+='       <div class="form-floating mb-3">
+     html+='           <input type="text" class="form-control form-control-sm validate[required, custom[email]]" name="emailCon" id="emailConUC" autocomplete="off" placeholder="0">
+     html+='           <label for="emailCon"> Confirme correo electronico</label>
+     html+='       </div> 
+     html+='   </div>
+     html+='<br>
+     */
+     $('.agregar').append(html);
     });
     $(document).on('click','#remove',function(){
-            $(this).closest('tr').remove();
+            $(this).closest('#lista').remove();
         });
 
     //Registro de informacion en backend

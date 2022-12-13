@@ -41,7 +41,8 @@
                 f
             }
             body {
-                font-family: 'Roboto Light', arial;
+                /*font-family: Avant Garde,Avantgarde,Century Gothic,CenturyGothic,AppleGothic,sans-serif; */
+                font-family: Arial; font-weight: regular;
                 background-repeat: no-repeat;
                 background-attachment: fixed;
                 width: 100%;

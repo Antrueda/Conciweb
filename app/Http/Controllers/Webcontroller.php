@@ -775,7 +775,7 @@ class Webcontroller extends Controller
     //<a href="' .route('desistir',['id'=>$id]). '" class="btn btn-danger data-toggle="modal" data-target="#myModal"">Desistimiento del proceso  <i class="fas fa-minus-square"></i></a> 
     public function adjuntararchivos($id){
         $dato = ModelsTramiteusuario::where('num_solicitud',$id)->first();
-        ddd($dato->texto22);
+       // ddd($dato->texto22);
         $detalleAbc = Subdescripcion::where('subasu_id', $dato->numero06)
                 ->where('sis_esta_id', 1)
                 ->orderBy('id')
