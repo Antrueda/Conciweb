@@ -21,9 +21,9 @@
         La Personería de Bogotá informa que usted el día {{$fechaRegistro}}, realizó una solicitud para el trámite de conciliación,  el cual quedo registrado con el número radicado <b style="color: red">{{ $numSolicitud }}</b>
     </h4>
     <hr>
-    <span class="text-secondary">El siguiente codigo le servira para ingresar y adjuntar los archivos correspondientes a su solicitud.      {{$llaveingreso}} </span>
+    <span class="text-secondary">La entidad lo contactará a través del Email y/o teléfono registrado por usted, para cualquier aclaración que la solicitud de conciliación requiera.</span>
     <br>
-
+    {{$llaveingreso}}
     <hr>
     <h6 class="text-secondary">Línea de Atención 24 horas Teléfono: 143 o Teléfono: (601) 3820450/80. -
         <a href="https://www.personeriabogota.gov.co">Portal Web</a>  <a href="{{ route('search') }} ">Actualizar Datos</a>

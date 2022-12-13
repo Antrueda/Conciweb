@@ -33,12 +33,12 @@
         {{-- <div class="col-md-4 text-block"><img src="{{URL::asset('imagen/logo-personeria-azul.png')}}" class="rounded mx-auto d-block" width="50%"></div> --}}
     </div>
     <br>
-    <div style="text-align:center;">
+    {{-- <div style="text-align:center;">
         <span class="step" id = "step-1"><i class="fas fa-info"></i></span>
         <span class="step" id = "step-2"><i class="fa fa-users nav-icon"></i></span>
         <span class="step" id = "step-3"><i class="fas fa-user-tie"></i></span>
         <span class="step" id = "step-4"><i class="fas fa-clipboard-list"></i></span>
-      </div>
+      </div> --}}
       {{-- <div style="text-align:center;">
         <span class="step" id = "step-1"></span>
         <span class="step" id = "step-2"></span>
@@ -67,8 +67,14 @@
                     </div>
                 </div>
                 <div class="col-md-6">
+                    <label class="form-group has-float-label">
+                        <input type="number" class="form-control form-control-sm validate" name="numeroDocumento" id="numeroDocumento" autocomplete="off" required>
+                        <span> 2. No. de cédula *</span>
+                    </label>
+                </div>
+                <div class="col-md-6">
                 <div class="form-floating mb-3">
-                    <input type="number" class="form-control form-control-sm validate" id="numeroDocumento" name="numeroDocumento" autocomplete="off" required placeholder="0">
+                    <input type="number" class="form-control form-control-sm validate" id="numeroDocumento" name="numeroDocumento" autocomplete="off" required>
                     <label for="numeroDocumento">2. No. de cédula *</label>
                   </div>
                 </div>
@@ -77,78 +83,72 @@
             </div>
             <div class="row">
                 <div class="col-md-3">
-                    <div class="form-floating mb-3">
-                    <input type="text" class="form-control form-control-sm validate" name="primerNombre" id="primerNombre" autocomplete="off" placeholder="0">
-                        <label for="primerNombre">3. Primer Nombre *</label>
+                    <label class="form-group has-float-label">
+                        <input type="text" class="form-control form-control-sm validate" name="primerNombre" id="primerNombre" autocomplete="off">
+                        <span> 3. Primer Nombre *</span>
                     </label>
                 </div>
-                </div>
-
                 <div class="col-md-3">
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm" name="segundoNombre" id="segundoNombre" autocomplete="off" placeholder="0">
-                        <label for="segundoNombre">4. Segundo Nombre</label>
-                    </div>
+                    <label class="form-group has-float-label">
+                        <input type="text" class="form-control form-control-sm" name="segundoNombre" id="segundoNombre" autocomplete="off">
+                        <span> 4. Segundo Nombre </span>
+                    </label>
                 </div>
                 <div class="col-md-3">
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm validate" name="primerApellido" id="primerApellido" autocomplete="off" placeholder="0">
-                        <label for="primerApellido">5. Primer Apellido*</label>
-                    </div>
+                    <label class="form-group has-float-label">
+                        <input type="text" class="form-control form-control-sm validate" name="primerApellido" id="primerApellido" autocomplete="off">
+                        <span> 5. Primer Apellido *</span>
+                    </label>
                 </div>
                 <div class="col-md-3">
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm" name="segundoApellido" id="segundoApellido" autocomplete="off" placeholder="0">
-                        <label for="segundoApellido">6. Segundo Apellido</label>
-                    </div>
+                    <label class="form-group has-float-label">
+                        <input type="text" class="form-control form-control-sm" name="segundoApellido" id="segundoApellido" autocomplete="off">
+                        <span> 6. Segundo Apellido </span>
+                    </label>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-3">
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm validate" name="primerTelefono" id="primerTelefono" autocomplete="off" placeholder="0"  min="10" max="10">
-                        <label for="primerTelefono">7. Teléfono celular *</label>
-                    </div>
+                    <label class="form-group has-float-label">
+                        <input type="text" class="form-control form-control-sm validate" min="10" max="10" name="primerTelefono" id="primerTelefono" autocomplete="off">
+                        <span> 7. Teléfono celular *</span>
+                    </label>
                 </div>
                 <div class="col-md-3">
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm" min="7" max="10" name="segundoTelefono" id="segundoTelefono" autocomplete="off" placeholder="0">
-                        <label for="segundoTelefono">8. Teléfono fijo</label>
-                    </div>
+                    <label class="form-group has-float-label">
+                        <input type="text" class="form-control form-control-sm" min="7" max="10" name="segundoTelefono" id="segundoTelefono" autocomplete="off">
+                        <span> 8. Teléfono fijo </span>
+                    </label>
                 </div>
                 <div class="col-md-3">
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm validate" name="direccion" id="direccion" autocomplete="off" placeholder="0">
-                        <label for="direccion">9. Dirección *</label>
-                    </div>
+                    <label class="form-group has-float-label">
+                        <input type="text" class="form-control form-control-sm validate" name="direccion" id="direccion" autocomplete="off">
+                        <span> 9. Dirección *</span>
+                    </label>
                 </div>
                 <div class="col-md-3">
-    
-                        <div class="form-floating mb-3">
-      
+                    <label class="form-group has-float-label">
+                        <span> 10. Localidad</span>
                     {{ Form::select('localidad', $data['listaLocalidades'], null, ['class' => $errors->first('localidad') ? 'form-select form-select-sm is-invalid' : 'form-select form-select-sm']) }}
                     @if($errors->has('localidad'))
                         <div class="invalid-feedback d-block">
                             {{ $errors->first('localidad') }}
                         </div>
                     @endif
-                    <label for="localidad"> 10. Localidad</label>
-                  </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <div class="form-floating mb-3">
-                    
-                        <input type="email" class="form-control form-control-sm validate[required, custom[email]]" name="email" id="email" autocomplete="off" placeholder="0">
-                        <label for="email"> 11. Correo electrónico *</label>
-                     </div> 
+                    <label class="form-group has-float-label">
+                        <input type="text" class="form-control form-control-sm validate[required, custom[email]]" name="email" id="email" autocomplete="off">
+                        <span> 11. Correo electrónico *</span>
+                    </label>
                 </div>
                 <div class="col-md-6">
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm validate[required, custom[email]]" name="emailCon" id="emailCon" autocomplete="off" placeholder="0">
-                        <label for="emailCon"> 11.1. Confirme correo electrónico *</label>
-                    </div> 
+                    <label class="form-group has-float-label">
+                        <input type="text" class="form-control form-control-sm validate[required, custom[email]]" name="emailCon" id="emailCon" autocomplete="off">
+                        <span> 11.1. Confirme correo electrónico *</span>
+                    </label>
                 </div>
 
             </div>
@@ -156,15 +156,14 @@
             <!-- INICIO TIPO DE SOLICITUD -->
             <div class="row">
                 <div class="col-md-3">
-                    
-                    <div class="form-floating mb-3">
+                    <label class="form-group has-float-label">
                         <select class="form-control form-control-sm custom-select validate[required]" name="tipoSolicitud" id="tipoSolicitud" onchange = 'doc(this.value)' required>
                             <option value=" ">- Seleccione una opcion -</option>
                             <option value="0">Directa</option>
                             <option value="1">Apoderado</option>
                         </select>
-                        <label for="tipoSolicitud"> 12. Tipo de Solicitud *</label>
-                    </div> 
+                        <span>12. Tipo de Solicitud *</span>
+                    </label>
                 </div>
             </div>
             <!-- FIN TIPO SOLICITUD -->
@@ -448,6 +447,7 @@
                 <!-- FIN DATOS AUDIENCIA -->
                 <!-- INICIO ABC ASUNTO -->
                 
+206
                 <div id="abcContenedor" style="display: none">
                     <div id="abcAsunto"></div>
                 </div>
@@ -669,9 +669,6 @@
      html+='</tr>';
      $('tbody').append(html);
     });
-    $(document).on('click','#remove',function(){
-            $(this).closest('tr').remove();
-        });
 
     //Registro de informacion en backend
     function registroDatos() {
@@ -855,7 +852,7 @@
             },
             success: function(respuesta) {
                 $("#abcAsunto").html(respuesta);
-                // $("#abcContenedor").slideDown(); //Mostrar informacion ABC y input para documento adjunto
+                $("#abcContenedor").slideDown(); //Mostrar informacion ABC y input para documento adjunto
             }
         })
     });

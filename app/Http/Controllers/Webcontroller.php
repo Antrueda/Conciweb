@@ -58,7 +58,7 @@ class Webcontroller extends Controller
         );
 
 
-        return ((string)\View::make("frmWeb.home", array("data" => $data)));
+        return ((string)\View::make("frmWeb.homestep", array("data" => $data)));
     }
     //Modal con el texto de bienvenida
     public function modalMensajeBienvenida()
@@ -757,7 +757,10 @@ class Webcontroller extends Controller
                 $output = '<ul class="list-group" style="display: block; position: relative; z-index: 1">';
                 foreach ($data as $row) {
                     $id=$row->num_solicitud;
-                    $output .= '<li class="list-group-item">'.$row->num_solicitud.'</li> <a href="' .route('adjuntar',['id'=>$id]). '">Actualizar Datos</a>' ;
+                    $output .= '<li class="list-group-item">'.$row->num_solicitud.'</li> <br><a href="' .route('adjuntar',['id'=>$id]). '" class="btn btn-success">Adjuntar Documentos  <i class="fas fa-folder-plus"></i></a> 
+                    
+                    <a class="btn btn-danger" data-bs-toggle="modal" id="mediumButton" data-target="#mediumModal"data-attr="' .route('desistir',['id'=>$id]). '" style="color:white">Desistimiento del proceso   <i class="fas fa-minus-square"></i></a>
+                    ' ;
                 }
                 $output .= '</ul>';
             }else {
@@ -769,9 +772,10 @@ class Webcontroller extends Controller
     } 
     //'<a href="' .view('parametro.index'). '">Actualizar Datos</a>'; 
     //view('administracion.parametro.index', compact('datos', 'buscar'));
+    //<a href="' .route('desistir',['id'=>$id]). '" class="btn btn-danger data-toggle="modal" data-target="#myModal"">Desistimiento del proceso  <i class="fas fa-minus-square"></i></a> 
     public function adjuntararchivos($id){
         $dato = ModelsTramiteusuario::where('num_solicitud',$id)->first();
-        //ddd($dato->texto22);
+        ddd($dato->texto22);
         $detalleAbc = Subdescripcion::where('subasu_id', $dato->numero06)
                 ->where('sis_esta_id', 1)
                 ->orderBy('id')
@@ -782,5 +786,81 @@ class Webcontroller extends Controller
             );
         return view('frmWeb.card.adjuntar', compact('dato','data'));
     }
+
+    public function Desistir($id){
+         $dato = ModelsTramiteusuario::where('num_solicitud',$id)->first();
+
+        return view('frmWeb.card.desistimiento', compact('dato'));
+    }
+
+
+
+   public function Cambioestado(Request $request,$id){
+    $detalle = $request->input("desistir");
+    $modelo = ModelsTramiteusuario::where('num_solicitud',$id)->update(['ESTADO_TRAMITE' => $detalle]);
+    if($detalle=='Cancelado'){
+        return redirect('https://www.personeriabogota.gov.co/')->with('info', 'Registro actualizado con éxito');
+    }else{
+        return redirect()->route('search')->with('info', 'Registro actualizado con éxito');
+    }
+   
+}
+
+public function Adjunta(Request $request,$id){
+  
+
+    try {
+        $files=[];
+        $descripcion=[];
+        foreach($request->input("descripcion")as $key =>$file){
+                $descripcion[] = $file;
+            // $nombreOriginalFile = $value->getClientOriginalName();
+            // $rutaFinalFile = Storage::disk('local')->put("", $value);
+        }
+        
+
+        foreach($request->file("document") as $key =>$file){
+            $rutaFinalFile = Storage::disk('local')->put("", $file);
+            $files[]['name'] =$descripcion[$key];
+            $nombreOriginalFile = $file->getClientOriginalName();
+            Soportecon::create(['NUM_SOLICITUD' => $id, 'descripcion' => $descripcion[$key], 'rutaFinalFile' => $rutaFinalFile,'nombreOriginalFile' => $nombreOriginalFile]);
+        }
+        //print_r($files);
+       
+    }
+    catch (\Exception $e) {
+        DB::rollback();
+        return '|0| 0.0) Problema al anexar el soporte en el sistema' . $e->getMessage();
+    }
+   
+}
+
+
+
+/*
+        try {
+            $files=[];
+            $descripcion=[];
+            foreach($request->input("descripcion")as $key =>$file){
+                    $descripcion[] = $file;
+                // $nombreOriginalFile = $value->getClientOriginalName();
+                // $rutaFinalFile = Storage::disk('local')->put("", $value);
+            }
+            
+    
+            foreach($request->file("document") as $key =>$file){
+                $rutaFinalFile = Storage::disk('local')->put("", $file);
+                $files[]['name'] =$descripcion[$key];
+                $nombreOriginalFile = $file->getClientOriginalName();
+                Soportecon::create(['NUM_SOLICITUD' => $numSolicitud, 'descripcion' => $descripcion[$key], 'rutaFinalFile' => $rutaFinalFile,'nombreOriginalFile' => $nombreOriginalFile]);
+            }
+            //print_r($files);
+           
+        }
+        catch (\Exception $e) {
+            DB::rollback();
+            return '|0| 0.0) Problema al anexar el soporte en el sistema' . $e->getMessage();
+        }
+*/
 
 }

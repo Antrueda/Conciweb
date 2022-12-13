@@ -76,92 +76,14 @@
 
     </head>
     <body>
-      <div class="container-fluid header">
-        <div class="row">
-            <div class="col-sm-2">
-                <a href="https://www.personeriabogota.gov.co/" data-toggle="tooltip" data-placement="bottom" title="" style="text-decoration: none;" data-bs-original-title="Regresar al portal">
-                    <img src="/imagen/logo5.png" alt="Logo Personería de Bogotá" class="logo">
-                </a>
-            </div>
-            <div class="col-sm-5">
-            </div>
-            <div class="col-sm-5 text-end align-middle">
-                <a href="https://www.personeriabogota.gov.co/" data-toggle="tooltip" data-placement="bottom" title="" class="regreso-portal" data-bs-original-title="Regresar al portal">
-                    Regresar al portal
-                </a>
-            </div>
-        </div>
-        <img src="/imagen/menu-after-05.png" alt="Colores bandera Bogotá" class="bandera">
-    </div>
-
-        @can('administrar-modulo')
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#"></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-              <ul class="navbar-nav">
-                <li class="nav-item">
-                  <a href="{{ route('gestion') }}" class="nav-link">
-                    <p>Gestión</p>
-                </a>
-                </li>
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
-                    Administración
-                  </a>
-                  <div class="dropdown-menu">
-                    @can('tema-leer')
-                    <a href="{{ route('tema') }}" class="nav-link">
-                        <p>Tema</p>
-                    </a>
-                    @endcan
-                    @can('parametro-leer')
-                    <a href="{{ route('parametro') }}" class="nav-link">
-                           <p>Par&aacute;metro</p>
-                    </a>
-                    @endcan
-                    @can('textosadmin-modulo')
-                    <a href="{{ route('textos') }}" class="nav-link">
-                        <p>Textos</p>
-                      @endcan
-                  </a>
-
-                  @can('asuntomodulo-modulo')
-                  <a href="{{ route('asuntomodulo') }}" class="nav-link">
- 
-                      <p>Asuntos</p>
-                  </a>
-                  @endcan
-                  @can('rolesxxx-leer')
-                    <a href="{{ route('rolesxxx')}}" class="nav-link">
-                          <i class="fas fa-user-lock nav-icon"></i>
-                          <p>Roles</p>
-                      </a>
-                    @endcan
-                    @can('usuario-leer')
-                    <a href="{{ route('usuario')}}" class="nav-link">
-                            <i class="fa fa-users nav-icon"></i>
-                            <p>Usuarios</p>
-                    </a>
-
-                    @endcan
-           
-                    
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </nav>
-          @endcan
+    
     <br>
 
     <div class="container" style="background-color: white">
         <br>
 
         <div>
-            <div class="row">
+         
                 <div class="col-12">
                     <section class="content-body">
                         <br>
@@ -169,7 +91,7 @@
                         <br>
                     </section>
                 </div>
-            </div>
+
         </div>
     </div>
 

@@ -74,6 +74,9 @@ Route::post('registroActualizacionDatos','App\Http\Controllers\Webcontroller@reg
 Route::get('downloadFileWord', 'App\Http\Controllers\Webcontroller@descargaWord');
 Route::get('search', [Webcontroller::class, 'autosearch'])->name('search');
 Route::get('Adjuntar/{id}','App\Http\Controllers\Webcontroller@adjuntararchivos')->name('adjuntar');
+Route::get('Desistir/{id}','App\Http\Controllers\Webcontroller@Desistir')->name('desistir');
+Route::post('Cambioestado/{id}','App\Http\Controllers\Webcontroller@CambioEstado')->name('cambioestado');
+Route::post('Adjunta/{id}','App\Http\Controllers\Webcontroller@Adjunta')->name('adjunta');
 Route::get('subasunto', [
     'uses' => 'App\Http\Controllers\Webcontroller@getSubasunto',
 ])->name('subasunto');
