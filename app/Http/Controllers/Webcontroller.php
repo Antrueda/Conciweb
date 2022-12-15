@@ -15,6 +15,7 @@ use Response;
 use App\tramiteusuario;
 use App\tramiterespuesta;
 use App\binconsecutivo;
+use App\Http\Requests\AdjuntarRequest;
 use App\Mail\Conci;
 use App\Models\ASubasunto;
 use App\Models\Sistema\SisLocalidad;
@@ -30,6 +31,7 @@ use Illuminate\Support\Str;
 use Illuminate\Mail\Mailer;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail as FacadesMail;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 
 class Webcontroller extends Controller
@@ -795,7 +797,9 @@ class Webcontroller extends Controller
     //<a href="' .route('desistir',['id'=>$id]). '" class="btn btn-danger data-toggle="modal" data-target="#myModal"">Desistimiento del proceso  <i class="fas fa-minus-square"></i></a> 
     public function adjuntararchivos($id){
         $dato = ModelsTramiteusuario::where('num_solicitud',$id)->first();
-       // ddd($dato->texto22);
+        //ddd($dato->asunto->nombre);
+        $nombrecompleto= $dato->texto01.' '. $dato->texto02.' '. $dato->texto03  .' '. $dato->texto04;
+        //ddd($dato);
         $detalleAbc = Subdescripcion::where('subasu_id', $dato->numero06)
                 ->where('sis_esta_id', 1)
                 ->orderBy('id')
@@ -804,7 +808,7 @@ class Webcontroller extends Controller
             $data = array(
                 "detalleAbc" => $detalleAbc
             );
-        return view('frmWeb.card.adjuntar', compact('dato','data'));
+        return view('frmWeb.card.adjuntar', compact('dato','data','nombrecompleto'));
     }
 
     public function Desistir($id){
@@ -827,33 +831,81 @@ class Webcontroller extends Controller
 }
 
 public function Adjunta(Request $request,$id){
-  
+    
+    // $this->validate($request, [
+    //     'document1' => 'required|mimes:doc,docx|max:10024',
+    // ],
+    //     ['document1.required'=> 'Debe adjuntar el soporte',
+    //     'document1.mimes'=> 'El formato no corresponde',
+    //     ]
+        
+    // );
 
-    try {
+
+    // $validated = $request->validate([
+    //     'document1.*' => 'required|mimes:doc,docx|max:10024',
+    //      ],
+    //     ['document1.*.required'=> 'Debe adjuntar el soporte',
+    //        'document1.*.mimes'=> 'El formato no corresponde',
+    //          ]
+    // );
+    // ddd($validated);
+    
+                    $input_data = $request->all();
+
+                    $validator = Validator::make(
+                    $input_data, [
+                    // 'document1.*' => 'required|mimes:jpg,jpeg,png,docx|max:20000'
+                    // ],[
+                    //     'document1.*.required' => 'Please upload an image',
+                    //     'document1.*.mimes' => 'Only jpeg,png and bmp images are allowed',
+                    //     'document1.*.max' => 'Sorry! Maximum allowed size for an image is 20MB',
+                    // ]
+                    'document1' => 'required|mimes:jpg,jpeg,png,docx|max:10000'
+                        ],[
+                            'document1.required' => 'Ingrese el documento',
+                            'document1.mimes' => 'Formato no permitido',
+                            'document1.max' => 'Capacidad maxima de 10MB',
+                        ]
+                );
+
+                if ($validator->fails()) {
+                    $messages = $validator->messages();
+                    //ddd($messages);
+                        return Redirect::back()->withErrors($validator);
+
+
+        
+                
+            }
+
+               
+   try {
         $files=[];
         $descripcion=[];
-        foreach($request->input("descripcion")as $key =>$file){
+        foreach($request->input("descripcion") as $key =>$file){
                 $descripcion[] = $file;
             // $nombreOriginalFile = $value->getClientOriginalName();
             // $rutaFinalFile = Storage::disk('local')->put("", $value);
         }
         
 
-        foreach($request->file("document") as $key =>$file){
+        foreach($request->file("document1") as $key =>$file){
             $rutaFinalFile = Storage::disk('local')->put("", $file);
             $files[]['name'] =$descripcion[$key];
             $nombreOriginalFile = $file->getClientOriginalName();
-            Soportecon::create(['NUM_SOLICITUD' => $id, 'descripcion' => $descripcion[$key], 'rutaFinalFile' => $rutaFinalFile,'nombreOriginalFile' => $nombreOriginalFile]);
+            $ddd=Soportecon::create(['NUM_SOLICITUD' => $id, 'descripcion' => $descripcion[$key], 'rutaFinalFile' => $rutaFinalFile,'nombreOriginalFile' => $nombreOriginalFile]);
+            //ddd($ddd);
         }
-        //print_r($files);
-       
     }
     catch (\Exception $e) {
         DB::rollback();
         return '|0| 0.0) Problema al anexar el soporte en el sistema' . $e->getMessage();
     }
+
    
 }
+
 
 
 

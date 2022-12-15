@@ -192,7 +192,7 @@
     <script src="URL::asset('js/jquery.js')}}"></script> 
     -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> --}}
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" />
     <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
     <!-- <script src="URL::asset('js/bootstrap.js')}}"></script> -->
@@ -209,6 +209,7 @@
     <script src="{{URL::asset('js/jquery.validationEngine-es.js')}}"></script>
     <script src="{{URL::asset('https://unpkg.com/@popperjs/core@2')}}"></script>
     <script src="{{URL::asset('js/local.js')}}"></script>
+    {{-- <script src="{{URL::asset('js/jquery.validate.js')}}"></script> --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
     
 

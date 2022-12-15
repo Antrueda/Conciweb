@@ -56,7 +56,7 @@
   </div>
 </div>
 
-<div class="row">
+{{-- <div class="row">
   <div class="col-md-12">
     <ul>
       @foreach ($data['detalleAbc'] as $info)
@@ -75,4 +75,4 @@
       @endforeach
     </ul>        
   </div>
-</div>
+</div> --}}

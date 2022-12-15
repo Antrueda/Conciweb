@@ -729,7 +729,7 @@
      html+='       </div>' 
      html+='     </div>'
      html+='<div class="col-md-3">'
-     html+='<button type="button" class="btn btn-primary" id="remove" style="height: 50px; width: 120px">Eliminar <i class="fas fa-minus"></i></button>'
+     html+='<button type="button" class="btn btn-danger" id="remove" style="height: 50px; width: 120px">Eliminar <i class="fas fa-minus"></i></button>'
      html+='   </div>';
      html+='</div>'
      html+='<br>'
@@ -954,7 +954,7 @@
             },
             success: function(respuesta) {
                 $("#abcAsunto").html(respuesta);
-                // $("#abcContenedor").slideDown(); //Mostrar informacion ABC y input para documento adjunto
+                 $("#abcContenedor").slideDown(); //Mostrar informacion ABC y input para documento adjunto
             }
         })
     });
