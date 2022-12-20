@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('asuntos', function (Blueprint $table) {
+        Schema::create('conci_asuntos', function (Blueprint $table) {
             $table->increments('id')->start(1)->nocache();
             $table->string('nombre')->unique();
             $table->bigInteger('sis_esta_id')->unsigned()->default(1);

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Tramiteusuario extends Model
 {
     use HasFactory;
-
+    protected $table = 'conci_tramiteusuarios';
     protected $fillable = [
         'ESTADO_TRAMITE',
         'sis_esta_id'

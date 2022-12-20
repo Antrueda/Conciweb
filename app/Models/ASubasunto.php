@@ -15,7 +15,7 @@ class ASubasunto extends Model
         'sis_esta_id'
       ];
 
-
+      protected $table = 'conci_a_subasuntos';
       
 
       public static function combo($cabecera, $ajaxxxxx,$asunto)

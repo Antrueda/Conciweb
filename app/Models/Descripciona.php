@@ -12,6 +12,6 @@ class Descripciona extends Model
         'nombre',
         'sis_esta_id'
       ];
-
+      protected $table = 'conci_descripcionas';
       
 }

@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tramiterespuestas', function (Blueprint $table) {
+        Schema::create('conci_tramiterespuestas', function (Blueprint $table) {
             $table->increments('CONSECUTIVO',12)->start(1)->nocache();
             $table->Integer('NUM_SOLICITUD',10)->nullable();
             $table->Integer('ID_TRAMITE',4)->nullable();

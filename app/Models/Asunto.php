@@ -15,6 +15,8 @@ class Asunto extends Model
         'sis_esta_id'
       ];
 
+      protected $table = 'conci_asuntos';
+
       public static function combo($cabecera, $ajaxxxxx)
       {
           $comboxxx = [];

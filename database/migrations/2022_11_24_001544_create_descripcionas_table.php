@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('descripcionas', function (Blueprint $table) {
+        Schema::create('conci_descripcionas', function (Blueprint $table) {
             $table->increments('id')->start(1)->nocache();
             $table->string('nombre')->unique();
 

@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Tramiterespuesta extends Model
 {
     use HasFactory;
+
+    protected $table = 'conci_tramiterespuestas';
 }

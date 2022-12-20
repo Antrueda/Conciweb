@@ -8,12 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Subdescripcion extends Model
 {
     use HasFactory;
+    protected $table = 'conci_subdescripcions';
     protected $fillable = [
         'descri_id',
         'subasu_id',
         'sis_esta_id'
       ];
 
+      
     public function descripcion(){
         return $this->belongsTo(Descripciona::class, 'descri_id');
     }

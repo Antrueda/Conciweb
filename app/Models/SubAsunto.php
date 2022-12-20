@@ -13,7 +13,7 @@ class SubAsunto extends Model
         'nombre',
         'sis_esta_id'
       ];
-
+      protected $table = 'conci_sub_asuntos';
 
       public static function combo($cabecera, $ajaxxxxx)
       {

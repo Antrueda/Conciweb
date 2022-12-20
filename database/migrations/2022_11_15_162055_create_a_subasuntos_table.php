@@ -14,7 +14,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('a_subasuntos', function (Blueprint $table) {
+        Schema::create('conci_a_subasuntos', function (Blueprint $table) {
             $table->increments('id')->start(1)->nocache();
             $table->bigInteger('asunto_id')->unsigned();
             $table->bigInteger('subasu_id')->unsigned();

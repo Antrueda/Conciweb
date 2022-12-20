@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('soportecons', function (Blueprint $table) {
+        Schema::create('conci_soportecons', function (Blueprint $table) {
             $table->bigincrements('id',12)->start(1)->nocache();
             $table->string('descripcion')->nullable();
             $table->string('rutaFinalFile')->nullable();

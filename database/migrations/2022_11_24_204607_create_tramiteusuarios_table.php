@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tramiteusuarios', function (Blueprint $table) {
+        Schema::create('conci_tramiteusuarios', function (Blueprint $table) {
             $table->bigincrements('NUM_SOLICITUD',12)->start(1)->nocache();
             $table->Integer('ID_TRAMITE',4)->nullable();;
             $table->Integer('ID_USUARIO_REG')->nullable();
@@ -21,38 +21,35 @@ return new class extends Migration
             $table->string('ESTADO_TRAMITE')->nullable();
             $table->string('VIGENCIA')->nullable();
             $table->string('OIDO_CODIGO')->nullable();
-            $table->string('TEXTO01')->nullable();
-            $table->string('TEXTO02')->nullable();
-            $table->string('TEXTO03')->nullable();
-            $table->string('TEXTO04')->nullable();
-            $table->string('TEXTO05')->nullable();
-            $table->string('TEXTO06')->nullable();
-            $table->string('TEXTO07')->nullable();
-            $table->string('TEXTO08')->nullable();
-            $table->string('TEXTO09')->nullable();
-            $table->string('NUMERO01')->nullable();
-            $table->string('TEXTO10')->nullable();
-            $table->string('TEXTO11')->nullable();
-            $table->string('TEXTO12')->nullable();
-            $table->string('TEXTO13')->nullable();
-            $table->string('TEXTO14')->nullable();
-            $table->string('TEXTO15')->nullable();
-            $table->string('TEXTO16')->nullable();
-            $table->string('TEXTO17')->nullable();
-            $table->string('TEXTO18')->nullable();
-            $table->string('TEXTO19')->nullable();
-            $table->string('NUMERO02')->nullable();
-            $table->string('NUMERO03')->nullable();
-            $table->string('NUMERO04')->nullable();
-            $table->string('NUMERO05')->nullable();
-            $table->string('NUMERO06')->nullable();
-            $table->string('NUMERO07')->nullable();
-            $table->string('TEXTO21')->nullable();
-            $table->string('NUMERO08')->nullable();
-            $table->string('TEXTO22')->nullable();
-            $table->string('TEXTO23')->nullable();
-
-            $table->string('nombre')->nullable();
+            $table->string('primerNombre')->nullable();
+            $table->string('segundoNombre')->nullable();
+            $table->string('primerApellido')->nullable();
+            $table->string('segundoApellido')->nullable();
+            $table->string('primerTelefono')->nullable();
+            $table->string('segundoTelefono')->nullable();
+            $table->string('email')->nullable();
+            $table->string('direccion')->nullable();
+            $table->string('localidad')->nullable();
+            $table->string('tipoSolicitud')->nullable();
+            $table->string('tipoDocApoderado')->nullable();
+            $table->string('numDocApoderado')->nullable();
+            $table->string('primerNombreApoderado')->nullable();
+            $table->string('segundoNombreApoderado')->nullable();
+            $table->string('primerApellidoApoderado')->nullable();
+            $table->string('segundoApellidoApoderado')->nullable();
+            $table->string('tarjetaProfesional')->nullable();
+            $table->string('primerTelefonoApoderado')->nullable();
+            $table->string('segundoTelefonoApoderado')->nullable();
+            $table->string('emailApoderado')->nullable();
+            $table->string('tipoAudiencia')->nullable();
+            $table->string('sedePrincipal')->nullable();
+            $table->string('sedeSecundaria')->nullable();
+            $table->string('asunto')->nullable();
+            $table->string('subAsunto')->nullable();
+            $table->string('tipoDocumento')->nullable();
+            $table->string('detalle')->nullable();
+            $table->string('cuantia')->nullable();
+            $table->string('code')->nullable();
             $table->bigInteger('sis_esta_id')->unsigned()->default(1)->nullable();
             $table->foreign('sis_esta_id')->references('id')->on('sis_estas');
             $table->timestamps();

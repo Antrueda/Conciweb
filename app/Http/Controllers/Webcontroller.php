@@ -40,16 +40,16 @@ class Webcontroller extends Controller
     public function home()
     {
 
-        
-        $mensaje = Texto::where('sis_esta_id',1)->first();
+
+        $mensaje = Texto::where('sis_esta_id', 1)->first();
         //ddd( Auth::user());
-       
-            
+
+
         $localidadList = SisLocalidad::combo();
         $listaSedes = SisLocalidad::combo();
-        $listaAsuntos = Tema::combo(1,true,false);
+        $listaAsuntos = Tema::combo(1, true, false);
         $estadoTipoAudi = SisLocalidad::combo();
-        $listaTipoDoc = Tema::combo(3,true,false);
+        $listaTipoDoc = Tema::combo(3, true, false);
         $tipoSolicitud = '';
         $data = array(
             "listaLocalidades" => $localidadList,
@@ -66,7 +66,7 @@ class Webcontroller extends Controller
     //Modal con el texto de bienvenida
     public function modalMensajeBienvenida()
     {
-        $mensaje = Texto::where('tipotexto_id',20)->where('sis_esta_id',1)->first();
+        $mensaje = Texto::where('tipotexto_id', 20)->where('sis_esta_id', 1)->first();
         $data = array(
             "mensaje" => $mensaje
         );
@@ -75,7 +75,7 @@ class Webcontroller extends Controller
     //Modal con mensaje de tratamiento de datos
     public function modalTratamientoDatos()
     {
-        $mensaje = Texto::where('tipotexto_id',19)->where('sis_esta_id',1)->first();
+        $mensaje = Texto::where('tipotexto_id', 19)->where('sis_esta_id', 1)->first();
         $data = array(
             "mensaje" => $mensaje
         );
@@ -92,20 +92,20 @@ class Webcontroller extends Controller
         //     ->orderBy('DESCRIPCION')
         //     ->get();
 
-        $detalleASunto =ASubasunto::select(['sub_asuntos.id', 'sub_asuntos.nombre'])
-        ->join('asuntos', 'a_subasuntos.asunto_id', '=', 'asuntos.id')
-        ->join('sub_asuntos', 'a_subasuntos.subasu_id', '=', 'sub_asuntos.id')
-        ->where('a_subasuntos.asunto_id', $asunto)
-        ->where('a_subasuntos.sis_esta_id', 1)
-        ->orderBy('a_subasuntos.id', 'asc')
-        ->get();
-        
+        $detalleASunto = ASubasunto::select(['sub_asuntos.id', 'sub_asuntos.nombre'])
+            ->join('asuntos', 'a_subasuntos.asunto_id', '=', 'asuntos.id')
+            ->join('sub_asuntos', 'a_subasuntos.subasu_id', '=', 'sub_asuntos.id')
+            ->where('a_subasuntos.asunto_id', $asunto)
+            ->where('a_subasuntos.sis_esta_id', 1)
+            ->orderBy('a_subasuntos.id', 'asc')
+            ->get();
+
 
 
         return $detalleASunto;
     }
     //Consultar informacion del ABC del asunto
-    public function detalleAbcAsunto(Request $request,$text=null)
+    public function detalleAbcAsunto(Request $request, $text = null)
     {
         $subAsunto = $request->input("subAsunto");
         //SQL
@@ -125,22 +125,23 @@ class Webcontroller extends Controller
     public function solicitud(Request $request)
     {
         $tipoSolicitud = $request->input("tipoSolicitud");;
-       
+
         //INFORMACION RETORNADA EN LA VISTA
-    
+
         //RETURN DE LA VISTA
         return compact('tipoSolicitud');
     }
-    protected function validatorUpdate(array $data, $id){
+    protected function validatorUpdate(array $data, $id)
+    {
         return Validator::make($data, [
-            'numeroDocumento' => 'required|string|max:120|unique:parametros,nombre,'.$id,
+            'numeroDocumento' => 'required|string|max:120|unique:parametros,nombre,' . $id,
         ]);
     }
     //Registro de la solicitud
     public function registroConciliacionWeb(Request $request)
     {
 
-        
+
         //Datos requeridos por sistema
         $carbonDate = Carbon::now();
         $vigencia = Carbon::today()->isoFormat('YYYY');
@@ -201,9 +202,7 @@ class Webcontroller extends Controller
                 ->where('NUMERO06', DB::raw("'" . $subAsunto . "'"))
                 ->where('TEXTO21', DB::raw("'" . $detalle . "'"))
                 ->count();
-            
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             DB::rollback();
             return '|0| 0.0 Problema al indentificaRRr la cantidad de solicitudes realizada [TRAM_USU] <br>' . $e->getMessage();
         }
@@ -225,13 +224,12 @@ class Webcontroller extends Controller
 
             $user = binconsecutivo::where('vigencia', $vigencia)->first();
             $numSolicitud = $user->secuencial + 1;
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             DB::rollback();
             return '|0| 0.1) Problema al extraer el numero de solicitud asignado por el sistema' . $e->getMessage();
         }
 
-      
+
         //0.2) ACTUALIZAR EL REGISTRO EN BINCONSECUTIVO
         // try {
 
@@ -243,53 +241,99 @@ class Webcontroller extends Controller
         //     return '|0| 0.2) Problema al actualizar el numero asignado por el sistema' . $e->getMessage();
         // }
 
-        //1) Registrar informacion en tramiteusuario
+        //1.a) Registrar informacion en tramiteusuario Local
         try {
-            $code = random_int(100000, 999999);
+            $code = random_int(10000, 99999);
             ModelsTramiteusuario::insert(
-            [
-                'NUM_SOLICITUD' => $numSolicitud,
-                'ID_TRAMITE' => $idTramite,
-                'ID_USUARIO_REG' => $numeroDocumento,
-                'FEC_SOLICITUD_TRAMITE' => DB::raw("TO_DATE('" . $fechaRegistro . "','DD/MM/YYYY HH24:MI:SS')"),
-                'ESTADO_TRAMITE' => DB::raw("'Remitido'"),
-                'VIGENCIA' => $vigencia,
-                'OIDO_CODIGO' => 0,
-                'TEXTO01' => DB::raw("'$primerNombre'"),
-                'TEXTO02' => DB::raw("'$segundoNombre'"),
-                'TEXTO03' => DB::raw("'$primerApellido'"),
-                'TEXTO04' => DB::raw("'$segundoApellido'"),
-                'TEXTO05' => DB::raw("'$primerTelefono'"),
-                'TEXTO06' => DB::raw("'$segundoTelefono'"),
-                'TEXTO07' => DB::raw("'$email'"),
-                'TEXTO08' => DB::raw("'$direccion'"),
-                'TEXTO09' => DB::raw("$localidad"),
-                'NUMERO01' => $tipoSolicitud,
-                'TEXTO10' => DB::raw("'$tipoDocApoderado'"),
-                'TEXTO11' => DB::raw("'$numDocApoderado'"),
-                'TEXTO12' => DB::raw("'$primerNombreApoderado'"),
-                'TEXTO13' => DB::raw("'$segundoNombreApoderado'"),
-                'TEXTO14' => DB::raw("'$primerApellidoApoderado'"),
-                'TEXTO15' => DB::raw("'$segundoApellidoApoderado'"),
-                'TEXTO16' => DB::raw("'$tarjetaProfesional'"),
-                'TEXTO17' => DB::raw("'$primerTelefonoApoderado'"),
-                'TEXTO18' => DB::raw("'$segundoTelefonoApoderado'"),
-                'TEXTO19' => DB::raw("'$emailApoderado'"),
-                'NUMERO02' => $tipoAudiencia,
-                'NUMERO03' => $sedePrincipal,
-                'NUMERO04' => $sedeSecundaria,
-                'NUMERO05' => $asunto,
-                'NUMERO06' => $subAsunto,
-                'NUMERO07' => $tipoDocumento,
-                'TEXTO21' => DB::raw("'$detalle'"),
-                'NUMERO08' => $cuantia,
-                'TEXTO22' => DB::raw("'$code'"),
-                // 'TEXTO23' => DB::raw("'$nombreOriginalFile'")
-            ]
+                [
+                    'NUM_SOLICITUD' => $numSolicitud,
+                    'ID_TRAMITE' => $idTramite,
+                    'ID_USUARIO_REG' => $numeroDocumento,
+                    'FEC_SOLICITUD_TRAMITE' => DB::raw("TO_DATE('" . $fechaRegistro . "','DD/MM/YYYY HH24:MI:SS')"),
+                    'ESTADO_TRAMITE' => DB::raw("'Remitido'"),
+                    'VIGENCIA' => $vigencia,
+                    'OIDO_CODIGO' => 0,
+                    'primerNombre' => DB::raw("'$primerNombre'"),
+                    'segundoNombre' => DB::raw("'$segundoNombre'"),
+                    'primerApellido' => DB::raw("'$primerApellido'"),
+                    'segundoApellido' => DB::raw("'$segundoApellido'"),
+                    'primerTelefono' => DB::raw("'$primerTelefono'"),
+                    'segundoTelefono' => DB::raw("'$segundoTelefono'"),
+                    'email' => DB::raw("'$email'"),
+                    'direccion' => DB::raw("'$direccion'"),
+                    'localidad' => DB::raw("$localidad"),
+                    'tipoSolicitud' => $tipoSolicitud,
+                    'tipoDocApoderado' => DB::raw("'$tipoDocApoderado'"),
+                    'numDocApoderado' => DB::raw("'$numDocApoderado'"),
+                    'primerNombreApoderado' => DB::raw("'$primerNombreApoderado'"),
+                    'segundoNombreApoderado' => DB::raw("'$segundoNombreApoderado'"),
+                    'primerApellidoApoderado' => DB::raw("'$primerApellidoApoderado'"),
+                    'segundoApellidoApoderado' => DB::raw("'$segundoApellidoApoderado'"),
+                    'tarjetaProfesional' => DB::raw("'$tarjetaProfesional'"),
+                    'primerTelefonoApoderado' => DB::raw("'$primerTelefonoApoderado'"),
+                    'segundoTelefonoApoderado' => DB::raw("'$segundoTelefonoApoderado'"),
+                    'emailApoderado' => DB::raw("'$emailApoderado'"),
+                    'tipoAudiencia' => $tipoAudiencia,
+                    'sedePrincipal' => $sedePrincipal,
+                    'sedeSecundaria' => $sedeSecundaria,
+                    'asunto' => $asunto,
+                    'subAsunto' => $subAsunto,
+                    'tipoDocumento' => $tipoDocumento,
+                    'detalle' => DB::raw("'$detalle'"),
+                    'cuantia' => $cuantia,
+                    'code' => DB::raw("'$code'"),
+                    // 'TEXTO23' => DB::raw("'$nombreOriginalFile'")
+                ]
             );
+        } catch (\Exception $e) {
+            DB::rollback();
+            return '|0| Problema al Insertar la informacion al sistema TRAMITEUSUARIO ' . $e->getMessage();
         }
-        
-        catch (\Exception $e) {
+        //1.b) Registrar informacion en tramiteusuario Local
+        try {
+
+            tramiteusuario::insert(
+                [
+                    'NUM_SOLICITUD' => $numSolicitud,
+                    'ID_TRAMITE' => $idTramite,
+                    'ID_USUARIO_REG' => $numeroDocumento,
+                    'FEC_SOLICITUD_TRAMITE' => DB::raw("TO_DATE('" . $fechaRegistro . "','DD/MM/YYYY HH24:MI:SS')"),
+                    'ESTADO_TRAMITE' => DB::raw("'Remitido'"),
+                    'VIGENCIA' => $vigencia,
+                    'OIDO_CODIGO' => 0,
+                    'TEXTO01' => DB::raw("'$primerNombre'"),
+                    'TEXTO02' => DB::raw("'$segundoNombre'"),
+                    'TEXTO03' => DB::raw("'$primerApellido'"),
+                    'TEXTO04' => DB::raw("'$segundoApellido'"),
+                    'TEXTO05' => DB::raw("'$primerTelefono'"),
+                    'TEXTO06' => DB::raw("'$segundoTelefono'"),
+                    'TEXTO07' => DB::raw("'$email'"),
+                    'TEXTO08' => DB::raw("'$direccion'"),
+                    'TEXTO09' => DB::raw("$localidad"),
+                    'NUMERO01' => $tipoSolicitud,
+                    'TEXTO10' => DB::raw("'$tipoDocApoderado'"),
+                    'TEXTO11' => DB::raw("'$numDocApoderado'"),
+                    'TEXTO12' => DB::raw("'$primerNombreApoderado'"),
+                    'TEXTO13' => DB::raw("'$segundoNombreApoderado'"),
+                    'TEXTO14' => DB::raw("'$primerApellidoApoderado'"),
+                    'TEXTO15' => DB::raw("'$segundoApellidoApoderado'"),
+                    'TEXTO16' => DB::raw("'$tarjetaProfesional'"),
+                    'TEXTO17' => DB::raw("'$primerTelefonoApoderado'"),
+                    'TEXTO18' => DB::raw("'$segundoTelefonoApoderado'"),
+                    'TEXTO19' => DB::raw("'$emailApoderado'"),
+                    'NUMERO02' => $tipoAudiencia,
+                    'NUMERO03' => $sedePrincipal,
+                    'NUMERO04' => $sedeSecundaria,
+                    'NUMERO05' => $asunto,
+                    'NUMERO06' => $subAsunto,
+                    'NUMERO07' => $tipoDocumento,
+                    'TEXTO21' => DB::raw("'$detalle'"),
+                    'NUMERO08' => $cuantia,
+                    'TEXTO22' => DB::raw("'$code'"),
+                    // 'TEXTO23' => DB::raw("'$nombreOriginalFile'")
+                ]
+            );
+        } catch (\Exception $e) {
             DB::rollback();
             return '|0| Problema al Insertar la informacion al sistema TRAMITEUSUARIO ' . $e->getMessage();
         }
@@ -301,8 +345,8 @@ class Webcontroller extends Controller
         //         // $nombreOriginalFile = $value->getClientOriginalName();
         //         // $rutaFinalFile = Storage::disk('local')->put("", $value);
         //     }
-            
-    
+
+
         //     foreach($request->file("document") as $key =>$file){
         //         $rutaFinalFile = Storage::disk('local')->put("", $file);
         //         $files[]['name'] =$descripcion[$key];
@@ -310,7 +354,7 @@ class Webcontroller extends Controller
         //         Soportecon::create(['NUM_SOLICITUD' => $numSolicitud, 'descripcion' => $descripcion[$key], 'rutaFinalFile' => $rutaFinalFile,'nombreOriginalFile' => $nombreOriginalFile]);
         //     }
         //     //print_r($files);
-           
+
         // }
         catch (\Exception $e) {
             DB::rollback();
@@ -324,31 +368,29 @@ class Webcontroller extends Controller
         try {
             $user = tramiterespuesta::max('CONSECUTIVO');
             $consecutivo = ($user) + rand(1, 3);
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             DB::rollback();
             return '|0| 2.0) Problema al extraer el consecutivo TR' . $e->getMessage();
         }
         //2.1) Extraer datos del funcionario asignado
         try {
-            
+
             $datosSolicitante = tabrepartoweb::select('TR.CONSEC', 'UR.depend_codigo', 'TR.contador')
                 ->join("USUARIO_ROL UR", "UR.CONSEC", "TR.CONSEC")
                 ->where('TR.ESTADO', 0)
                 ->orderBy('contador', 'asc')
                 ->first();
 
-            $datosSolicitante= User::where('cedula',DB::raw("TO_CHAR(1010213817)")  )->first();
+            $datosSolicitante = User::where('cedula', DB::raw("TO_CHAR(1010213817)"))->first();
             $depAsignada = $datosSolicitante->depend_codigo;
             $consecResponsable = $datosSolicitante->consec;
             $contador = $datosSolicitante->contador + 1;
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             DB::rollback();
             return '|0| 2.1) problema al extraer datos del funcionario asignado para el caso' . $e->getMessage();
         }
 
-        //2.2) INSERT DEL PASO 0
+        //2.2.a) INSERT DEL PASO 0
         try {
             ModelsTramiterespuesta::insert([
                 [
@@ -360,11 +402,27 @@ class Webcontroller extends Controller
                     'ID_DEPENDENCIA_REG' => $depAsignada, 'ID_DEPENDENCIA_ASIG' => $depAsignada
                 ]
             ]);
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             DB::rollback();
             return '|0| 2.2) Problema al Insertar la informacion al sistema TRAMITERESPUESTA ' . $e->getMessage();
         }
+
+        //2.2.b) INSERT DEL PASO 0
+        // try {
+        //     tramiterespuesta::insert([
+        //         [
+        //             'NUM_SOLICITUD' => $numSolicitud, 'ID_TRAMITE' => $idTramite, 'NUM_PASO' => 0,
+        //             'FEC_RESPUESTA' => DB::raw("sysdate"),
+        //             'TEX_RESPUESTA' => DB::raw("'" . $msg . "'"), 'ID_USU_ADM_CONTESTA' => $consecResponsable,
+        //             'ID_USU_ADM' => $consecResponsable, 'ESTADO_TRAMITE' => DB::raw("'Remitido'"),
+        //             'CONSECUTIVO' => $consecutivo, 'VIGENCIA' => $vigencia,
+        //             'ID_DEPENDENCIA_REG' => $depAsignada, 'ID_DEPENDENCIA_ASIG' => $depAsignada
+        //         ]
+        //     ]);
+        // } catch (\Exception $e) {
+        //     DB::rollback();
+        //     return '|0| 2.2) Problema al Insertar la informacion al sistema TRAMITERESPUESTA ' . $e->getMessage();
+        // }
 
         //2.1.1) actualziar datos del funcionario asignado
         // try {
@@ -401,24 +459,23 @@ class Webcontroller extends Controller
             $contadorRegistro = ModelsTramiteusuario::where('NUM_SOLICITUD', DB::raw("'" . $numSolicitud . "'"))
                 ->where('ID_TRAMITE', DB::raw("'" . $idTramite . "'"))
                 ->count();
-                print_r( $contadorRegistro);
-                echo $contadorRegistro;
-        }
-        catch (\Exception $e) {
+            print_r($contadorRegistro);
+            echo $contadorRegistro;
+        } catch (\Exception $e) {
             DB::rollback();
             return '|0| 3.1.0 Problema al indentificarrr la cantidad de solicitudes realizada [TRAM_USU] <br> ' . $e->getMessage();
         }
 
 
         // 3.1 Se asegura que la variable tenga un valor en $emailapoderado
-        $nombrecompleto= $primerNombre.' '. $segundoNombre.' '. $primerApellido  .' '. $segundoApellido;
-        $dato = ModelsTramiteusuario::where('num_solicitud',$numSolicitud)->first();
+        $nombrecompleto = $primerNombre . ' ' . $segundoNombre . ' ' . $primerApellido  . ' ' . $segundoApellido;
+        $dato = ModelsTramiteusuario::where('num_solicitud', $numSolicitud)->first();
         // ddd($dato->texto22);
         $asuntos = Subdescripcion::where('subasu_id', $dato->numero06)
-                 ->where('sis_esta_id', 1)
-                 ->orderBy('id')
-                 ->get();
-        
+            ->where('sis_esta_id', 1)
+            ->orderBy('id')
+            ->get();
+
 
 
         trim($emailApoderado);
@@ -453,7 +510,9 @@ class Webcontroller extends Controller
                 Mail::send('frmWeb.email.registroSolicitudnew', $data, function ($message) use ($data) {
                     $message->from('master@personeriabogota.gov.co', 'Solicitud conciliaciones Web - Personería de Bogotá D.C.');
                     $message->to($data['email']);
-                    if (isset($data['emailApoderado']) && !empty($data['emailApoderado'])) {$message->cc($data['emailApoderado']);}
+                    if (isset($data['emailApoderado']) && !empty($data['emailApoderado'])) {
+                        $message->cc($data['emailApoderado']);
+                    }
                     $message->bcc('jaruedag@personeriabogota.gov.co');
                     $message->bcc('jamumi14@gmail.com');
                     //$message->attach('FORMATO_SOLICITUD_DE_CONCILIACION_V4');
@@ -462,13 +521,11 @@ class Webcontroller extends Controller
                     // $message->bcc('asarmiento@personeriabogota.gov.co');
                     $message->subject($data['subject']);
                 });
-            }
-            catch (\Exception $e) {
+            } catch (\Exception $e) {
                 return '|0| 3.0) Problema al enviar el correo de confirmacion: </br>' . $e->getMessage();
             }
             DB::commit();
-        }
-        else {
+        } else {
             return '|0| 3.0) No es posible enviar el correo electronico ya que no se registraron los datos en el sistema </br>';
         }
 
@@ -483,8 +540,7 @@ class Webcontroller extends Controller
         try {
             $user = DB::connection('oracleexterna')->table('USUARIO_ROL')->max('CONSEC');
             $consec = ($user) + 1;
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             DB::rollback();
             return '|0| 4.1) Problema al extraer el consecutivo USR_ROL' . $e->getMessage();
         }
@@ -493,26 +549,24 @@ class Webcontroller extends Controller
             $contadorUsuarioSol = DB::connection('oracleexterna')->table('USUARIO_ROL')
                 ->where('CEDULA', DB::raw("'" . $numeroDocumento . "'"))
                 ->count();
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             DB::rollback();
             return '|0| 4.2 Problema al indentificar el estodo del solicitante [USR_ROL] <br>' . $e->getMessage();
         }
         if ($contadorUsuarioSol == 1) {
-        //4.2.1) Actualizar dependencai
-         try {
-         DB::table('USUARIO_ROL')
-         ->where('CEDULA', DB::raw("'".$numeroDocumento."'"))
-         ->update([
-         'DEPEND_CODIGO' => $depeUsuario,
-         'ESTADO' =>  DB::raw("'".$estadoUsr."'") ,
-         'TIPO' =>   DB::raw("'".$tipoUsr."'"),
-         ]);
-         } catch (\Exception $e) {
-         DB::rollback();
-         return '|0| 4.2.1 Problema al actualizar el estodo del solicitante [USR_ROL] <br>'.$e->getMessage();
-         }
-         
+            //4.2.1) Actualizar dependencai
+            try {
+                DB::table('USUARIO_ROL')
+                    ->where('CEDULA', DB::raw("'" . $numeroDocumento . "'"))
+                    ->update([
+                        'DEPEND_CODIGO' => $depeUsuario,
+                        'ESTADO' =>  DB::raw("'" . $estadoUsr . "'"),
+                        'TIPO' =>   DB::raw("'" . $tipoUsr . "'"),
+                    ]);
+            } catch (\Exception $e) {
+                DB::rollback();
+                return '|0| 4.2.1 Problema al actualizar el estodo del solicitante [USR_ROL] <br>' . $e->getMessage();
+            }
         }
         // else {
         //     //4.2.2) Insertar datos
@@ -552,19 +606,17 @@ class Webcontroller extends Controller
                 ->where('ID_TRAMITE', 330)
                 ->where('NUMERO10', 1)
                 ->count();
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             DB::rollback();
             return ((string)\View::make("frmWeb.pagina404"));
-        //return '|0| 0.1) Problema al verificar el estado de la solicitud'.$e->getMessage();
+            //return '|0| 0.1) Problema al verificar el estado de la solicitud'.$e->getMessage();
         }
 
         if ($contadorSolicitudActualizar == 0) {
             DB::rollback();
             return ((string)\View::make("frmWeb.pagina404"));
-        //return '|0| 0.1) En este momento no se requiere actualizar ninguna información.';
-        }
-        else {
+            //return '|0| 0.1) En este momento no se requiere actualizar ninguna información.';
+        } else {
             //1) Extraer infromacion registrada por el funcionario al solicitante
             try {
                 $detalleSolicitud = DB::table('ETAPA_ACTUACION_DOCUMENTO')
@@ -575,8 +627,7 @@ class Webcontroller extends Controller
 
                 $nombreDocumento = $detalleSolicitud->nombre_documento;
                 $fechaRegistro = $detalleSolicitud->fecha_registro;
-            }
-            catch (\Exception $e) {
+            } catch (\Exception $e) {
                 DB::rollback();
                 return '|0| 1.0) Problema al extraer los datos del funcionario TRAMITERESPUESTA ' . $e->getMessage();
             }
@@ -613,24 +664,20 @@ class Webcontroller extends Controller
                 $nombreOriginalFile = $document1->getClientOriginalName();
                 $rutaFinalFile = Storage::disk('local')->put("", $document1);
                 $nombreOriginalFile = 'Informacion: ' . $request->input("detalle") . ' <br> Documento: ' . $nombreOriginalFile;
-            }
-            catch (\Exception $e) {
+            } catch (\Exception $e) {
                 DB::rollback();
                 return '|0| 0.0) Problema al anexar el soporte en el sistema </br>' . $e->getMessage();
             }
-        }
-        else if (!empty($request->file("document1"))) {
+        } else if (!empty($request->file("document1"))) {
             try {
                 $document1 = $request->file("document1");
                 $nombreOriginalFile = $request->file("document1")->getClientOriginalName();
                 $rutaFinalFile = Storage::disk('local')->put("", $document1);
-            }
-            catch (\Exception $e) {
+            } catch (\Exception $e) {
                 DB::rollback();
                 return '|0| 0.0) Problema al anexar el soporte en el sistema' . $e->getMessage();
             }
-        }
-        else if ($request->input("detalle") != '') {
+        } else if ($request->input("detalle") != '') {
             $nombreOriginalFile = $request->input("detalle");
             $rutaFinalFile = '';
         }
@@ -647,8 +694,7 @@ class Webcontroller extends Controller
                 ->first();
             $consecutivo = $detalleSolicitud->consecutivo;
             $consecResponsable = $detalleSolicitud->id_usu_adm;
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             DB::rollback();
             return '|0| 1.0) Problema al extraer el consecutivo TRAMITERESPUESTA ' . $e->getMessage();
         }
@@ -659,8 +705,7 @@ class Webcontroller extends Controller
                 ->where('TRARES_CONSECUTIVO', $consecutivo)
                 ->count();
             $contadorSolicitudActualizar = $contadorSolicitudActualizar + 1;
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             DB::rollback();
             return '|0| 1.1) Problema al extraer el consecutivo del documento' . $e->getMessage();
         }
@@ -673,8 +718,7 @@ class Webcontroller extends Controller
                 ->first();
 
             $ccUsr = $detalleSolicitud->id_usuario_reg;
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             DB::rollback();
             return '|0| 1.0) Problema al extraer los datos del funcionario TRAMITEUSUARIO ' . $e->getMessage();
         }
@@ -684,8 +728,7 @@ class Webcontroller extends Controller
                 ->where('CEDULA', DB::raw("'" . $ccUsr . "'"))
                 ->first();
             $consecUSr = $datosFunc->consec;
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             DB::rollback();
             return '|0| 1.2) Problema al extraer datos del funcionario' . $e->getMessage();
         }
@@ -702,8 +745,7 @@ class Webcontroller extends Controller
                 'CONSECUTIVO_REGISTRO' => $contadorSolicitudActualizar, 'CONSEC_USUARIO' => $consecUSr,
                 'NUM_SOLICITUD' => $numSolicitud, 'DEPENDENCIA_REGISTRA' => 9999, 'ID_TRAMITE' => $idTramite
             ]);
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             DB::rollback();
             return '|0| 1.2) Problema al Insertar la informacion al sistema ETAPA_ACTUACION_DOCUMENTO ' . $e->getMessage();
         }
@@ -712,8 +754,7 @@ class Webcontroller extends Controller
         try {
             $consecutivoSinproc = DB::table('EXPEDIENTE_DIGITAL')->max('CONSECUTIVO_EXPEDIENTE');
             $consecutivoSinproc = $consecutivoSinproc + 1;
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             DB::rollback();
             return '|0| 1.1) Problema al extraer el consecutivo del documento' . $e->getMessage();
         }
@@ -733,8 +774,7 @@ class Webcontroller extends Controller
                 'TRARES_CONSECUTIVO' => $consecutivo,
                 'CONSECUTIVO_REGISTRO' => $contadorSolicitudActualizar
             ]);
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             DB::rollback();
             return '|0| 1.2) Problema al Insertar la informacion al sistema ETAPA_ACTUACION_DOCUMENTO ' . $e->getMessage();
         }
@@ -746,8 +786,7 @@ class Webcontroller extends Controller
                 ->where('id_tramite', $idTramite)
                 ->where('vigencia', $vigencia)
                 ->update(['NUMERO10' => 0]);
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             DB::rollback();
             return '|0| 0.2) Problema al actualizar el numero asignado por el sistema' . $e->getMessage();
         }
@@ -770,146 +809,144 @@ class Webcontroller extends Controller
     public function autosearch(Request $request)
     {
         if ($request->ajax()) {
-            $data = ModelsTramiteusuario::where('num_solicitud',$request->num_solicitud)->where('texto22',$request->codigo)->get();
-            
-   
+            $data = ModelsTramiteusuario::where('num_solicitud', $request->num_solicitud)->where('texto22', $request->codigo)->get();
+
+
             $output = '';
-            if (count($data)>0) {
+            if (count($data) > 0) {
                 $output = '<ul class="list-group" style="display: block; position: relative; z-index: 1">';
                 foreach ($data as $row) {
-                    $id=$row->num_solicitud;
+                    $id = $row->num_solicitud;
                     $output .= '
-                    <a class="btn btn-danger" data-bs-toggle="modal" id="mediumButton" data-target="#mediumModal" data-attr="' .route('desistir',['id'=>$id]). '" style="color:white">Desistimiento del proceso   <i class="fas fa-minus-square"></i></a>
+                    <a class="btn btn-danger" data-bs-toggle="modal" id="mediumButton" data-target="#mediumModal" data-attr="' . route('desistir', ['id' => $id]) . '" style="color:white">Desistimiento del proceso   <i class="fas fa-minus-square"></i></a>
 
-                    <a href="' .route('adjuntar',['id'=>$id]). '" class="btn btn-success">Adjuntar Documentos  <i class="fas fa-folder-plus"></i></a> 
-                    ' ;
+                    <a href="' . route('adjuntar', ['id' => $id]) . '" class="btn btn-success">Adjuntar Documentos  <i class="fas fa-folder-plus"></i></a> 
+                    ';
                 }
                 $output .= '</ul>';
-            }else {
-                $output .= '<li class="list-group-item">'.'No Data Found'.'</li>';
+            } else {
+                $output .= '<li class="list-group-item">' . 'No Data Found' . '</li>';
             }
             return $output;
         }
-        return view('frmWeb.autosearch');  
-    } 
+        return view('frmWeb.autosearch');
+    }
     //'<a href="' .view('parametro.index'). '">Actualizar Datos</a>'; 
     //view('administracion.parametro.index', compact('datos', 'buscar'));
     //<a href="' .route('desistir',['id'=>$id]). '" class="btn btn-danger data-toggle="modal" data-target="#myModal"">Desistimiento del proceso  <i class="fas fa-minus-square"></i></a> 
-    public function adjuntararchivos($id){
-        $dato = ModelsTramiteusuario::where('num_solicitud',$id)->first();
+    public function adjuntararchivos($id)
+    {
+        $dato = ModelsTramiteusuario::where('num_solicitud', $id)->first();
         //ddd($dato->asunto->nombre);
-        $nombrecompleto= $dato->texto01.' '. $dato->texto02.' '. $dato->texto03  .' '. $dato->texto04;
+        $nombrecompleto = $dato->texto01 . ' ' . $dato->texto02 . ' ' . $dato->texto03  . ' ' . $dato->texto04;
         //ddd($dato);
         $detalleAbc = Subdescripcion::where('subasu_id', $dato->numero06)
-                ->where('sis_esta_id', 1)
-                ->orderBy('id')
-                ->get();
-            //INFORMACION RETORNADA EN LA VISTA
-            $data = array(
-                "detalleAbc" => $detalleAbc
-            );
-        return view('frmWeb.card.adjuntar', compact('dato','data','nombrecompleto'));
+            ->where('sis_esta_id', 1)
+            ->orderBy('id')
+            ->get();
+        //INFORMACION RETORNADA EN LA VISTA
+        $data = array(
+            "detalleAbc" => $detalleAbc
+        );
+        return view('frmWeb.card.adjuntar', compact('dato', 'data', 'nombrecompleto'));
     }
 
-    public function Desistir($id){
-         $dato = ModelsTramiteusuario::where('num_solicitud',$id)->first();
+    public function Desistir($id)
+    {
+        $dato = ModelsTramiteusuario::where('num_solicitud', $id)->first();
 
         return view('frmWeb.card.desistimiento', compact('dato'));
     }
 
 
 
-   public function Cambioestado(Request $request,$id){
-    $detalle = $request->input("desistir");
-    $modelo = ModelsTramiteusuario::where('num_solicitud',$id)->update(['ESTADO_TRAMITE' => $detalle]);
-    if($detalle=='Cancelado'){
-        return redirect('https://www.personeriabogota.gov.co/')->with('info', 'Registro actualizado con éxito');
-    }else{
-        return redirect()->route('search')->with('info', 'Registro actualizado con éxito');
+    public function Cambioestado(Request $request, $id)
+    {
+        $detalle = $request->input("desistir");
+        $modelo = ModelsTramiteusuario::where('num_solicitud', $id)->update(['ESTADO_TRAMITE' => $detalle]);
+        if ($detalle == 'Cancelado') {
+            return redirect('https://www.personeriabogota.gov.co/')->with('info', 'Registro actualizado con éxito');
+        } else {
+            return redirect()->route('search')->with('info', 'Registro actualizado con éxito');
+        }
     }
-   
-}
 
-public function Adjunta(Request $request,$id){
-    
-    // $this->validate($request, [
-    //     'document1' => 'required|mimes:doc,docx|max:10024',
-    // ],
-    //     ['document1.required'=> 'Debe adjuntar el soporte',
-    //     'document1.mimes'=> 'El formato no corresponde',
-    //     ]
-        
-    // );
+    public function Adjunta(Request $request, $id)
+    {
 
+        // $this->validate($request, [
+        //     'document1' => 'required|mimes:doc,docx|max:10024',
+        // ],
+        //     ['document1.required'=> 'Debe adjuntar el soporte',
+        //     'document1.mimes'=> 'El formato no corresponde',
+        //     ]
 
-    // $validated = $request->validate([
-    //     'document1.*' => 'required|mimes:doc,docx|max:10024',
-    //      ],
-    //     ['document1.*.required'=> 'Debe adjuntar el soporte',
-    //        'document1.*.mimes'=> 'El formato no corresponde',
-    //          ]
-    // );
-    // ddd($validated);
-    
-                    $input_data = $request->all();
-
-                    $validator = Validator::make(
-                    $input_data, [
-                    // 'document1.*' => 'required|mimes:jpg,jpeg,png,docx|max:20000'
-                    // ],[
-                    //     'document1.*.required' => 'Please upload an image',
-                    //     'document1.*.mimes' => 'Only jpeg,png and bmp images are allowed',
-                    //     'document1.*.max' => 'Sorry! Maximum allowed size for an image is 20MB',
-                    // ]
-                    'document1' => 'required|mimes:jpg,jpeg,png,docx|max:10000'
-                        ],[
-                            'document1.required' => 'Ingrese el documento',
-                            'document1.mimes' => 'Formato no permitido',
-                            'document1.max' => 'Capacidad maxima de 10MB',
-                        ]
-                );
-
-                if ($validator->fails()) {
-                    $messages = $validator->messages();
-                    //ddd($messages);
-                        return Redirect::back()->withErrors($validator);
+        // );
 
 
-        
-                
+        // $validated = $request->validate([
+        //     'document1.*' => 'required|mimes:doc,docx|max:10024',
+        //      ],
+        //     ['document1.*.required'=> 'Debe adjuntar el soporte',
+        //        'document1.*.mimes'=> 'El formato no corresponde',
+        //          ]
+        // );
+        // ddd($validated);
+
+        $input_data = $request->all();
+
+        $validator = Validator::make(
+            $input_data,
+            [
+                // 'document1.*' => 'required|mimes:jpg,jpeg,png,docx|max:20000'
+                // ],[
+                //     'document1.*.required' => 'Please upload an image',
+                //     'document1.*.mimes' => 'Only jpeg,png and bmp images are allowed',
+                //     'document1.*.max' => 'Sorry! Maximum allowed size for an image is 20MB',
+                // ]
+                'document1' => 'required|mimes:jpg,jpeg,png,docx|max:10000'
+            ],
+            [
+                'document1.required' => 'Ingrese el documento',
+                'document1.mimes' => 'Formato no permitido',
+                'document1.max' => 'Capacidad maxima de 10MB',
+            ]
+        );
+
+        if ($validator->fails()) {
+            $messages = $validator->messages();
+            //ddd($messages);
+            return Redirect::back()->withErrors($validator);
+        }
+
+
+        try {
+            $files = [];
+            $descripcion = [];
+            foreach ($request->input("descripcion") as $key => $file) {
+                $descripcion[] = $file;
+                // $nombreOriginalFile = $value->getClientOriginalName();
+                // $rutaFinalFile = Storage::disk('local')->put("", $value);
             }
 
-               
-   try {
-        $files=[];
-        $descripcion=[];
-        foreach($request->input("descripcion") as $key =>$file){
-                $descripcion[] = $file;
-            // $nombreOriginalFile = $value->getClientOriginalName();
-            // $rutaFinalFile = Storage::disk('local')->put("", $value);
-        }
-        
 
-        foreach($request->file("document1") as $key =>$file){
-            $rutaFinalFile = Storage::disk('local')->put("", $file);
-            $files[]['name'] =$descripcion[$key];
-            $nombreOriginalFile = $file->getClientOriginalName();
-            $ddd=Soportecon::create(['NUM_SOLICITUD' => $id, 'descripcion' => $descripcion[$key], 'rutaFinalFile' => $rutaFinalFile,'nombreOriginalFile' => $nombreOriginalFile]);
-            //ddd($ddd);
+            foreach ($request->file("document1") as $key => $file) {
+                $rutaFinalFile = Storage::disk('local')->put("", $file);
+                $files[]['name'] = $descripcion[$key];
+                $nombreOriginalFile = $file->getClientOriginalName();
+                $ddd = Soportecon::create(['NUM_SOLICITUD' => $id, 'descripcion' => $descripcion[$key], 'rutaFinalFile' => $rutaFinalFile, 'nombreOriginalFile' => $nombreOriginalFile]);
+                //ddd($ddd);
+            }
+        } catch (\Exception $e) {
+            DB::rollback();
+            return '|0| 0.0) Problema al anexar el soporte en el sistema' . $e->getMessage();
         }
     }
-    catch (\Exception $e) {
-        DB::rollback();
-        return '|0| 0.0) Problema al anexar el soporte en el sistema' . $e->getMessage();
-    }
-
-   
-}
 
 
 
 
-/*
+    /*
         try {
             $files=[];
             $descripcion=[];
@@ -934,5 +971,4 @@ public function Adjunta(Request $request,$id){
             return '|0| 0.0) Problema al anexar el soporte en el sistema' . $e->getMessage();
         }
 */
-
 }

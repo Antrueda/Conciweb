@@ -22,6 +22,77 @@
         display: inline-block;
         opacity: 0.25;
 }
+
+.progress{
+        height: 25px;
+}
+.progress-bar{
+        height: 25px;
+        color: transparent;
+        opacity: 0.0;
+}
+
+.steps-form {
+    display: table;
+    width: 100%;
+    position: relative; }
+.steps-form .steps-row {
+    display: table-row; }
+.steps-form .steps-row:before {
+    top: 14px;
+    bottom: 0;
+    position: absolute;
+    content: " ";
+    width: 100%;
+    height: 1px;
+    background-color: #ccc; }
+.steps-form .steps-row .steps-step {
+    display: table-cell;
+    text-align: center;
+    position: relative; }
+.steps-form .steps-row .steps-step p {
+    margin-top: 0.5rem; }
+.steps-form .steps-row .steps-step button[disabled] {
+    opacity: 1 !important;
+    filter: alpha(opacity=100) !important; }
+.steps-form .steps-row .steps-step .btn-circle {
+    width: 32px;
+    height: 32px;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 12px;
+    line-height: 1.428571429;
+    border-radius: 25px;
+    margin-top: 0; 
+    }
+.btn-indigo{
+    background-color: #6610f2;
+    color: white;
+}
+.btn-default{
+    background-color: #20c997;
+    color: white;
+}
+
+.btn-light{
+    border-color: #2039c9;
+    
+}
+
+.btn-light:hover {
+  color: #1F2D3D;
+  background-color: #e2e6ea;
+  
+}
+.btn-primary{
+    border-color: #2039c9;
+  
+
+ 
+}
+
+
+
 </style>
     <div class="row">
         <center>
@@ -33,11 +104,39 @@
         {{-- <div class="col-md-4 text-block"><img src="{{URL::asset('imagen/logo-personeria-azul.png')}}" class="rounded mx-auto d-block" width="50%"></div> --}}
     </div>
     <br>
-    <div style="text-align:center;">
+    {{-- <div style="text-align:center;">
         <span class="step" id = "step-1"><i class="fas fa-info"></i></span>
         <span class="step" id = "step-2"><i class="fa fa-users nav-icon"></i></span>
         <span class="step" id = "step-3"><i class="fas fa-user-tie"></i></span>
         <span class="step" id = "step-4"><i class="fas fa-clipboard-list"></i></span>
+      </div> --}}
+
+      {{-- <div class="progress">
+        <span class="progress-bar progress-bar-striped progress-bar-animated" id = "step-1" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</span>
+        <span class="progress-bar progress-bar-striped progress-bar-animated" id = "step-2" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">50%</span>
+        <span class="progress-bar progress-bar-striped progress-bar-animated" id = "step-3" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">75%</span>
+        <span class="progress-bar progress-bar-striped progress-bar-animated" id = "step-4" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</span>
+    </div>
+     --}}
+    <div class="steps-form">
+        <div class="steps-row setup-panel">
+          <div class="steps-step">
+            <a href="#step-1" type="button" class="btn btn-primary btn-circle" id = "step-1">1</a>
+
+          </div>
+          <div class="steps-step">
+            <a href="#step-2" type="button" class="btn btn-light btn-circle" id = "step-2" disabled="disabled">2</a>
+  
+          </div>
+          <div class="steps-step">
+            <a href="#step-3" type="button" class="btn btn-light btn-circle"  id = "step-3" disabled="disabled">3</a>
+       
+          </div>
+          <div class="steps-step">
+            <a href="#step-4" type="button" class="btn btn-light btn-circle" id = "step-4" disabled="disabled">4</a>
+         
+          </div>
+        </div>
       </div>
       {{-- <div style="text-align:center;">
         <span class="step" id = "step-1"></span>
@@ -59,7 +158,7 @@
                 <div class="col-md-6">
                     <div class="form-floating">
          
-                    {{ Form::select('tipoDocumento', $data['listaTipoDoc'], null, ['class' => $errors->first('tipoDocumento') ? 'form-select form-select-sm is-invalid' : 'form-select form-select-sm validate[required]'.'required','id'=>'tipoDocumento','aria-label'=>"Floating label select example"]) }}
+                    {{ Form::select('tipoDocumento', $data['listaTipoDoc'], null, ['class' => $errors->first('tipoDocumento') ? 'form-select form-select-sm is-invalid' : 'form-select form-select-sm validate[required]'.'required','id'=>'tipoDocumento','aria-label'=>"Floating label select example",'required']) }}
                     @if($errors->has('tipoDocumento'))
                         <div class="invalid-feedback d-block">
                             {{ $errors->first('tipoDocumento') }}
@@ -70,8 +169,12 @@
                 </div>
                 <div class="col-md-6">
                 <div class="form-floating mb-3">
-                    <input type="number" class="form-control form-control-sm validate" id="numeroDocumento" name="numeroDocumento" autocomplete="off" required placeholder="0">
+                    <input type="number" class="form-control form-control-sm validate" id="numeroDocumento" name="numeroDocumento" autocomplete="off" required placeholder="0" minlength="4" maxlength="10">
                     <label for="numeroDocumento">2. No. de cédula *</label>
+                    <div class="invalid-feedback numeroDocumento">
+                        Campo obligatorio.
+                      </div>
+ 
                   </div>
                 </div>
 
@@ -80,22 +183,27 @@
             <div class="row">
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
-                    <input type="text" class="form-control form-control-sm validate" name="primerNombre" id="primerNombre" autocomplete="off" placeholder="0">
+                    <input type="text" class="form-control form-control-sm validate" name="primerNombre" id="primerNombre" autocomplete="off" placeholder="0" required>
                         <label for="primerNombre">3. Primer Nombre *</label>
-                    </label>
+                        <div class="invalid-feedback primerNombre">
+                            Campo obligatorio.
+                          </div>
                 </div>
                 </div>
 
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm" name="segundoNombre" id="segundoNombre" autocomplete="off" placeholder="0">
+                        <input type="text" class="form-control form-control-sm" name="segundoNombre" id="segundoNombre" autocomplete="off" placeholder="0" >
                         <label for="segundoNombre">4. Segundo Nombre</label>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm validate" name="primerApellido" id="primerApellido" autocomplete="off" placeholder="0">
+                        <input type="text" class="form-control form-control-sm validate" name="primerApellido" id="primerApellido" autocomplete="off" placeholder="0" required>
                         <label for="primerApellido">5. Primer Apellido*</label>
+                        <div class="invalid-feedback primerApellido">
+                            Campo obligatorio.
+                          </div>
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -108,8 +216,11 @@
             <div class="row">
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm validate" name="primerTelefono" id="primerTelefono" autocomplete="off" placeholder="0"  min="10" max="10">
+                        <input type="text" class="form-control form-control-sm validate" name="primerTelefono" id="primerTelefono" autocomplete="off" placeholder="0"  min="10" max="10" required>
                         <label for="primerTelefono">7. Teléfono celular *</label>
+                        <div class="invalid-feedback primerTelefono">
+                            Campo obligatorio.
+                          </div>
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -120,8 +231,11 @@
                 </div>
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm validate" name="direccion" id="direccion" autocomplete="off" placeholder="0">
+                        <input type="text" class="form-control form-control-sm validate" name="direccion" id="direccion" autocomplete="off" placeholder="0" required>
                         <label for="direccion">9. Dirección *</label>
+                        <div class="invalid-feedback direccion">
+                            Campo obligatorio.
+                          </div>
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -144,6 +258,9 @@
                     
                         <input type="email" class="form-control form-control-sm validate[required, custom[email]]" name="email" id="email" autocomplete="off" placeholder="0">
                         <label for="email"> 11. Correo electrónico *</label>
+                        <div class="invalid-feedback email">
+                            Campo obligatorio.
+                          </div>
                      </div> 
                 </div>
                 <div class="col-md-6">
@@ -166,6 +283,8 @@
                             <option value="1">Apoderado</option>
                         </select>
                         <label for="tipoSolicitud"> 12. Tipo de Solicitud *</label>
+                        <div class="invalid-feedback">Example invalid select feedback</div>
+                        </div>
                     </div> 
                 </div>
             </div>
@@ -603,6 +722,18 @@
         var msg = "<center><p><i class='fas fa-check-circle fa-3x'></i></p></center>" + msg;
         llamarNotyTime('error', msg, 'center', 3000);
     }
+
+    function TipoDocumento() {
+        var msg = "1. Seleccione un tipo de documento.  ";
+        var msg = "<center><p><i class='fas fa-check-circle fa-3x'></i></p></center>" + msg;
+        llamarNotyTime('error', msg, 'center', 3000);
+    }
+
+    function numeroDocumento() {
+        var msg = "2. Ingrese el numero de documento.  ";
+        var msg = "<center><p><i class='fas fa-check-circle fa-3x'></i></p></center>" + msg;
+        llamarNotyTime('error', msg, 'center', 3000);
+    }
     //Error en comparacion de email Apoderado
     function errorEmailIgualApod() {
         var msg = "Los correos electrónicos del apoderado en el campo 11.11 y 11.12 no son iguales Por favor verifíquelos.  ";
@@ -707,7 +838,6 @@
     }
     $('#add_btn').on('click',function(){
      var html='';
-     html+='<br>'
      html+='<div class="row" id="lista">'
      html+='<div class="col-md-3">'
      html+='<div class="form-floating mb-3">'
@@ -732,7 +862,9 @@
      html+='<button type="button" class="btn btn-danger" id="remove" style="height: 50px; width: 120px">Eliminar <i class="fas fa-minus"></i></button>'
      html+='   </div>';
      html+='</div>'
-     html+='<br>'
+     html+='</div>'
+     
+    
 
      /*
 
@@ -1070,6 +1202,31 @@
         llamarNotyTime('error', msg, 'topRight', 5000);
     }
 
+
+    function length(userInput, minlength, maxlength) {
+        alert(userInput.attr('maxLength'))
+        var msg = "El campo"+userInput+" requiere una cantidad minima de" +minlength+" .  ";
+        var msg = "<center><p><i class='fas fa-check-circle fa-3x'></i></p></center>" + msg;
+        llamarNotyTime('error', msg, 'center', 3000);
+    }
+
+    function lengthRange(inputtxt, minlength, maxlength)
+                {  	
+                console.log(inputtxt);
+                var userInput = inputtxt;  
+                if(userInput.length >= minlength && userInput.length <= maxlength)
+                    {  	
+                        return true;  	
+                    }
+                else
+                    {
+                    length(userInput, minlength, maxlength);      	
+                    
+                        return false;  	
+                    }  
+                }    
+    
+
 $(".tab").css("display", "none");
 $("#tab-1").css("display", "block");
 function run(hideTab, showTab){
@@ -1078,18 +1235,21 @@ function run(hideTab, showTab){
           var currentTab = 0;
           x = $('#tab-'+hideTab);
           y = $(x).find(".form-control.form-control-sm.validate");
-         console.log(hideTab);
+
             if (hideTab==1){
-                if ($("#email").val() !== $("#emailCon").val()) {
+                if ($("#email").val() !== $("#emailCon").val()||$("#email").val() ==='') {
                     errorEmailIgual();
+                    return;
+                }
+
+                if ($("#tipoDocumento").val()==='') {
+                    TipoDocumento();
                     return;
                 }
                 if ($("#tipoSolicitud").val()===' ') {
                     TipoSolicitud();
                     return;
                 }
-                console.log(tipoDocumento);
-                console.log($("#tipoSolicitud").val());
 
         }
             if (hideTab==2){
@@ -1101,29 +1261,46 @@ function run(hideTab, showTab){
                 
 
            for (i = 0; i < y.length; i++){
-            if (y[i].value == ""){
-              console.log(y[i]);
-              $(y[i]).css("background", "#ffdddd");
-              return false;
-            }
+            if (y[i].value == ""||$(y[i]).val().length < y[i].minLength){
+                var nombre= y[i].name;
+                $(y[i]).css("background", "#ffdddd");
+                $('.invalid-feedback.'+nombre).show();
+                return false;
+            }else{
+                var nombre= y[i].name;
+                $(y[i]).css("background", "transparent");
+                $('.invalid-feedback.'+nombre).hide();
+            }          
           }
         }
 
         // Progress bar
         for (i = 1; i < showTab; i++){
-          $("#step-"+i).css("opacity", "1");
+          if($("#tipoSolicitud").val()===0){
+            $("#step-3").hide();
+          }else{
+            $("#step-3").show();
+          }
+        //   $("#step-"+i).addClass("opacity", "1");
+          console.log(i)
+
+          
+      
         }
 
         // Switch tab
         $("#tab-"+hideTab).css("display", "none");
         $("#tab-"+showTab).css("display", "block");
+        $("#step-"+hideTab).removeClass('btn-primary').addClass('btn-light');
+        $("#step-"+showTab).removeClass('btn-light');
+        $("#step-"+showTab).addClass('btn-primary');
         $("input").css("background", "#fff");
     
 }
 
 function doc(valor){
         if(valor == 1){
-            document.getElementById("step-3").hidden=false;
+         
             document.getElementById("full_div").hidden=false;
             document.getElementById("apode_id").hidden=false;
             document.getElementById("audi_div").hidden=true;
@@ -1132,7 +1309,7 @@ function doc(valor){
    
             
     }else{
-        document.getElementById("step-3").hidden=true;
+ 
         document.getElementById("full_div").hidden=true;
         document.getElementById("audi_div").hidden=false;
         document.getElementById("apode_id").hidden=true;

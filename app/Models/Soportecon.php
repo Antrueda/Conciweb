@@ -11,6 +11,7 @@ class Soportecon extends Model
 {
     use HasFactory;
 
+    protected $table = 'conci_soportecons';
     protected $fillable = 
     ['NUM_SOLICITUD', 'nombreOriginalFile', 'descripcion', 'descripcion'];
 
