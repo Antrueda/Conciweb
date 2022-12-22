@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('nomConvocante')->nullable();
             $table->string('emailConvocante')->nullable();
             $table->bigInteger('NUM_SOLICITUD')->unsigned()->default(1)->nullable();
-            $table->foreign('NUM_SOLICITUD')->references('NUM_SOLICITUD')->on('tramiteusuarios');
+            $table->foreign('NUM_SOLICITUD')->references('NUM_SOLICITUD')->on('conci_tramiteusuarios');
             $table->timestamps();
         });
         
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('convocantes');
+        Schema::dropIfExists('conci_convocantes');
     }
 };

@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('conci_tramiterespuestas', function (Blueprint $table) {
+            $table->increments('id')->start(1)->nocache();
             $table->increments('CONSECUTIVO',12)->start(1)->nocache();
             $table->Integer('NUM_SOLICITUD',10)->nullable();
             $table->Integer('ID_TRAMITE',4)->nullable();
@@ -48,6 +49,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tramiterespuestas');
+        Schema::dropIfExists('conci_tramiterespuestas');
     }
 };

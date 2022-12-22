@@ -183,7 +183,7 @@
             <div class="row">
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
-                    <input type="text" class="form-control form-control-sm validate" name="primerNombre" id="primerNombre" autocomplete="off" placeholder="0" required>
+                    <input type="text" class="form-control form-control-sm validate" minlength="3" name="primerNombre" id="primerNombre" autocomplete="off" placeholder="0" required>
                         <label for="primerNombre">3. Primer Nombre *</label>
                         <div class="invalid-feedback primerNombre">
                             Campo obligatorio.
@@ -199,7 +199,7 @@
                 </div>
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm validate" name="primerApellido" id="primerApellido" autocomplete="off" placeholder="0" required>
+                        <input type="text" class="form-control form-control-sm validate" minlength="3" name="primerApellido" id="primerApellido" autocomplete="off" placeholder="0" required>
                         <label for="primerApellido">5. Primer Apellido*</label>
                         <div class="invalid-feedback primerApellido">
                             Campo obligatorio.
@@ -216,7 +216,7 @@
             <div class="row">
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm validate" name="primerTelefono" id="primerTelefono" autocomplete="off" placeholder="0"  min="10" max="10" required>
+                        <input type="text" class="form-control form-control-sm validate" name="primerTelefono" id="primerTelefono" autocomplete="off" placeholder="0"  minlength="10" max="10" required>
                         <label for="primerTelefono">7. Teléfono celular *</label>
                         <div class="invalid-feedback primerTelefono">
                             Campo obligatorio.
@@ -242,7 +242,7 @@
     
                         <div class="form-floating mb-3">
       
-                    {{ Form::select('localidad', $data['listaLocalidades'], null, ['class' => $errors->first('localidad') ? 'form-select form-select-sm is-invalid' : 'form-select form-select-sm']) }}
+                    {{ Form::select('localidad', $data['listaLocalidades'], null, ['class' => $errors->first('localidad') ? 'form-select form-select-sm is-invalid' : 'form-select form-select-sm','required']) }}
                     @if($errors->has('localidad'))
                         <div class="invalid-feedback d-block">
                             {{ $errors->first('localidad') }}
@@ -310,22 +310,30 @@
             <div class="row">
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
-                    <input type="text" class="form-control form-control-sm validate" name="nomConvocante[]" id="nomConvocante" autocomplete="off" placeholder="0">
+                    <input type="text" class="form-control form-control-sm validate" name="nomConvocante[]" id="nomConvocante" autocomplete="off" placeholder="0" minlength="3" required>
                         <label for="nomConvocante">Nombre completo convocado</label>
-                    </label>
+                        <div class="invalid-feedback nomConvocante">
+                            Campo obligatorio.
+                          </div>
                 </div>
                 </div>
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
                     
-                        <input type="email" class="form-control form-control-sm validate[required, custom[email]]" name="emailConvocante[]" id="emailConU" autocomplete="off" placeholder="0">
+                        <input type="email" class="form-control form-control-sm validate[required, custom[email]]" name="emailConvocante[]" id="emailConU" autocomplete="off" placeholder="0" required>
                         <label for="email"> Correo electronico</label>
+                        <div class="invalid-feedback emailConvocante">
+                            Campo obligatorio.
+                          </div>
                      </div> 
                 </div>
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm validate[required, custom[email]]" name="emailCon" id="emailConUC" autocomplete="off" placeholder="0">
+                        <input type="text" class="form-control form-control-sm validate[required, custom[email]]" name="emailCon" id="emailConUC" autocomplete="off" placeholder="0" required>
                         <label for="emailCon"> Confirme correo electronico</label>
+                        <div class="invalid-feedback emailCon">
+                            Campo obligatorio.
+                          </div>
                     </div> 
                 </div>
                 <div class="col-md-3">
@@ -835,7 +843,9 @@
                 return val.substr(0, maxChar);
             });
         }
-    }
+    
+                      
+                       
     $('#add_btn').on('click',function(){
      var html='';
      html+='<div class="row" id="lista">'
@@ -843,21 +853,29 @@
      html+='<div class="form-floating mb-3">'
      html+='<input type="text" class="form-control form-control-sm validate" name="nomConvocante[]" id="nomConvocante" autocomplete="off" placeholder="0">'
      html+='<label for="nomConvocante">Nombre completo convocado</label>'
-     html+='</label>'
+     html+='<div class="invalid-feedback nomConvocante">'
+     html+='Campo obligatorio.'
+     html+='</div>'
      html+='</div>'
      html+='</div>'
      html+='<div class="col-md-3">'
      html+='<div class="form-floating mb-3">'
      html+='<input type="email" class="form-control form-control-sm validate[required, custom[email]]" name="emailConvocante[]" id="email" autocomplete="off" placeholder="0">'
      html+='<label for="email"> Correo electronico</label>'
-     html+='         </div>' 
-     html+='    </div>'
-     html+='    <div class="col-md-3">'
-     html+='       <div class="form-floating mb-3">'
-     html+='           <input type="text" class="form-control form-control-sm validate[required, custom[email]]" name="emailCon" id="emailConUC" autocomplete="off" placeholder="0">'
-     html+='           <label for="emailCon"> Confirme correo electronico</label>'
-     html+='       </div>' 
-     html+='     </div>'
+     html+='<div class="invalid-feedback nomConvocante">'
+     html+='Campo obligatorio.'
+     html+='</div>'
+     html+='</div>' 
+     html+='</div>'
+     html+='<div class="col-md-3">'
+     html+='<div class="form-floating mb-3">'
+     html+='<input type="text" class="form-control form-control-sm validate[required, custom[email]]" name="emailCon" id="emailConUC" autocomplete="off" placeholder="0">'
+     html+='<label for="emailCon"> Confirme correo electronico</label>'
+     html+='<div class="invalid-feedback nomConvocante">'
+     html+='Campo obligatorio.'
+     html+='</div>'
+     html+='</div>' 
+     html+='</div>'
      html+='<div class="col-md-3">'
      html+='<button type="button" class="btn btn-danger" id="remove" style="height: 50px; width: 120px">Eliminar <i class="fas fa-minus"></i></button>'
      html+='   </div>';
@@ -1264,10 +1282,16 @@ function run(hideTab, showTab){
             if (y[i].value == ""||$(y[i]).val().length < y[i].minLength){
                 var nombre= y[i].name;
                 $(y[i]).css("background", "#ffdddd");
+                console.log(nombre)
+                nombre= nombre.replace('[]','')
+                console.log(nombre)
                 $('.invalid-feedback.'+nombre).show();
                 return false;
             }else{
                 var nombre= y[i].name;
+                console.log(nombre)
+                nombre= nombre.replace('[]','')
+                console.log(nombre)
                 $(y[i]).css("background", "transparent");
                 $('.invalid-feedback.'+nombre).hide();
             }          

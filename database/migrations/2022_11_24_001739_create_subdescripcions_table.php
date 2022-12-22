@@ -17,8 +17,8 @@ return new class extends Migration
             $table->increments('id')->start(1)->nocache();
             $table->bigInteger('descri_id')->unsigned();
             $table->bigInteger('subasu_id')->unsigned();
-            $table->foreign('descri_id')->references('id')->on('descripcionas');
-            $table->foreign('subasu_id')->references('id')->on('sub_asuntos');
+            $table->foreign('descri_id')->references('id')->on('conci_descripcionas');
+            $table->foreign('subasu_id')->references('id')->on('conci_sub_asuntos');
             $table->bigInteger('sis_esta_id')->unsigned()->default(1);
             $table->foreign('sis_esta_id')->references('id')->on('sis_estas');
             $table->timestamps();
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('subdescripcions');
+        Schema::dropIfExists('conci_subdescripcions');
     }
 };

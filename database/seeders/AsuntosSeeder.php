@@ -92,7 +92,7 @@ class AsuntosSeeder extends Seeder
         //Descripcion
         Descripciona::create(['id' => 1, 'sis_esta_id' => 1, 'nombre' => 'Formulario de solicitud de conciliación debidamente diligenciado y firmado.']);
         Descripciona::create(['id' => 2, 'sis_esta_id' => 1, 'nombre' => 'Fotocopia cédula de ciudadanía del solicitante.']);
-        Descripciona::create(['id' => 3, 'sis_esta_id' => 1, 'nombre' => 'Los documentos relacionados con la solicitud.']);
+        Descripciona::create(['id' => 3, 'sis_esta_id' => 1, 'nombre' => 'Otros documentos relacionados con la solicitud.']);
         Descripciona::create(['id' => 4, 'sis_esta_id' => 1, 'nombre' => 'Contrato o documento donde se acordó la administración o donde conste la comunidad de un bien.']);
         Descripciona::create(['id' => 5, 'sis_esta_id' => 1, 'nombre' => 'Copia de registro civil de nacimiento de los menores.']);
         Descripciona::create(['id' => 6, 'sis_esta_id' => 1, 'nombre' => 'Contrato de arrendamiento (si fue de forma escrita).']);

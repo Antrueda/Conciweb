@@ -92,12 +92,12 @@ class Webcontroller extends Controller
         //     ->orderBy('DESCRIPCION')
         //     ->get();
 
-        $detalleASunto = ASubasunto::select(['sub_asuntos.id', 'sub_asuntos.nombre'])
-            ->join('asuntos', 'a_subasuntos.asunto_id', '=', 'asuntos.id')
-            ->join('sub_asuntos', 'a_subasuntos.subasu_id', '=', 'sub_asuntos.id')
-            ->where('a_subasuntos.asunto_id', $asunto)
-            ->where('a_subasuntos.sis_esta_id', 1)
-            ->orderBy('a_subasuntos.id', 'asc')
+        $detalleASunto = ASubasunto::select(['conci_sub_asuntos.id', 'conci_sub_asuntos.nombre'])
+            ->join('conci_asuntos', 'conci_a_subasuntos.asunto_id', '=', 'conci_asuntos.id')
+            ->join('conci_sub_asuntos', 'conci_a_subasuntos.subasu_id', '=', 'conci_sub_asuntos.id')
+            ->where('conci_a_subasuntos.asunto_id', $asunto)
+            ->where('conci_a_subasuntos.sis_esta_id', 1)
+            ->orderBy('conci_a_subasuntos.id', 'asc')
             ->get();
 
 
@@ -246,25 +246,25 @@ class Webcontroller extends Controller
             $code = random_int(10000, 99999);
             ModelsTramiteusuario::insert(
                 [
-                    'NUM_SOLICITUD' => $numSolicitud,
-                    'ID_TRAMITE' => $idTramite,
-                    'ID_USUARIO_REG' => $numeroDocumento,
-                    'FEC_SOLICITUD_TRAMITE' => DB::raw("TO_DATE('" . $fechaRegistro . "','DD/MM/YYYY HH24:MI:SS')"),
-                    'ESTADO_TRAMITE' => DB::raw("'Remitido'"),
-                    'VIGENCIA' => $vigencia,
-                    'OIDO_CODIGO' => 0,
-                    'primerNombre' => DB::raw("'$primerNombre'"),
-                    'segundoNombre' => DB::raw("'$segundoNombre'"),
-                    'primerApellido' => DB::raw("'$primerApellido'"),
-                    'segundoApellido' => DB::raw("'$segundoApellido'"),
-                    'primerTelefono' => DB::raw("'$primerTelefono'"),
-                    'segundoTelefono' => DB::raw("'$segundoTelefono'"),
-                    'email' => DB::raw("'$email'"),
-                    'direccion' => DB::raw("'$direccion'"),
-                    'localidad' => DB::raw("$localidad"),
-                    'tipoSolicitud' => $tipoSolicitud,
-                    'tipoDocApoderado' => DB::raw("'$tipoDocApoderado'"),
-                    'numDocApoderado' => DB::raw("'$numDocApoderado'"),
+                    'num_solicitud' => $numSolicitud,
+                    'id_tramite' => $idTramite,
+                    'id_usuario_reg' => $numeroDocumento,
+                    'fec_solicitud_tramite' => DB::raw("TO_DATE('" . $fechaRegistro . "','DD/MM/YYYY HH24:MI:SS')"),
+                    'estado_tramite' => DB::raw("'Remitido'"),
+                    'vigencia' => $vigencia,
+                    'oido_codigo' => 0,
+                     'primerNombre' => DB::raw("'$primerNombre'"),
+                     'segundoNombre' => DB::raw("'$segundoNombre'"),
+                     'primerApellido' => DB::raw("'$primerApellido'"),
+                     'segundoApellido' => DB::raw("'$segundoApellido'"),
+                     'primerTelefono' => DB::raw("'$primerTelefono'"),
+                     'segundoTelefono' => DB::raw("'$segundoTelefono'"),
+                     'email' => DB::raw("'$email'"),
+                     'direccion' => DB::raw("'$direccion'"),
+                     'localidad' => DB::raw("$localidad"),
+                     'tipoSolicitud' => $tipoSolicitud,
+                     'tipoDocApoderado' => DB::raw("'$tipoDocApoderado'"),
+                     'numDocApoderado' => DB::raw("'$numDocApoderado'"),
                     'primerNombreApoderado' => DB::raw("'$primerNombreApoderado'"),
                     'segundoNombreApoderado' => DB::raw("'$segundoNombreApoderado'"),
                     'primerApellidoApoderado' => DB::raw("'$primerApellidoApoderado'"),
@@ -282,7 +282,7 @@ class Webcontroller extends Controller
                     'detalle' => DB::raw("'$detalle'"),
                     'cuantia' => $cuantia,
                     'code' => DB::raw("'$code'"),
-                    // 'TEXTO23' => DB::raw("'$nombreOriginalFile'")
+                   // 'TEXTO23' => DB::raw("'$nombreOriginalFile'")
                 ]
             );
         } catch (\Exception $e) {
@@ -290,53 +290,53 @@ class Webcontroller extends Controller
             return '|0| Problema al Insertar la informacion al sistema TRAMITEUSUARIO ' . $e->getMessage();
         }
         //1.b) Registrar informacion en tramiteusuario Local
-        try {
+        // try {
 
-            tramiteusuario::insert(
-                [
-                    'NUM_SOLICITUD' => $numSolicitud,
-                    'ID_TRAMITE' => $idTramite,
-                    'ID_USUARIO_REG' => $numeroDocumento,
-                    'FEC_SOLICITUD_TRAMITE' => DB::raw("TO_DATE('" . $fechaRegistro . "','DD/MM/YYYY HH24:MI:SS')"),
-                    'ESTADO_TRAMITE' => DB::raw("'Remitido'"),
-                    'VIGENCIA' => $vigencia,
-                    'OIDO_CODIGO' => 0,
-                    'TEXTO01' => DB::raw("'$primerNombre'"),
-                    'TEXTO02' => DB::raw("'$segundoNombre'"),
-                    'TEXTO03' => DB::raw("'$primerApellido'"),
-                    'TEXTO04' => DB::raw("'$segundoApellido'"),
-                    'TEXTO05' => DB::raw("'$primerTelefono'"),
-                    'TEXTO06' => DB::raw("'$segundoTelefono'"),
-                    'TEXTO07' => DB::raw("'$email'"),
-                    'TEXTO08' => DB::raw("'$direccion'"),
-                    'TEXTO09' => DB::raw("$localidad"),
-                    'NUMERO01' => $tipoSolicitud,
-                    'TEXTO10' => DB::raw("'$tipoDocApoderado'"),
-                    'TEXTO11' => DB::raw("'$numDocApoderado'"),
-                    'TEXTO12' => DB::raw("'$primerNombreApoderado'"),
-                    'TEXTO13' => DB::raw("'$segundoNombreApoderado'"),
-                    'TEXTO14' => DB::raw("'$primerApellidoApoderado'"),
-                    'TEXTO15' => DB::raw("'$segundoApellidoApoderado'"),
-                    'TEXTO16' => DB::raw("'$tarjetaProfesional'"),
-                    'TEXTO17' => DB::raw("'$primerTelefonoApoderado'"),
-                    'TEXTO18' => DB::raw("'$segundoTelefonoApoderado'"),
-                    'TEXTO19' => DB::raw("'$emailApoderado'"),
-                    'NUMERO02' => $tipoAudiencia,
-                    'NUMERO03' => $sedePrincipal,
-                    'NUMERO04' => $sedeSecundaria,
-                    'NUMERO05' => $asunto,
-                    'NUMERO06' => $subAsunto,
-                    'NUMERO07' => $tipoDocumento,
-                    'TEXTO21' => DB::raw("'$detalle'"),
-                    'NUMERO08' => $cuantia,
-                    'TEXTO22' => DB::raw("'$code'"),
-                    // 'TEXTO23' => DB::raw("'$nombreOriginalFile'")
-                ]
-            );
-        } catch (\Exception $e) {
-            DB::rollback();
-            return '|0| Problema al Insertar la informacion al sistema TRAMITEUSUARIO ' . $e->getMessage();
-        }
+        //     tramiteusuario::insert(
+        //         [
+        //             'NUM_SOLICITUD' => $numSolicitud,
+        //             'ID_TRAMITE' => $idTramite,
+        //             'ID_USUARIO_REG' => $numeroDocumento,
+        //             'FEC_SOLICITUD_TRAMITE' => DB::raw("TO_DATE('" . $fechaRegistro . "','DD/MM/YYYY HH24:MI:SS')"),
+        //             'ESTADO_TRAMITE' => DB::raw("'Remitido'"),
+        //             'VIGENCIA' => $vigencia,
+        //             'OIDO_CODIGO' => 0,
+        //             'TEXTO01' => DB::raw("'$primerNombre'"),
+        //             'TEXTO02' => DB::raw("'$segundoNombre'"),
+        //             'TEXTO03' => DB::raw("'$primerApellido'"),
+        //             'TEXTO04' => DB::raw("'$segundoApellido'"),
+        //             'TEXTO05' => DB::raw("'$primerTelefono'"),
+        //             'TEXTO06' => DB::raw("'$segundoTelefono'"),
+        //             'TEXTO07' => DB::raw("'$email'"),
+        //             'TEXTO08' => DB::raw("'$direccion'"),
+        //             'TEXTO09' => DB::raw("$localidad"),
+        //             'NUMERO01' => $tipoSolicitud,
+        //             'TEXTO10' => DB::raw("'$tipoDocApoderado'"),
+        //             'TEXTO11' => DB::raw("'$numDocApoderado'"),
+        //             'TEXTO12' => DB::raw("'$primerNombreApoderado'"),
+        //             'TEXTO13' => DB::raw("'$segundoNombreApoderado'"),
+        //             'TEXTO14' => DB::raw("'$primerApellidoApoderado'"),
+        //             'TEXTO15' => DB::raw("'$segundoApellidoApoderado'"),
+        //             'TEXTO16' => DB::raw("'$tarjetaProfesional'"),
+        //             'TEXTO17' => DB::raw("'$primerTelefonoApoderado'"),
+        //             'TEXTO18' => DB::raw("'$segundoTelefonoApoderado'"),
+        //             'TEXTO19' => DB::raw("'$emailApoderado'"),
+        //             'NUMERO02' => $tipoAudiencia,
+        //             'NUMERO03' => $sedePrincipal,
+        //             'NUMERO04' => $sedeSecundaria,
+        //             'NUMERO05' => $asunto,
+        //             'NUMERO06' => $subAsunto,
+        //             'NUMERO07' => $tipoDocumento,
+        //             'TEXTO21' => DB::raw("'$detalle'"),
+        //             'NUMERO08' => $cuantia,
+        //           //  'TEXTO22' => DB::raw("'$rutaFinalFile'"),
+        //           //  'TEXTO23' => DB::raw("'$nombreOriginalFile'")
+        //         ]
+        //     );
+        // } catch (\Exception $e) {
+        //     DB::rollback();
+        //     return '|0| Problema al Insertar la informacion al sistema TRAMITEUSUARIO ' . $e->getMessage();
+        // }
         // try {
         //     $files=[];
         //     $descripcion=[];
@@ -837,18 +837,21 @@ class Webcontroller extends Controller
     public function adjuntararchivos($id)
     {
         $dato = ModelsTramiteusuario::where('num_solicitud', $id)->first();
-        //ddd($dato->asunto->nombre);
-        $nombrecompleto = $dato->texto01 . ' ' . $dato->texto02 . ' ' . $dato->texto03  . ' ' . $dato->texto04;
+        //ddd($dato->subasunto);
+        //ddd($dato->subasuntos);
+        $nombrecompleto = $dato->primernombre . ' ' . $dato->segundonombre . ' ' . $dato->primerapellido  . ' ' . $dato->segundoapellido;
         //ddd($dato);
-        $detalleAbc = Subdescripcion::where('subasu_id', $dato->numero06)
+        $detalleAbc = Subdescripcion::where('subasu_id', $dato->subasunto)
             ->where('sis_esta_id', 1)
             ->orderBy('id')
             ->get();
         //INFORMACION RETORNADA EN LA VISTA
+        $conteo= count($detalleAbc)-1;
+
         $data = array(
             "detalleAbc" => $detalleAbc
         );
-        return view('frmWeb.card.adjuntar', compact('dato', 'data', 'nombrecompleto'));
+        return view('frmWeb.card.adjuntar', compact('dato', 'data', 'nombrecompleto','conteo'));
     }
 
     public function Desistir($id)
@@ -904,7 +907,7 @@ class Webcontroller extends Controller
                 //     'document1.*.mimes' => 'Only jpeg,png and bmp images are allowed',
                 //     'document1.*.max' => 'Sorry! Maximum allowed size for an image is 20MB',
                 // ]
-                'document1' => 'required|mimes:jpg,jpeg,png,docx|max:10000'
+                'document1' => 'required|mimes:jpg,jpeg,png,docx,pdf|max:10000'
             ],
             [
                 'document1.required' => 'Ingrese el documento',

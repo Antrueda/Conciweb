@@ -14,13 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('conci_tramiteusuarios', function (Blueprint $table) {
-            $table->bigincrements('NUM_SOLICITUD',12)->start(1)->nocache();
-            $table->Integer('ID_TRAMITE',4)->nullable();;
-            $table->Integer('ID_USUARIO_REG')->nullable();
-            $table->date('FEC_SOLICITUD_TRAMITE')->nullable();
-            $table->string('ESTADO_TRAMITE')->nullable();
-            $table->string('VIGENCIA')->nullable();
-            $table->string('OIDO_CODIGO')->nullable();
+            $table->bigincrements('num_solicitud',12)->start(1)->nocache();
+            $table->Integer('id_tramite',4)->nullable();;
+            $table->Integer('id_usuario_reg')->nullable();
+            $table->date('fec_solicitud_tramite')->nullable();
+            $table->string('estado_tramite')->nullable();
+            $table->string('vigencia')->nullable();
+            $table->string('oido_codigo')->nullable();
             $table->string('primerNombre')->nullable();
             $table->string('segundoNombre')->nullable();
             $table->string('primerApellido')->nullable();
@@ -44,10 +44,13 @@ return new class extends Migration
             $table->string('tipoAudiencia')->nullable();
             $table->string('sedePrincipal')->nullable();
             $table->string('sedeSecundaria')->nullable();
-            $table->string('asunto')->nullable();
-            $table->string('subAsunto')->nullable();
+            $table->integer('asunto')->unsigned()->nullable();
+            $table->integer('subAsunto')->unsigned()->nullable();
+
+            $table->foreign('asunto')->references('id')->on('conci_asuntos');
+            $table->foreign('subAsunto')->references('id')->on('conci_sub_asuntos');
             $table->string('tipoDocumento')->nullable();
-            $table->string('detalle')->nullable();
+            $table->string('detalle',1000)->nullable();
             $table->string('cuantia')->nullable();
             $table->string('code')->nullable();
             $table->bigInteger('sis_esta_id')->unsigned()->default(1)->nullable();
@@ -63,7 +66,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tramiteusuarios');
+        Schema::dropIfExists('conci_tramiteusuarios');
     }
 };
 /*

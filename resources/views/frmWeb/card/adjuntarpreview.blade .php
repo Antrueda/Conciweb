@@ -104,23 +104,25 @@
     </div>
   </div>
 </div>
-
+<div style="display:none">
+<input type="text" class="form-control" name="conteo" id="conteo" value="{!! $conteo !!}"/> 
+</div>
 <div class="row">
   <div class="col-md-2"></div>
   <div class="col-md-8" >
     <ul>
-      @foreach ($data['detalleAbc'] as $info)
+      @foreach ($data['detalleAbc'] as $key=>$info)
       <span style="text-justify">{!! $info->descripcion->nombre !!} (Máximo 10Mb) *</span>
       <label class="form-group has-float-label">
         <div class="input-group input-file" name="document1">
           <div style="display:none">
           <input type="text" class="form-control" name="descripcion[]" id="descripcion" value="{!! $info->descripcion->nombre !!}"/> 
           </div>
-           <input type="file" class="validate[required] form-control" name="document1[]" id="document1" required accept=".pdf"/>
+           <input type="file" class="validate[required] form-control" name="document1[]" id="document{{$key}}" required accept=".pdf" onchange="return fileValidation()"/>
             <span class="input-group-btn">
                 <button class="btn btn-danger btn-reset" style="margin-left: 10px;" id="limpia" type="button">Limpiar</button>
             </span>
-            <div id="my_pdf_viewer">
+            <div id="imagePreview{{$key}}">
      
             </div>
         </div>
@@ -203,6 +205,42 @@
     pdffile_url=URL.createObjectURL(pdffile);
     $('#viewer').attr('src',pdffile_url);
 }
+
+function adjuntar() {
+        var msg = "El tipo del archivo seleccionado NO es valido.<br>Unicamente se pueden adjuntar los siguientes tipos de archivo. 'PDF'  ";
+        var msg = "<center><p><i class='fas fa-check-circle fa-3x'></i></p></center>" + msg;
+        llamarNotyTime('error', msg, 'center', 3000);
+    }
+
+// function fileValidation(){
+//     var array=document.getElementById('conteo');
+//     var fileInput = document.getElementById('document2');
+//     console.log(fileInput);
+//     var filePath = fileInput.value;
+//     console.log(filePath);
+//     var allowedExtensions = /(\.pdf|\.gif)$/i;
+//     if(!allowedExtensions.exec(filePath)){
+//         adjuntar();
+//         fileInput.value = '';
+//         return false;
+//     }else{
+//         //Image preview
+//         if (fileInput.files && fileInput.files[2]) {
+//             var reader = new FileReader();
+//             reader.onload = function(e) {
+//                 document.getElementById('imagePreview'+i).innerHTML = '<embed src="'+e.target.result+'"/>';
+//             };
+//             reader.readAsDataURL(fileInput.files[2]);
+//         }
+//     }
+// }
+
+// function fileValidationt(){
+//   var array=document.getElementById('conteo');
+
+
+// }
+
 
 
     

@@ -8,14 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Asunto extends Model
 {
     use HasFactory;
-
+    protected $table = 'conci_asuntos';
 
     protected $fillable = [
         'nombre',
         'sis_esta_id'
       ];
 
-      protected $table = 'conci_asuntos';
+
 
       public static function combo($cabecera, $ajaxxxxx)
       {

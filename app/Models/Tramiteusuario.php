@@ -10,17 +10,53 @@ class Tramiteusuario extends Model
     use HasFactory;
     protected $table = 'conci_tramiteusuarios';
     protected $fillable = [
-        'ESTADO_TRAMITE',
+      'NUM_SOLICITUD',
+      'ID_TRAMITE',
+      'ID_USUARIO_REG',
+      'FEC_SOLICITUD_TRAMITE',
+      'ESTADO_TRAMITE',
+      'VIGENCIA',
+      'OIDO_CODIGO',
+      'PRIMERNOMBRE',
+      'SEGUNDONOMBRE',
+      'PRIMERAPELLIDO',
+      'SEGUNDOAPELLIDO',
+      'PRIMERTELEFONO',
+      'SEGUNDOTELEFONO',
+      'EMAIL',
+      'DIRECCION',
+      'LOCALIDAD',
+      'TIPOSOLICITUD',
+      'TIPODOCAPODERADO',
+      'NUMDOCAPODERADO',
+      'PRIMERNOMBREAPODERADO',
+      'SEGUNDONOMBREAPODERADO',
+      'PRIMERAPELLIDOAPODERADO',
+      'SEGUNDOAPELLIDOAPODERADO',
+      'TARJETAPROFESIONAL',
+      'PRIMERTELEFONOAPODERADO',
+      'SEGUNDOTELEFONOAPODERADO',
+      'EMAILAPODERADO',
+      'TIPOAUDIENCIA',
+      'SEDEPRINCIPAL',
+      'SEDESECUNDARIA',
+      'ASUNTO',
+      'SUBASUNTO',
+      'TIPODOCUMENTO',
+      'DETALLE',
+      'CUANTIA',
+      'CODE',
+      'ESTADO_TRAMITE',
         'sis_esta_id'
       ];
 
-      public function asunto()
+      public function asuntos()
       {
-        return $this->belongsTo(Asunto::class, 'numero05');
+        return $this->belongsTo(Asunto::class, 'asunto');
       }
 
-      public function subasunto()
+      public function subasuntos()
       {
-        return $this->belongsTo(SubAsunto::class, 'numero06');
+        return $this->belongsTo(SubAsunto::class, 'subasunto');
       }
 }
