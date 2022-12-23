@@ -21,12 +21,12 @@ class frmWebController extends Controller
     //Ventana de inicio
     public function home()
     {
-        $mensaje = 'test';
-        $localidadList = DB::table('localidad')->where('tipoloc', 1)->orderBy('descloc')->get();
-        $listaSedes = DB::table('tab_sedes')->where('IDSEDE', '!=', 250)->get();
-        $listaAsuntos = DB::table('tab_asunto_web')->where('ESTADO', 0)->orderBy('DESCRIPCION')->get();
-        $estadoTipoAudi = DB::table('TAB_PARAMETROS_WEB')->where('CODIGO', 'TIA')->get();
-        $listaTipoDoc = DB::table('TAB_TIPODOCUMENTOIDENTIDAD')
+        $mensaje = DB::connection('oracleexterna')->table('TAB_PARAMETROS_WEB')->where('CODIGO', 'MTA')->get();
+        $localidadList = DB::connection('oracleexterna')->table('localidad')->where('tipoloc', 1)->orderBy('descloc')->get();
+        $listaSedes = DB::connection('oracleexterna')->table('tab_sedes')->where('IDSEDE', '!=', 250)->get();
+        $listaAsuntos = DB::connection('oracleexterna')->table('tab_asunto_web')->where('ESTADO', 0)->orderBy('DESCRIPCION')->get();
+        $estadoTipoAudi = DB::connection('oracleexterna')->table('TAB_PARAMETROS_WEB')->where('CODIGO', 'TIA')->get();
+        $listaTipoDoc = DB::connection('oracleexterna')->table('TAB_TIPODOCUMENTOIDENTIDAD')
             ->select('SICIDTIPODOCUMENTOIDENTIDAD', 'SICTIPODOCUMENTOIDENTIDAD')
             ->orderBy('SICTIPODOCUMENTOIDENTIDAD')
             ->get();
@@ -38,7 +38,7 @@ class frmWebController extends Controller
             "estadoTipoAudi" => $estadoTipoAudi,
             "mensaje" => $mensaje
         );
-        return ((string)\View::make("frmWeb.home", array("data" => $data)));
+        return ((string)\View::make("frmWeb.homecerrado", array("data" => $data)));
     }
     //Modal con el texto de bienvenida
     public function modalMensajeBienvenida()
@@ -47,12 +47,12 @@ class frmWebController extends Controller
         $data = array(
             "mensaje" => $mensaje
         );
-        return ((string)\View::make("frmWeb.modal.modalMensajeBienvenida", array("data" => $data)));
+        return ((string)\View::make("frmWeb.modal.modalMensajeBienvenidaCerrado", array("data" => $data)));
     }
     //Modal con mensaje de tratamiento de datos
     public function modalTratamientoDatos()
     {
-        $mensaje = DB::table('TAB_PARAMETROS_WEB')->where('CODIGO', 'MD')->get();
+        $mensaje = DB::connection('oracleexterna')->table('TAB_PARAMETROS_WEB')->where('CODIGO', 'MD')->get();
         $data = array(
             "mensaje" => $mensaje
         );
@@ -63,7 +63,7 @@ class frmWebController extends Controller
     {
         $asunto = $request->input("asunto");
 
-        $detalleASunto = DB::table('TAB_ASUNTO_DETALLE_WEB')
+        $detalleASunto = DB::connection('oracleexterna')->table('TAB_ASUNTO_DETALLE_WEB')
             ->where('ID_ASUNTO', $asunto)
             ->where('ESTADO', 0)
             ->orderBy('DESCRIPCION')
@@ -77,7 +77,7 @@ class frmWebController extends Controller
         $asunto = $request->input("asunto");
         $subAsunto = $request->input("subAsunto");
         //SQL
-        $detalleAbc = DB::table('TAB_ASUNTO_DOCUMENTOS_WEB')
+        $detalleAbc = DB::connection('oracleexterna')->table('TAB_ASUNTO_DOCUMENTOS_WEB')
             ->where('ID_ASUNTO', $asunto)
             ->where('ID_DETALLE', $subAsunto)
             ->where('ESTADO', 0)

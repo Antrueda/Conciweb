@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use File;
 use Illuminate\Support\Facades\Storage;
 use Response;
+use Brian2694\Toastr\Toastr;
 
 //MODELS
 use App\tramiteusuario;
@@ -901,21 +902,22 @@ class Webcontroller extends Controller
         $validator = Validator::make(
             $input_data,
             [
-                // 'document1.*' => 'required|mimes:jpg,jpeg,png,docx|max:20000'
-                // ],[
-                //     'document1.*.required' => 'Please upload an image',
-                //     'document1.*.mimes' => 'Only jpeg,png and bmp images are allowed',
-                //     'document1.*.max' => 'Sorry! Maximum allowed size for an image is 20MB',
-                // ]
-                'document1' => 'required|mimes:jpg,jpeg,png,docx,pdf|max:10000'
-            ],
-            [
-                'document1.required' => 'Ingrese el documento',
-                'document1.mimes' => 'Formato no permitido',
-                'document1.max' => 'Capacidad maxima de 10MB',
-            ]
+                'document1.*' => 'required|mimes:pdf|max:10000'
+                ],[
+                    'document1.*.required' => 'Ingrese el documento',
+                    'document1.*.mimes' => 'Formato no permitido',
+                    'document1.*.max' => 'El tamaño permitido es de 10MB',
+                ]
+            //     'document1' => 'required|mimes:pdf|max:10000'
+            // ],
+            // [
+            //     'document1.required' => 'Ingrese el documento',
+            //     //'document1.mimes' => 'Formato no permitido',
+            //     'document1.max' => 'Capacidad maxima de 10MB',
+            // ]
         );
-
+        // print_r($input_data) ;
+         
         if ($validator->fails()) {
             $messages = $validator->messages();
             //ddd($messages);
@@ -940,6 +942,8 @@ class Webcontroller extends Controller
                 $ddd = Soportecon::create(['NUM_SOLICITUD' => $id, 'descripcion' => $descripcion[$key], 'rutaFinalFile' => $rutaFinalFile, 'nombreOriginalFile' => $nombreOriginalFile]);
                 //ddd($ddd);
             }
+            
+            return redirect('https://www.personeriabogota.gov.co/')->with('info', 'Registro actualizado con éxito');
         } catch (\Exception $e) {
             DB::rollback();
             return '|0| 0.0) Problema al anexar el soporte en el sistema' . $e->getMessage();

@@ -23,6 +23,18 @@
         }
 
 </style>
+
+
+{{-- @if (count($errors) > 0)
+<div class="alert alert-danger" style="height: 20%">
+    <ul>
+        @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            <script>toastr.error("{{ $error }}")</script>
+        @endforeach
+    </ul>
+</div>
+@endif --}}
   {!! Form::open(['route' => ['adjunta',$dato->num_solicitud],'class' => 'form-horizontal','id'=>"adjuntarfomr",'name'=>"adjuntarfomr",'enctype'=>"multipart/form-data"]) !!}
   
   <div>
@@ -35,10 +47,10 @@
     <ul class="list-group list-group-horizontal">
       
       <li class="list-group-item"><b>Solicitante: <br> </b> {{$nombrecompleto}} </li>
-      <li class="list-group-item"><b>Fecha de Solicitud:</b> {{$dato->fec_solicitud_tramite}} </li>
-      <li class="list-group-item"><b>Asunto:</b> {{$dato->asuntos->nombre}} </li>
-      <li class="list-group-item"><b>Sub Asunto:</b> {{$dato->subasuntos->nombre}}</li>
-      <li class="list-group-item"><b>Cuantia:</b>  {{$dato->cuantia}}</li>
+      <li class="list-group-item"><b>Fecha de Solicitud:</b><br> {{$dato->fec_solicitud_tramite}} </li>
+      <li class="list-group-item"><b>Asunto:</b> <br>{{$dato->asuntos->nombre}} </li>
+      <li class="list-group-item"><b>Sub Asunto:</b><br> {{$dato->subasuntos->nombre}}</li>
+      <li class="list-group-item"><b>Cuantia:</b> <br> {{$dato->cuantia}}</li>
     </ul>
       <ul class="list-group list-group-flush">
       <li class="list-group-item"><b>Resumen de la pretensión o conflicto:</b><p> {{$dato->detalle}}</p></li>
@@ -109,37 +121,28 @@
   <div class="col-md-2"></div>
   <div class="col-md-8" >
     <ul>
-      @foreach ($data['detalleAbc'] as $info)
+      @foreach ($data['detalleAbc'] as $key => $info)
       <span style="text-justify">{!! $info->descripcion->nombre !!} (Máximo 10Mb) *</span>
       <label class="form-group has-float-label">
-        <div class="input-group input-file" name="document1">
+        <div class="input-group input-file" name="document{{$key}} ">
           <div style="display:none">
           <input type="text" class="form-control" name="descripcion[]" id="descripcion" value="{!! $info->descripcion->nombre !!}"/> 
           </div>
-           <input type="file" class="validate[required] form-control" name="document1[]" id="document1" required accept=".pdf"/>
+           <input type="file" class="validate[required] form-control" name="document1[]" id="document{{$key}}" required accept=".pdf"/>
             <span class="input-group-btn">
-                <button class="btn btn-danger btn-reset" style="margin-left: 10px;" id="limpia" type="button">Limpiar</button>
+                <button class="btn btn-danger btn-reset" style="margin-left: 10px;" id="limpia" type="button">Limpiar <i class="fas fa-broom"></i></button>
             </span>
+
             <div id="my_pdf_viewer">
      
             </div>
         </div>
   
-        @if (count($errors) > 0)
-        <div class="alert alert-danger" style="height: 20%">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-        @endif
     </label> 
       @endforeach
     </ul>        
   </div>
 </div>
-
 
 {{-- <div class="container">
   <div class="row">
@@ -183,9 +186,32 @@
 </div> --}}
 <div class="row">
   <div class="col-md-4" style="padding-left: 10%;margin-top:10px;margin-left:30%">
-  <button type="submit" class="btn btn-perso btn-block btn-sm "><span class="fas fa-upload"> </span> Registrar Adjuntos</button>
+    <button type="button" class="btn btn-perso btn-block btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal"> <span class="fas fa-upload"> </span> Registrar Adjuntos</button>
   </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Antes de terminar el proceso ¿Esta seguro de los datos adjuntados?
+      </div>
+      
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-perso "><span class="fas fa-upload"> </span> Si</button>
+        <button type="button" class="btn btn-info" data-bs-dismiss="modal"><i class="fas fa-times"></i> No</button>
+ 
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <br>
 {!! Form::close() !!}
 <br>
@@ -196,6 +222,7 @@
 <script>
  $(".btn-danger").click(function() {
   $(this).parents(".input-file").find('input').val('');
+    toastr.warning("Se ha limpiado el documento");
     });
 
     function PreviewImage() {

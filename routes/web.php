@@ -82,6 +82,17 @@ Route::get('subasunto', [
 ])->name('subasunto');
 
 
+// Route::get('/','App\Http\Controllers\frmWebController@home')->name('home');
+// Route::post('modalMensajeBienvenida','App\Http\Controllers\frmWebController@modalMensajeBienvenida');
+// Route::post('modalTratamientoDatos','App\Http\Controllers\frmWebController@modalTratamientoDatos');
+// Route::post('solicitud','App\Http\Controllers\frmWebController@solicitud');
+// Route::post('consultalistaSubAsuntos','App\Http\Controllers\frmWebController@consultalistaSubAsuntos');
+// Route::post('consultaDocumentosRelacionados','App\Http\Controllers\frmWebController@detalleAbcAsunto');
+// Route::post('registroConciliacionWeb','App\Http\Controllers\frmWebController@registroConciliacionWeb');
+// Route::get('conciliacionWebUpdateDatos','App\Http\Controllers\frmWebController@actualizarDato')->name('actualiza');
+// Route::post('registroActualizacionDatos','App\Http\Controllers\frmWebController@registroActualizacionDatos');
+// Route::get('downloadFileWord', 'App\Http\Controllers\frmWebController@descargaWord');
+
 include_once('Textos/web_moduloT.php');
 include_once('Asunto/web_modulo.php');
 include_once('Administracion\web_parametro.php');

@@ -104,7 +104,7 @@
     </div>
   </div>
 </div>
-<div style="display:none">
+<div >
 <input type="text" class="form-control" name="conteo" id="conteo" value="{!! $conteo !!}"/> 
 </div>
 <div class="row">

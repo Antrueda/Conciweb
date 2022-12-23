@@ -843,6 +843,7 @@
                 return val.substr(0, maxChar);
             });
         }
+    }
     
                       
                        
