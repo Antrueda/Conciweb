@@ -460,7 +460,7 @@
             </div>
         </div>
         <br>
-        <div class="row">
+        <div class="row" style="display:none">
             <div class="col-md-3"></div>
             <div class="col-md-3">
                 <div class="alert alert-success text-center" role="alert">

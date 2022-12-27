@@ -38,32 +38,29 @@ use Illuminate\Support\Facades\Validator;
 class Webcontroller extends Controller
 {
     //Ventana de inicio
-    public function home()
-    {
 
 
-        $mensaje = Texto::where('sis_esta_id', 1)->first();
-        //ddd( Auth::user());
-
-
-        $localidadList = SisLocalidad::combo();
-        $listaSedes = SisLocalidad::combo();
-        $listaAsuntos = Tema::combo(1, true, false);
-        $estadoTipoAudi = SisLocalidad::combo();
-        $listaTipoDoc = Tema::combo(3, true, false);
-        $tipoSolicitud = '';
-        $data = array(
-            "listaLocalidades" => $localidadList,
-            "listaSedes" => $listaSedes,
-            "listaAsuntos" => $listaAsuntos,
-            "listaTipoDoc" => $listaTipoDoc,
-            "estadoTipoAudi" => $estadoTipoAudi,
-            "mensaje" => $mensaje,
-        );
-
-
-        return ((string)\View::make("frmWeb.homestep", array("data" => $data)));
-    }
+        public function home()
+        {
+            $mensaje = DB::connection('oracleexterna')->table('TAB_PARAMETROS_WEB')->where('CODIGO', 'MTA')->get();
+            $localidadList = DB::connection('oracleexterna')->table('localidad')->where('tipoloc', 1)->orderBy('descloc')->get();
+            $listaSedes = DB::connection('oracleexterna')->table('tab_sedes')->where('IDSEDE', '!=', 250)->get();
+            $listaAsuntos = DB::connection('oracleexterna')->table('tab_asunto_web')->where('ESTADO', 0)->orderBy('DESCRIPCION')->get();
+            $estadoTipoAudi = DB::connection('oracleexterna')->table('TAB_PARAMETROS_WEB')->where('CODIGO', 'TIA')->get();
+            $listaTipoDoc = DB::connection('oracleexterna')->table('TAB_TIPODOCUMENTOIDENTIDAD')
+                ->select('SICIDTIPODOCUMENTOIDENTIDAD', 'SICTIPODOCUMENTOIDENTIDAD')
+                ->orderBy('SICTIPODOCUMENTOIDENTIDAD')
+                ->get();
+            $data = array(
+                "listaLocalidades" => $localidadList,
+                "listaSedes" => $listaSedes,
+                "listaAsuntos" => $listaAsuntos,
+                "listaTipoDoc" => $listaTipoDoc,
+                "estadoTipoAudi" => $estadoTipoAudi,
+                "mensaje" => $mensaje
+            );
+            return ((string)\View::make("frmWeb.homecerrado", array("data" => $data)));
+        }
     //Modal con el texto de bienvenida
     public function modalMensajeBienvenida()
     {
@@ -71,7 +68,7 @@ class Webcontroller extends Controller
         $data = array(
             "mensaje" => $mensaje
         );
-        return ((string)\View::make("frmWeb.modal.modalMensajeBienvenida", array("data" => $data)));
+        return ((string)\View::make("frmWeb.modal.modalMensajeBienvenidaCerrado", array("data" => $data)));
     }
     //Modal con mensaje de tratamiento de datos
     public function modalTratamientoDatos()

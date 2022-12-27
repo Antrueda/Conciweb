@@ -12,7 +12,7 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-1"> </div>
-                            <div class="col-md-6 text-center"><h5><b style="text-justify"><br>SOLICITUD DE CONCILIACIONES WEB</b></h5></div>
+                            <div class="col-md-6 text-center"><h5><b style="text-justify"><br>MENSAJE PARA LOS USUARIOS</b></h5></div>
                             <div class="col-md-1"> </div>
                             <div class="col-md-4 text-right"><img src="{{URL::asset('imagen/logo-personeria-azul.png')}}" class="rounded mx-auto d-block" width="50%"></div>
                         </div>
@@ -24,8 +24,9 @@
                     <hr>
                     <center>
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="customCheck1">
-                            <label class="custom-control-label" for="customCheck1"><b  style="color: black">ACEPTAR</b></label>
+                            
+                            <button id="customCheck1" type="submit" class="btn btn-primary "><span class="fas fa-undo"></span> ACEPTAR</button>
+                            
                         </div>
                     </center>
                     </div>
@@ -38,7 +39,7 @@
 
 <script>
 $( "#customCheck1" ).click(function() {
-    modalTratamientoDAtos();
+    window.location.href = "https://www.personeriabogota.gov.co/";
 });
 
 function modalTratamientoDAtos(){
