@@ -81,7 +81,7 @@ Route::get('subasunto', [
     'uses' => 'App\Http\Controllers\Webcontroller@getSubasunto',
 ])->name('subasunto');
 
-
+Route::get('/reload-captcha', [Webcontroller::class, 'reloadCaptcha']);
 // Route::get('/','App\Http\Controllers\frmWebController@home')->name('home');
 // Route::post('modalMensajeBienvenida','App\Http\Controllers\frmWebController@modalMensajeBienvenida');
 // Route::post('modalTratamientoDatos','App\Http\Controllers\frmWebController@modalTratamientoDatos');

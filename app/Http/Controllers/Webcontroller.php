@@ -42,24 +42,27 @@ class Webcontroller extends Controller
 
         public function home()
         {
-            $mensaje = DB::connection('oracleexterna')->table('TAB_PARAMETROS_WEB')->where('CODIGO', 'MTA')->get();
-            $localidadList = DB::connection('oracleexterna')->table('localidad')->where('tipoloc', 1)->orderBy('descloc')->get();
-            $listaSedes = DB::connection('oracleexterna')->table('tab_sedes')->where('IDSEDE', '!=', 250)->get();
-            $listaAsuntos = DB::connection('oracleexterna')->table('tab_asunto_web')->where('ESTADO', 0)->orderBy('DESCRIPCION')->get();
-            $estadoTipoAudi = DB::connection('oracleexterna')->table('TAB_PARAMETROS_WEB')->where('CODIGO', 'TIA')->get();
-            $listaTipoDoc = DB::connection('oracleexterna')->table('TAB_TIPODOCUMENTOIDENTIDAD')
-                ->select('SICIDTIPODOCUMENTOIDENTIDAD', 'SICTIPODOCUMENTOIDENTIDAD')
-                ->orderBy('SICTIPODOCUMENTOIDENTIDAD')
-                ->get();
+            $mensaje = Texto::where('sis_esta_id', 1)->first();
+            //ddd( Auth::user());
+    
+    
+            $localidadList = SisLocalidad::combo();
+            $listaSedes = SisLocalidad::combo();
+            $listaAsuntos = Tema::combo(1, true, false);
+            $estadoTipoAudi = SisLocalidad::combo();
+            $listaTipoDoc = Tema::combo(3, true, false);
+            $tipoSolicitud = '';
             $data = array(
                 "listaLocalidades" => $localidadList,
                 "listaSedes" => $listaSedes,
                 "listaAsuntos" => $listaAsuntos,
                 "listaTipoDoc" => $listaTipoDoc,
                 "estadoTipoAudi" => $estadoTipoAudi,
-                "mensaje" => $mensaje
+                "mensaje" => $mensaje,
             );
-            return ((string)\View::make("frmWeb.homecerrado", array("data" => $data)));
+    
+    
+            return ((string)\View::make("frmWeb.homestep", array("data" => $data)));
         }
     //Modal con el texto de bienvenida
     public function modalMensajeBienvenida()
@@ -68,7 +71,7 @@ class Webcontroller extends Controller
         $data = array(
             "mensaje" => $mensaje
         );
-        return ((string)\View::make("frmWeb.modal.modalMensajeBienvenidaCerrado", array("data" => $data)));
+        return ((string)\View::make("frmWeb.modal.modalMensajeBienvenida", array("data" => $data)));
     }
     //Modal con mensaje de tratamiento de datos
     public function modalTratamientoDatos()
@@ -220,7 +223,7 @@ class Webcontroller extends Controller
         //0) Extrear el consecutivo de la solicitud
         try {
 
-            $user = binconsecutivo::where('vigencia', $vigencia)->first();
+            $user = binconsecutivo::orderBy('secuencial', 'DESC')->first();
             $numSolicitud = $user->secuencial + 1;
         } catch (\Exception $e) {
             DB::rollback();
@@ -807,7 +810,7 @@ class Webcontroller extends Controller
     public function autosearch(Request $request)
     {
         if ($request->ajax()) {
-            $data = ModelsTramiteusuario::where('num_solicitud', $request->num_solicitud)->where('texto22', $request->codigo)->get();
+            $data = ModelsTramiteusuario::where('num_solicitud', $request->num_solicitud)->where('CODE', $request->codigo)->get();
 
 
             $output = '';
@@ -948,6 +951,10 @@ class Webcontroller extends Controller
     }
 
 
+    public function reloadCaptcha()
+    {
+        return response()->json(['captcha'=> captcha_img()]);
+    }
 
 
     /*

@@ -182,6 +182,8 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Brian2694\Toastr\ToastrServiceProvider::class,
+        Biscolab\ReCaptcha\ReCaptchaServiceProvider::class, 
+        Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -221,6 +223,8 @@ return [
         // 'ExampleClass' => App\Example\ExampleClass::class,
         'Toastr'  => Brian2694\Toastr\Facades\Toastr::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
+        'ReCaptcha' => Biscolab\ReCaptcha\Facades\ReCaptcha::class, 
+        'NoCaptcha' => Anhskohbo\NoCaptcha\Facades\NoCaptcha::class,
     ])->toArray(),
     
 

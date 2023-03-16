@@ -38,7 +38,7 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-1" style="padding: 6px;margin-top:7px;width:60px;height:60px">
-                                <button type="submit" class="btn btn-perso btn-block btn-md"><i class="fas fa-search-plus"></i> </button>
+                                  <div id="search" class="btn btn-perso btn-block btn-md" ><i class="fas fa-search-plus"></i></div>
                                 </div>
                                 </div>
                                 <div id="product_list"></div>
@@ -138,21 +138,7 @@
 
 <script>
     $(document).ready(function(){
-        $('#num_solicitud').on('keyup',function () {
-            var query = $(this).val();
-            var codigo = $('#codigo').val();
-            $.ajax({
-                url:'{{ route('search') }}',
-                type:'GET',
-                data:{'num_solicitud':query,
-                'codigo':codigo,
-            },
-                success:function (data) {
-                    $('#product_list').html(data);
-                }
-            })
-        });
-        $('#codigo').on('keyup',function () {
+        $('#search').on('click',function () {
             var query = $('#num_solicitud').val();
             var codigo = $('#codigo').val();
             $.ajax({
@@ -166,6 +152,22 @@
                 }
             })
         });
+
+        // $('#codigo').on('keyup',function () {
+        //     var query = $('#num_solicitud').val();
+        //     var codigo = $('#codigo').val();
+        //     $.ajax({
+        //         url:'{{ route('search') }}',
+        //         type:'GET',
+        //         data:{'num_solicitud':query,
+        //         'codigo':codigo,
+        //     },
+        //         success:function (data) {
+        //             $('#product_list').html(data);
+        //         }
+        //     })
+        // });
+        
         $(document).on('click', '#mediumButton', function(event) {
             event.preventDefault();
             let href = $(this).attr('data-attr');

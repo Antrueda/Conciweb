@@ -178,8 +178,18 @@
                   </div>
                 </div>
 
-
-            </div>
+                {{-- <div class="form-group{{ $errors->has('g-recaptcha-response') ? ' has-error' : '' }}">
+                    <label class="col-md-4 control-label">Captcha</label>
+                    <div class="col-md-6 pull-center">
+                        {!! NoCaptcha::display() !!}
+                    @if ($errors->has('g-recaptcha-response'))
+                    <span class="help-block">
+                    <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
+                    </span>
+                    @endif
+                    </div>
+                    </div> --}}
+              
             <div class="row">
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
@@ -627,28 +637,31 @@
             </div>
             <div class="row">
                 <div class="col-md-3"></div>
-                <div class="col-md-3">
+                {{-- <div class="col-md-3">
                     <div class="alert alert-success text-center" role="alert">
                         <small class="text-center" style="font-size: 100%"> <span id="valorCaptcha"></span> </small>
                     </div>
                 </div>
                 <div class="col-md-1 text-center" style="padding: .75rem 1.25rem;">
                     <span class="badge badge-light"><i class="fas fa-sync fa-2x" onclick="getCapchaValue()"></i></span>
-                </div>
-                <div class="col-md-3" style="padding: .75rem 1.25rem;">
+                </div> --}}
+                {{-- <div class="col-md-3" style="padding: .75rem 1.25rem;">
                     <div class="form-floating mb-5">
                         <input type="text" class="form-control form-control-sm validate" name="captcha" id="captcha" autocomplete="off" placeholder="0">
                         <input type="hidden" name="captchaOrg" id="captchaOrg">
                         <label for="captcha"> Digite los caracteres de la imagen *</label>
      
                     </div>
-                </div>
+                </div> --}}
+
+
                 <center>
                 <div class="btn btn-primary" onclick="run(4, 3);" id="full_div" style="width: 120px"><i class="fas fa-angle-left"></i> Anterior</div>
                 <div class="btn btn-primary" onclick="run(4, 2);" id="audi_div" style="width: 120px"><i class="fas fa-angle-left"></i> Anterior</div>
                 <br>
                 <hr>
-                <div class="row" id="btnRegistro" style="display:none">
+
+                <div class="row" id="btnRegistro">
                     <div class="col-md-4"></div>
                     <div class="col-md-4">
                         <button type="submit" class="btn btn-primary btn-block btn-sm "><span class="fa fa-save pr-4"> </span> Registrar Solicitud </button>
@@ -1352,4 +1365,18 @@ function doc(valor){
 
 
 </script>
+
+<script type="text/javascript">
+    $('#reload').click(function () {
+        $.ajax({
+            type: 'GET',
+            url: 'reload-captcha',
+            success: function (data) {
+                $(".captcha span").html(data.captcha);
+            }
+        });
+    });
+</script>    
+
+
 @endsection
