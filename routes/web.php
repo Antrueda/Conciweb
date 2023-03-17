@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post("conciliaciones/login/validarLogin","App\Http\Controllers\App\Http\Controllers\conciliacionesController@validarLogin");
+Route::post("conciliaciones/login/validarLogin","App\Http\Controllers\conciliacionesController@validarLogin");
 Route::post("conciliaciones/nuevaConciliacion","App\Http\Controllers\conciliacionesController@nuevaConciliacion");
 Route::get("conciliaciones/moduloGestion","App\Http\Controllers\conciliacionesController@moduloGestion")->name('gestion');
 Route::post("conciliaciones/comboAreaAsuntoJuridico","App\Http\Controllers\conciliacionesController@comboAreaAsuntoJuridico");
@@ -93,11 +93,12 @@ Route::get('/reload-captcha', [Webcontroller::class, 'reloadCaptcha']);
 // Route::post('registroActualizacionDatos','App\Http\Controllers\frmWebController@registroActualizacionDatos');
 // Route::get('downloadFileWord', 'App\Http\Controllers\frmWebController@descargaWord');
 
-include_once('Textos/web_moduloT.php');
-include_once('Asunto/web_modulo.php');
-include_once('Administracion\web_parametro.php');
-include_once('Administracion\web_tema.php');
-include_once('Seguridad\web_usuario.php');
+require_once('Textos/web_moduloT.php');
+require_once('Asunto/web_modulo.php');
+require_once('Administracion\web_parametro.php');
+require_once('Administracion\web_salario.php');
+require_once('Administracion\web_tema.php');
+require_once('Seguridad\web_usuario.php');
 
 Route::get('login', [AuthController::class, "login"]);
 // login?key=Wnp5TEVrTlc0U05jVzcreU1CWnVjcFlPeDdETDMxR3E2MzRSU0ZVS3lETT0=

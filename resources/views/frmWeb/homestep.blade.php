@@ -146,6 +146,7 @@
       </div> --}}
       <br>
  
+    
     <!-- INICIO DATOS DEL SOLICITANTE -->
     <div class="card tab" id="tab-1"">
         <div class="card-header">
@@ -178,17 +179,7 @@
                   </div>
                 </div>
 
-                {{-- <div class="form-group{{ $errors->has('g-recaptcha-response') ? ' has-error' : '' }}">
-                    <label class="col-md-4 control-label">Captcha</label>
-                    <div class="col-md-6 pull-center">
-                        {!! NoCaptcha::display() !!}
-                    @if ($errors->has('g-recaptcha-response'))
-                    <span class="help-block">
-                    <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
-                    </span>
-                    @endif
-                    </div>
-                    </div> --}}
+                
               
             <div class="row">
                 <div class="col-md-3">
@@ -252,7 +243,7 @@
     
                         <div class="form-floating mb-3">
       
-                    {{ Form::select('localidad', $data['listaLocalidades'], null, ['class' => $errors->first('localidad') ? 'form-select form-select-sm is-invalid' : 'form-select form-select-sm','required']) }}
+                    {{ Form::select('localidad', $data['listaLocalidades'], null, ['class' => $errors->first('localidad') ? 'form-control form-control-sm is-invalid validate' : 'form-control form-control-sm validate','required']) }}
                     @if($errors->has('localidad'))
                         <div class="invalid-feedback d-block">
                             {{ $errors->first('localidad') }}
@@ -330,7 +321,7 @@
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
                     
-                        <input type="email" class="form-control form-control-sm validate[required, custom[email]]" name="emailConvocante[]" id="emailConU" autocomplete="off" placeholder="0" required>
+                        <input type="email" class="form-control form-control-sm validate" name="emailConvocante[]" id="emailConU" autocomplete="off" placeholder="0" required>
                         <label for="email"> Correo electronico</label>
                         <div class="invalid-feedback emailConvocante">
                             Campo obligatorio.
@@ -339,7 +330,7 @@
                 </div>
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm validate[required, custom[email]]" name="emailCon" id="emailConUC" autocomplete="off" placeholder="0" required>
+                        <input type="text" class="form-control form-control-sm validate" name="emailCon" id="emailConUC" autocomplete="off" placeholder="0" required>
                         <label for="emailCon"> Confirme correo electronico</label>
                         <div class="invalid-feedback emailCon">
                             Campo obligatorio.
@@ -613,7 +604,7 @@
                     <div class="row">
                         <div class="col-md-12 text-justify">
                             <div class="alert alert-success text-justify" role="alert">
-                                <small class="text-justify">La pretensión no podrá ser superior a <span style="color: red">100 SMMLV ($100.000.000)</span>, salvo que se trate de solicitudes de conciliación promovida por persona natural deudor hipotecario y por persona natural que reclame ser damnificado o victima el pago de indemnización de seguros de responsabilidad civil.</small>
+                                <small class="text-justify">La pretensión no podrá ser superior a <span style="color: red">100 SMMLV (${{($data['salario']);}})</span>, salvo que se trate de solicitudes de conciliación promovida por persona natural deudor hipotecario y por persona natural que reclame ser damnificado o victima el pago de indemnización de seguros de responsabilidad civil.</small>
                             </div>
                         </div>
                     </div>
@@ -623,6 +614,10 @@
                             <div class="form-floating mb-3">
                                 <input class="form-control form-control-sm validate" type="number" name="cuantia" id="cuantia" autocomplete="off" placeholder="0">
                                 <label for="cuantia"> 16. Valor de la Cuantía *</label>
+                                <div id="maximo">
+                                <input class="form-control form-control-sm validate" type="number" name="maximo" id="maximo" autocomplete="off" placeholder="0">
+                                <label for="cuantia"> MAXIMO *</label>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -654,13 +649,15 @@
                     </div>
                 </div> --}}
 
-
+              
                 <center>
+         
                 <div class="btn btn-primary" onclick="run(4, 3);" id="full_div" style="width: 120px"><i class="fas fa-angle-left"></i> Anterior</div>
                 <div class="btn btn-primary" onclick="run(4, 2);" id="audi_div" style="width: 120px"><i class="fas fa-angle-left"></i> Anterior</div>
                 <br>
                 <hr>
-
+                {!! htmlFormSnippet() !!}
+                <br>
                 <div class="row" id="btnRegistro">
                     <div class="col-md-4"></div>
                     <div class="col-md-4">
@@ -669,8 +666,9 @@
                     <div class="col-md-4"></div>
                 </div>
                 </center>
-                <br>
+       
                 <div class="col-md-2"></div>
+                <br>
             </div>
         </div>
         <br>
@@ -693,12 +691,21 @@
     //Cargar modal con mensaje de bienvenida
     $(document).ready(function() {
         modalBienvendia();
-        getCapchaValue();
+      //  getCapchaValue();
         validarEstadoTipoAudiencia();
         validarCcEmail();
+        
         $("#frmRegistroDatos").validationEngine('attach', {
             onValidationComplete: function(form, status) {
-                if ($("#captchaOrg").val() !== $("#captcha").val()) {
+
+                let recaptchaToken = grecaptcha.getResponse();
+                    // console.log($('#g-recaptcha-response'));
+                    // console.log($('#recaptcha-anchor').val());
+                    // console.log($('#recaptcha-anchor').is(':checked'));
+                    // console.log($('#recaptcha-anchor').attr('value'));
+                    // console.log($('#g-recaptcha-response').attr('value'));
+                    console.log(recaptchaToken);
+                if (recaptchaToken==='') {
                     errorCaptcha();
                     return;
                 }
@@ -832,7 +839,10 @@
         limitText(this, 10)
     });
     $('#cuantia').on('keyup', function() {
+        $(this).val();
+        $('#maximo').val( $(this).val()*100);
         cuantiaVerificar(this)
+
     });
 
     function cuantiaVerificar(field) {
@@ -874,7 +884,7 @@
      html+='</div>'
      html+='<div class="col-md-3">'
      html+='<div class="form-floating mb-3">'
-     html+='<input type="email" class="form-control form-control-sm validate[required, custom[email]]" name="emailConvocante[]" id="email" autocomplete="off" placeholder="0">'
+     html+='<input type="email" class="form-control form-control-sm validate" name="emailConvocante[]" id="email" autocomplete="off" placeholder="0">'
      html+='<label for="email"> Correo electronico</label>'
      html+='<div class="invalid-feedback nomConvocante">'
      html+='Campo obligatorio.'
@@ -883,7 +893,7 @@
      html+='</div>'
      html+='<div class="col-md-3">'
      html+='<div class="form-floating mb-3">'
-     html+='<input type="text" class="form-control form-control-sm validate[required, custom[email]]" name="emailCon" id="emailConUC" autocomplete="off" placeholder="0">'
+     html+='<input type="text" class="form-control form-control-sm validate" name="emailCon" id="emailConUC" autocomplete="off" placeholder="0">'
      html+='<label for="emailCon"> Confirme correo electronico</label>'
      html+='<div class="invalid-feedback nomConvocante">'
      html+='Campo obligatorio.'
@@ -896,7 +906,7 @@
      html+='</div>'
      html+='</div>'
      
-    
+ 
 
      /*
 
@@ -988,6 +998,10 @@
             }
         });
     }
+
+
+
+
     //Abrir modal con mnesaje de bienvenida
     function modalBienvendia() {
         $.ajax({
@@ -1118,7 +1132,7 @@
             },
             success: function(respuesta) {
                 $("#abcAsunto").html(respuesta);
-                 $("#abcContenedor").slideDown(); //Mostrar informacion ABC y input para documento adjunto
+                 //$("#abcContenedor").slideDown(); //Mostrar informacion ABC y input para documento adjunto
             }
         })
     });
@@ -1216,18 +1230,18 @@
 
 
     //Generar parametos de captcha
-    function getCapchaValue() {
-        var text = "";
-        var possible = "ABCDEFGHIJKLMNPQRSTUVWXYZabcdefghijklmnpqrstuvwxyz123456789";
+    // function getCapchaValue() {
+    //     var text = "";
+    //     var possible = "ABCDEFGHIJKLMNPQRSTUVWXYZabcdefghijklmnpqrstuvwxyz123456789";
 
-        for (var i = 0; i < 5; i++)
-            text += possible.charAt(Math.floor(Math.random() * possible.length));
+    //     for (var i = 0; i < 5; i++)
+    //         text += possible.charAt(Math.floor(Math.random() * possible.length));
 
-        let valorCaptcha = text;
-        $("#valorCaptcha").html(valorCaptcha);
-        $("#captchaOrg").val(valorCaptcha);
-    }
-    //funciona con error del captcha
+    //     let valorCaptcha = text;
+    //     $("#valorCaptcha").html(valorCaptcha);
+    //     $("#captchaOrg").val(valorCaptcha);
+    // }
+    // //funciona con error del captcha
     function errorCaptcha() {
         var msg = 'El código de verificación captcha es invalido.<br>Por favor verifique el valor ingresado';
         var msg = "<center><p><i class='fas fa-times-circle fa-3x'></i></p></center>" + msg;
@@ -1296,16 +1310,16 @@ function run(hideTab, showTab){
             if (y[i].value == ""||$(y[i]).val().length < y[i].minLength){
                 var nombre= y[i].name;
                 $(y[i]).css("background", "#ffdddd");
-                console.log(nombre)
+   
                 nombre= nombre.replace('[]','')
-                console.log(nombre)
+  
                 $('.invalid-feedback.'+nombre).show();
                 return false;
             }else{
                 var nombre= y[i].name;
-                console.log(nombre)
+     
                 nombre= nombre.replace('[]','')
-                console.log(nombre)
+        
                 $(y[i]).css("background", "transparent");
                 $('.invalid-feedback.'+nombre).hide();
             }          

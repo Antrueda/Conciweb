@@ -39,6 +39,7 @@ class SisParametrosSeeder extends Seeder
          Parametro::create(['id' => 18, 'sis_esta_id' => 1, 'user_crea_id' => 1, 'user_edita_id' => 1, 'nombre' => 'MENSAJE']);
          Parametro::create(['id' => 19, 'sis_esta_id' => 1, 'user_crea_id' => 1, 'user_edita_id' => 1, 'nombre' => 'TRATAMIENTO DE DATOS']);
          Parametro::create(['id' => 20, 'sis_esta_id' => 1, 'user_crea_id' => 1, 'user_edita_id' => 1, 'nombre' => 'BIENVENIDA']);
+         Parametro::create(['id' => 21, 'sis_esta_id' => 1, 'user_crea_id' => 1, 'user_edita_id' => 1, 'nombre' => 'SALARIO']);
 
 
 

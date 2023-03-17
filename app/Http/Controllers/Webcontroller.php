@@ -19,8 +19,11 @@ use App\binconsecutivo;
 use App\Http\Requests\AdjuntarRequest;
 use App\Mail\Conci;
 use App\Models\ASubasunto;
+use App\Models\Asunto;
+use App\Models\Salario;
 use App\Models\Sistema\SisLocalidad;
 use App\Models\Soportecon;
+use App\Models\SubAsunto;
 use App\Models\Subdescripcion;
 use App\Models\Tema;
 use App\Models\Texto;
@@ -42,10 +45,12 @@ class Webcontroller extends Controller
 
         public function home()
         {
+            
+
             $mensaje = Texto::where('sis_esta_id', 1)->first();
             //ddd( Auth::user());
-    
-    
+            $salario = number_format(Salario::first()->maximo);
+            
             $localidadList = SisLocalidad::combo();
             $listaSedes = SisLocalidad::combo();
             $listaAsuntos = Tema::combo(1, true, false);
@@ -59,6 +64,7 @@ class Webcontroller extends Controller
                 "listaTipoDoc" => $listaTipoDoc,
                 "estadoTipoAudi" => $estadoTipoAudi,
                 "mensaje" => $mensaje,
+                "salario" => $salario,
             );
     
     
@@ -119,7 +125,7 @@ class Webcontroller extends Controller
             "detalleAbc" => $detalleAbc
         );
         //RETURN DE LA VISTA
-        return ((string)\View::make("frmWeb.card.abcAsunto", array("data" => $data)));
+        return ((string)\View::make("frmWeb.card.abchome", array("data" => $data)));
     }
 
 
@@ -142,7 +148,7 @@ class Webcontroller extends Controller
     public function registroConciliacionWeb(Request $request)
     {
 
-
+        echo($request->input("asunto"));
         //Datos requeridos por sistema
         $carbonDate = Carbon::now();
         $vigencia = Carbon::today()->isoFormat('YYYY');
@@ -188,9 +194,14 @@ class Webcontroller extends Controller
         $detalle = $request->input("detalle");
         $cuantia = $request->input("cuantia");
         //Documento
-
+        $asuntoold =Asunto::select(['nombre'])
+        ->where('id', $request->input("asunto"))
+        ->first();
+        $subAsuntoold = SubAsunto::select(['nombre'])
+        ->where('id', $request->input("subAsunto"))
+        ->first();
         //0.0) Preguntar si se registro un caso 
-
+        //echo($subAsuntoold);
         try {
             $contadorSolicitudes = tramiteusuario::where('ID_USUARIO_REG', DB::raw("'" . $numeroDocumento . "'"))
                 ->where('ESTADO_TRAMITE', DB::raw("'Remitido'"))
@@ -199,8 +210,8 @@ class Webcontroller extends Controller
                 ->where('TEXTO03', DB::raw("'" . $primerApellido . "'"))
                 ->where('TEXTO04', DB::raw("'" . $segundoApellido . "'"))
                 ->where('TEXTO05', DB::raw("'" . $primerTelefono . "'"))
-                ->where('NUMERO05', DB::raw("'" . $asunto . "'"))
-                ->where('NUMERO06', DB::raw("'" . $subAsunto . "'"))
+                ->where('NUMERO05', DB::raw("'" . $asuntoold->nombre . "'"))
+                ->where('NUMERO06', DB::raw("'" . $subAsuntoold->nombre . "'"))
                 ->where('TEXTO21', DB::raw("'" . $detalle . "'"))
                 ->count();
         } catch (\Exception $e) {
@@ -554,21 +565,21 @@ class Webcontroller extends Controller
             DB::rollback();
             return '|0| 4.2 Problema al indentificar el estodo del solicitante [USR_ROL] <br>' . $e->getMessage();
         }
-        if ($contadorUsuarioSol == 1) {
-            //4.2.1) Actualizar dependencai
-            try {
-                DB::table('USUARIO_ROL')
-                    ->where('CEDULA', DB::raw("'" . $numeroDocumento . "'"))
-                    ->update([
-                        'DEPEND_CODIGO' => $depeUsuario,
-                        'ESTADO' =>  DB::raw("'" . $estadoUsr . "'"),
-                        'TIPO' =>   DB::raw("'" . $tipoUsr . "'"),
-                    ]);
-            } catch (\Exception $e) {
-                DB::rollback();
-                return '|0| 4.2.1 Problema al actualizar el estodo del solicitante [USR_ROL] <br>' . $e->getMessage();
-            }
-        }
+        // if ($contadorUsuarioSol == 1) {
+        //     //4.2.1) Actualizar dependencai
+        //     try {
+        //         DB::table('USUARIO_ROL')
+        //             ->where('CEDULA', DB::raw("'" . $numeroDocumento . "'"))
+        //             ->update([
+        //                 'DEPEND_CODIGO' => $depeUsuario,
+        //                 'ESTADO' =>  DB::raw("'" . $estadoUsr . "'"),
+        //                 'TIPO' =>   DB::raw("'" . $tipoUsr . "'"),
+        //             ]);
+        //     } catch (\Exception $e) {
+        //         DB::rollback();
+        //         return '|0| 4.2.1 Problema al actualizar el estado del solicitante [USR_ROL] <br>' . $e->getMessage();
+        //     }
+        // }
         // else {
         //     //4.2.2) Insertar datos
         //     try {

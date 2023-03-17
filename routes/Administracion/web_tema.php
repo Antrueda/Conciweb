@@ -1,5 +1,5 @@
 <?php
-Route::group(['prefix' => 'tema'], function () {
+Route::group(['prefix' => 'Tema'], function () {
     Route::get('', [
 	    'uses' => 'App\Http\Controllers\Administracion\TemaController@index',
 	    'middleware' => ['permission:tema-leer']

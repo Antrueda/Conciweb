@@ -49,6 +49,8 @@ class RolesYPermisosSeeder extends Seeder
         $this->getPermisos(['permisox' => 'administrar', 'permisos' => ['leer', 'crear', 'editar', 'borrar','modulo'], 'compleme' => 'Permisos']);
 
         $this->getPermisos(['permisox' => 'parametro', 'permisos' => ['leer', 'crear', 'editar', 'borrar'], 'compleme' => 'PARAMETROS']);
+        
+        $this->getPermisos(['permisox' => 'salario', 'permisos' => ['leer', 'crear', 'editar', 'borrar'], 'compleme' => 'SALARIO']);
 
         $this->getPermisos(['permisox' => 'tema', 'permisos' => ['leer', 'crear', 'editar', 'borrar'], 'compleme' => 'TEMA']);
         // crear permisos para rol
