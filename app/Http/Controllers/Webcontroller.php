@@ -49,7 +49,7 @@ class Webcontroller extends Controller
 
             $mensaje = Texto::where('sis_esta_id', 1)->first();
             //ddd( Auth::user());
-            $salario = number_format(Salario::first()->maximo);
+            $salario = Salario::first();
             
             $localidadList = SisLocalidad::combo();
             $listaSedes = SisLocalidad::combo();

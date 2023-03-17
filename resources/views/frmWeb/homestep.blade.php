@@ -312,8 +312,17 @@
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
                     <input type="text" class="form-control form-control-sm validate" name="nomConvocante[]" id="nomConvocante" autocomplete="off" placeholder="0" minlength="3" required>
-                        <label for="nomConvocante">Nombre completo convocado</label>
+                        <label for="nomConvocante">Nombres convocado</label>
                         <div class="invalid-feedback nomConvocante">
+                            Campo obligatorio.
+                          </div>
+                </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-floating mb-3">
+                    <input type="text" class="form-control form-control-sm validate" name="apeConvocante[]" id="apeConvocante" autocomplete="off" placeholder="0" minlength="3" required>
+                        <label for="apeConvocante">Apellidos convocado</label>
+                        <div class="invalid-feedback apeConvocante">
                             Campo obligatorio.
                           </div>
                 </div>
@@ -604,7 +613,7 @@
                     <div class="row">
                         <div class="col-md-12 text-justify">
                             <div class="alert alert-success text-justify" role="alert">
-                                <small class="text-justify">La pretensión no podrá ser superior a <span style="color: red">100 SMMLV (${{($data['salario']);}})</span>, salvo que se trate de solicitudes de conciliación promovida por persona natural deudor hipotecario y por persona natural que reclame ser damnificado o victima el pago de indemnización de seguros de responsabilidad civil.</small>
+                                <small class="text-justify">La pretensión no podrá ser superior a <span style="color: red">100 SMMLV (${{(number_format($data['salario']->maximo));}})</span>, salvo que se trate de solicitudes de conciliación promovida por persona natural deudor hipotecario y por persona natural que reclame ser damnificado o victima el pago de indemnización de seguros de responsabilidad civil.</small>
                             </div>
                         </div>
                     </div>
@@ -614,9 +623,9 @@
                             <div class="form-floating mb-3">
                                 <input class="form-control form-control-sm validate" type="number" name="cuantia" id="cuantia" autocomplete="off" placeholder="0">
                                 <label for="cuantia"> 16. Valor de la Cuantía *</label>
-                                <div id="maximo">
-                                <input class="form-control form-control-sm validate" type="number" name="maximo" id="maximo" autocomplete="off" placeholder="0">
-                                <label for="cuantia"> MAXIMO *</label>
+                                <div id="test">
+                                    {{ Form::number('salario', $data['salario']->numero, ['class' => 'form-control-plaintext' ,'id'=>'salario', 'style'="display: none"]) }}
+                                    {{ Form::number('maximo', $data['salario']->maximo, ['class' => 'form-control-plaintext','id'=>'maximo','style'="display: none"]) }}
                                 </div>
                             </div>
                         </div>
@@ -840,8 +849,15 @@
     });
     $('#cuantia').on('keyup', function() {
         $(this).val();
-        $('#maximo').val( $(this).val()*100);
-        cuantiaVerificar(this)
+        console.log($(this).val());
+        var valor= $('#salario').val()*$(this).val();
+        var maximo= $('#maximo').val();
+        console.log(valor > maximo);
+        if (valor > maximo) {
+            var msg = "La pretensión no podrá ser superior a 100 SMMLV ($"+maximo+"), salvo que se trate de solicitudes de conciliación promovida por persona natural deudor hipotecario y por persona natural que reclame ser damnificado o victima el pago de indemnización de seguros de responsabilidad civil";
+            var msg = "<center><p><i class='fas fa-check-circle fa-3x'></i></p></center>" + msg;
+            llamarNotyTime('error', msg, 'center', 3000);
+        }
 
     });
 
@@ -878,6 +894,15 @@
      html+='<input type="text" class="form-control form-control-sm validate" name="nomConvocante[]" id="nomConvocante" autocomplete="off" placeholder="0">'
      html+='<label for="nomConvocante">Nombre completo convocado</label>'
      html+='<div class="invalid-feedback nomConvocante">'
+     html+='Campo obligatorio.'
+     html+='</div>'
+     html+='</div>'
+     html+='</div>'
+     html+='<div class="col-md-3">'
+     html+='<div class="form-floating mb-3">'
+     html+='<input type="text" class="form-control form-control-sm validate" name="apeConvocante[]" id="apeConvocante" autocomplete="off" placeholder="0">'
+     html+='<label for="apeConvocante">Nombre completo convocado</label>'
+     html+='<div class="invalid-feedback apeConvocante">'
      html+='Campo obligatorio.'
      html+='</div>'
      html+='</div>'

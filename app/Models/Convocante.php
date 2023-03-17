@@ -10,4 +10,14 @@ class Convocante extends Model
     use HasFactory;
 
     protected $table = 'conci_convocantes';
+
+
+    protected $fillable = 
+    ['nomConvocante', 'apeConvocante', 'emailConvocante', 'NUM_SOLICITUD'];
+
+
+
+    public function tramite(){
+        return $this->belongsTo(ModelsTramiteusuario::class, 'NUM_SOLICITUD');
+    }
 }

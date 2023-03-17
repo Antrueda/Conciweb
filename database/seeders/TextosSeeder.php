@@ -40,10 +40,10 @@ class TextosSeeder extends Seeder
          ,'tipotexto_id'=>18,'user_crea_id'=>1,'user_edita_id'=>1, 'sis_esta_id'=>1]);
 
 
-         Texto::create(['texto'=>'
-         La pretensión no podrá ser superior a 100 SMMLV ($100.000.000), salvo que se trate de solicitudes de conciliación promovida por persona natural deudor hipotecario y por persona natural que reclame ser damnificado o victima el pago de indemnización de seguros de responsabilidad civil.'
-         ,'tipotexto_id'=>21,'user_crea_id'=>1,'user_edita_id'=>1, 'sis_esta_id'=>1]);
-    }
+    //      Texto::create(['texto'=>'
+    //      La pretensión no podrá ser superior a 100 SMMLV ($ {{($data["salario"])}} ), salvo que se trate de solicitudes de conciliación promovida por persona natural deudor hipotecario y por persona natural que reclame ser damnificado o victima el pago de indemnización de seguros de responsabilidad civil.'
+    //      ,'tipotexto_id'=>21,'user_crea_id'=>1,'user_edita_id'=>1, 'sis_esta_id'=>1]);
+    // }
 
     //<small class="text-justify">La pretensión no podrá ser superior a <span style="color: red">100 SMMLV ($100.000.000)</span>, salvo que se trate de solicitudes de conciliación promovida por persona natural deudor hipotecario y por persona natural que reclame ser damnificado o victima el pago de indemnización de seguros de responsabilidad civil.</small>
 
