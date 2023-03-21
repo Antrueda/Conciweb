@@ -482,8 +482,8 @@ class Webcontroller extends Controller
         // 3.1 Se asegura que la variable tenga un valor en $emailapoderado
         $nombrecompleto = $primerNombre . ' ' . $segundoNombre . ' ' . $primerApellido  . ' ' . $segundoApellido;
         $dato = ModelsTramiteusuario::where('num_solicitud', $numSolicitud)->first();
-        // ddd($dato->texto22);
-        $asuntos = Subdescripcion::where('subasu_id', $dato->numero06)
+
+        $asuntos = Subdescripcion::where('subasu_id', $dato->subasunto)
             ->where('sis_esta_id', 1)
             ->orderBy('id')
             ->get();
@@ -987,7 +987,7 @@ class Webcontroller extends Controller
             $subject = 'Solicitud conciliaciones Web  - Personería de Bogotá D.C.';
             $data = array(
                 'email' => $dato->email,
-                //'asuntos' => $asunto->nombre,
+                'asuntos' => $asunto->nombre,
                 'nombrecompleto' => $nombrecompleto,
                 'subject' => $subject,
                 'numSolicitud' => $id,
