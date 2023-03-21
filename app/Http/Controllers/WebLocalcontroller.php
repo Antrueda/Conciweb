@@ -303,53 +303,53 @@ class Webcontroller extends Controller
             return '|0| Problema al Insertar la informacion al sistema TRAMITEUSUARIO ' . $e->getMessage();
         }
         //1.b) Registrar informacion en tramiteusuario Local
-        try {
+        // try {
 
-            tramiteusuario::insert(
-                [
-                    'NUM_SOLICITUD' => $numSolicitud,
-                    'ID_TRAMITE' => $idTramite,
-                    'ID_USUARIO_REG' => $numeroDocumento,
-                    'FEC_SOLICITUD_TRAMITE' => DB::raw("TO_DATE('" . $fechaRegistro . "','DD/MM/YYYY HH24:MI:SS')"),
-                    'ESTADO_TRAMITE' => DB::raw("'Remitido'"),
-                    'VIGENCIA' => $vigencia,
-                    'OIDO_CODIGO' => 0,
-                    'TEXTO01' => DB::raw("'$primerNombre'"),
-                    'TEXTO02' => DB::raw("'$segundoNombre'"),
-                    'TEXTO03' => DB::raw("'$primerApellido'"),
-                    'TEXTO04' => DB::raw("'$segundoApellido'"),
-                    'TEXTO05' => DB::raw("'$primerTelefono'"),
-                    'TEXTO06' => DB::raw("'$segundoTelefono'"),
-                    'TEXTO07' => DB::raw("'$email'"),
-                    'TEXTO08' => DB::raw("'$direccion'"),
-                    'TEXTO09' => DB::raw("$localidad"),
-                    'NUMERO01' => $tipoSolicitud,
-                    'TEXTO10' => DB::raw("'$tipoDocApoderado'"),
-                    'TEXTO11' => DB::raw("'$numDocApoderado'"),
-                    'TEXTO12' => DB::raw("'$primerNombreApoderado'"),
-                    'TEXTO13' => DB::raw("'$segundoNombreApoderado'"),
-                    'TEXTO14' => DB::raw("'$primerApellidoApoderado'"),
-                    'TEXTO15' => DB::raw("'$segundoApellidoApoderado'"),
-                    'TEXTO16' => DB::raw("'$tarjetaProfesional'"),
-                    'TEXTO17' => DB::raw("'$primerTelefonoApoderado'"),
-                    'TEXTO18' => DB::raw("'$segundoTelefonoApoderado'"),
-                    'TEXTO19' => DB::raw("'$emailApoderado'"),
-                    'NUMERO02' => $tipoAudiencia,
-                    'NUMERO03' => $sedePrincipal,
-                    'NUMERO04' => $sedeSecundaria,
-                    'NUMERO05' => $asunto,
-                    'NUMERO06' => $subAsunto,
-                    'NUMERO07' => $tipoDocumento,
-                    'TEXTO21' => DB::raw("'$detalle'"),
-                    'NUMERO08' => $cuantia,
-                  //  'TEXTO22' => DB::raw("'$rutaFinalFile'"),
-                  //  'TEXTO23' => DB::raw("'$nombreOriginalFile'")
-                ]
-            );
-        } catch (\Exception $e) {
-            DB::rollback();
-            return '|0| Problema al Insertar la informacion al sistema TRAMITEUSUARIO ' . $e->getMessage();
-        }
+        //     tramiteusuario::insert(
+        //         [
+        //             'NUM_SOLICITUD' => $numSolicitud,
+        //             'ID_TRAMITE' => $idTramite,
+        //             'ID_USUARIO_REG' => $numeroDocumento,
+        //             'FEC_SOLICITUD_TRAMITE' => DB::raw("TO_DATE('" . $fechaRegistro . "','DD/MM/YYYY HH24:MI:SS')"),
+        //             'ESTADO_TRAMITE' => DB::raw("'Remitido'"),
+        //             'VIGENCIA' => $vigencia,
+        //             'OIDO_CODIGO' => 0,
+        //             'TEXTO01' => DB::raw("'$primerNombre'"),
+        //             'TEXTO02' => DB::raw("'$segundoNombre'"),
+        //             'TEXTO03' => DB::raw("'$primerApellido'"),
+        //             'TEXTO04' => DB::raw("'$segundoApellido'"),
+        //             'TEXTO05' => DB::raw("'$primerTelefono'"),
+        //             'TEXTO06' => DB::raw("'$segundoTelefono'"),
+        //             'TEXTO07' => DB::raw("'$email'"),
+        //             'TEXTO08' => DB::raw("'$direccion'"),
+        //             'TEXTO09' => DB::raw("$localidad"),
+        //             'NUMERO01' => $tipoSolicitud,
+        //             'TEXTO10' => DB::raw("'$tipoDocApoderado'"),
+        //             'TEXTO11' => DB::raw("'$numDocApoderado'"),
+        //             'TEXTO12' => DB::raw("'$primerNombreApoderado'"),
+        //             'TEXTO13' => DB::raw("'$segundoNombreApoderado'"),
+        //             'TEXTO14' => DB::raw("'$primerApellidoApoderado'"),
+        //             'TEXTO15' => DB::raw("'$segundoApellidoApoderado'"),
+        //             'TEXTO16' => DB::raw("'$tarjetaProfesional'"),
+        //             'TEXTO17' => DB::raw("'$primerTelefonoApoderado'"),
+        //             'TEXTO18' => DB::raw("'$segundoTelefonoApoderado'"),
+        //             'TEXTO19' => DB::raw("'$emailApoderado'"),
+        //             'NUMERO02' => $tipoAudiencia,
+        //             'NUMERO03' => $sedePrincipal,
+        //             'NUMERO04' => $sedeSecundaria,
+        //             'NUMERO05' => $asunto,
+        //             'NUMERO06' => $subAsunto,
+        //             'NUMERO07' => $tipoDocumento,
+        //             'TEXTO21' => DB::raw("'$detalle'"),
+        //             'NUMERO08' => $cuantia,
+        //           //  'TEXTO22' => DB::raw("'$rutaFinalFile'"),
+        //           //  'TEXTO23' => DB::raw("'$nombreOriginalFile'")
+        //         ]
+        //     );
+        // } catch (\Exception $e) {
+        //     DB::rollback();
+        //     return '|0| Problema al Insertar la informacion al sistema TRAMITEUSUARIO ' . $e->getMessage();
+        // }
         // try {
         //     $files=[];
         //     $descripcion=[];
@@ -421,31 +421,31 @@ class Webcontroller extends Controller
         }
 
         //2.2.b) INSERT DEL PASO 0
-        try {
-            tramiterespuesta::insert([
-                [
-                    'NUM_SOLICITUD' => $numSolicitud, 'ID_TRAMITE' => $idTramite, 'NUM_PASO' => 0,
-                    'FEC_RESPUESTA' => DB::raw("sysdate"),
-                    'TEX_RESPUESTA' => DB::raw("'" . $msg . "'"), 'ID_USU_ADM_CONTESTA' => $consecResponsable,
-                    'ID_USU_ADM' => $consecResponsable, 'ESTADO_TRAMITE' => DB::raw("'Remitido'"),
-                    'CONSECUTIVO' => $consecutivo, 'VIGENCIA' => $vigencia,
-                    'ID_DEPENDENCIA_REG' => $depAsignada, 'ID_DEPENDENCIA_ASIG' => $depAsignada
-                ]
-            ]);
-        } catch (\Exception $e) {
-            DB::rollback();
-            return '|0| 2.2) Problema al Insertar la informacion al sistema TRAMITERESPUESTA ' . $e->getMessage();
-        }
+        // try {
+        //     tramiterespuesta::insert([
+        //         [
+        //             'NUM_SOLICITUD' => $numSolicitud, 'ID_TRAMITE' => $idTramite, 'NUM_PASO' => 0,
+        //             'FEC_RESPUESTA' => DB::raw("sysdate"),
+        //             'TEX_RESPUESTA' => DB::raw("'" . $msg . "'"), 'ID_USU_ADM_CONTESTA' => $consecResponsable,
+        //             'ID_USU_ADM' => $consecResponsable, 'ESTADO_TRAMITE' => DB::raw("'Remitido'"),
+        //             'CONSECUTIVO' => $consecutivo, 'VIGENCIA' => $vigencia,
+        //             'ID_DEPENDENCIA_REG' => $depAsignada, 'ID_DEPENDENCIA_ASIG' => $depAsignada
+        //         ]
+        //     ]);
+        // } catch (\Exception $e) {
+        //     DB::rollback();
+        //     return '|0| 2.2) Problema al Insertar la informacion al sistema TRAMITERESPUESTA ' . $e->getMessage();
+        // }
 
         //2.1.1) actualziar datos del funcionario asignado
-        try {
-            tabrepartoweb::where('CONSEC', $consecResponsable)
-                ->update(['contador' => $contador]);
-        }
-        catch (\Exception $e) {
-            DB::rollback();
-            return '|0| 2.1.1) Problema al actualizar los datos del funcionario responsable TAB_REPARTO_WEB' . $e->getMessage();
-        }
+        // try {
+        //     tabrepartoweb::where('CONSEC', $consecResponsable)
+        //         ->update(['contador' => $contador]);
+        // }
+        // catch (\Exception $e) {
+        //     DB::rollback();
+        //     return '|0| 2.1.1) Problema al actualizar los datos del funcionario responsable TAB_REPARTO_WEB' . $e->getMessage();
+        // }
 
         $i = 0;
         foreach ($nombreConvocados as $quan) {
@@ -459,14 +459,14 @@ class Webcontroller extends Controller
                     ]);
                 }
 
-                try {
-                    DB::table('TAB_INVOLUCRADO_WEB')->insert([
-                        'NUM_SOLICITUD' => $numSolicitud,
-                        'NOMBRE' => DB::raw("'" . $quan . "'"),
-                        'EMAIL' => DB::raw("'" . $emailConvocados[$i] . "'"),
-                        'ESTADO' => 0,
-                    ]);
-                }
+                // try {
+                //     DB::table('TAB_INVOLUCRADO_WEB')->insert([
+                //         'NUM_SOLICITUD' => $numSolicitud,
+                //         'NOMBRE' => DB::raw("'" . $quan . "'"),
+                //         'EMAIL' => DB::raw("'" . $emailConvocados[$i] . "'"),
+                //         'ESTADO' => 0,
+                //     ]);
+                // }
                 catch (\Exception $e) {
                     DB::rollback();
                     return '|0| 4.2.7) Problema al insertar los datos de los convocados. [TAB_INVOLUCRADO_WEB]' . $e->getMessage();
@@ -563,43 +563,43 @@ class Webcontroller extends Controller
             DB::rollback();
             return '|0| 4.2 Problema al indentificar el estodo del solicitante [USR_ROL] <br>' . $e->getMessage();
         }
-        if ($contadorUsuarioSol == 1) {
-            //4.2.1) Actualizar dependencai
-            try {
-                DB::table('USUARIO_ROL')
-                    ->where('CEDULA', DB::raw("'" . $numeroDocumento . "'"))
-                    ->update([
-                        'DEPEND_CODIGO' => $depeUsuario,
-                        'ESTADO' =>  DB::raw("'" . $estadoUsr . "'"),
-                        'TIPO' =>   DB::raw("'" . $tipoUsr . "'"),
-                    ]);
-            } catch (\Exception $e) {
-                DB::rollback();
-                return '|0| 4.2.1 Problema al actualizar el estado del solicitante [USR_ROL] <br>' . $e->getMessage();
-            }
-        }
-        else {
-            //4.2.2) Insertar datos
-            try {
-                DB::table('USUARIO_ROL')->insert([
-                    'CONSEC' => $consec,
-                    'NOMBRE' => DB::raw("'" . $nombresUsr . "'"),
-                    'APELLIDO' => DB::raw("'" . $apellidosUsr . "'"),
-                    'CEDULA' => DB::raw("'" . $numeroDocumento . "'"),
-                    'EMAIL' => DB::raw("'" . $email . "'"),
-                    'FECHA_CREACION' => DB::raw("sysdate"),
-                    'DIRECCION' => $direccion,
-                    'TELEFONO' => $primerTelefono,
-                    'ESTADO' => DB::raw("'" . $estadoUsr . "'"),
-                    'TIPO' => DB::raw("'" . $tipoUsr . "'"),
-                    'DEPEND_CODIGO' => DB::raw("'" . $depeUsuario . "'")
-                ]);
-            }
-            catch (\Exception $e) {
-                DB::rollback();
-                return '|0| 4.2.2) Problema al insertar los datos referentes al al usuario solicitante. [USR_ROL]' . $e->getMessage();
-            }
-        }
+        // if ($contadorUsuarioSol == 1) {
+        //     //4.2.1) Actualizar dependencai
+        //     try {
+        //         DB::table('USUARIO_ROL')
+        //             ->where('CEDULA', DB::raw("'" . $numeroDocumento . "'"))
+        //             ->update([
+        //                 'DEPEND_CODIGO' => $depeUsuario,
+        //                 'ESTADO' =>  DB::raw("'" . $estadoUsr . "'"),
+        //                 'TIPO' =>   DB::raw("'" . $tipoUsr . "'"),
+        //             ]);
+        //     } catch (\Exception $e) {
+        //         DB::rollback();
+        //         return '|0| 4.2.1 Problema al actualizar el estado del solicitante [USR_ROL] <br>' . $e->getMessage();
+        //     }
+        // }
+        // else {
+        //     //4.2.2) Insertar datos
+        //     try {
+        //         DB::table('USUARIO_ROL')->insert([
+        //             'CONSEC' => $consec,
+        //             'NOMBRE' => DB::raw("'" . $nombresUsr . "'"),
+        //             'APELLIDO' => DB::raw("'" . $apellidosUsr . "'"),
+        //             'CEDULA' => DB::raw("'" . $numeroDocumento . "'"),
+        //             'EMAIL' => DB::raw("'" . $email . "'"),
+        //             'FECHA_CREACION' => DB::raw("sysdate"),
+        //             'DIRECCION' => $direccion,
+        //             'TELEFONO' => $primerTelefono,
+        //             'ESTADO' => DB::raw("'" . $estadoUsr . "'"),
+        //             'TIPO' => DB::raw("'" . $tipoUsr . "'"),
+        //             'DEPEND_CODIGO' => DB::raw("'" . $depeUsuario . "'")
+        //         ]);
+        //     }
+        //     catch (\Exception $e) {
+        //         DB::rollback();
+        //         return '|0| 4.2.2) Problema al insertar los datos referentes al al usuario solicitante. [USR_ROL]' . $e->getMessage();
+        //     }
+        // }
 
         DB::commit();
         return '|1|El registro finalizo de forma correcta <br> su numero de solicitud es: <strong>' . $numSolicitud . '</strong> <br> Por favor verifique su correo electronico para mas información.';

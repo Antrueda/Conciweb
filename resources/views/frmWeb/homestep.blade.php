@@ -686,7 +686,7 @@
                         </div>
                         
                         <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary btn-block btn-sm "><span class="fa fa-save pr-4"> </span> Si </button>
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"> </i> Si </button>
                         <button type="button" class="btn btn-info" data-bs-dismiss="modal"><i class="fas fa-times"></i> No</button>
                 
                         </div>
