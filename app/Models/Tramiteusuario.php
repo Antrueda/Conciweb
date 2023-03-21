@@ -47,6 +47,7 @@ class Tramiteusuario extends Model
       'CUANTIA',
       'CODE',
       'ESTADO_TRAMITE',
+      'estadodoc',
         'sis_esta_id'
       ];
 

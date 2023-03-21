@@ -475,7 +475,7 @@ class Webcontroller extends Controller
             echo $contadorRegistro;
         } catch (\Exception $e) {
             DB::rollback();
-            return '|0| 3.1.0 Problema al indentificarrr la cantidad de solicitudes realizada [TRAM_USU] <br> ' . $e->getMessage();
+            return '|0| 3.1.0 Problema al indentificar la cantidad de solicitudes realizada [TRAM_USU] <br> ' . $e->getMessage();
         }
 
 
@@ -821,7 +821,7 @@ class Webcontroller extends Controller
     public function autosearch(Request $request)
     {
         if ($request->ajax()) {
-            $data = ModelsTramiteusuario::where('num_solicitud', $request->num_solicitud)->where('CODE', $request->codigo)->get();
+            $data = ModelsTramiteusuario::where('num_solicitud', $request->num_solicitud)->where('CODE', $request->codigo)->where('estadodoc',)->get();
 
 
             $output = '';
@@ -837,7 +837,7 @@ class Webcontroller extends Controller
                 }
                 $output .= '</ul>';
             } else {
-                $output .= '<li class="list-group-item">' . 'No Data Found' . '</li>';
+                $output .= '<li class="list-group-item">' . 'No se encuentra informacion o el proceso de adjunto de documentos fue completado' . '</li>';
             }
             return $output;
         }
@@ -951,14 +951,84 @@ class Webcontroller extends Controller
                 $files[]['name'] = $descripcion[$key];
                 $nombreOriginalFile = $file->getClientOriginalName();
                 $ddd = Soportecon::create(['NUM_SOLICITUD' => $id, 'descripcion' => $descripcion[$key], 'rutaFinalFile' => $rutaFinalFile, 'nombreOriginalFile' => $nombreOriginalFile]);
-                //ddd($ddd);
+  
             }
+
             
-            return redirect('https://www.personeriabogota.gov.co/')->with('info', 'Registro actualizado con éxito');
+           
         } catch (\Exception $e) {
             DB::rollback();
             return '|0| 0.0) Problema al anexar el soporte en el sistema' . $e->getMessage();
         }
+        $solicitud = ModelsTramiteusuario::where('num_solicitud', $id)->update([
+            'estadodoc' => 'adjunto'
+         ]);
+     
+//        ddd($solicitud);
+        $dato = ModelsTramiteusuario::where('num_solicitud', $id)->first();
+        $fecha = Soportecon::where('NUM_SOLICITUD', $id)->first()->CREATED_AT;
+        $nombrecompleto = $dato->primernombre . ' ' . $dato->segundonombre . ' ' . $dato->primerapellido  . ' ' . $dato->segundoapellido;
+        //ddd($dato);
+        $detalleAbc = Subdescripcion::where('subasu_id', $dato->subasunto)
+            ->where('sis_esta_id', 1)
+            ->orderBy('id')
+            ->get();
+
+        $asunto = Asunto::where('id', $dato->asunto)
+            ->where('sis_esta_id', 1)
+            ->orderBy('id')
+            ->get();
+
+        
+        $conteo= count($detalleAbc)-1;
+        try {
+            $subject = 'Solicitud conciliaciones Web  - Personería de Bogotá D.C.';
+            $data = array(
+                'email' => $dato->email,
+                //'asuntos' => $asunto->nombre,
+                'nombrecompleto' => $nombrecompleto,
+                'subject' => $subject,
+                'numSolicitud' => $id,
+                'fechaRegistro' => $fecha,
+                //'llaveingreso' => $code,
+            );
+            // Conci::Mail::send('Html.view', $data, function ($message) {
+            //     $message->from('john@johndoe.com', 'John Doe');
+            //     $message->sender('john@johndoe.com', 'John Doe');
+            //     $message->to('john@johndoe.com', 'John Doe');
+            //     $message->cc('john@johndoe.com', 'John Doe');
+            //     $message->bcc('john@johndoe.com', 'John Doe');
+            //     $message->replyTo('john@johndoe.com', 'John Doe');
+            //     $message->subject('Subject');
+            //     $message->priority(3);
+            //     $message->attach('pathToFile');
+            // });
+
+
+            Mail::send('frmWeb.email.adjuntoarchivo', $data, function ($message) use ($data) {
+                $message->from('master@personeriabogota.gov.co', 'Solicitud conciliaciones Web - Personería de Bogotá D.C.');
+                $message->to($data['email']);
+                if (isset($data['emailApoderado']) && !empty($data['emailApoderado'])) {
+                    $message->cc($data['emailApoderado']);
+                }
+                $message->bcc('jaruedag@personeriabogota.gov.co');
+                $message->bcc('jamumi14@gmail.com');
+                //$message->attach('FORMATO_SOLICITUD_DE_CONCILIACION_V4');
+                // $message->bcc('ljmeza@personeriabogota.gov.co');
+                // $message->bcc('nylopez@personeriabogota.gov.co');
+                // $message->bcc('asarmiento@personeriabogota.gov.co');
+                $message->subject($data['subject']);
+            });
+        } catch (\Exception $e) {
+            return '|0| 3.0) Problema al enviar el correo de confirmacion: </br>' . $e->getMessage();
+        }
+        return redirect('https://www.personeriabogota.gov.co/')->with('info', 'Registro actualizado con éxito');
+        DB::commit();
+     
+
+
+
+        
     }
 
 

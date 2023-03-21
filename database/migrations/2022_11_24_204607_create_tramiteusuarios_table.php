@@ -53,6 +53,7 @@ return new class extends Migration
             $table->string('detalle',1000)->nullable();
             $table->string('cuantia')->nullable();
             $table->string('code')->nullable();
+            $table->string('estadodoc')->nullable();
             $table->bigInteger('sis_esta_id')->unsigned()->default(1)->nullable();
             $table->foreign('sis_esta_id')->references('id')->on('sis_estas');
             $table->timestamps();

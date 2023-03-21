@@ -624,8 +624,8 @@
                                 <input class="form-control form-control-sm validate" type="number" name="cuantia" id="cuantia" autocomplete="off" placeholder="0">
                                 <label for="cuantia"> 16. Valor de la Cuantía *</label>
                                 <div id="test">
-                                    {{ Form::number('salario', $data['salario']->numero, ['class' => 'form-control-plaintext' ,'id'=>'salario', 'style'="display: none"]) }}
-                                    {{ Form::number('maximo', $data['salario']->maximo, ['class' => 'form-control-plaintext','id'=>'maximo','style'="display: none"]) }}
+                                    {{ Form::number('salario', $data['salario']->numero, ['class' => 'form-control-plaintext' ,'id'=>'salario', 'style'=>"display: none"]) }}
+                                    {{ Form::number('maximo', $data['salario']->maximo, ['class' => 'form-control-plaintext','id'=>'maximo','style'=>"display: none"]) }}
                                 </div>
                             </div>
                         </div>
@@ -667,13 +667,41 @@
                 <hr>
                 {!! htmlFormSnippet() !!}
                 <br>
-                <div class="row" id="btnRegistro">
+                <div class="row">
+                    <div class="col-md-4" style="padding-left: 10%;margin-top:10px;margin-left:30%">
+                      <button type="button" class="btn btn-perso btn-block btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal"> <span class="fa fa-save pr-4"> </span> Registrar Solicitud</button>
+                    </div>
+                  </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                        Antes de terminar el proceso ¿Esta seguro de la informacion ingresada?
+                        </div>
+                        
+                        <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary btn-block btn-sm "><span class="fa fa-save pr-4"> </span> Registrar Solicitud </button>
+                        <button type="button" class="btn btn-info" data-bs-dismiss="modal"><i class="fas fa-times"></i> No</button>
+                
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
+
+                {{-- <div class="row" id="btnRegistro">
                     <div class="col-md-4"></div>
                     <div class="col-md-4">
                         <button type="submit" class="btn btn-primary btn-block btn-sm "><span class="fa fa-save pr-4"> </span> Registrar Solicitud </button>
                     </div>
                     <div class="col-md-4"></div>
-                </div>
+                </div> --}}
                 </center>
        
                 <div class="col-md-2"></div>
