@@ -506,18 +506,6 @@ class Webcontroller extends Controller
                     'llaveingreso' => $code,
                     'emailApoderado' => $data['emailApoderado']
                 );
-                // Conci::Mail::send('Html.view', $data, function ($message) {
-                //     $message->from('john@johndoe.com', 'John Doe');
-                //     $message->sender('john@johndoe.com', 'John Doe');
-                //     $message->to('john@johndoe.com', 'John Doe');
-                //     $message->cc('john@johndoe.com', 'John Doe');
-                //     $message->bcc('john@johndoe.com', 'John Doe');
-                //     $message->replyTo('john@johndoe.com', 'John Doe');
-                //     $message->subject('Subject');
-                //     $message->priority(3);
-                //     $message->attach('pathToFile');
-                // });
-
 
                 Mail::send('frmWeb.email.registroSolicitudnew', $data, function ($message) use ($data) {
                     $message->from('master@personeriabogota.gov.co', 'Solicitud conciliaciones Web - Personería de Bogotá D.C.');
@@ -527,10 +515,10 @@ class Webcontroller extends Controller
                     }
                     $message->bcc('jaruedag@personeriabogota.gov.co');
                     $message->bcc('jamumi14@gmail.com');
-                    //$message->attach('FORMATO_SOLICITUD_DE_CONCILIACION_V4');
-                    // $message->bcc('ljmeza@personeriabogota.gov.co');
-                    // $message->bcc('nylopez@personeriabogota.gov.co');
-                    // $message->bcc('asarmiento@personeriabogota.gov.co');
+                    $message->attach('FORMATO_SOLICITUD_DE_CONCILIACION_V4');
+                    $message->bcc('ljmeza@personeriabogota.gov.co');
+                    $message->bcc('nylopez@personeriabogota.gov.co');
+                    $message->bcc('asarmiento@personeriabogota.gov.co');
                     $message->subject($data['subject']);
                 });
             } catch (\Exception $e) {
@@ -837,7 +825,7 @@ class Webcontroller extends Controller
                 }
                 $output .= '</ul>';
             } else {
-                $output .= '<li class="list-group-item">' . 'No se encuentra informacion o el proceso de adjunto de documentos fue completado' . '</li>';
+                $output .= '<li class="list-group-item">' . 'No se encuentra informacion o el proceso de adjuntar documentos fue completado' . '</li>';
             }
             return $output;
         }
@@ -992,20 +980,7 @@ class Webcontroller extends Controller
                 'subject' => $subject,
                 'numSolicitud' => $id,
                 'fechaRegistro' => $fecha,
-                //'llaveingreso' => $code,
             );
-            // Conci::Mail::send('Html.view', $data, function ($message) {
-            //     $message->from('john@johndoe.com', 'John Doe');
-            //     $message->sender('john@johndoe.com', 'John Doe');
-            //     $message->to('john@johndoe.com', 'John Doe');
-            //     $message->cc('john@johndoe.com', 'John Doe');
-            //     $message->bcc('john@johndoe.com', 'John Doe');
-            //     $message->replyTo('john@johndoe.com', 'John Doe');
-            //     $message->subject('Subject');
-            //     $message->priority(3);
-            //     $message->attach('pathToFile');
-            // });
-
 
             Mail::send('frmWeb.email.adjuntoarchivo', $data, function ($message) use ($data) {
                 $message->from('master@personeriabogota.gov.co', 'Solicitud conciliaciones Web - Personería de Bogotá D.C.');
@@ -1015,10 +990,10 @@ class Webcontroller extends Controller
                 }
                 $message->bcc('jaruedag@personeriabogota.gov.co');
                 $message->bcc('jamumi14@gmail.com');
-                //$message->attach('FORMATO_SOLICITUD_DE_CONCILIACION_V4');
-                // $message->bcc('ljmeza@personeriabogota.gov.co');
-                // $message->bcc('nylopez@personeriabogota.gov.co');
-                // $message->bcc('asarmiento@personeriabogota.gov.co');
+                $message->attach('FORMATO_SOLICITUD_DE_CONCILIACION_V4');
+                $message->bcc('ljmeza@personeriabogota.gov.co');
+                $message->bcc('nylopez@personeriabogota.gov.co');
+                $message->bcc('asarmiento@personeriabogota.gov.co');
                 $message->subject($data['subject']);
             });
         } catch (\Exception $e) {
