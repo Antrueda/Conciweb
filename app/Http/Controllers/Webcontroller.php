@@ -927,8 +927,8 @@ class Webcontroller extends Controller
             //     'document1.max' => 'Capacidad maxima de 10MB',
             // ]
         );
-        // print_r($input_data) ;
-         
+        //dd($input_data);
+
         if ($validator->fails()) {
             $messages = $validator->messages();
             //ddd($messages);
@@ -947,10 +947,12 @@ class Webcontroller extends Controller
 
 
             foreach ($request->file("document1") as $key => $file) {
+ 
                 $rutaFinalFile = Storage::disk('local')->put("", $file);
+        
                 $files[]['name'] = $descripcion[$key];
                 $nombreOriginalFile = $file->getClientOriginalName();
-                $ddd = Soportecon::create(['NUM_SOLICITUD' => $id, 'descripcion' => $descripcion[$key], 'rutaFinalFile' => $rutaFinalFile, 'nombreOriginalFile' => $nombreOriginalFile]);
+                $ddd = Soportecon::create(['NUM_SOLICITUD' => $id, 'descripcion' => $descripcion[$key], 'RUTAFINALFILE' => $rutaFinalFile, 'nombreOriginalFile' => $nombreOriginalFile]);
   
             }
 

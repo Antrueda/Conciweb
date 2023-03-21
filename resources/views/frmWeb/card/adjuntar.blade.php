@@ -140,6 +140,23 @@
   
     </label> 
       @endforeach
+      <span style="text-justify">Documentos que complementen su solicitud(Máximo 10Mb)</span>
+      <label class="form-group has-float-label">
+        <div class="input-group input-file" >
+          <div style="display:none">
+          <input type="text" class="form-control" name="descripcion[]" id="descripcion" value="Documentos que complementen su solicitud"/> 
+          </div>
+           <input type="file" class="validate[required] form-control" name="document1[]"   accept=".pdf"/>
+            <span class="input-group-btn">
+                <button class="btn btn-danger btn-reset" style="margin-left: 10px;" id="limpia" type="button">Limpiar <i class="fas fa-broom"></i></button>
+            </span>
+
+            <div id="my_pdf_viewer">
+     
+            </div>
+        </div>
+  
+    </label> 
     </ul>        
   </div>
 </div>

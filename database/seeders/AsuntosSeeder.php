@@ -102,7 +102,7 @@ class AsuntosSeeder extends Seeder
         Descripciona::create(['id' => 7, 'sis_esta_id' => 1, 'nombre' => 'Copia de certificado de tradición y libertad del inmueble menor 30 dias (si quien solicita no fue parte dentro del contrato).']);
         Descripciona::create(['id' => 8, 'sis_esta_id' => 1, 'nombre' => 'Si se pretende citar a una persona jurídica aportar certificado de existencia y representacion legal de cámara de comercio (de contar con el).']);
         Descripciona::create(['id' => 9, 'sis_esta_id' => 1, 'nombre' => 'Contrato de compraventa.']);
-        Descripciona::create(['id' => 10, 'sis_esta_id' => 1, 'nombre' => 'Documentos relacionados.']);
+        Descripciona::create(['id' => 10, 'sis_esta_id' => 1, 'nombre' => 'Documentos que complementen su solicitud.']);
         Descripciona::create(['id' => 11, 'sis_esta_id' => 1, 'nombre' => 'Título valor / Soporte de la obligación.']);
         Descripciona::create(['id' => 12, 'sis_esta_id' => 1, 'nombre' => 'Soportes del conflicto.']);
         Descripciona::create(['id' => 13, 'sis_esta_id' => 1, 'nombre' => 'Fotocopia del contrato objeto de discusión.']);
@@ -135,62 +135,62 @@ class AsuntosSeeder extends Seeder
         //ADMINISTRACION
         Subdescripcion::create(['descri_id' =>1 ,'subasu_id' =>1]);
         Subdescripcion::create(['descri_id' =>2 ,'subasu_id' =>1]);
-        Subdescripcion::create(['descri_id' =>3 ,'subasu_id' =>1]);
-        Subdescripcion::create(['descri_id' =>10 ,'subasu_id' =>1]);
+        //Subdescripcion::create(['descri_id' =>3 ,'subasu_id' =>1]);
+       // Subdescripcion::create(['descri_id' =>10 ,'subasu_id' =>1]);
 
         //ARRENDAMIENTO
         Subdescripcion::create(['descri_id' =>1 ,'subasu_id' =>2]);
         Subdescripcion::create(['descri_id' =>2 ,'subasu_id' =>2]);
         Subdescripcion::create(['descri_id' =>6 ,'subasu_id' =>2]);
         Subdescripcion::create(['descri_id' =>7 ,'subasu_id' =>2]);
-        Subdescripcion::create(['descri_id' =>10 ,'subasu_id' =>2]);
+       // Subdescripcion::create(['descri_id' =>10 ,'subasu_id' =>2]);
 
         //COMPRAVENTA
         Subdescripcion::create(['descri_id' =>1 ,'subasu_id' =>3]);
         Subdescripcion::create(['descri_id' =>2 ,'subasu_id' =>3]);
         Subdescripcion::create(['descri_id' =>9 ,'subasu_id' =>3]);
-        Subdescripcion::create(['descri_id' =>10 ,'subasu_id' =>3]);
+       // Subdescripcion::create(['descri_id' =>10 ,'subasu_id' =>3]);
 
         //DEUDAS
         Subdescripcion::create(['descri_id' =>1 ,'subasu_id' =>4]);
         Subdescripcion::create(['descri_id' =>2 ,'subasu_id' =>4]);
         Subdescripcion::create(['descri_id' =>8,'subasu_id' =>4]);
         Subdescripcion::create(['descri_id' =>11 ,'subasu_id' =>4]);
-        Subdescripcion::create(['descri_id' =>10 ,'subasu_id' =>4]);
+       // Subdescripcion::create(['descri_id' =>10 ,'subasu_id' =>4]);
 
 
         //ENTREGAS
         Subdescripcion::create(['descri_id' =>1 ,'subasu_id' =>5]);
         Subdescripcion::create(['descri_id' =>2 ,'subasu_id' =>5]);
         Subdescripcion::create(['descri_id' =>12 ,'subasu_id' =>5]);
-        Subdescripcion::create(['descri_id' =>10 ,'subasu_id' =>5]);
+       // Subdescripcion::create(['descri_id' =>10 ,'subasu_id' =>5]);
         
         //INCUMPLIMIENTOS
         Subdescripcion::create(['descri_id' =>1 ,'subasu_id' =>6]);
         Subdescripcion::create(['descri_id' =>2 ,'subasu_id' =>6]);
         Subdescripcion::create(['descri_id' =>13 ,'subasu_id' =>6]);
         Subdescripcion::create(['descri_id' =>8 ,'subasu_id' =>6]);
-        Subdescripcion::create(['descri_id' =>10 ,'subasu_id' =>6]);
+       // Subdescripcion::create(['descri_id' =>10 ,'subasu_id' =>6]);
 
         //PERMUTA
         Subdescripcion::create(['descri_id' =>1 ,'subasu_id' =>7]);
         Subdescripcion::create(['descri_id' =>2 ,'subasu_id' =>7]);
         Subdescripcion::create(['descri_id' =>14 ,'subasu_id' =>7]);
         Subdescripcion::create(['descri_id' =>8 ,'subasu_id' =>7]);
-        Subdescripcion::create(['descri_id' =>10 ,'subasu_id' =>7]);
+       // Subdescripcion::create(['descri_id' =>10 ,'subasu_id' =>7]);
 
         
         //PERTURBACION
         Subdescripcion::create(['descri_id' =>1 ,'subasu_id' =>8]);
         Subdescripcion::create(['descri_id' =>2 ,'subasu_id' =>8]);
         Subdescripcion::create(['descri_id' =>15 ,'subasu_id' =>8]);
-        Subdescripcion::create(['descri_id' =>10 ,'subasu_id' =>8]);
+       // Subdescripcion::create(['descri_id' =>10 ,'subasu_id' =>8]);
 
         //POSESION
         Subdescripcion::create(['descri_id' =>1 ,'subasu_id' =>9]);
         Subdescripcion::create(['descri_id' =>2 ,'subasu_id' =>9]);
         Subdescripcion::create(['descri_id' =>16 ,'subasu_id' =>9]);
-        Subdescripcion::create(['descri_id' =>10 ,'subasu_id' =>9]);
+       // Subdescripcion::create(['descri_id' =>10 ,'subasu_id' =>9]);
 
         //PROPIEDAD
         Subdescripcion::create(['descri_id' =>1 ,'subasu_id' =>10]);
@@ -203,14 +203,14 @@ class AsuntosSeeder extends Seeder
         Subdescripcion::create(['descri_id' =>1,'subasu_id' =>11]);
         Subdescripcion::create(['descri_id' =>2,'subasu_id' =>11]);
         Subdescripcion::create(['descri_id' =>19,'subasu_id' =>11]);
-        Subdescripcion::create(['descri_id' =>10 ,'subasu_id' =>11]);
+       // Subdescripcion::create(['descri_id' =>10 ,'subasu_id' =>11]);
 
         //RENDICION
 
         Subdescripcion::create(['descri_id' =>1,'subasu_id' =>12]);
         Subdescripcion::create(['descri_id' =>2,'subasu_id' =>12]);
         Subdescripcion::create(['descri_id' =>20,'subasu_id' =>12]);
-        Subdescripcion::create(['descri_id' =>10 ,'subasu_id' =>12]);
+       // Subdescripcion::create(['descri_id' =>10 ,'subasu_id' =>12]);
     
 
         //RESPONSABILIDAD
@@ -220,53 +220,53 @@ class AsuntosSeeder extends Seeder
         Subdescripcion::create(['descri_id' =>21,'subasu_id' =>13]);
         Subdescripcion::create(['descri_id' =>22,'subasu_id' =>13]);
         Subdescripcion::create(['descri_id' =>8,'subasu_id' =>13]);
-        Subdescripcion::create(['descri_id' =>10 ,'subasu_id' =>13]);
+       // Subdescripcion::create(['descri_id' =>10 ,'subasu_id' =>13]);
 
 
         //SERVIDUMBRES
         Subdescripcion::create(['descri_id' =>1,'subasu_id' =>14]);
         Subdescripcion::create(['descri_id' =>2,'subasu_id' =>14]);
         Subdescripcion::create(['descri_id' =>23,'subasu_id' =>14]);
-        Subdescripcion::create(['descri_id' =>10 ,'subasu_id' =>14]);
+       // Subdescripcion::create(['descri_id' =>10 ,'subasu_id' =>14]);
     
 
         //BULLYING
         Subdescripcion::create(['descri_id' =>25 ,'subasu_id' =>15]);
         Subdescripcion::create(['descri_id' =>1 ,'subasu_id' =>15]);
         Subdescripcion::create(['descri_id' =>2 ,'subasu_id' =>15]);
-        Subdescripcion::create(['descri_id' =>10 ,'subasu_id' =>15]);
+       // Subdescripcion::create(['descri_id' =>10 ,'subasu_id' =>15]);
 
         //ACUERDO PARA SALIDA DE MENORES DEL PAÍS
         Subdescripcion::create(['descri_id' =>1,'subasu_id' =>16]);
         Subdescripcion::create(['descri_id' =>2 ,'subasu_id' =>16]);
         Subdescripcion::create(['descri_id' =>4 ,'subasu_id' =>16]);
-        Subdescripcion::create(['descri_id' =>10 ,'subasu_id' =>16]);
+       // Subdescripcion::create(['descri_id' =>10 ,'subasu_id' =>16]);
         
 
         //ADULTO MAYOR
         Subdescripcion::create(['descri_id' =>1,'subasu_id' =>17]);
         Subdescripcion::create(['descri_id' =>2,'subasu_id' =>17]);
         Subdescripcion::create(['descri_id' =>23 ,'subasu_id' =>17]);
-        Subdescripcion::create(['descri_id' =>10 ,'subasu_id' =>17]);
+       // Subdescripcion::create(['descri_id' =>10 ,'subasu_id' =>17]);
 
 
         //CONFLICTOS SOBRE CAPITULACIONES MATRIMONIALES
         Subdescripcion::create(['descri_id' =>25,'subasu_id' =>18]);
         Subdescripcion::create(['descri_id' =>22,'subasu_id' =>18]);
         Subdescripcion::create(['descri_id' =>23 ,'subasu_id' =>18]);
-        Subdescripcion::create(['descri_id' =>10 ,'subasu_id' =>18]);
+       // Subdescripcion::create(['descri_id' =>10 ,'subasu_id' =>18]);
 
         //CONVIVENCIA
         Subdescripcion::create(['descri_id' =>1,'subasu_id' =>19]);
         Subdescripcion::create(['descri_id' =>2,'subasu_id' =>19]);
-        Subdescripcion::create(['descri_id' =>10 ,'subasu_id' =>19]);
+       // Subdescripcion::create(['descri_id' =>10 ,'subasu_id' =>19]);
 
         //CUOTA
         Subdescripcion::create(['descri_id' =>1,'subasu_id' =>20]);
         Subdescripcion::create(['descri_id' =>2,'subasu_id' =>20]);
         Subdescripcion::create(['descri_id' =>5 ,'subasu_id' =>20]);
         Subdescripcion::create(['descri_id' =>26 ,'subasu_id' =>20]);
-        Subdescripcion::create(['descri_id' =>10 ,'subasu_id' =>20]);
+       // Subdescripcion::create(['descri_id' =>10 ,'subasu_id' =>20]);
 
         //CUSTODIA, TENENCIA Y CUIDADO DE MENORES
 
@@ -274,7 +274,7 @@ class AsuntosSeeder extends Seeder
         Subdescripcion::create(['descri_id' =>2,'subasu_id' =>21]);
         Subdescripcion::create(['descri_id' =>5 ,'subasu_id' =>21]);
         Subdescripcion::create(['descri_id' =>26 ,'subasu_id' =>21]);
-        Subdescripcion::create(['descri_id' =>10 ,'subasu_id' =>21]);
+       // Subdescripcion::create(['descri_id' =>10 ,'subasu_id' =>21]);
 
         //DECLARACIÓN DE LA UNIÓN  MARITAL DE HECHO
 
@@ -283,13 +283,13 @@ class AsuntosSeeder extends Seeder
         Subdescripcion::create(['descri_id' =>2 ,'subasu_id' =>22]);
         Subdescripcion::create(['descri_id' =>28 ,'subasu_id' =>22]);
         Subdescripcion::create(['descri_id' =>29 ,'subasu_id' =>22]);
-        Subdescripcion::create(['descri_id' =>10 ,'subasu_id' =>22]);
+       // Subdescripcion::create(['descri_id' =>10 ,'subasu_id' =>22]);
 
 
         //DISOLUCIÓN Y LIQUIDACIÓN DE LA SOCIEDAD PATRIMONIAL ORIGINADA EN LA UNIÓN MARITAL DE HECHO
         Subdescripcion::create(['descri_id' =>25,'subasu_id' =>23]);
         Subdescripcion::create(['descri_id' =>22,'subasu_id' =>23]);
-        Subdescripcion::create(['descri_id' =>10 ,'subasu_id' =>23]);
+       // Subdescripcion::create(['descri_id' =>10 ,'subasu_id' =>23]);
 
 
         //EXONERACIÓN DE CUOTA ALIMENTARIA
@@ -297,7 +297,7 @@ class AsuntosSeeder extends Seeder
         Subdescripcion::create(['descri_id' =>31,'subasu_id' =>24]);
         Subdescripcion::create(['descri_id' =>1,'subasu_id' =>24]);
         Subdescripcion::create(['descri_id' =>2,'subasu_id' =>24]);
-        Subdescripcion::create(['descri_id' =>10 ,'subasu_id' =>24]);
+       // Subdescripcion::create(['descri_id' =>10 ,'subasu_id' =>24]);
 
         //SEPARACIÓN DE CUERPOS, DISOLUCIÓN Y LIQUIDACIÓN DE LA SOCIEDAD CONYUGAL EN MATRIMONIO CIVIL Y RELIGIOSO
         Subdescripcion::create(['descri_id' =>1,'subasu_id' =>25]);
@@ -306,7 +306,7 @@ class AsuntosSeeder extends Seeder
         Subdescripcion::create(['descri_id' =>33,'subasu_id' =>25]);
         Subdescripcion::create(['descri_id' =>34,'subasu_id' =>25]);
         Subdescripcion::create(['descri_id' =>35,'subasu_id' =>25]);
-        Subdescripcion::create(['descri_id' =>10 ,'subasu_id' =>25]);
+       // Subdescripcion::create(['descri_id' =>10 ,'subasu_id' =>25]);
 
 
         
@@ -314,8 +314,8 @@ class AsuntosSeeder extends Seeder
 
         Subdescripcion::create(['descri_id' =>1 ,'subasu_id' =>26]);
         Subdescripcion::create(['descri_id' =>2 ,'subasu_id' =>26]);
-        Subdescripcion::create(['descri_id' =>3 ,'subasu_id' =>26]);
-        Subdescripcion::create(['descri_id' =>10 ,'subasu_id' =>26]);
+        //Subdescripcion::create(['descri_id' =>3 ,'subasu_id' =>26]);
+       // Subdescripcion::create(['descri_id' =>10 ,'subasu_id' =>26]);
 
 
 
