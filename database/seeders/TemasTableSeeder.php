@@ -6,16 +6,16 @@ use Illuminate\Database\Seeder;
 
 class TemasTableSeeder extends Seeder
 {
-    public function getR($dataxxxx)
-    {
-        $camposmagicos = ['user_crea_id' => 1, 'user_edita_id' => 1];
-        $tema = Tema::create(['sis_esta_id' => 1, 'user_crea_id' => 1, 'user_edita_id' => 1, 'nombre' => strtoupper($dataxxxx['nombrexx'])]);
-        $parametr = [];
-        foreach ($dataxxxx['parametr'] as  $value) {
-            $parametr[$value] = $camposmagicos;
-        }
-        $tema->parametros()->sync($parametr);
-    }
+    // public function getR($dataxxxx)
+    // {
+    //     $camposmagicos = ['user_crea_id' => 1, 'user_edita_id' => 1];
+    //     $tema = Tema::create(['sis_esta_id' => 1, 'user_crea_id' => 1, 'user_edita_id' => 1, 'nombre' => strtoupper($dataxxxx['nombrexx'])]);
+    //     $parametr = [];
+    //     foreach ($dataxxxx['parametr'] as  $value) {
+    //         $parametr[$value] = $camposmagicos;
+    //     }
+    //     $tema->parametros()->sync($parametr);
+    // }
     /**
      * Run the database seeds.
      *

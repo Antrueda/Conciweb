@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace app\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,6 +13,8 @@ class Texto extends Model
         'user_edita_id',
         'sis_esta_id'
       ];
+
+      protected $table = 'conci_textos';
 
       public function creador()
       {

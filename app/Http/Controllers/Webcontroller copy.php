@@ -144,7 +144,7 @@ class Webcontroller extends Controller
     public function registroConciliacionWeb(Request $request)
     {
 
-        
+        echo($request->input("asunto"));
         //Datos requeridos por sistema
         $carbonDate = Carbon::now();
         $vigencia = Carbon::today()->isoFormat('YYYY');
@@ -238,18 +238,17 @@ class Webcontroller extends Controller
             return '|0| 0.1) Problema al extraer el numero de solicitud asignado por el sistema' . $e->getMessage();
         }
 
-        print_r('numero de solicitud: '.$numSolicitud);
-        echo ($numSolicitud);
-       // 0.2) ACTUALIZAR EL REGISTRO EN BINCONSECUTIVO
-        try {
 
-            binconsecutivo::where('vigencia', $vigencia)
-                ->update(['SECUENCIAL' => $numSolicitud]);
-        }
-        catch (\Exception $e) {
-            DB::rollback();
-            return '|0| 0.2) Problema al actualizar el numero asignado por el sistema' . $e->getMessage();
-        }
+        //0.2) ACTUALIZAR EL REGISTRO EN BINCONSECUTIVO
+        // try {
+
+        //     binconsecutivo::where('vigencia', $vigencia)
+        //         ->update(['SECUENCIAL' => $numSolicitud]);
+        // }
+        // catch (\Exception $e) {
+        //     DB::rollback();
+        //     return '|0| 0.2) Problema al actualizar el numero asignado por el sistema' . $e->getMessage();
+        // }
 
         //1.a) Registrar informacion en tramiteusuario Local
         try {

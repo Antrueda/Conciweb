@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class CreateSisEstasTable extends Migration
 {
-    private $tablaxxx = 'sis_estas';
+    private $tablaxxx = 'conci_sis_estas';
     /**
      * Run the migrations.
      *

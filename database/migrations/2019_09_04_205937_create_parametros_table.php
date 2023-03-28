@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class CreateParametrosTable extends Migration
 {
-  private $tablaxxx = 'parametros';
+  private $tablaxxx = 'conci_parametros';
   /**
    * Run the migrations.
    *
@@ -21,7 +21,7 @@ class CreateParametrosTable extends Migration
       $table->Integer('user_crea_id')->nullable();
       $table->integer('user_edita_id')->nullable();
       $table->bigInteger('sis_esta_id')->unsigned()->default(1);
-      $table->foreign('sis_esta_id')->references('id')->on('sis_estas');
+      $table->foreign('sis_esta_id')->references('id')->on('conci_sis_estas');
       $table->timestamps();
     });
 

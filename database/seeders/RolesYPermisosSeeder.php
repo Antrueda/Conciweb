@@ -87,8 +87,8 @@ class RolesYPermisosSeeder extends Seeder
         Role::create(['name' => 'administrador',])->givePermissionTo(Permission::all());
         Role::create(['name' => 'consulta',]);
         Role::create(['name' => 'conciliacion',]);
-        $user=User::where('consec',52283026)->first();
-        $user->assignRole('super-administrador');
+        // $user=User::where('consec',52283026)->first();
+        // $user->assignRole('super-administrador');
         
         
             

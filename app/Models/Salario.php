@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace app\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -14,4 +14,6 @@ class Salario extends Model
         'numero',
         'maximo'
       ];
+
+      protected $table = 'conci_salarios';
 }

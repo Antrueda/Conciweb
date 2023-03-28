@@ -10,6 +10,8 @@ class SisLocalidad extends Model{
 
     protected $attributes = ['sis_esta_id' => 1, 'user_crea_id' => 1, 'user_edita_id' => 1];
 
+    protected $table = 'conci_sis_localidads';
+
     public static function combo(){
         $comboxxx = [''=>'Seleccione'];
         foreach (SisLocalidad::get() as $localida) {

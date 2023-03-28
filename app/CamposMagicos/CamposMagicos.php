@@ -45,7 +45,7 @@ class CamposMagicos
         $table->bigInteger('user_crea_id')->unsigned()->default(1)->comment('USUARIO QUE CREAR EL REGISTRO');
         $table->bigInteger('user_edita_id')->unsigned()->default(1)->comment('USUARIO QUE EDITA EL REGISTRO');
         $table->bigInteger('sis_esta_id')->unsigned()->default(1)->comment('ESTADO DEL REGISTRO');
-        $table->foreign('sis_esta_id')->references('id')->on('sis_estas');
+        $table->foreign('sis_esta_id')->references('id')->on('conci_sis_estas');
         $table->foreign('user_crea_id')->references('id')->on('users');
         $table->foreign('user_edita_id')->references('id')->on('users');
         $table->timestamps();

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace app\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -14,7 +14,7 @@ class ASubasunto extends Model
         'subasu_id',
         'sis_esta_id'
       ];
-
+                                                     
       protected $table = 'conci_a_subasuntos';
       
 
@@ -54,3 +54,6 @@ class ASubasunto extends Model
       }
 
 }
+
+
+//php artisan db:seed --class=PermisosConsumoAdmin  

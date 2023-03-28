@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Models;
+namespace app\Models;
 
-use App\Models\Sistema\SisEntidad;
+use app\Models\Sistema\SisEntidad;
 use Illuminate\Database\Eloquent\Model;
 
 class Tema extends Model {
 
   protected $fillable = ['nombre', 'sis_esta_id', ];
- 
+  protected $table = 'conci_temas';
 
   public function setNombreAttribute($value) {
     $this->attributes['nombre'] = strtoupper($value);
@@ -35,11 +35,11 @@ class Tema extends Model {
         $comboxxx = ['' => '- Seleccione una opcion -'];
       }
     }
-    $parametr = Tema::select(['parametros.id as valuexxx', 'parametros.nombre as optionxx'])
-            ->join('parametro_tema', 'temas.id', '=', 'parametro_tema.tema_id')
-            ->join('parametros', 'parametro_tema.parametro_id', '=', 'parametros.id')
-            ->where('temas.id', $temaxxxx)
-            ->orderBy('parametros.id', 'asc')
+    $parametr = Tema::select(['conci_parametros.id as valuexxx', 'conci_parametros.nombre as optionxx'])
+            ->join('parametro_tema', 'conci_temas.id', '=', 'parametro_tema.tema_id')
+            ->join('conci_parametros', 'parametro_tema.parametro_id', '=', 'conci_parametros.id')
+            ->where('conci_temas.id', $temaxxxx)
+            ->orderBy('conci_parametros.id', 'asc')
             ->get();
     foreach ($parametr as $registro) {
       if ($ajaxxxxx) {

@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Models;
+namespace app\Models;
 
-use App\Models\Tramiteusuario as ModelsTramiteusuario;
-use App\tramiteusuario;
+use app\Models\Tramiteusuario as ModelsTramiteusuario;
+use app\tramiteusuario;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 

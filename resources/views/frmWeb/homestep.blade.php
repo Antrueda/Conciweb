@@ -332,12 +332,12 @@
                     
                         <input type="email" class="form-control form-control-sm validate" name="emailConvocante[]" id="emailConU" autocomplete="off" placeholder="0" required>
                         <label for="email"> Correo electronico</label>
-                        <div class="invalid-feedback emailConvocante">
+                        <div class="invalid-feedback emailConU">
                             Campo obligatorio.
                           </div>
                      </div> 
                 </div>
-                <div class="col-md-3">
+                {{-- <div class="col-md-3">
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control form-control-sm validate" name="emailCon" id="emailConUC" autocomplete="off" placeholder="0" required>
                         <label for="emailCon"> Confirme correo electronico</label>
@@ -345,32 +345,14 @@
                             Campo obligatorio.
                           </div>
                     </div> 
-                </div>
+                </div> --}}
                 <div class="col-md-3">
                 <button type="button" class="btn btn-primary" id="add_btn" style="height: 50px; width: 120px">Agregar <i class="fas fa-plus"></i></button>
               </div>
             </div>
  
         </div>
-            {{-- <table class="table">
-                <thead class="thead">
-                  <tr>
-                    <th scope="col">Nombre completo convocado</th>
-                    <th scope="col">Correo electronico</th>
-                    <th scope="col">Confirme correo electronico</th>
-                    <th scope="col"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><input type="text" class="form-control form-control-sm validate" name="nomConvocante[]" autocomplete="off"></td>
-                    <td><input type="text" class="form-control form-control-sm validate[required, custom[email]]" name="emailConvocante[]" id="emailConU" autocomplete="off"></td>
-                    <td><input type="text" class="form-control form-control-sm validate[required, custom[email]]" id="emailConUC" autocomplete="off"></td>
-                    <td><button type="button" class="btn btn-primary" id="add_btn">Agregar</i></button></td>
-                  </tr>
-                 
-                </tbody>
-              </table> --}}
+           
            
         </div>
         <div id="apode_id">
@@ -754,18 +736,18 @@
                     errorEmailIgualApod();
                     return;
                 }
-                if ($("#emailConU").val() !== $("#emailConUC").val()) {
-                    errorEmailICon('primer');
-                    return;
-                }
-                if ($("#emailConD").val() !== $("#emailConDC").val()) {
-                    errorEmailICon('segundo');
-                    return;
-                }
-                if ($("#emailConT").val() !== $("#emailConTC").val()) {
-                    errorEmailICon('tercer');
-                    return;
-                }
+                // if ($("#emailConU").val() !== $("#emailConUC").val()) {
+                //     errorEmailICon('primer');
+                //     return;
+                // }
+                // if ($("#emailConD").val() !== $("#emailConDC").val()) {
+                //     errorEmailICon('segundo');
+                //     return;
+                // }
+                // if ($("#emailConT").val() !== $("#emailConTC").val()) {
+                //     errorEmailICon('tercer');
+                //     return;
+                // }
                 if (status === true) {
                     registroDatos();
                 } else {
@@ -784,6 +766,23 @@
 
     function TipoSolicitud() {
         var msg = "12. Seleccione un tipo de solicitud.  ";
+        var msg = "<center><p><i class='fas fa-check-circle fa-3x'></i></p></center>" + msg;
+        llamarNotyTime('error', msg, 'center', 3000);
+    }
+
+    function campostab2(texto) {
+        var msg = "Faltan el campo." +texto;
+        var msg = "<center><p><i class='fas fa-check-circle fa-3x'></i></p></center>" + msg;
+        llamarNotyTime('error', msg, 'center', 3000);
+    }
+    function correonovalido() {
+        var msg = "Formato de correo no valido.";
+        var msg = "<center><p><i class='fas fa-check-circle fa-3x'></i></p></center>" + msg;
+        llamarNotyTime('error', msg, 'center', 3000);
+    }
+
+    function camposfaltantes() {
+        var msg = "Faltan campos por completar.  ";
         var msg = "<center><p><i class='fas fa-check-circle fa-3x'></i></p></center>" + msg;
         llamarNotyTime('error', msg, 'center', 3000);
     }
@@ -937,22 +936,22 @@
      html+='</div>'
      html+='<div class="col-md-3">'
      html+='<div class="form-floating mb-3">'
-     html+='<input type="email" class="form-control form-control-sm validate" name="emailConvocante[]" id="email" autocomplete="off" placeholder="0">'
+     html+='<input type="email" class="form-control form-control-sm validate" name="emailConvocante[]" id="emailConU" autocomplete="off" placeholder="0">'
      html+='<label for="email"> Correo electronico</label>'
-     html+='<div class="invalid-feedback nomConvocante">'
+     html+='<div class="invalid-feedback emailConU">'
      html+='Campo obligatorio.'
      html+='</div>'
      html+='</div>' 
      html+='</div>'
-     html+='<div class="col-md-3">'
-     html+='<div class="form-floating mb-3">'
-     html+='<input type="text" class="form-control form-control-sm validate" name="emailCon" id="emailConUC" autocomplete="off" placeholder="0">'
-     html+='<label for="emailCon"> Confirme correo electronico</label>'
-     html+='<div class="invalid-feedback nomConvocante">'
-     html+='Campo obligatorio.'
-     html+='</div>'
-     html+='</div>' 
-     html+='</div>'
+    //  html+='<div class="col-md-3">'
+    //  html+='<div class="form-floating mb-3">'
+    //  html+='<input type="text" class="form-control form-control-sm validate" name="emailCon" id="emailConUC" autocomplete="off" placeholder="0">'
+    //  html+='<label for="emailCon"> Confirme correo electronico</label>'
+    //  html+='<div class="invalid-feedback emailConvocante">'
+    //  html+='Campo obligatorio.'
+    //  html+='</div>'
+    //  html+='</div>' 
+    //  html+='</div>'
      html+='<div class="col-md-3">'
      html+='<button type="button" class="btn btn-danger" id="remove" style="height: 50px; width: 120px">Eliminar <i class="fas fa-minus"></i></button>'
      html+='   </div>';
@@ -961,9 +960,7 @@
      
  
 
-     /*
-
-        tbody
+    /*
      html+='<tr>';
      html+='<td><input type="text" class="form-control form-control-sm validate" name="nomConvocante[]" autocomplete="off"></td>';
      html+='<td><input type="text" class="form-control form-control-sm" name="emailConvocante[]" id="emailConU" autocomplete="off"></td>';
@@ -992,7 +989,7 @@
      html+='       </div> 
      html+='   </div>
      html+='<br>
-     */
+*/ 
      $('.agregar').append(html);
     });
     $(document).on('click','#remove',function(){
@@ -1224,41 +1221,7 @@
             }
         );
     }
-    $(function() {
-        bs_input_file();
-    });
-    //Verificar extencion del documento adjuntado
-    // function processSelectedFiles(fileInput) {
-    //     var files = fileInput.files;
-    //     for (var i = 0; i < files.length; i++) {
-    //         var extension = files[i].name.split('.').pop(); // Obtengo la extensión
-    //         var peso = (files[i].size) / 1024;
-    //         if (peso >= 11001) {
-    //             $(".input-file").val(''); //Aquí evluar cual es el input que hay que limpiar
-    //             $(".input-file").find('input').val('');
-    //             $("#document1").find('input').val('');
-    //             var msg = 'El tipo del archivo seleccionado NO es valido.<br>Unicamente pueden adjuntar archivos con un peso menor a 10Mb:';
-    //             var msg = "<center><p><i class='fas fa-check-circle fa-3x'></i></p></center>" + msg;
-    //             llamarNotyTime('error', msg, 'topRight', 5000);
-    //             $("#btnRegistro").hide();
-    //             return;
-    //         }
-    //         //var nomFile = files[i].name;
-    //         //var logitudNombre = nomFile.length - extension.length;
-    //         if (extension != "pdf") {
-    //             $(".input-file").val(''); //Aquí evluar cual es el input que hay que limpiar
-    //             $(".input-file").find('input').val('');
-    //             $("#document1").find('input').val('');
-    //             var msg = 'El tipo del archivo seleccionado NO es valido.<br>Unicamente pueden adjuntar los siguientes tipos de archivo: ';
-    //             msg = msg + ' [.pdf]';
-    //             var msg = "<center><p><i class='fas fa-check-circle fa-3x'></i></p></center>" + msg;
-    //             llamarNotyTime('error', msg, 'topRight', 5000);
-    //             $("#btnRegistro").hide();
-    //             return;
-    //         }
-    //         $("#btnRegistro").show();
-    //     }
-    // }
+  
 
     (function($) {
             $.fn.extend( {
@@ -1296,7 +1259,7 @@
     // }
     // //funciona con error del captcha
     function errorCaptcha() {
-        var msg = 'El código de verificación captcha es invalido.<br>Por favor verifique el valor ingresado';
+        var msg = 'El código de verificación es invalido.<br>Por favor verifique el valor ingresado';
         var msg = "<center><p><i class='fas fa-times-circle fa-3x'></i></p></center>" + msg;
         llamarNotyTime('error', msg, 'topRight', 5000);
     }
@@ -1324,7 +1287,11 @@
                         return false;  	
                     }  
                 }    
-    
+                function isValidEmail(email) {
+
+                var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                return regex.test(email);
+                }
 
 $(".tab").css("display", "none");
 $("#tab-1").css("display", "block");
@@ -1349,34 +1316,91 @@ function run(hideTab, showTab){
                     TipoSolicitud();
                     return;
                 }
-
-        }
-            if (hideTab==2){
-                if ($("#emailConU").val() !== $("#emailConUC").val()) {
-                    errorEmailICon('primer');
-                    return;
-                }
-            }
                 
 
-           for (i = 0; i < y.length; i++){
-            if (y[i].value == ""||$(y[i]).val().length < y[i].minLength){
-                var nombre= y[i].name;
-                $(y[i]).css("background", "#ffdddd");
-   
-                nombre= nombre.replace('[]','')
-  
-                $('.invalid-feedback.'+nombre).show();
-                return false;
-            }else{
-                var nombre= y[i].name;
-     
-                nombre= nombre.replace('[]','')
+        }
+             if (hideTab==2){
+                //  if ($("#nomConvocante").val()=== "") {
+                //     var texto="Nombre";
+                //     campostab2(texto);
+                //      return;
+                //  }
+                //  if ($("#apeConvocante").val()=== "") {
+                //     var texto="Apellido";
+                //     campostab2(texto);
+                //      return;
+                //  }
+                 if ($("#emailConU").val()=== "") {
+                    var texto="Correo";
+                    campostab2(texto);
+                    return;
+                 }else if (isValidEmail($("#emailConU").val())) {
+                    $('.invalid-feedback.emailConU').hide();
+                 }else{
+                    $('.invalid-feedback.emailConU').show();
+                    correonovalido();
+                    return;
+                 }
+                for (i = 0; i < y.length; i++){
+                    if (y[i].value == ""||$(y[i]).val().length < y[i].minLength){
+                        var nombre= y[i].name;
+                        $(y[i]).css("background", "#ffdddd");
         
-                $(y[i]).css("background", "transparent");
-                $('.invalid-feedback.'+nombre).hide();
-            }          
-          }
+                        nombre= nombre.replace('[]','')
+        
+                        $('.invalid-feedback.'+nombre).show();
+                        return false;
+                    }else{
+                        var nombre= y[i].name;
+            
+                        nombre= nombre.replace('[]','')
+                
+                        $(y[i]).css("background", "transparent");
+                        $('.invalid-feedback.'+nombre).hide();
+                    }          
+                  }
+
+             }
+                
+                y.each(function() {
+                //console.log(`${index}: ${this.id} ${value}`);
+                var nombre= `${this.id}`;
+                var valor=  $(this).val();
+                nombre= nombre.replace('[]','')
+                console.log(nombre);
+                console.log(valor);
+                if(valor===""){
+                    $(this).css("background", "#ffdddd");
+                    $(".invalid-feedback."+nombre).show();
+                    camposfaltantes();
+                    return;
+                }else{
+                    $(this).css("background", "transparent");
+                    $(".invalid-feedback."+nombre).hide();
+                    
+                }
+               });
+
+
+
+        //    for (i = 0; i < y.length; i++){
+        //     if (y[i].value == ""||$(y[i]).val().length < y[i].minLength){
+        //         var nombre= y[i].name;
+        //         $(y[i]).css("background", "#ffdddd");
+   
+        //         nombre= nombre.replace('[]','')
+  
+        //         $('.invalid-feedback.'+nombre).show();
+        //         return false;
+        //     }else{
+        //         var nombre= y[i].name;
+     
+        //         nombre= nombre.replace('[]','')
+        
+        //         $(y[i]).css("background", "transparent");
+        //         $('.invalid-feedback.'+nombre).hide();
+        //     }          
+        //   }
         }
 
         // Progress bar
@@ -1388,9 +1412,6 @@ function run(hideTab, showTab){
           }
         //   $("#step-"+i).addClass("opacity", "1");
           console.log(i)
-
-          
-      
         }
 
         // Switch tab

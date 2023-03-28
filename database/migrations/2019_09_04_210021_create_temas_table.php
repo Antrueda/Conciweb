@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class CreateTemasTable extends Migration
 {
-  private $tablaxxx = 'temas';
+  private $tablaxxx = 'conci_temas';
   private $tablaxxx2 = 'parametro_tema';
   /**
    * Run the migrations.
@@ -22,7 +22,7 @@ class CreateTemasTable extends Migration
       $table->bigInteger('user_crea_id')->unsigned()->nullable();
       $table->bigInteger('user_edita_id')->unsigned()->nullable();
       $table->bigInteger('sis_esta_id')->unsigned()->default(1);
-      $table->foreign('sis_esta_id')->references('id')->on('sis_estas');
+      $table->foreign('sis_esta_id')->references('id')->on('conci_sis_estas');
       $table->timestamps();
     });
 
@@ -32,8 +32,8 @@ class CreateTemasTable extends Migration
       $table->bigInteger('tema_id')->unsigned();
       $table->bigInteger('user_crea_id')->unsigned()->nullable();
       $table->bigInteger('user_edita_id')->unsigned()->nullable();
-      $table->foreign('parametro_id')->references('id')->on('parametros');
-      $table->foreign('tema_id')->references('id')->on('temas');
+      $table->foreign('parametro_id')->references('id')->on('conci_parametros');
+      $table->foreign('tema_id')->references('id')->on('conci_temas');
       $table->unique(['parametro_id', 'tema_id']);
     });
  

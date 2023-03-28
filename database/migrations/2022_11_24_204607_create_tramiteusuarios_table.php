@@ -55,7 +55,7 @@ return new class extends Migration
             $table->string('code')->nullable();
             $table->string('estadodoc')->nullable();
             $table->bigInteger('sis_esta_id')->unsigned()->default(1)->nullable();
-            $table->foreign('sis_esta_id')->references('id')->on('sis_estas');
+            $table->foreign('sis_esta_id')->references('id')->on('conci_sis_estas');
             $table->timestamps();
         });
     }

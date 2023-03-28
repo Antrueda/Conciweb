@@ -14,14 +14,14 @@ class CreateSisLocalidadsTable extends Migration
      */
     public function up()
     {
-        Schema::create('sis_localidads', function (Blueprint $table) {
+        Schema::create('conci_sis_localidads', function (Blueprint $table) {
 
             $table->bigIncrements('id');
             $table->string('s_localidad')->unique();
             $table->Integer('user_crea_id');
             $table->integer('user_edita_id');
             $table->bigInteger('sis_esta_id')->unsigned();
-            $table->foreign('sis_esta_id')->references('id')->on('sis_estas');
+            $table->foreign('sis_esta_id')->references('id')->on('conci_sis_estas');
             $table->timestamps();
             // $table->foreign('user_crea_id')->references('id')->on('users');
             // $table->foreign('user_edita_id')->references('id')->on('users');

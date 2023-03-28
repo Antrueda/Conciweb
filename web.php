@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\auth\AuthController;
 use App\Http\Controllers\Webcontroller;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -96,10 +95,10 @@ Route::get('/reload-captcha', [Webcontroller::class, 'reloadCaptcha']);
 
 require_once('Textos/web_moduloT.php');
 require_once('Asunto/web_modulo.php');
-require_once('Administracion/web_parametro.php');
-require_once('Administracion/web_salario.php');
-require_once('Administracion/web_tema.php');
-require_once('Seguridad/web_usuario.php');
+require_once('Administracion\web_parametro.php');
+require_once('Administracion\web_salario.php');
+require_once('Administracion\web_tema.php');
+require_once('Seguridad\web_usuario.php');
 
 Route::get('login', [AuthController::class, "login"]);
 // login?key=Wnp5TEVrTlc0U05jVzcreU1CWnVjcFlPeDdETDMxR3E2MzRSU0ZVS3lETT0=
@@ -110,20 +109,6 @@ Route::get('unautorized', function () { abort(403);
 Route::get('validation/{codigo}', function () {
     abort(401);
 });
-
-Route::get('/clear-cache', function () {
-    Artisan::call('config:clear');
-    Artisan::call('config:cache');
-    Artisan::call('view:clear');
-    Artisan::call('view:cache');
-    Artisan::call('cache:clear');
-    Artisan::call('route:clear');
-    Artisan::call('optimize:clear');
-    return 'exito';
-
-});
-
-
 
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 

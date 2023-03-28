@@ -17,6 +17,7 @@ class SisEsta extends Model
         'user_edita_id',];
 
     protected $attributes = ['i_estado' => 1, 'user_crea_id' => 1, 'user_edita_id' => 1];
+    protected $table = 'conci_sis_estas';
 
     public static function combo($dataxxxx)
     {

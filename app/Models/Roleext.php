@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace app\Models;
 
-use App\Models\sistema\SisEsta;
+use app\Models\sistema\SisEsta;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;

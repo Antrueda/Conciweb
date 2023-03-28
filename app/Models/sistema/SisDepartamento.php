@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Models\Sistema;
+namespace app\Models\Sistema;
 
-use App\Models\User;
+use app\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
 class SisDepartamento extends Model

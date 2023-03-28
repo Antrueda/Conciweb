@@ -21,7 +21,7 @@ return new class extends Migration
             $table->foreign('asunto_id')->references('id')->on('conci_asuntos');
             $table->foreign('subasu_id')->references('id')->on('conci_sub_asuntos');
             $table->bigInteger('sis_esta_id')->unsigned()->default(1);
-            $table->foreign('sis_esta_id')->references('id')->on('sis_estas');
+            $table->foreign('sis_esta_id')->references('id')->on('conci_sis_estas');
             $table->timestamps();
         });
     }
