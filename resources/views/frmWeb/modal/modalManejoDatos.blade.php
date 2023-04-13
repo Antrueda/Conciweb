@@ -18,17 +18,20 @@
                         </div>
                     </div>
                     <div class="card-body text-justify">
-                        <div class="card-body  text-justify">
+                        <div class="card-text  text-justify">
                             {!!$data['mensaje']->texto!!}
-                        <hr>
-                    <hr>
-                    <center>
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="customCheck1">
-                            <label class="custom-control-label" for="customCheck1"><b  style="color: black">ACEPTAR TRATAMIENTO DE DATOS</b></label>
                         </div>
-                    </center>
-                    </div>
+                            <div class="card-footer">
+                                <center>
+                              
+                                    <label>
+                                        <input type="checkbox" class="form-check-input" id="customCheck1" style="margin-top: 0;"><span><b> ACEPTAR TRATAMIENTO DE DATOS</b>  </span>
+                            
+                                     </label>
+                                </center>
+                            </div>
+                  
+             
                 </div>
             </div>
         </div>

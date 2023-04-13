@@ -55,6 +55,7 @@ class TemasTableSeeder extends Seeder
             18 => $camposmagicos,
             19 => $camposmagicos,
             20 => $camposmagicos,
+            22 => $camposmagicos,
         ]);
 
 

@@ -18,9 +18,7 @@
                         </div>
                     </div>
                     <div class="card-body  text-justify">
-                        Se informa a la ciudadanía que en el periodo comprendido entre el 30 de diciembre de 2022 al 09 de enero de 2023, no estará habilitada la aplicación CONCIWEB enfocada en <b>Solicitudes de Conciliación Virtual.</b> Este servicio se reactivará a partir del 10 de enero de 2023.
-                            
-                        Agradecemos su comprensión.
+                        {!!$data['mensaje']->texto!!}
                     <hr>
                     <center>
                         <div class="custom-control custom-checkbox">
@@ -42,18 +40,5 @@ $( "#customCheck1" ).click(function() {
     window.location.href = "https://www.personeriabogota.gov.co/";
 });
 
-function modalTratamientoDAtos(){
-        $.ajax({
-            url:'modalTratamientoDatos',
-            type:"POST",
-            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-            success:function(respuesta){
-                $("#modal").modal('hide');//ocultamos el modal
-                $('.modal-backdrop').remove();//eliminamos el backdrop del modal
-                $("#modalRespuesta").html(respuesta);
-            },
-            error: function(jqXHR, textStatus, errorThrown){    alert('Algo anda mal'+ textStatus); console.log(XMLHttpRequest); }
-        })
-    }
 
 </script>

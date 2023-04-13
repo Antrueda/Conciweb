@@ -46,8 +46,8 @@ function llamarNotyCarga(){
     }).show();
 }
 
-function llamarNotyFaltanDatosFrm(){
-    var msg='<center><p><i class="far fa-file-alt fa-3x"></i></p>Datos pendientes por diligenciar en el formulario</center>';
+function llamarNotyFaltanDatosFrm(msg){
+    //var msg='<center><p><i class="far fa-file-alt fa-3x"></i></p>Datos pendientes por diligenciar en el formulario</center>';
     new Noty({
         text: msg,
         type: 'error',
@@ -56,6 +56,18 @@ function llamarNotyFaltanDatosFrm(){
         killer: true,
         progressBar: true,
         timeout: 2000
+    }).show();
+}
+
+function llamarNotyError(type,msg,layout,timeout){
+    new Noty({
+        text: msg,
+        type: 'error',
+        layout: layout,
+        theme: 'bootstrap-v4',
+        killer: true,
+        progressBar: true,
+        timeout: timeout
     }).show();
 }
 

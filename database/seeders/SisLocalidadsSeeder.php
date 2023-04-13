@@ -91,20 +91,22 @@ class SisLocalidadsSeeder extends Seeder
         ]);
         SisLocalidad::create([
             'id'=>20,
-            's_localidad' => 'SOACHA',
-        ]);
-        SisLocalidad::create([
-            'id'=>21,
             's_localidad' => 'SUMAPAZ',
         ]);
         SisLocalidad::create([
+            'id'=>21,
+            's_localidad' => 'SIN REGISTRO',
+        ]);
+        SisLocalidad::create([
             'id'=>22,
-            's_localidad' => 'NO APLICA',
+            's_localidad' => 'NO SABE / NO RESPONDE',
         ]);
 
         SisLocalidad::create([
             'id'=>23,
-            's_localidad' => 'LOCALIDA INCORRECTA EN LA BASE PLANA',
+            's_localidad' => 'FUERA DE BOGOTA',
         ]);
+
+     
     }
 }

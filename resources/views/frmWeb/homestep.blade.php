@@ -170,7 +170,7 @@
                 </div>
                 <div class="col-md-6">
                 <div class="form-floating mb-3">
-                    <input type="number" class="form-control form-control-sm validate" id="numeroDocumento" name="numeroDocumento" autocomplete="off" required placeholder="0" minlength="4" maxlength="10">
+                    <input type="number" class="form-control form-control-sm validate" id="numeroDocumento" name="numeroDocumento" autocomplete="off" onkeypress = "return soloNumeros(event);" required placeholder="0" minlength="4" maxlength="10">
                     <label for="numeroDocumento">2. No. de cédula *</label>
                     <div class="invalid-feedback numeroDocumento">
                         Campo obligatorio.
@@ -217,7 +217,7 @@
             <div class="row">
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm validate" name="primerTelefono" id="primerTelefono" autocomplete="off" placeholder="0"  minlength="10" max="10" required>
+                        <input type="text" class="form-control form-control-sm validate" name="primerTelefono" id="primerTelefono"  onkeypress = "return soloNumeros(event);" autocomplete="off" placeholder="0"  minlength="10" max="10" required>
                         <label for="primerTelefono">7. Teléfono celular *</label>
                         <div class="invalid-feedback primerTelefono">
                             Campo obligatorio.
@@ -226,7 +226,7 @@
                 </div>
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm" min="7" max="10" name="segundoTelefono" id="segundoTelefono" autocomplete="off" placeholder="0">
+                        <input type="text" class="form-control form-control-sm" min="7" max="10" name="segundoTelefono" id="segundoTelefono" onkeypress = "return soloNumeros(event);" autocomplete="off" placeholder="0">
                         <label for="segundoTelefono">8. Teléfono fijo</label>
                     </div>
                 </div>
@@ -249,7 +249,7 @@
                             {{ $errors->first('localidad') }}
                         </div>
                     @endif
-                    <label for="localidad"> 10. Localidad</label>
+                    <label for="localidad"> 10. Localidad *</label>
                   </div>
                 </div>
             </div>
@@ -311,7 +311,7 @@
             <div class="row">
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
-                    <input type="text" class="form-control form-control-sm validate" name="nomConvocante[]" id="nomConvocante" autocomplete="off" placeholder="0" minlength="3" required>
+                    <input type="text" class="form-control form-control-sm" name="nomConvocantes[]" id="nomConvocantes" autocomplete="off" placeholder="0" minlength="3" >
                         <label for="nomConvocante">Nombres convocado</label>
                         <div class="invalid-feedback nomConvocante">
                             Campo obligatorio.
@@ -320,7 +320,7 @@
                 </div>
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
-                    <input type="text" class="form-control form-control-sm validate" name="apeConvocante[]" id="apeConvocante" autocomplete="off" placeholder="0" minlength="3" required>
+                    <input type="text" class="form-control form-control-sm" name="apeConvocantes[]" id="apeConvocantes" autocomplete="off" placeholder="0" minlength="3" >
                         <label for="apeConvocante">Apellidos convocado</label>
                         <div class="invalid-feedback apeConvocante">
                             Campo obligatorio.
@@ -330,7 +330,7 @@
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
                     
-                        <input type="email" class="form-control form-control-sm validate" name="emailConvocante[]" id="emailConU" autocomplete="off" placeholder="0" required>
+                        <input type="email" class="form-control form-control-sm" name="emailConvocantes[]" id="emailConUs" autocomplete="off" placeholder="0" >
                         <label for="email"> Correo electronico</label>
                         <div class="invalid-feedback emailConU">
                             Campo obligatorio.
@@ -347,11 +347,29 @@
                     </div> 
                 </div> --}}
                 <div class="col-md-3">
-                <button type="button" class="btn btn-primary" id="add_btn" style="height: 50px; width: 120px">Agregar <i class="fas fa-plus"></i></button>
+                     
+               <button type="button" class="btn btn-primary" id="add_btn" >Agregar <i class="fas fa-plus"></i></button> 
+
+  
               </div>
             </div>
- 
+          
         </div>
+        <div class="test">
+            <div class="row">
+            <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Nombres Convocado</th>
+                    <th>Apellidos Convocado</th>
+                    <th>Email</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody id="tablita"></tbody>
+              </table>
+            </div>
+            </div>
            
            
         </div>
@@ -760,54 +778,60 @@
     //Error en comparacion de email
     function errorEmailIgual() {
         var msg = "Los correos electrónicos del solicitante en el campo 11 y 11.1 no son iguales. Por favor verifíquelos.  ";
-        var msg = "<center><p><i class='fas fa-check-circle fa-3x'></i></p></center>" + msg;
+        var msg = "<center><p><i class='fas fa-times-circle fa-3x'></i></p></center>" + msg;
         llamarNotyTime('error', msg, 'center', 3000);
     }
-
+    
     function TipoSolicitud() {
         var msg = "12. Seleccione un tipo de solicitud.  ";
-        var msg = "<center><p><i class='fas fa-check-circle fa-3x'></i></p></center>" + msg;
+        var msg = "<center><p><i class='fas fa-times-circle fa-3x'></i></p></center>" + msg;
         llamarNotyTime('error', msg, 'center', 3000);
     }
 
     function campostab2(texto) {
         var msg = "Faltan el campo." +texto;
-        var msg = "<center><p><i class='fas fa-check-circle fa-3x'></i></p></center>" + msg;
+        var msg = "<center><p><i class='fas fa-times-circle fa-3x'></i></p></center>" + msg;
         llamarNotyTime('error', msg, 'center', 3000);
     }
     function correonovalido() {
         var msg = "Formato de correo no valido.";
-        var msg = "<center><p><i class='fas fa-check-circle fa-3x'></i></p></center>" + msg;
+        var msg = "<center><p><i class='fas fa-times-circle fa-3x'></i></p></center>" + msg;
+        llamarNotyTime('error', msg, 'center', 3000);
+    }
+
+    function datosconvocados() {
+        var msg = "Datos incompletos.";
+        var msg = "<center><p><i class='fas fa-times-circle fa-3x'></i></p></center>" + msg;
         llamarNotyTime('error', msg, 'center', 3000);
     }
 
     function camposfaltantes() {
         var msg = "Faltan campos por completar.  ";
-        var msg = "<center><p><i class='fas fa-check-circle fa-3x'></i></p></center>" + msg;
+        var msg = "<center><p><i class='fas fa-times-circle fa-3x'></i></p></center>" + msg;
         llamarNotyTime('error', msg, 'center', 3000);
     }
 
     function TipoDocumento() {
         var msg = "1. Seleccione un tipo de documento.  ";
-        var msg = "<center><p><i class='fas fa-check-circle fa-3x'></i></p></center>" + msg;
+        var msg = "<center><p><i class='fas fa-times-circle fa-3x'></i></p></center>" + msg;
         llamarNotyTime('error', msg, 'center', 3000);
     }
 
     function numeroDocumento() {
         var msg = "2. Ingrese el numero de documento.  ";
-        var msg = "<center><p><i class='fas fa-check-circle fa-3x'></i></p></center>" + msg;
+        var msg = "<center><p><i class='fas fa-times-circle fa-3x'></i></p></center>" + msg;
         llamarNotyTime('error', msg, 'center', 3000);
     }
     //Error en comparacion de email Apoderado
     function errorEmailIgualApod() {
         var msg = "Los correos electrónicos del apoderado en el campo 11.11 y 11.12 no son iguales Por favor verifíquelos.  ";
-        var msg = "<center><p><i class='fas fa-check-circle fa-3x'></i></p></center>" + msg;
+        var msg = "<center><p><i class='fas fa-times-circle fa-3x'></i></p></center>" + msg;
         llamarNotyTime('error', msg, 'center', 3000);
     }
     //Error de email igual para convocados
     function errorEmailICon(dato) {
         var msg = "Los correos electrónicos del " + dato + " convocado no son iguales Por favor verifíquelos.  ";
-        var msg = "<center><p><i class='fas fa-check-circle fa-3x'></i></p></center>" + msg;
+        var msg = "<center><p><i class='fas fa-times-circle fa-3x'></i></p></center>" + msg;
         llamarNotyTime('error', msg, 'center', 3000);
     }
     //Inactivar control c en email 
@@ -913,88 +937,88 @@
     
                       
                        
-    $('#add_btn').on('click',function(){
-     var html='';
-     html+='<div class="row" id="lista">'
-     html+='<div class="col-md-3">'
-     html+='<div class="form-floating mb-3">'
-     html+='<input type="text" class="form-control form-control-sm validate" name="nomConvocante[]" id="nomConvocante" autocomplete="off" placeholder="0">'
-     html+='<label for="nomConvocante">Nombre completo convocado</label>'
-     html+='<div class="invalid-feedback nomConvocante">'
-     html+='Campo obligatorio.'
-     html+='</div>'
-     html+='</div>'
-     html+='</div>'
-     html+='<div class="col-md-3">'
-     html+='<div class="form-floating mb-3">'
-     html+='<input type="text" class="form-control form-control-sm validate" name="apeConvocante[]" id="apeConvocante" autocomplete="off" placeholder="0">'
-     html+='<label for="apeConvocante">Nombre completo convocado</label>'
-     html+='<div class="invalid-feedback apeConvocante">'
-     html+='Campo obligatorio.'
-     html+='</div>'
-     html+='</div>'
-     html+='</div>'
-     html+='<div class="col-md-3">'
-     html+='<div class="form-floating mb-3">'
-     html+='<input type="email" class="form-control form-control-sm validate" name="emailConvocante[]" id="emailConU" autocomplete="off" placeholder="0">'
-     html+='<label for="email"> Correo electronico</label>'
-     html+='<div class="invalid-feedback emailConU">'
-     html+='Campo obligatorio.'
-     html+='</div>'
-     html+='</div>' 
-     html+='</div>'
-    //  html+='<div class="col-md-3">'
-    //  html+='<div class="form-floating mb-3">'
-    //  html+='<input type="text" class="form-control form-control-sm validate" name="emailCon" id="emailConUC" autocomplete="off" placeholder="0">'
-    //  html+='<label for="emailCon"> Confirme correo electronico</label>'
-    //  html+='<div class="invalid-feedback emailConvocante">'
-    //  html+='Campo obligatorio.'
-    //  html+='</div>'
-    //  html+='</div>' 
-    //  html+='</div>'
-     html+='<div class="col-md-3">'
-     html+='<button type="button" class="btn btn-danger" id="remove" style="height: 50px; width: 120px">Eliminar <i class="fas fa-minus"></i></button>'
-     html+='   </div>';
-     html+='</div>'
-     html+='</div>'
+//     $('#add_btn').on('click',function(){
+//      var html='';
+//      html+='<div class="row" id="lista">'
+//      html+='<div class="col-md-3">'
+//      html+='<div class="form-floating mb-3">'
+//      html+='<input type="text" class="form-control form-control-sm validate" name="nomConvocante[]" id="nomConvocante" autocomplete="off" placeholder="0">'
+//      html+='<label for="nomConvocante">Nombre completo convocado</label>'
+//      html+='<div class="invalid-feedback nomConvocante">'
+//      html+='Campo obligatorio.'
+//      html+='</div>'
+//      html+='</div>'
+//      html+='</div>'
+//      html+='<div class="col-md-3">'
+//      html+='<div class="form-floating mb-3">'
+//      html+='<input type="text" class="form-control form-control-sm validate" name="apeConvocante[]" id="apeConvocante" autocomplete="off" placeholder="0">'
+//      html+='<label for="apeConvocante">Nombre completo convocado</label>'
+//      html+='<div class="invalid-feedback apeConvocante">'
+//      html+='Campo obligatorio.'
+//      html+='</div>'
+//      html+='</div>'
+//      html+='</div>'
+//      html+='<div class="col-md-3">'
+//      html+='<div class="form-floating mb-3">'
+//      html+='<input type="email" class="form-control form-control-sm validate" name="emailConvocante[]" id="emailConU" autocomplete="off" placeholder="0">'
+//      html+='<label for="email"> Correo electronico</label>'
+//      html+='<div class="invalid-feedback emailConU">'
+//      html+='Campo obligatorio.'
+//      html+='</div>'
+//      html+='</div>' 
+//      html+='</div>'
+//     //  html+='<div class="col-md-3">'
+//     //  html+='<div class="form-floating mb-3">'
+//     //  html+='<input type="text" class="form-control form-control-sm validate" name="emailCon" id="emailConUC" autocomplete="off" placeholder="0">'
+//     //  html+='<label for="emailCon"> Confirme correo electronico</label>'
+//     //  html+='<div class="invalid-feedback emailConvocante">'
+//     //  html+='Campo obligatorio.'
+//     //  html+='</div>'
+//     //  html+='</div>' 
+//     //  html+='</div>'
+//      html+='<div class="col-md-3">'
+//      html+='<button type="button" class="btn btn-danger" id="remove" style="height: 50px; width: 120px">Eliminar <i class="fas fa-minus"></i></button>'
+//      html+='   </div>';
+//      html+='</div>'
+//      html+='</div>'
      
  
 
-    /*
-     html+='<tr>';
-     html+='<td><input type="text" class="form-control form-control-sm validate" name="nomConvocante[]" autocomplete="off"></td>';
-     html+='<td><input type="text" class="form-control form-control-sm" name="emailConvocante[]" id="emailConU" autocomplete="off"></td>';
-     html+='<td><input type="text" class="form-control form-control-sm" id="emailConUC[]" autocomplete="off"></td>';
-     html+='<td><button type="button" class="btn btn-primary" id="remove"><i class="fas fa-minus"></i></button></td>';
-     html+='</tr>';
-     html+='<br>
-     html+='<div class="row">
-     html+='<div class="col-md-3">
-     html+='<div class="form-floating mb-3">
-     html+='<input type="text" class="form-control form-control-sm validate" name="nomConvocante[]" id="primerNombre" autocomplete="off" placeholder="0">
-     html+='<label for="nomConvocante">Nombre completo convocado</label>
-     html+='</label>
-     html+='</div>
-     html+='</div>
-     html+='<div class="col-md-3">
-     html+='<div class="form-floating mb-3">
-     html+='<input type="email" class="form-control form-control-sm validate[required, custom[email]]" name="emailConvocante[]" id="email" autocomplete="off" placeholder="0">
-     html+='<label for="email"> Correo electronico</label>
-     html+='         </div> 
-     html+='    </div>
-     html+='    <div class="col-md-3">
-     html+='       <div class="form-floating mb-3">
-     html+='           <input type="text" class="form-control form-control-sm validate[required, custom[email]]" name="emailCon" id="emailConUC" autocomplete="off" placeholder="0">
-     html+='           <label for="emailCon"> Confirme correo electronico</label>
-     html+='       </div> 
-     html+='   </div>
-     html+='<br>
-*/ 
-     $('.agregar').append(html);
-    });
-    $(document).on('click','#remove',function(){
-            $(this).closest('#lista').remove();
-        });
+//     /*
+//      html+='<tr>';
+//      html+='<td><input type="text" class="form-control form-control-sm validate" name="nomConvocante[]" autocomplete="off"></td>';
+//      html+='<td><input type="text" class="form-control form-control-sm" name="emailConvocante[]" id="emailConU" autocomplete="off"></td>';
+//      html+='<td><input type="text" class="form-control form-control-sm" id="emailConUC[]" autocomplete="off"></td>';
+//      html+='<td><button type="button" class="btn btn-primary" id="remove"><i class="fas fa-minus"></i></button></td>';
+//      html+='</tr>';
+//      html+='<br>
+//      html+='<div class="row">
+//      html+='<div class="col-md-3">
+//      html+='<div class="form-floating mb-3">
+//      html+='<input type="text" class="form-control form-control-sm validate" name="nomConvocante[]" id="primerNombre" autocomplete="off" placeholder="0">
+//      html+='<label for="nomConvocante">Nombre completo convocado</label>
+//      html+='</label>
+//      html+='</div>
+//      html+='</div>
+//      html+='<div class="col-md-3">
+//      html+='<div class="form-floating mb-3">
+//      html+='<input type="email" class="form-control form-control-sm validate[required, custom[email]]" name="emailConvocante[]" id="email" autocomplete="off" placeholder="0">
+//      html+='<label for="email"> Correo electronico</label>
+//      html+='         </div> 
+//      html+='    </div>
+//      html+='    <div class="col-md-3">
+//      html+='       <div class="form-floating mb-3">
+//      html+='           <input type="text" class="form-control form-control-sm validate[required, custom[email]]" name="emailCon" id="emailConUC" autocomplete="off" placeholder="0">
+//      html+='           <label for="emailCon"> Confirme correo electronico</label>
+//      html+='       </div> 
+//      html+='   </div>
+//      html+='<br>
+// */ 
+//      $('.agregar').append(html);
+//     });
+//     $(document).on('click','#remove',function(){
+//             $(this).closest('#lista').remove();
+//         });
 
     //Registro de informacion en backend
     function registroDatos() {
@@ -1330,17 +1354,17 @@ function run(hideTab, showTab){
                 //     campostab2(texto);
                 //      return;
                 //  }
-                 if ($("#emailConU").val()=== "") {
-                    var texto="Correo";
-                    campostab2(texto);
-                    return;
-                 }else if (isValidEmail($("#emailConU").val())) {
-                    $('.invalid-feedback.emailConU').hide();
-                 }else{
-                    $('.invalid-feedback.emailConU').show();
-                    correonovalido();
-                    return;
-                 }
+                //  if ($("#emailConU").val()=== "") {
+                //     var texto="Correo";
+                //     campostab2(texto);
+                //     return;
+                //  }else if (isValidEmail($("#emailConU").val())) {
+                //     $('.invalid-feedback.emailConU').hide();
+                //  }else{
+                //     $('.invalid-feedback.emailConU').show();
+                //     correonovalido();
+                //     return;
+                //  }
                 for (i = 0; i < y.length; i++){
                     if (y[i].value == ""||$(y[i]).val().length < y[i].minLength){
                         var nombre= y[i].name;
@@ -1424,6 +1448,73 @@ function run(hideTab, showTab){
     
 }
 
+$('#add_btn').on('click',function(){
+    var nomConvocante= $("#nomConvocantes").val() ;
+    var apeConvocante= $("#apeConvocantes").val();
+    var emailConU= $("#emailConUs").val();
+
+    var html='';
+     html+=' <tr>';
+     html+='<td><input type="text" class="form-control form-control-sm" name="nomConvocante[]" id="nomConvocante" value='+nomConvocante+' style="display:none;" >'+nomConvocante+'</td>';
+     html+='<td><input type="text" class="form-control form-control-sm" name="apeConvocante[]" id="apeConvocante" value='+apeConvocante+' style="display:none;" >'+apeConvocante+'</td>';
+     html+='<td><input type="text" class="form-control form-control-sm" name="emailConvocante[]" id="emailConU" value='+emailConU+' style="display:none;" >'+emailConU+'</td>';
+     html+='<td><button class="btn btn-danger deleteBtn">Eliminar</button></td>';
+     html+='</tr>';
+
+     if(nomConvocante ==='' || apeConvocante ==='' || emailConU ===''){
+        datosconvocados();
+     }else{
+        $("#nomConvocantes").val('');
+        $("#apeConvocantes").val('');
+        $("#emailConUs").val('');
+        $('#tablita').append(html);
+     }
+     
+    });
+    $(document).on('click','#deleteBtn',function(){
+            $(this).closest('.tr').remove();
+        });
+
+function soloNumeros(e) {
+        var keynum = window.event ? window.event.keyCode : e.which;
+        if ((keynum == 8) || (keynum == 46))
+            return true;
+        return /\d/.test(String.fromCharCode(keynum));
+    }
+
+// const formEl = document.querySelector("form");
+// const tbodyEl = document.querySelector("tbody");
+// const tableEl = document.querySelector("table");
+// function onAddWebsite(e) {
+// e.preventDefault();
+// const nomConvocante = document.getElementById("nomConvocante").value;
+// const apeConvocante = document.getElementById("apeConvocante").value;
+// const emailConU = document.getElementById("emailConU").value;
+// tbodyEl.innerHTML += `
+//             <tr>
+//                 <td name="nomConvocante[]">${nomConvocante}</td>
+//                 <td name="apeConvocante[]">${apeConvocante}</td>
+//                 <td name="emailConU[]">${emailConU}</td>
+//                 <td><button class="btn btn-danger deleteBtn">Eliminar</button></td>
+//             </tr>
+//         `;
+  
+// }
+
+// function onDeleteRow(e) {
+//         if (!e.target.classList.contains("deleteBtn")) {
+//           return;
+//         }
+
+//         const btn = e.target;
+//         btn.closest("tr").remove();
+//       }
+
+//       formEl.addEventListener("submit", onAddWebsite);
+//       tableEl.addEventListener("click", onDeleteRow);
+
+
+
 function doc(valor){
         if(valor == 1){
          
@@ -1446,9 +1537,11 @@ function doc(valor){
 
     function carga() {
         doc(document.getElementById('tipoSolicitud').value);
+}
 
-        
-    }
+
+
+
     window.onload=carga;
 
 

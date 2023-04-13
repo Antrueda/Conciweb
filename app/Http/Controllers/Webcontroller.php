@@ -20,6 +20,8 @@ use App\Http\Requests\AdjuntarRequest;
 use App\Mail\Conci;
 use App\Models\ASubasunto;
 use App\Models\Asunto;
+use App\Models\Estadoform;
+use App\Models\Parametro;
 use App\Models\Salario;
 
 use App\Models\Soportecon;
@@ -69,11 +71,23 @@ class Webcontroller extends Controller
     //Modal con el texto de bienvenida
     public function modalMensajeBienvenida()
     {
-        $mensaje = Texto::where('tipotexto_id', 20)->where('sis_esta_id', 1)->first();
-        $data = array(
-            "mensaje" => $mensaje
-        );
-        return ((string)\View::make("frmWeb.modal.modalMensajeBienvenida", array("data" => $data)));
+   
+        $estadoform =Estadoform::where('sis_esta_id', 1)->first();
+        echo $estadoform;
+        if(!isset($estadoform)){
+            $mensaje = Texto::where('tipotexto_id', 20)->where('sis_esta_id', 1)->first();
+            $data = array(
+                "mensaje" => $mensaje
+            );
+            return ((string)\View::make("frmWeb.modal.modalMensajeBienvenida", array("data" => $data)));
+        }else{
+            $mensaje = Texto::where('tipotexto_id', 22)->first();
+            $data = array(
+                "mensaje" => $mensaje
+            );
+            return ((string)\View::make("frmWeb.modal.modalMensajeBienvenidaCerrado", array("data" => $data)));
+        }
+      
     }
     //Modal con mensaje de tratamiento de datos
     public function modalTratamientoDatos()
@@ -197,6 +211,14 @@ class Webcontroller extends Controller
         $subAsuntoold = SubAsunto::select(['nombre'])
         ->where('id', $request->input("subAsunto"))
         ->first();
+
+        $localidadnom = SisLocalidad::select(['s_localidad'])
+        ->where('id', $request->input("localidad"))
+        ->first();
+
+        $documentonombre = Parametro::select(['nombre'])
+        ->where('id', $request->input("tipoDocumento"))
+        ->first();
         //0.0) Preguntar si se registro un caso 
         //echo($subAsuntoold);
         try {
@@ -319,7 +341,7 @@ class Webcontroller extends Controller
                     'TEXTO06' => DB::raw("'$segundoTelefono'"),
                     'TEXTO07' => DB::raw("'$email'"),
                     'TEXTO08' => DB::raw("'$direccion'"),
-                    'TEXTO09' => DB::raw("$localidad"),
+                    'TEXTO09' => DB::raw("$localidadnom"),
                     'NUMERO01' => $tipoSolicitud,
                     'TEXTO10' => DB::raw("'$tipoDocApoderado'"),
                     'TEXTO11' => DB::raw("'$numDocApoderado'"),

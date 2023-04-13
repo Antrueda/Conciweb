@@ -12,26 +12,24 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-1"> </div>
-                            <div class="col-md-6 text-center"><h5><b style="text-justify"><br>SOLICITUD DE CONCILIACIONES WEB</b></h5></div>
+                            <div class="col-md-6 text-center"><h5><b style="text-justify"><br>MENSAJE PARA LOS USUARIOS</b></h5></div>
                             <div class="col-md-1"> </div>
                             <div class="col-md-4 text-right"><img src="{{URL::asset('imagen/logo-personeria-azul.png')}}" class="rounded mx-auto d-block" width="50%"></div>
                         </div>
                     </div>
                     <div class="card-body  text-justify">
-                        <div class="card-text  text-justify">
-                        {!!$data['mensaje']->texto!!}
-                    </div>
-                    
-                </div>
-                <div class="card-footer">
+                        Se informa a la ciudadanía que en el periodo comprendido entre el 1 de abril de 2023 al 9 de abril de 2023, no estará habilitada la aplicación CONCIWEB enfocada en <b>Solicitudes de Conciliación Virtual.</b> Este servicio se reactivará a partir del 10 de abril de 2023.
+                            
+                        Agradecemos su comprensión.
+                    <hr>
                     <center>
-                  
-                        <label>
-                            <input type="checkbox" class="form-check-input" id="customCheck1" style="margin-top: 0;"><span><b> ACEPTAR</b>  </span>
-                
-                         </label>
+                        <div class="custom-control custom-checkbox">
+                            
+                            <button id="customCheck1" type="submit" class="btn btn-primary "><span class="fas fa-undo"></span> ACEPTAR</button>
+                            
+                        </div>
                     </center>
-                </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -41,7 +39,7 @@
 
 <script>
 $( "#customCheck1" ).click(function() {
-    modalTratamientoDAtos();
+    window.location.href = "https://www.personeriabogota.gov.co/";
 });
 
 function modalTratamientoDAtos(){

@@ -14,6 +14,7 @@
         <!-- <link rel="stylesheet" href="URL::asset('css/bootstrap.css')}}" /> -->
         {{-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"> --}}
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+        
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.css" />
 
         <!-- <link rel="stylesheet" href="URL::asset('css/jquery.datetimepicker.css')}}" />
@@ -89,7 +90,7 @@
         <div class="row">
             <div class="col-sm-2">
                 <a href="https://www.personeriabogota.gov.co/" data-toggle="tooltip" data-placement="bottom" title="" style="text-decoration: none;" data-bs-original-title="Regresar al portal">
-                    <img src="/imagen/logo5.png" alt="Logo Personería de Bogotá" class="logo">
+                    <img src="/imagen/PropuestalogoConciweb1.png" alt="Logo Personería de Bogotá" class="logo">
                 </a>
             </div>
             <div class="col-sm-5">
@@ -103,7 +104,7 @@
         <img src="/imagen/menu-after-05.png" alt="Colores bandera Bogotá" class="bandera">
     </div>
 
-        @can('administrar-modulo')
+   
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="#"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -161,14 +162,17 @@
                     </a>
 
                     @endcan
-           
+                    <a href="{{ route('estadoform.editar',1)}}" class="nav-link">
+                      <i class="fa fa-users nav-icon"></i>
+                      <p>Estado Formulario</p>
+                    </a>
                     
                   </div>
                 </li>
               </ul>
             </div>
           </nav>
-          @endcan
+        
     <br>
 
     <div class="container" style="background-color: white">

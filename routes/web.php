@@ -98,8 +98,10 @@ require_once('Textos/web_moduloT.php');
 require_once('Asunto/web_modulo.php');
 require_once('Administracion/web_parametro.php');
 require_once('Administracion/web_salario.php');
+require_once('Administracion/web_estadoform.php');
 require_once('Administracion/web_tema.php');
 require_once('Seguridad/web_usuario.php');
+
 
 Route::get('login', [AuthController::class, "login"]);
 // login?key=Wnp5TEVrTlc0U05jVzcreU1CWnVjcFlPeDdETDMxR3E2MzRSU0ZVS3lETT0=
