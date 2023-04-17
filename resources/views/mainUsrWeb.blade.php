@@ -90,7 +90,7 @@
         <div class="row">
             <div class="col-sm-2">
                 <a href="https://www.personeriabogota.gov.co/" data-toggle="tooltip" data-placement="bottom" title="" style="text-decoration: none;" data-bs-original-title="Regresar al portal">
-                    <img src="/imagen/PropuestalogoConciweb1.png" alt="Logo Personería de Bogotá" class="logo">
+                    <img src="/imagen/Propuesta Conciweb-3 blanco.png" alt="Logo Personería de Bogotá" class="logo">
                 </a>
             </div>
             <div class="col-sm-5">

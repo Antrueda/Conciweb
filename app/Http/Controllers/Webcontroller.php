@@ -74,7 +74,7 @@ class Webcontroller extends Controller
    
         $estadoform =Estadoform::where('sis_esta_id', 1)->first();
         echo $estadoform;
-        if(!isset($estadoform)){
+        if(isset($estadoform)){
             $mensaje = Texto::where('tipotexto_id', 20)->where('sis_esta_id', 1)->first();
             $data = array(
                 "mensaje" => $mensaje

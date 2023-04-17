@@ -121,21 +121,21 @@
     <div class="steps-form">
         <div class="steps-row setup-panel">
           <div class="steps-step">
-            <a href="#step-1" type="button" class="btn btn-primary btn-circle" id = "step-1"><span id="text-1">1</span><i id="stepi-1" class="fas fa-check" style="display:none;"></i></a>
+            <a href="#step-1" type="button" class="btn btn-primary btn-circle" id = "step-1"><span id="text-1">1</span><i id="stepi-1" class="fas fa-check" style="display:none;"></i></a></a>
         
             
 
           </div>
           <div class="steps-step">
-            <a href="#step-2" type="button" class="btn btn-light btn-circle" id = "step-2" disabled="disabled"><span id="text-2">2</span><i id="stepi-2" class="fas fa-check" style="display:none;"></i></a>
+            <a href="#step-2" type="button" class="btn btn-light btn-circle" id = "step-2" disabled="disabled">2</a>
   
           </div>
           <div class="steps-step">
-            <a href="#step-3" type="button" class="btn btn-light btn-circle"  id = "step-3" disabled="disabled"><span id="text-3">3</span><i id="stepi-3" class="fas fa-check" style="display:none;"></i></a>
+            <a href="#step-3" type="button" class="btn btn-light btn-circle"  id = "step-3" disabled="disabled">3</a>
        
           </div>
           <div class="steps-step">
-            <a href="#step-4" type="button" class="btn btn-light btn-circle" id = "step-4" disabled="disabled"><span id="text-4">4</span><i id="stepi-4" class="fas fa-check" style="display:none;"></i></a>
+            <a href="#step-4" type="button" class="btn btn-light btn-circle" id = "step-4" disabled="disabled">4</a>
          
           </div>
         </div>
@@ -293,12 +293,7 @@
             </div>
             <!-- FIN TIPO SOLICITUD -->
             <center>
-                <div id="apode_id">
                 <div class="btn btn-primary" onclick="run(1, 2);" style="width: 120px">Siguiente <i class="fas fa-angle-right"></i></div>
-                 </div>
-                 <div id="dire_id">
-                <div class="btn btn-primary" onclick="run(1, 3);" style="width: 120px">Siguiente <i class="fas fa-angle-right"></i></div>
-             </div>
             </center>
             <br>
         </div>
@@ -309,137 +304,90 @@
     <div class="card tab" id="tab-2">
         <div class="card-header">
             <center>
-            <b>DATOS DEL APODERADO</b>
+            <b>DATOS DEL CONVOCADO/S</b>
         </center>
         </div>
-        <div class="card-body" >
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-floating mb-3">
-                        {{ Form::select('tipoDocApoderado', $data['listaTipoDoc'], null, ['class' => $errors->first('tipoDocApoderado') ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm']) }}
-                    @if($errors->has('tipoDocApoderado'))
-                        <div class="invalid-feedback d-block">
-                            {{ $errors->first('tipoDocApoderado') }}
-                        </div>
-                    @endif
-                    <label for="tipoDocApoderado"> 11.1. Tipo Documento *</label>
-                    <div class="invalid-feedback tipoDocApoderado">
-                        Campo obligatorio.
-                      </div>
-                    </div>
-                </div>
-                 <div class="col-md-6">
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm validate" name="numDocApoderado" id="numDocApoderado" autocomplete="off" placeholder="0" onkeypress = "return soloNumeros(event);">
-                        <label for="numDocApoderado"> 11.2. No. de cédula *</label>
-                        <div class="invalid-feedback numDocApoderado">
-                            Campo obligatorio.
-                          </div>
-                    </div>
-                </div>
-            </div>
+        <div class="card-body">
+            <p class="text-justify">Si es un numero plural de convocados indique los correos electrónicos de cada uno de ellos. Se advierte que la invitación a la audiencia de conciliación virtual se realizará por correo electrónico, y por tanto deben ser verídicos. Si no cuenta con ellos, adelante la solicitud de conciliación presencial en la Sedes de Conciliación del Personería de Bogotá D.C. que se encuentra publicadas en la página web de la Entidad.</p>
+            <div class="agregar">
             <div class="row">
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm validate" name="primerNombreApoderado" id="primerNombreApoderado" autocomplete="off" placeholder="0">
-                        <label for="primerNombreApoderado"> 11.3. Primer Nombre *</label>
-                        <div class="invalid-feedback primerNombreApoderado">
+                    <input type="text" class="form-control form-control-sm" name="nomConvocantes[]" id="nomConvocantes" autocomplete="off" placeholder="0" minlength="3" >
+                        <label for="nomConvocante">Nombres convocado</label>
+                        <div class="invalid-feedback nomConvocante">
                             Campo obligatorio.
                           </div>
-                       
-                    </div>
+                </div>
                 </div>
                 <div class="col-md-3">
-                  <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm" name="segundoNombreApoderado" id="segundoNombreApoderado" autocomplete="off" placeholder="0">
-                        <label for="segundoNombreApoderado"> 11.4. Segundo Nombre</label>
-                    </label>
-                </div>
-            </div>
-                <div class="col-md-3">
-                  <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm validate" name="primerApellidoApoderado" id="primerApellidoApoderado" autocomplete="off" placeholder="0">
-                        <label for="primerApellidoApoderado"> 11.5. Primer Apellido *</label>
-                        <div class="invalid-feedback primerApellidoApoderado">
+                    <div class="form-floating mb-3">
+                    <input type="text" class="form-control form-control-sm" name="apeConvocantes[]" id="apeConvocantes" autocomplete="off" placeholder="0" minlength="3" >
+                        <label for="apeConvocante">Apellidos convocado</label>
+                        <div class="invalid-feedback apeConvocante">
                             Campo obligatorio.
                           </div>
+                </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-floating mb-4">
+                    
+                        <input type="email" class="form-control form-control-sm" name="emailConvocantes[]" id="emailConUs" autocomplete="off" placeholder="0" >
+                        <label for="email"> Correo electronico</label>
+                        <div class="invalid-feedback emailConU">
+                            Campo obligatorio.
+                          </div>
+                     </div> 
+                </div>
+                {{-- <div class="col-md-3">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control form-control-sm validate" name="emailCon" id="emailConUC" autocomplete="off" placeholder="0" required>
+                        <label for="emailCon"> Confirme correo electronico</label>
+                        <div class="invalid-feedback emailCon">
+                            Campo obligatorio.
+                          </div>
+                    </div> 
+                </div> --}}
+                <div class="col-md-3">
+                     
+               <button type="button" class="btn btn-primary" id="add_btn" >Agregar <i class="fas fa-plus"></i></button> 
 
-                    </div>
-                </div>
-                <div class="col-md-3">
-                  <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm" name="segundoApellidoApoderado" id="segundoApellidoApoderado" autocomplete="off" placeholder="0">
-                        <label for="segundoApellidoApoderado"> 11.6. Segundo Apellido</label>
-                        
-                    </div>
-                </div>
+  
+              </div>
             </div>
-            <div class="row">
-                <div class="col-md-3">
-                  <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm validate" name="tarjetaProfesional" id="tarjetaProfesional" autocomplete="off" placeholder="0" onkeypress = "return soloNumeros(event);">
-                        <label for="tarjetaProfesional"> 11.7. No. tarjeta Profesional *</label>
-                        <div class="invalid-feedback tarjetaProfesional">
-                            Campo obligatorio.
-                          </div>
-            
-                    </div>
-                </div>
-                <div class="col-md-3">
-                  <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm" name="direccionApoderado" id="direccionApoderado" autocomplete="off" placeholder="0">
-                        <label for="tarjetaProfesional"> 11.8. Dirección *</label>
-                        <div class="invalid-feedback direccionApoderado">
-                            Campo obligatorio.
-                          </div>
-                       
-                    </div>
-                </div>
-                <div class="col-md-3">
-                  <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm validate" name="primerTelefonoApoderado" id="primerTelefonoApoderado" autocomplete="off" placeholder="0" onkeypress = "return soloNumeros(event);">
-                        <label for="primerTelefonoApoderado"> 11.9. Teléfono Celular *</label>
-                        <div class="invalid-feedback primerTelefonoApoderado">
-                            Campo obligatorio.
-                          </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                  <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm validate[required minSize[7], maxSize[10]]" name="segundoTelefonoApoderado" id="segundoTelefonoApoderado" autocomplete="off" placeholder="0" onkeypress = "return soloNumeros(event);">
-                        <label for="segundoTelefonoApoderado"> 11.10. Teléfono fijo</label>
-           
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                  <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm validate[required, custom[email]]" name="emailApoderado" id="emailApoderado" autocomplete="off" placeholder="0">
-                        <label for="emailApoderado"> 11.10. Correo electronico*</label>
-                        <div class="invalid-feedback emailApoderado">
-                            Campo obligatorio.
-                          </div>
-             
-                    </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm validate[required, custom[email]]" name="emailApoderadoCon" id="emailApoderadoCon" autocomplete="off" placeholder="0">
-                        <label for="emailApoderadoCon"> 11.12. Confirme correo electronico *</label>
-                        <div class="invalid-feedback emailApoderadoCon">
-                            Campo obligatorio.
-                          </div>
-                    </div>
-                </div>
-            </div>
+          
         </div>
-
-   
+        <div class="test">
+            <div class="row">
+            <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Nombres Convocado</th>
+                    <th>Apellidos Convocado</th>
+                    <th>Email</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody id="tablita"></tbody>
+              </table>
+            </div>
+            </div>
+           
+           
+        </div>
+        <div id="apode_id">
         <center>
         <div class="btn btn-primary" onclick="run(2, 1);" style="width: 120px"><i class="fas fa-angle-left"></i> Anterior</div>
         <div class="btn btn-primary" onclick="run(2, 3);" style="width: 120px">Siguiente<i class="fas fa-angle-right"></i></div>
         </center>
+        </div>
+        <div id="dire_id">
+
+            <center>
+            <div class="btn btn-primary" onclick="run(2, 1);" style="width: 120px"><i class="fas fa-angle-left"></i> Anterior</div>
+            <div class="btn btn-primary" onclick="run(2, 4);" style="width: 120px">Siguiente<i class="fas fa-angle-right"></i></div>
+            </center>
+            </div>
         <br>
     </div>
 
@@ -451,82 +399,106 @@
         <div class="card tab" id="tab-3">
             <div class="card-header">
                 <center>
-                <b>DATOS DEL CONVOCADO/S</b>
+                <b>DATOS DEL APODERADO</b>
             </center>
             </div>
-            <div class="card-body">
-                <p class="text-justify">Si es un numero plural de convocados indique los correos electrónicos de cada uno de ellos. Se advierte que la invitación a la audiencia de conciliación virtual se realizará por correo electrónico, y por tanto deben ser verídicos. Si no cuenta con ellos, adelante la solicitud de conciliación presencial en la Sedes de Conciliación del Personería de Bogotá D.C. que se encuentra publicadas en la página web de la Entidad.</p>
-                <div class="agregar">
+            <div class="card-body" >
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            {{ Form::select('tipoDocApoderado', $data['listaTipoDoc'], null, ['class' => $errors->first('tipoDocApoderado') ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm']) }}
+                        @if($errors->has('tipoDocApoderado'))
+                            <div class="invalid-feedback d-block">
+                                {{ $errors->first('tipoDocApoderado') }}
+                            </div>
+                        @endif
+                        <label for="tipoDocApoderado"> 11.1. Tipo Documento *</label>
+                        </div>
+                    </div>
+                     <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control form-control-sm validate[required, minSize[4], maxSize[10]]" name="numDocApoderado" id="numDocApoderado" autocomplete="off" placeholder="0">
+                            <label for="numDocApoderado"> 11.2. No. de cédula *</label>
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-md-3">
                         <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm" name="nomConvocantes[]" id="nomConvocantes" autocomplete="off" placeholder="0" minlength="3" >
-                            <label for="nomConvocante">Nombres convocado</label>
-                            <div class="invalid-feedback nomConvocante">
-                                Campo obligatorio.
-                              </div>
-                    </div>
+                            <input type="text" class="form-control form-control-sm validate" name="primerNombreApoderado" id="primerNombreApoderado" autocomplete="off" placeholder="0">
+                            <label for="primerNombreApoderado"> 11.3. Primer Nombre *</label>
+                           
+                        </div>
                     </div>
                     <div class="col-md-3">
-                        <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm" name="apeConvocantes[]" id="apeConvocantes" autocomplete="off" placeholder="0" minlength="3" >
-                            <label for="apeConvocante">Apellidos convocado</label>
-                            <div class="invalid-feedback apeConvocante">
-                                Campo obligatorio.
-                              </div>
+                      <div class="form-floating mb-3">
+                            <input type="text" class="form-control form-control-sm" name="segundoNombreApoderado" id="segundoNombreApoderado" autocomplete="off" placeholder="0">
+                            <label for="segundoNombreApoderado"> 11.4. Segundo Nombre</label>
+                        </label>
                     </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-floating mb-6">
-                        
-                            <input type="email" class="form-control form-control-sm" name="emailConvocantes[]" id="emailConUs" autocomplete="off" placeholder="0" >
-                            <label for="email"> Correo electronico</label>
-                            <div class="invalid-feedback emailConU">
-                                Campo obligatorio.
-                              </div>
-                         </div> 
-                    </div>
-                    {{-- <div class="col-md-3">
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control form-control-sm validate" name="emailCon" id="emailConUC" autocomplete="off" placeholder="0" required>
-                            <label for="emailCon"> Confirme correo electronico</label>
-                            <div class="invalid-feedback emailCon">
-                                Campo obligatorio.
-                              </div>
-                        </div> 
-                    </div> --}}
-                    <div class="col-md-3">
-                         
-                   <button type="button" class="btn btn-primary" id="add_btn" >Agregar <i class="fas fa-plus"></i></button> 
-    
-      
-                  </div>
                 </div>
-              
-            </div>
-            <div class="test">
+                    <div class="col-md-3">
+                      <div class="form-floating mb-3">
+                            <input type="text" class="form-control form-control-sm validate" name="primerApellidoApoderado" id="primerApellidoApoderado" autocomplete="off" placeholder="0">
+                            <label for="primerApellidoApoderado"> 11.5. Primer Apellido *</label>
+
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-floating mb-3">
+                            <input type="text" class="form-control form-control-sm" name="segundoApellidoApoderado" id="segundoApellidoApoderado" autocomplete="off" placeholder="0">
+                            <label for="segundoApellidoApoderado"> 11.6. Segundo Apellido</label>
+                            
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
-                <table class="table table-striped">
-                    <thead>
-                      <tr>
-                        <th>Nombres Convocado</th>
-                        <th>Apellidos Convocado</th>
-                        <th>Email</th>
-                        <th></th>
-                      </tr>
-                    </thead>
-                    <tbody id="tablita"></tbody>
-                  </table>
-                </div>
-                </div>
+                    <div class="col-md-3">
+                      <div class="form-floating mb-3">
+                            <input type="text" class="form-control form-control-sm validate" name="tarjetaProfesional" id="tarjetaProfesional" autocomplete="off" placeholder="0">
+                            <label for="tarjetaProfesional"> 11.7. No. tarjeta Profesional *</label>
+                
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-floating mb-3">
+                            <input type="text" class="form-control form-control-sm" name="direccionApoderado" id="direccionApoderado" autocomplete="off" placeholder="0">
+                            <label for="tarjetaProfesional"> 11.8. Dirección *</label>
+                           
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-floating mb-3">
+                            <input type="text" class="form-control form-control-sm validate[required, minSize[10], maxSize[10]]" name="primerTelefonoApoderado" id="primerTelefonoApoderado" autocomplete="off" placeholder="0">
+                            <label for="primerTelefonoApoderado"> 11.9. Teléfono Celular *</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-floating mb-3">
+                            <input type="text" class="form-control form-control-sm validate[required minSize[7], maxSize[10]]" name="segundoTelefonoApoderado" id="segundoTelefonoApoderado" autocomplete="off" placeholder="0">
+                            <label for="segundoTelefonoApoderado"> 11.10. Teléfono fijo</label>
                
-               
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-floating mb-3">
+                            <input type="text" class="form-control form-control-sm validate[required, custom[email]]" name="emailApoderado" id="emailApoderado" autocomplete="off" placeholder="0">
+                            <label for="emailApoderado"> 11.10. Teléfono fijo</label>
+                 
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-floating mb-3">
+                            <input type="text" class="form-control form-control-sm validate[required, custom[email]]" name="emailApoderadoCon" id="emailApoderadoCon" autocomplete="off" placeholder="0">
+                            <label for="emailApoderadoCon"> 11.12. Confirme correo electronico *</label>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-
             <center>
-            <div class="btn btn-primary" onclick="run(3, 1);" id="audi_div" style="width: 120px"><i class="fas fa-angle-left"></i> Anterior</div>
-            <div class="btn btn-primary" onclick="run(3, 2);" id="full_div" style="width: 120px"><i class="fas fa-angle-left"></i> Anterior</div>
+            <div class="btn btn-primary" onclick="run(3, 2);" style="width: 120px"><i class="fas fa-angle-left"></i> Anterior</div>
             <div class="btn btn-primary" onclick="run(3, 4);" style="width: 120px">Siguiente <i class="fas fa-angle-right"></i></div>
         </center>
         <br>
@@ -691,7 +663,8 @@
               
                 <center>
          
-                <div class="btn btn-primary" onclick="run(4, 2);" style="width: 120px"><i class="fas fa-angle-left"></i> Anterior</div>
+                <div class="btn btn-primary" onclick="run(4, 3);" id="full_div" style="width: 120px"><i class="fas fa-angle-left"></i> Anterior</div>
+                <div class="btn btn-primary" onclick="run(4, 2);" id="audi_div" style="width: 120px"><i class="fas fa-angle-left"></i> Anterior</div>
                 <br>
                 <hr>
                 {!! htmlFormSnippet() !!}
@@ -1369,21 +1342,6 @@ function run(hideTab, showTab){
                     TipoSolicitud();
                     return;
                 }
-         }
-         if (hideTab==2){
-                if ($("#emailApoderado").val() !== $("#emailApoderadoCon").val() || $("#emailApoderado").val() ==='') {
-                    errorEmailIgualApod();
-                    return;
-                }
-
-                if ($("#tipoDocumento").val()==='') {
-                    TipoDocumento();
-                    return;
-                }
-                if ($("#tipoSolicitud").val()===' ') {
-                    TipoSolicitud();
-                    return;
-                }
                 
 
         }
@@ -1476,9 +1434,9 @@ function run(hideTab, showTab){
         // Progress bar
         for (i = 1; i < showTab; i++){
           if($("#tipoSolicitud").val()===0){
-            $("#step-2").hide();
+            $("#step-3").hide();
           }else{
-            $("#step-2").show();
+            $("#step-3").show();
           }
         //   $("#step-"+i).addClass("opacity", "1");
           console.log(i)
@@ -1487,9 +1445,9 @@ function run(hideTab, showTab){
         // Switch tab
         $("#tab-"+hideTab).css("display", "none");
         $("#tab-"+showTab).css("display", "block");
-        $("#step-"+hideTab).removeClass('btn-primary').addClass('btn-light');
-       // $("#stepi-"+hideTab).css("display", "block");
-       // $("#text-"+hideTab).css("display", "none");
+        //$("#step-"+hideTab).removeClass('btn-primary').addClass('btn-light');
+        $("#stepi-"+hideTab).css("display", "block");
+        $("#text-"+hideTab).css("display", "none");
         $("#step-"+showTab).removeClass('btn-light');
         $("#step-"+showTab).addClass('btn-primary');
         $("input").css("background", "#fff");
