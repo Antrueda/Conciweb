@@ -155,8 +155,27 @@
      
             </div>
         </div>
-  
+
     </label> 
+    @if($tiposolicitud==1)
+        <span style="text-justify">Poder especial para conciliar dirigido al centro de conciliación de la personería de Bogota D.C.(Máximo 10Mb)</span>
+          <label class="form-group has-float-label">
+            <div class="input-group input-file" >
+              <div style="display:none">
+              <input type="text" class="form-control" name="descripcion[]" id="descripcion" value="Poder especial para conciliar dirigido al centro de conciliación de la personería de Bogota D.C"/> 
+              </div>
+              <input type="file" class="validate[required] form-control" name="document1[]"  required accept=".pdf"/>
+                <span class="input-group-btn">
+                    <button class="btn btn-danger btn-reset" style="margin-left: 10px;" id="limpia" type="button">Limpiar <i class="fas fa-broom"></i></button>
+                </span>
+
+                <div id="my_pdf_viewer">
+        
+                </div>
+            </div>
+      
+        </label> 
+        @endif
     </ul>        
   </div>
 </div>

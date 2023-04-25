@@ -14,7 +14,6 @@
         <!-- <link rel="stylesheet" href="URL::asset('css/bootstrap.css')}}" /> -->
         {{-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"> --}}
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-        
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.css" />
 
         <!-- <link rel="stylesheet" href="URL::asset('css/jquery.datetimepicker.css')}}" />
@@ -90,7 +89,7 @@
         <div class="row">
             <div class="col-sm-2">
                 <a href="https://www.personeriabogota.gov.co/" data-toggle="tooltip" data-placement="bottom" title="" style="text-decoration: none;" data-bs-original-title="Regresar al portal">
-                    <img src="/imagen/Propuesta Conciweb-3 blanco.png" alt="Logo Personería de Bogotá" class="logo">
+                    <img src="/imagen/logo5.png" alt="Logo Personería de Bogotá" class="logo">
                 </a>
             </div>
             <div class="col-sm-5">
@@ -162,18 +161,14 @@
                     </a>
 
                     @endcan
-                    @can('usuario-leer')
-                    <a href="{{ route('estadoform.editar',1)}}" class="nav-link">
-                      <i class="fa fa-users nav-icon"></i>
-                      <p>Estado Formulario</p>
-                    </a>
-                    @endcan
+           
+                    
                   </div>
                 </li>
               </ul>
             </div>
           </nav>
-             @endcan
+          @endcan
     <br>
 
     <div class="container" style="background-color: white">

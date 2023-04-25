@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('conci_soportecons', function (Blueprint $table) {
             $table->bigincrements('id',12)->start(1)->nocache();
-            $table->string('descripcion')->nullable();
+            $table->string('descripcion',500)->nullable();
             $table->string('rutaFinalFile')->nullable();
             $table->string('nombreOriginalFile')->nullable();
             $table->bigInteger('NUM_SOLICITUD')->unsigned()->default(1)->nullable();

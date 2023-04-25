@@ -377,7 +377,7 @@
             <div class="row">
                 <div class="col-md-3">
                   <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm validate" name="tarjetaProfesional" id="tarjetaProfesional" autocomplete="off" placeholder="0" onkeypress = "return soloNumeros(event);">
+                        <input type="text" class="form-control form-control-sm validate" name="tarjetaProfesional" id="tarjetaProfesional" autocomplete="off" placeholder="0">
                         <label for="tarjetaProfesional"> 11.7. No. tarjeta Profesional *</label>
                         <div class="invalid-feedback tarjetaProfesional">
                             Campo obligatorio.
@@ -498,6 +498,7 @@
                     <div class="col-md-3">
                          
                    <button type="button" class="btn btn-primary" id="add_btn" >Agregar <i class="fas fa-plus"></i></button> 
+                    <button type="button" id="deletebtn" class="btn btn-danger deleteBtn">Eliminar</button>
     
       
                   </div>
@@ -633,7 +634,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-floating mb-3">
-                                <textarea class="form-control form-control-sm validate[required, maxSize[1000]]" name="detalle" id="detalle" placeholder="Resumen" ></textarea>
+                                <textarea class="form-control form-control-sm validate[required, maxSize[1000]]" name="detalle" id="detalle" placeholder="Resumen" maxlength="1000" ></textarea>
                                 <label for="detalle"> 15. Resumen de la pretensión o conflicto (Máximo 1000 caracteres)*</label>
                                 <span id="chars"></span>
                                 </div>
@@ -651,7 +652,7 @@
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-floating mb-3">
-                                <input class="form-control form-control-sm validate" type="number" name="cuantia" id="cuantia" autocomplete="off" placeholder="0">
+                                <input class="form-control form-control-sm validate" type="number" name="cuantia" id="cuantia" autocomplete="off" placeholder="0" min="1" max="100" maxlength="3">
                                 <label for="cuantia"> 16. Valor de la Cuantía *</label>
                                 <div id="test">
                                     {{ Form::number('salario', $data['salario']->numero, ['class' => 'form-control-plaintext' ,'id'=>'salario', 'style'=>"display: none"]) }}
@@ -691,7 +692,7 @@
               
                 <center>
          
-                <div class="btn btn-primary" onclick="run(4, 2);" style="width: 120px"><i class="fas fa-angle-left"></i> Anterior</div>
+                <div class="btn btn-primary" onclick="run(4, 3);" style="width: 120px"><i class="fas fa-angle-left"></i> Anterior</div>
                 <br>
                 <hr>
                 {!! htmlFormSnippet() !!}
@@ -927,32 +928,34 @@
     $('#numDocApoderado').on('keyup', function() {
         limitText(this, 10)
     });
-    $('#cuantia').on('keyup', function() {
-        $(this).val();
-        console.log($(this).val());
-        var valor= $('#salario').val()*$(this).val();
-        var maximo= $('#maximo').val();
-        console.log(valor > maximo);
-        if (valor > maximo) {
-            var msg = "La pretensión no podrá ser superior a 100 SMMLV ($"+maximo+"), salvo que se trate de solicitudes de conciliación promovida por persona natural deudor hipotecario y por persona natural que reclame ser damnificado o victima el pago de indemnización de seguros de responsabilidad civil";
-            var msg = "<center><p><i class='fas fa-check-circle fa-3x'></i></p></center>" + msg;
-            llamarNotyTime('error', msg, 'center', 3000);
-        }
+    // $('#cuantia').on('keyup', function() {
+    //     $(this).val();
+    //     console.log($(this).val());
+    //     var valor= $('#salario').val()*$(this).val();
+    //     var maximo= $('#maximo').val();
+    //     console.log(valor > maximo);
+    //     if (valor > maximo) {
+    //         var msg = "La pretensión no podrá ser superior a 100 SMMLV ($"+maximo+"), salvo que se trate de solicitudes de conciliación promovida por persona natural deudor hipotecario y por persona natural que reclame ser damnificado o victima el pago de indemnización de seguros de responsabilidad civil";
+    //         var msg = "<center><p><i class='fas fa-check-circle fa-3x'></i></p></center>" + msg;
+    //         llamarNotyTime('error', msg, 'center', 3000);
+    //     }
 
-    });
+    // });
 
-    function cuantiaVerificar(field) {
-        var ref = $(field),
-            val = ref.val();
-        var str = $('#cuantia').val();
-        str = str.replace(/\+/gi, ' ');
-        $("#cuantia").val(str);
-        if (val > 90852600) {
-            var msg = "La pretensión no podrá ser superior a 100 SMMLV ($100.000.000), salvo que se trate de solicitudes de conciliación promovida por persona natural deudor hipotecario y por persona natural que reclame ser damnificado o victima el pago de indemnización de seguros de responsabilidad civil";
-            var msg = "<center><p><i class='fas fa-check-circle fa-3x'></i></p></center>" + msg;
-            llamarNotyTime('error', msg, 'center', 3000);
-        }
-    }
+    // function cuantiaVerificar(field) {
+    //     var ref = $(field),
+    //         val = ref.val();
+    //     var str = $('#cuantia').val();
+    //     var maxmo = $('#maximo').val();
+        
+    //     str = str.replace(/\+/gi, ' ');
+    //     $("#cuantia").val(str);
+    //     if (val > maxmo) {
+    //         var msg = "La pretensión no podrá ser superior a 100 SMMLV ($116,000,000), salvo que se trate de solicitudes de conciliación promovida por persona natural deudor hipotecario y por persona natural que reclame ser damnificado o victima el pago de indemnización de seguros de responsabilidad civil";
+    //         var msg = "<center><p><i class='fas fa-check-circle fa-3x'></i></p></center>" + msg;
+    //         llamarNotyTime('error', msg, 'center', 3000);
+    //     }
+    // }
     //Funcion que limita la cantidad de caracteres en un campo
     function limitText(field, maxChar) {
         var ref = $(field),
@@ -1506,7 +1509,7 @@ $('#add_btn').on('click',function(){
      html+='<td><input type="text" class="form-control form-control-sm" name="nomConvocante[]" id="nomConvocante" value='+nomConvocante+' style="display:none;" >'+nomConvocante+'</td>';
      html+='<td><input type="text" class="form-control form-control-sm" name="apeConvocante[]" id="apeConvocante" value='+apeConvocante+' style="display:none;" >'+apeConvocante+'</td>';
      html+='<td><input type="email" class="form-control form-control-sm" name="emailConvocante[]" id="emailConU" value='+emailConU+' style="display:none;" >'+emailConU+'</td>';
-     html+='<td><button class="btn btn-danger deleteBtn">Eliminar</button></td>';
+     html+='<td> <button type="button" id="deletebtn" class="btn btn-danger deletebtn">Eliminar</button> </td>';
      html+='</tr>';
 
      if(nomConvocante ==='' || apeConvocante ==='' || emailConU ===''){
@@ -1527,8 +1530,11 @@ $('#add_btn').on('click',function(){
      
      
     });
-    $(document).on('click','#deleteBtn',function(){
-            $(this).closest('.tr').remove();
+
+
+    $(document).on('click','#deletebtn',function(){
+            console.log('test');
+            $(this).closest('tr').remove();
         });
 
 function soloNumeros(e) {

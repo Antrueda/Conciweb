@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('conci_descripcionas', function (Blueprint $table) {
             $table->increments('id')->start(1)->nocache();
-            $table->string('nombre')->unique();
+            $table->string('nombre',500)->unique();
 
             $table->bigInteger('sis_esta_id')->unsigned()->default(1);
             $table->foreign('sis_esta_id')->references('id')->on('conci_sis_estas');

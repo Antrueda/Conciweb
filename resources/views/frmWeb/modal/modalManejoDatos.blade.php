@@ -14,7 +14,8 @@
                             <div class="col-md-1"> </div>
                             <div class="col-md-6 text-center"><h5><b style="text-justify">AUTORIZACIÓN PARA EL TRATAMIENTO DE DATOS PERSONALES</b></h5></div>
                             <div class="col-md-1"> </div>
-                            <div class="col-md-4 text-right"><img src="{{URL::asset('imagen/logo-personeria-azul.png')}}" class="rounded mx-auto d-block" width="50%"></div>
+                            <div class="col-md-4 text-right"><img src="{{URL::asset('imagen/Propuesta logo Conciweb-2.png')}}" class="rounded mx-auto d-block" style="width: 100%;
+                                height: auto;"></div>
                         </div>
                     </div>
                     <div class="card-body text-justify">

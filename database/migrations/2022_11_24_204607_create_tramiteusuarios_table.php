@@ -50,7 +50,7 @@ return new class extends Migration
             $table->foreign('asunto')->references('id')->on('conci_asuntos');
             $table->foreign('subAsunto')->references('id')->on('conci_sub_asuntos');
             $table->string('tipoDocumento')->nullable();
-            $table->string('detalle',1000)->nullable();
+            $table->string('detalle',2000)->nullable();
             $table->string('cuantia')->nullable();
             $table->string('code')->nullable();
             $table->string('estadodoc')->nullable();
