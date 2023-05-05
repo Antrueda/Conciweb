@@ -121,19 +121,18 @@
 
   
     <ul>
-      @foreach ($data['detalleAbc'] as $key => $info)
-
+      @foreach ($data['detalleAbc'] as $info)
       <li>
-        <div class="container text-left" name="document{{$key}} ">
+        <div class="container text-left" >
           <div class="row">
             <div class="col-5 texto">
             <span style="text-justify">{!! $info->descripcion->nombre !!} *</span>
             </div>
-          <div style="display:none">
-          <input type="text" class="form-control" name="descripcion[]" id="descripcion" value="{!! $info->descripcion->nombre !!}"/> 
+            <div style="display:none">
+            <input type="text" class="form-control" name="descripcion[]" id="descripcion"/> 
           </div>
           <div class="col-5 archivo">
-           <input type="file" class="validate[required] form-control" name="document1[]" id="document{{$key}}" required accept=".pdf"/>
+           <input type="file" class="validate[required] form-control" name="document1[]" id="document1" required accept=".pdf"/>
            <button class="btn btn-danger btn-reset" style="margin-left: 10px;" id="limpia" type="button"> <i class="fas fa-broom"></i></button>
           </div>
 
@@ -144,7 +143,7 @@
         </div>
       </li>
   <br>
- 
+
       @endforeach
       <li>
         <div class="container text-left" >
@@ -198,46 +197,7 @@
 
 
 
-{{-- <div class="container">
-  <div class="row">
-      <h1>Company Logo</h1>
-      <div class="panel panel-primary">
-          <div class="panel-heading">
-              Create Employee
-          </div>
-          <div class="panel-body">
-              <form class="form-horizontal" id="employeeDetails">
-                  <fieldset>
-                      <!-- Text input-->
-                      <div class="form-group">
-                          <label class="col-md-4 control-label" for="textinput">Employee Name </label>
-                          <div class="col-md-4">
-                              <input id="Name" name="Name" type="text" placeholder="Enter Employee Name" class="form-control input-md">
 
-                          </div>
-                      </div>
-                   
-                      <div class="form-group">
-                          <label class="col-md-4 control-label" for="prependedtext">Upload Image</label>
-                          <div class="col-md-4">
-                             <input type="file" name="employeeImage" />
-                          </div>
-                      </div>
-
-
-                      <div class="form-group">
-                          <label class="col-md-4 control-label" for="button1id"></label>
-                          <div class="col-md-8">
-                              <button id="btnSubmit" type="submit" name="btnSubmit" class="btn btn-primary">Submit</button>
-                              <button id="btnReset" type="button" name="btnReset" class="btn btn-info">Reset</button>
-                          </div>
-                      </div>
-                  </fieldset>
-              </form>
-          </div>
-      </div>
-  </div>
-</div> --}}
 <div class="row">
   <div class="col-md-4" style="padding-left: 10%;margin-top:10px;margin-left:30%">
     <button type="button" class="btn btn-perso btn-block btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal"> <span class="fas fa-upload"> </span> Registrar Adjuntos</button>
@@ -257,7 +217,7 @@
       </div>
       
       <div class="modal-footer">
-        {{ Form::submit('Si', ['class' => 'btn btn-perso' ]) }}
+
         <button type="submit" class="btn btn-perso" id="submits"><span class="fas fa-upload"> </span> Si</button>
         <button type="button" class="btn btn-info" data-bs-dismiss="modal"><i class="fas fa-times"></i> No</button>
  

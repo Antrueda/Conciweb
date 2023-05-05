@@ -877,12 +877,12 @@ class Webcontroller extends Controller
             ->orderBy('id')
             ->get();
         //INFORMACION RETORNADA EN LA VISTA
-        $conteo= count($detalleAbc)-1;
+        //$conteo= count($detalleAbc)-1;
 
         $data = array(
             "detalleAbc" => $detalleAbc
         );
-        return view('frmWeb.card.adjuntar', compact('dato', 'data', 'nombrecompleto','conteo','tiposolicitud'));
+        return view('frmWeb.card.adjuntar', compact('dato', 'data', 'nombrecompleto','tiposolicitud'));
     }
 
     public function Desistir($id)
@@ -921,7 +921,7 @@ class Webcontroller extends Controller
     public function CargaArchivos(Request $request, $id)
     {
         
-     
+        $dato = ModelsTramiteusuario::where('num_solicitud', $id)->first();
 
         $input_data = $request->all();
 
@@ -934,15 +934,30 @@ class Webcontroller extends Controller
                     'document1.*.mimes' => 'Formato no permitido',
                     'document1.*.max' => 'El tamaño permitido es de 10MB',
                 ]
-            //     'document1' => 'required|mimes:pdf|max:10000'
-            // ],
-            // [
-            //     'document1.required' => 'Ingrese el documento',
-            //     //'document1.mimes' => 'Formato no permitido',
-            //     'document1.max' => 'Capacidad maxima de 10MB',
-            // ]
+       
         );
         //dd($input_data);
+
+        $detalleAbc = Subdescripcion::where('subasu_id', $dato->subasunto)
+        ->where('sis_esta_id', 1)
+        ->orderBy('id')
+        ->get();
+    //INFORMACION RETORNADA EN LA VISTA
+    //$conteo= count($detalleAbc)-1;
+
+             $descripcion = [];
+             foreach ($detalleAbc as $key => $file) {
+                $descripcion[] = $file->descripcion->nombre;
+            
+                // $nombreOriginalFile = $value->getClientOriginalName();
+                // $rutaFinalFile = Storage::disk('local')->put("", $value);
+            }
+            $descripcion[] = 'Documentos que complementen su solicitud';
+            if($dato->TIPOSOLICITUD==1){
+                $descripcion[] = 'Poder especial para conciliar dirigido al centro de conciliación de la personería de Bogota D.C. *';
+            }
+           
+
 
         if ($validator->fails()) {
             $messages = $validator->messages();
@@ -953,20 +968,14 @@ class Webcontroller extends Controller
 
         try {
             $files = [];
-            $descripcion = [];
-            foreach ($request->input("descripcion") as $key => $file) {
-                $descripcion[] = $file;
-                // $nombreOriginalFile = $value->getClientOriginalName();
-                // $rutaFinalFile = Storage::disk('local')->put("", $value);
-            }
-
-
+          
             foreach ($request->file("document1") as $key => $file) {
  
-                //$rutaFinalFile = Storage::put($id, $file);
-                
-               
+               // $rutaFinalFile = Storage::put($id, $file);
+          
+      
                 $files[]['name'] = $descripcion[$key];
+                
                 $filePath = $file->storeAs('documentos/'.$id, $descripcion[$key].'.pdf', 'public');
                 $rutaFinalFile =$file->getRealPath();
                 echo $rutaFinalFile;
@@ -986,7 +995,7 @@ class Webcontroller extends Controller
          ]);
      
 //        ddd($solicitud);
-        $dato = ModelsTramiteusuario::where('num_solicitud', $id)->first();
+
         $fecha = Soportecon::where('NUM_SOLICITUD', $id)->first()->CREATED_AT;
         $nombrecompleto = $dato->primernombre . ' ' . $dato->segundonombre . ' ' . $dato->primerapellido  . ' ' . $dato->segundoapellido;
         //ddd($dato);
