@@ -905,34 +905,30 @@ class Webcontroller extends Controller
         }
     }
 
-    public function Adjunta(Request $request, $id)
+
+    public function Test(Request $request, $id)
     {
+        ddd($request);
+        $modelo = ModelsTramiteusuario::where('num_solicitud', $id)->update(['ESTADO_TRAMITE' => $detalle]);
+        if ($detalle == 'Cancelado') {
+            return redirect('https://www.personeriabogota.gov.co/')->with('info', 'Registro actualizado con éxito');
+        } else {
+            return redirect()->route('search')->with('info', 'Registro actualizado con éxito');
+        }
+    }
 
-        // $this->validate($request, [
-        //     'document1' => 'required|mimes:doc,docx|max:10024',
-        // ],
-        //     ['document1.required'=> 'Debe adjuntar el soporte',
-        //     'document1.mimes'=> 'El formato no corresponde',
-        //     ]
 
-        // );
-
-
-        // $validated = $request->validate([
-        //     'document1.*' => 'required|mimes:doc,docx|max:10024',
-        //      ],
-        //     ['document1.*.required'=> 'Debe adjuntar el soporte',
-        //        'document1.*.mimes'=> 'El formato no corresponde',
-        //          ]
-        // );
-        // ddd($validated);
+    public function CargaArchivos(Request $request, $id)
+    {
+        
+     
 
         $input_data = $request->all();
 
         $validator = Validator::make(
             $input_data,
             [
-                'document1.*' => 'required|mimes:pdf|max:10000'
+                'document1.*' => 'required|max:10000'
                 ],[
                     'document1.*.required' => 'Ingrese el documento',
                     'document1.*.mimes' => 'Formato no permitido',
@@ -950,8 +946,8 @@ class Webcontroller extends Controller
 
         if ($validator->fails()) {
             $messages = $validator->messages();
-            //ddd($messages);
-            return Redirect::back()->withErrors($validator);
+            ddd($messages);
+            return '|0| 0.0) Problema al anexar el soporte en el sistema';
         }
 
 
@@ -967,11 +963,15 @@ class Webcontroller extends Controller
 
             foreach ($request->file("document1") as $key => $file) {
  
-                $rutaFinalFile = Storage::disk('local')->put("", $file);
-        
+                //$rutaFinalFile = Storage::put($id, $file);
+                
+               
                 $files[]['name'] = $descripcion[$key];
+                $filePath = $file->storeAs('documentos/'.$id, $descripcion[$key].'.pdf', 'public');
+                $rutaFinalFile =$file->getRealPath();
+                echo $rutaFinalFile;
                 $nombreOriginalFile = $file->getClientOriginalName();
-                $ddd = Soportecon::create(['NUM_SOLICITUD' => $id, 'descripcion' => $descripcion[$key], 'RUTAFINALFILE' => $rutaFinalFile, 'nombreOriginalFile' => $nombreOriginalFile]);
+                $ddd = Soportecon::create(['NUM_SOLICITUD' => $id, 'descripcion' => $descripcion[$key], 'rutaFinalFile' => $filePath, 'nombreOriginalFile' => $nombreOriginalFile]);
   
             }
 
@@ -995,10 +995,7 @@ class Webcontroller extends Controller
             ->orderBy('id')
             ->get();
 
-        $asunto = Asunto::where('id', $dato->asunto)
-            ->where('sis_esta_id', 1)
-            ->orderBy('id')
-            ->get();
+   
 
         
         $conteo= count($detalleAbc)-1;
@@ -1006,7 +1003,7 @@ class Webcontroller extends Controller
             $subject = 'Solicitud conciliaciones Web  - Personería de Bogotá D.C.';
             $data = array(
                 'email' => $dato->email,
-                'asuntos' => $asunto->nombre,
+                'asuntos' => $dato->asuntos->nombre,
                 'nombrecompleto' => $nombrecompleto,
                 'subject' => $subject,
                 'numSolicitud' => $id,
@@ -1031,6 +1028,7 @@ class Webcontroller extends Controller
             return '|0| 3.0) Problema al enviar el correo de confirmacion: </br>' . $e->getMessage();
         }
         return redirect('https://www.personeriabogota.gov.co/')->with('info', 'Registro actualizado con éxito');
+        //return '|0| 3.0) Test: </br>' ;
         DB::commit();
      
 

@@ -235,12 +235,13 @@
 <div class='saludo'>
     <p>Cordial saludo <strong>{{$nombrecompleto}}</strong></p>
     <p>
-        La Personería de Bogotá, D.C., le informa que se utilizó esta dirección de correo electrónico, se ingresaron datos personales a su nombre el día {{$fechaRegistro}}. Esos datos son inmodificables. 
+        La Personería de Bogotá D.C., informa que el día {{$fechaRegistro}} se inició el proceso de registro de una Solicitud de Conciliación a través de nuestro sistema de información CONCIWEB.   
     </p>
     <p>
-        Lo anterior, significa que a su nombre se accedió al Módulo de Solicitud de Conciliación via web que la Personería de Bogotá, D.C.
+        Su cuenta de correo electrónico ha sido autorizada para recibir la información necesaria para continuar con su requerimiento, 
+        por ello para el trámite solicitado debe  <strong>ADJUNTAR LOS SIGUIENTES DOCUMENTOS:</strong>
     </p>
-    <p> En consecuencia, para que se pueda continuar con el proceso se requiere <strong>ADJUNTAR LOS DOCUMENTOS CORRESPONDIENTES</strong> que son los siguientes:</p>
+    
     <div class="row">
         <ul>
             @foreach ($asuntos as $info)
@@ -248,19 +249,26 @@
             @endforeach
           </ul>  
     </div>
-    <p> Sus datos de ingreso asignados son:</p>
+    <p> Para finalizar, debe tener presente los siguientes datos y dar clic en el botón adjuntar documentos: </p>
     <div class='datosBasicos'>
-        <p>
-            Dentro de los datos requeridos deberá incluir la dirección de <strong>ESTE CORREO ELECTRÓNICO</strong>: <span style="font-size: 20px;font-weight: bold; color:red;">{{$email}}</span> , el siguiente <strong>PIN o CONTRASEÑA</strong>: <span style="font-size: 20px;font-weight: bold; color:red;"> {{$llaveingreso}}</span> y el <strong>NUMERO DE SU SOLICITUD</strong>: <span style="font-size: 20px;font-weight: bold; color:red;">{{$numSolicitud}}</span>
-            
-        </p>
+        <ul>
+
+            <li style="text-justify">Correo electrónico registrado:<span style="font-size: 20px;font-weight: bold; color:red;"> {{$email}}</span></li> 
+            <li style="text-justify">Pin o Contraseña:<span style="font-size: 20px;font-weight: bold; color:red;"> {{$llaveingreso}}</span></li> 
+            <li style="text-justify">Numero de solicitud:<span style="font-size: 20px;font-weight: bold; color:red;"> {{$numSolicitud}}</span></li> 
+  
+          </ul>  
+       
         <center>
         <button class="btn btn-perso"><a class="btn btn-info" href="{{ route('search') }} ">Adjuntar Documentos</a></button>
      </center>
     </div>
+    <div class='noRespuesta'>El presente mensaje es EXCLUSIVAMENTE informativo, y no deber&aacute; ser respondido.
+    <p> <strong> IMPORTANTE.</strong> Si usted desconoce el trámite que mediante el presente correo la Personería de Bogotá D.C., le está dando a conocer, le solicitamos reportarlo al correo <strong> conciliaciones@personeriabogota.gov.co</strong> 
+        para adelantar el procedimiento correspondiente y proceder a la eliminación de sus datos del sistema <strong> CONCIWEB.</strong> </p>
+    </div>
 </div>
 
-<div class='noRespuesta'>El presente mensaje es EXCLUSIVAMENTE informativo, y no deber&aacute; ser respondido.</div>
 </body>
 
 </html>

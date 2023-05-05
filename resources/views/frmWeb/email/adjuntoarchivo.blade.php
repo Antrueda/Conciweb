@@ -113,7 +113,7 @@
         La Personería de Bogotá, D.C., le informa que se utilizó esta dirección de correo electrónico, se ingresaron datos personales a su nombre el día {{$fechaRegistro}}. Esos datos son inmodificables. 
     </p>
     <p>
-        Lo anterior, significa que a su nombre se accedió al Módulo de Solicitud de Conciliación via web de la Personería de Bogotá, D.C. en donde adjunto los documentos solicitados para continuar con el proceso
+        Lo anterior, significa que a su nombre se accedió al Módulo de Solicitud de Conciliación via web de la Personería de Bogotá, D.C. en donde adjunto los documentos solicitados para continuar con el proceso 
     </p>
     <div class='datosBasicos'>
         <p>
