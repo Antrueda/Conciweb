@@ -254,6 +254,30 @@
                     <label for="localidad"> 10. Localidad *</label>
                   </div>
                 </div>
+                <div id="fuera_div">
+
+                
+                <div class="form-group col-md-4">
+                    {!! Form::label('sis_departam_id', 'Departamento:', ['class' => 'control-label']) !!}
+                    {!! Form::select('sis_departam_id',  $data['departamentos'], null, ['class' => 'form-control form-control-sm select2']) !!}
+                    @if ($errors->has('sis_departam_id'))
+                        <div class="invalid-feedback d-block">
+                            {{ $errors->first('sis_departam_id') }}
+                        </div>
+                    @endif
+                </div>
+            
+            
+                <div class="form-group col-md-4">
+                    {!! Form::label('sis_municipio_id', 'Municipio:', ['class' => 'control-label']) !!}
+                    {!! Form::select('sis_municipio_id',  $data['municipios'], null, ['class' => 'form-control form-control-sm select2']) !!}
+                    @if ($errors->has('sis_municipio_id'))
+                        <div class="invalid-feedback d-block">
+                            {{ $errors->first('sis_municipio_id') }}
+                        </div>
+                    @endif
+                </div>
+            </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
@@ -1351,6 +1375,33 @@
 
 $(".tab").css("display", "none");
 $("#tab-1").css("display", "block");
+
+
+let f_armarCombo = function(json) {
+            $(json.emptyxxx).empty();
+            $.each(json.combosxx, function(i, d) {
+                $.each(d.comboxxx, function(j, dd) {
+                    $('#' + d.selectid).append('<option  value="' + dd.valuexxx + '">' + dd
+                        .optionxx + '</option>');
+                })
+            });
+        }
+
+
+var f_municipio = function(dataxxxx) {
+            $.ajax({
+                url: "{{ route('diariaxx.municipi') }}",
+                data: dataxxxx,
+                type: 'GET',
+                dataType: 'json',
+                success: function(json) {
+                    f_armarCombo(json);
+                },
+                error: function(xhr, status) {
+                    alert('Disculpe, existió un problema al cargar los municipios');
+                },
+            });
+        }
 function run(hideTab, showTab){
         if(hideTab < showTab){ // If not press previous button
           // Validation if press next button
@@ -1599,6 +1650,22 @@ function doc(valor){
 
     function carga() {
         doc(document.getElementById('tipoSolicitud').value);
+}
+
+function doc1(valor){
+        if(valor == 23){
+         
+            document.getElementById("fuera_div").hidden=false;
+            
+    }else{
+        document.getElementById("fuera_div").hidden=true;
+     
+        }  
+    } 
+
+    function carga() {
+        doc(document.getElementById('tipoSolicitud').value);
+        doc(document.getElementById('localidad').value);
 }
 
 

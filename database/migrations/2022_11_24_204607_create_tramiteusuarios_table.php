@@ -46,7 +46,9 @@ return new class extends Migration
             $table->string('sedeSecundaria')->nullable();
             $table->integer('asunto')->unsigned()->nullable();
             $table->integer('subAsunto')->unsigned()->nullable();
-
+            $table->integer('sis_departam_id')->unsigned()->nullable();
+            $table->integer('sis_municipio_id')->unsigned()->nullable();
+            
             $table->foreign('asunto')->references('id')->on('conci_asuntos');
             $table->foreign('subAsunto')->references('id')->on('conci_sub_asuntos');
             $table->string('tipoDocumento')->nullable();
@@ -56,6 +58,8 @@ return new class extends Migration
             $table->string('estadodoc')->nullable();
             $table->bigInteger('sis_esta_id')->unsigned()->default(1)->nullable();
             $table->foreign('sis_esta_id')->references('id')->on('conci_sis_estas');
+            $table->foreign('sis_departam_id')->references('id')->on('sis_departams');
+            $table->foreign('sis_municipio_id')->references('id')->on('sis_municipios');
             $table->timestamps();
         });
     }

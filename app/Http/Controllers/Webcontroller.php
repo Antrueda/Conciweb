@@ -23,7 +23,7 @@ use App\Models\Asunto;
 use App\Models\Estadoform;
 use App\Models\Parametro;
 use App\Models\Salario;
-
+use App\Models\Sistema\SisDepartam;
 use App\Models\Soportecon;
 use App\Models\SubAsunto;
 use App\Models\Subdescripcion;
@@ -40,6 +40,7 @@ use Illuminate\Support\Facades\Mail as FacadesMail;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Sistema\SisLocalidad;
+use App\Models\Sistema\SisMunicipio;
 
 class Webcontroller extends Controller
 {
@@ -53,6 +54,8 @@ class Webcontroller extends Controller
             $listaSedes = SisLocalidad::combo();
             $listaAsuntos = Asunto::combo(true, false);
             $estadoTipoAudi = SisLocalidad::combo();
+            $departamentos = SisDepartam::combo(true,false);
+            $municipios = ['' => 'Seleccione'];
             $listaTipoDoc = Tema::combo(3, true, false);
             $tipoSolicitud = '';
             $data = array(
@@ -63,6 +66,8 @@ class Webcontroller extends Controller
                 "estadoTipoAudi" => $estadoTipoAudi,
                 "mensaje" => $mensaje,
                 "salario" => $salario,
+                "departamentos" => $departamentos,
+                "municipios" => $municipios,
             );
     
     
@@ -89,6 +94,40 @@ class Webcontroller extends Controller
         }
       
     }
+    public function getMunicipio(Request $request)
+    {
+        $respuest = [
+            'emptyxxx' => '#sis_municipio_id',
+            'combosxx' => [
+                [
+                    'comboxxx' => $this->getSisMunicipioCT(['ajaxxxxx' => true, 'padrexxx' => $request->padrexxx])['comboxxx'],
+                    'selectid' => 'sis_municipio_id'
+                ],
+            ]
+        ];
+        return response()->json($respuest);
+    }
+
+    public function getSisMunicipioCT($dataxxxx)
+    {
+        $dataxxxx = $this->getDefaultCT($dataxxxx);
+        $dataxxxx['dataxxxx'] = SisMunicipio::select('sis_municipios.s_municipio as optionxx', 'sis_municipios.id as valuexxx')
+            ->where(function ($queryxxx) use ($dataxxxx) {
+                $queryxxx->where('sis_departam_id', $dataxxxx['padrexxx']);
+                if (isset($dataxxxx['whereinx']) && count($dataxxxx['whereinx'])) {
+                    $queryxxx->whereIN('id', $dataxxxx['whereinx']);
+                }
+                if (isset($dataxxxx['wherenot']) && count($dataxxxx['wherenot'])) {
+                    $queryxxx->whereNotIn('id', $dataxxxx['wherenot']);
+                }
+            })
+            ->get();
+        $respuest = ['comboxxx' => $this->getCuerpoComboSinValueCT($dataxxxx)];
+        return $respuest;
+    }
+
+
+
     //Modal con mensaje de tratamiento de datos
     public function modalTratamientoDatos()
     {
