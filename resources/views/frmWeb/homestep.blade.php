@@ -75,7 +75,8 @@
 }
 
 .btn-light{
-    border-color: #2039c9;
+    border-color: #0a5b42;
+    opacity: 20px;
     
 }
 
@@ -93,11 +94,12 @@
 
 
 
+
 </style>
     <div class="row">
         <center>
         <div class="col-md-6">
-            <h5><b class="text-justify">SOLICITUD DE CONCILIACIÓN</b></h5>
+            {{-- <h5><b class="text-justify">SOLICITUD DE CONCILIACIÓN</b></h5> --}}
         </div>
     </center>
         <div class="col-md-1"> </div>
@@ -121,7 +123,7 @@
     <div class="steps-form">
         <div class="steps-row setup-panel">
           <div class="steps-step">
-            <a href="#step-1" type="button" class="btn btn-primary btn-circle" id = "step-1"><span id="text-1">1</span><i id="stepi-1" class="fas fa-check" style="display:none;"></i></a>
+            <a href="#step-1" type="button" class="btn btn-success btn-circle" id = "step-1"><span id="text-1">1</span><i id="stepi-1" class="fas fa-check" style="display:none;"></i></a>
         
             
 
@@ -243,9 +245,9 @@
                 </div>
                 <div class="col-md-3">
     
-                        <div class="form-floating mb-3">
+                    <div class="form-floating mb-3">
       
-                    {{ Form::select('localidad', $data['listaLocalidades'], null, ['class' => $errors->first('localidad') ? 'form-control form-control-sm is-invalid validate' : 'form-control form-control-sm validate','required']) }}
+                    {{ Form::select('localidad', $data['listaLocalidades'], null, ['class' => $errors->first('localidad') ? 'form-control form-control-sm is-invalid validate' : 'form-control form-control-sm validate','id'=>'localidad','required', 'onchange' => 'doc1(this.value)']) }}
                     @if($errors->has('localidad'))
                         <div class="invalid-feedback d-block">
                             {{ $errors->first('localidad') }}
@@ -254,32 +256,35 @@
                     <label for="localidad"> 10. Localidad *</label>
                   </div>
                 </div>
-                <div id="fuera_div">
+            
 
-                
-                <div class="form-group col-md-4">
-                    {!! Form::label('sis_departam_id', 'Departamento:', ['class' => 'control-label']) !!}
-                    {!! Form::select('sis_departam_id',  $data['departamentos'], null, ['class' => 'form-control form-control-sm select2']) !!}
-                    @if ($errors->has('sis_departam_id'))
+                    <div class="col-md-3" id="fuera_div" style="display:none">
+    
+                        <div class="form-floating mb-3">
+                            {!! Form::select('sis_departam_id',  $data['departamentos'], null, ['class' => 'form-control form-control-sm', 'id'=>'sis_departam_id']) !!}
+                    @if($errors->has('sis_departam_id'))
                         <div class="invalid-feedback d-block">
                             {{ $errors->first('sis_departam_id') }}
                         </div>
                     @endif
+                    <label for="sis_departam_id"> Departamento:</label>
+                  </div>
                 </div>
-            
-            
-                <div class="form-group col-md-4">
-                    {!! Form::label('sis_municipio_id', 'Municipio:', ['class' => 'control-label']) !!}
-                    {!! Form::select('sis_municipio_id',  $data['municipios'], null, ['class' => 'form-control form-control-sm select2']) !!}
-                    @if ($errors->has('sis_municipio_id'))
-                        <div class="invalid-feedback d-block">
-                            {{ $errors->first('sis_municipio_id') }}
-                        </div>
-                    @endif
-                </div>
+       
+                <div class="col-md-3" id="fueras_div" style="display:none">
+    
+                    <div class="form-floating mb-3">
+  
+                        {!! Form::select('sis_municipio_id',  $data['municipios'], null, ['class' => 'form-control form-control-sm','id'=>'sis_municipio_id']) !!}
+                @if($errors->has('sis_municipio_id'))
+                    <div class="invalid-feedback d-block">
+                        {{ $errors->first('sis_municipio_id') }}
+                    </div>
+                @endif
+                <label for="sis_municipio_id"> Municipio</label>
+              </div>
             </div>
-            </div>
-            <div class="row">
+
                 <div class="col-md-6">
                     <div class="form-floating mb-3">
                     
@@ -297,10 +302,10 @@
                     </div> 
                 </div>
 
-            </div>
+           
 
             <!-- INICIO TIPO DE SOLICITUD -->
-            <div class="row">
+        
                 <div class="col-md-3">
                     
                     <div class="form-floating mb-3">
@@ -315,13 +320,14 @@
                     </div> 
                 </div>
             </div>
+            <br>
             <!-- FIN TIPO SOLICITUD -->
             <center>
                 <div id="apode_id">
-                <div class="btn btn-primary" onclick="run(1, 2);" style="width: 120px">Siguiente <i class="fas fa-angle-right"></i></div>
+                <div class="btn btn-success" onclick="run(1, 2);" style="width: 120px">Siguiente <i class="fas fa-angle-right"></i></div>
                  </div>
                  <div id="dire_id">
-                <div class="btn btn-primary" onclick="run(1, 3);" style="width: 120px">Siguiente <i class="fas fa-angle-right"></i></div>
+                <div class="btn btn-success" onclick="run(1, 3);" style="width: 120px">Siguiente <i class="fas fa-angle-right"></i></div>
              </div>
             </center>
             <br>
@@ -461,8 +467,8 @@
 
    
         <center>
-        <div class="btn btn-primary" onclick="run(2, 1);" style="width: 120px"><i class="fas fa-angle-left"></i> Anterior</div>
-        <div class="btn btn-primary" onclick="run(2, 3);" style="width: 120px">Siguiente<i class="fas fa-angle-right"></i></div>
+        <div class="btn btn-success" onclick="run(2, 1);" style="width: 120px"><i class="fas fa-angle-left"></i> Anterior</div>
+        <div class="btn btn-success" onclick="run(2, 3);" style="width: 120px">Siguiente<i class="fas fa-angle-right"></i></div>
         </center>
         <br>
     </div>
@@ -521,7 +527,7 @@
                     </div> --}}
                     <div class="col-md-3">
                          
-                   <button type="button" class="btn btn-primary" id="add_btn" >Agregar <i class="fas fa-plus"></i></button> 
+                   <button type="button" class="btn btn-success" id="add_btn" >Agregar <i class="fas fa-plus"></i></button> 
                     <button type="button" id="deletebtn" class="btn btn-danger deleteBtn">Eliminar</button>
     
       
@@ -550,9 +556,9 @@
 
 
             <center>
-            <div class="btn btn-primary" onclick="run(3, 1);" id="audi_div" style="width: 120px"><i class="fas fa-angle-left"></i> Anterior</div>
-            <div class="btn btn-primary" onclick="run(3, 2);" id="full_div" style="width: 120px"><i class="fas fa-angle-left"></i> Anterior</div>
-            <div class="btn btn-primary" onclick="run(3, 4);" style="width: 120px">Siguiente <i class="fas fa-angle-right"></i></div>
+            <div class="btn btn-success" onclick="run(3, 1);" id="audi_div" style="width: 120px"><i class="fas fa-angle-left"></i> Anterior</div>
+            <div class="btn btn-success" onclick="run(3, 2);" id="full_div" style="width: 120px"><i class="fas fa-angle-left"></i> Anterior</div>
+            <div class="btn btn-success" onclick="run(3, 4);" style="width: 120px">Siguiente <i class="fas fa-angle-right"></i></div>
         </center>
         <br>
         </div>
@@ -716,14 +722,14 @@
               
                 <center>
          
-                <div class="btn btn-primary" onclick="run(4, 3);" style="width: 120px"><i class="fas fa-angle-left"></i> Anterior</div>
+                <div class="btn btn-success" onclick="run(4, 3);" style="width: 120px"><i class="fas fa-angle-left"></i> Anterior</div>
                 <br>
                 <hr>
                 {!! htmlFormSnippet() !!}
                 <br>
                 <div class="row">
                     <div class="col-md-4" style="padding-left: 10%;margin-top:10px;margin-left:30%">
-                      <button type="button" class="btn btn-perso btn-block btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal"> <span class="fa fa-save pr-4"> </span> Registrar Solicitud</button>
+                      <button type="button" class="btn btn-success btn-block btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal"> <span class="fa fa-save pr-4"> </span> Registrar Solicitud</button>
                     </div>
                   </div>
 
@@ -740,8 +746,8 @@
                         </div>
                         
                         <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"> </i> Si </button>
-                        <button type="button" class="btn btn-info" data-bs-dismiss="modal"><i class="fas fa-times"></i> No</button>
+                        <button type="submit" class="btn btn-success"><i class="fa fa-save"> </i> Si </button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fas fa-times"></i> No</button>
                 
                         </div>
                     </div>
@@ -752,7 +758,7 @@
                 {{-- <div class="row" id="btnRegistro">
                     <div class="col-md-4"></div>
                     <div class="col-md-4">
-                        <button type="submit" class="btn btn-primary btn-block btn-sm "><span class="fa fa-save pr-4"> </span> Registrar Solicitud </button>
+                        <button type="submit" class="btn btn-success btn-block btn-sm "><span class="fa fa-save pr-4"> </span> Registrar Solicitud </button>
                     </div>
                     <div class="col-md-4"></div>
                 </div> --}}
@@ -762,7 +768,7 @@
                 <br>
             </div>
         </div>
-        <br>
+
        
     </div>
     <!-- FIN TIPO DE AUDIENCIA -->
@@ -1045,7 +1051,7 @@
 //      html+='<td><input type="text" class="form-control form-control-sm validate" name="nomConvocante[]" autocomplete="off"></td>';
 //      html+='<td><input type="text" class="form-control form-control-sm" name="emailConvocante[]" id="emailConU" autocomplete="off"></td>';
 //      html+='<td><input type="text" class="form-control form-control-sm" id="emailConUC[]" autocomplete="off"></td>';
-//      html+='<td><button type="button" class="btn btn-primary" id="remove"><i class="fas fa-minus"></i></button></td>';
+//      html+='<td><button type="button" class="btn btn-success" id="remove"><i class="fas fa-minus"></i></button></td>';
 //      html+='</tr>';
 //      html+='<br>
 //      html+='<div class="row">
@@ -1077,6 +1083,7 @@
 //         });
 
     //Registro de informacion en backend
+    
     function registroDatos() {
         var formData = new FormData(document.getElementById("frmRegistroDatos"));
         formData.append("dato", "valor");
@@ -1157,6 +1164,25 @@
             $("#divConvocante2").slideUp();
         }
     });
+
+    $("#localidad").change(function() {
+        
+        if ($("#localidad").val()==23) {
+            console.log($("#localidad").val());
+            $("#fuera_div").css("display", "block");
+            $("#fueras_div").css("display", "block");
+            
+        } else {
+            $("#fuera_div").css("display", "none");
+            $("#fueras_div").css("display", "none");
+        }
+    });
+
+    
+
+
+
+
     //Mostrar tercer convocado
     $("#gridCheck2").change(function() {
         if ($("#gridCheck2").is(':checked')) {
@@ -1390,7 +1416,7 @@ let f_armarCombo = function(json) {
 
 var f_municipio = function(dataxxxx) {
             $.ajax({
-                url: "{{ route('diariaxx.municipi') }}",
+                url: "{{ route('municipio') }}",
                 data: dataxxxx,
                 type: 'GET',
                 dataType: 'json',
@@ -1402,6 +1428,13 @@ var f_municipio = function(dataxxxx) {
                 },
             });
         }
+
+        $('#sis_departam_id').change(function() {
+            f_municipio({
+                padrexxx: $(this).val(),
+                selected: [0]
+            });
+        });
 function run(hideTab, showTab){
         if(hideTab < showTab){ // If not press previous button
           // Validation if press next button
@@ -1541,11 +1574,11 @@ function run(hideTab, showTab){
         // Switch tab
         $("#tab-"+hideTab).css("display", "none");
         $("#tab-"+showTab).css("display", "block");
-        $("#step-"+hideTab).removeClass('btn-primary').addClass('btn-light');
+        $("#step-"+hideTab).removeClass('btn-success').addClass('btn-light');
        // $("#stepi-"+hideTab).css("display", "block");
        // $("#text-"+hideTab).css("display", "none");
         $("#step-"+showTab).removeClass('btn-light');
-        $("#step-"+showTab).addClass('btn-primary');
+        $("#step-"+showTab).addClass('btn-success');
         $("input").css("background", "#fff");
     
 }
@@ -1629,6 +1662,8 @@ function soloNumeros(e) {
 
 
 function doc(valor){
+    document.getElementById("dire_id").hidden=true;
+    document.getElementById("apode_id").hidden=false;
         if(valor == 1){
          
             document.getElementById("full_div").hidden=false;
@@ -1665,7 +1700,7 @@ function doc1(valor){
 
     function carga() {
         doc(document.getElementById('tipoSolicitud').value);
-        doc(document.getElementById('localidad').value);
+        
 }
 
 

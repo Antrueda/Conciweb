@@ -41,9 +41,12 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Sistema\SisLocalidad;
 use App\Models\Sistema\SisMunicipio;
+use App\Traits\Combos\CombosTrait;
 
 class Webcontroller extends Controller
 {
+    use CombosTrait;
+    
             public function home()
         {
             $mensaje = Texto::where('sis_esta_id', 1)->first();

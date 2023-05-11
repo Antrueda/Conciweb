@@ -32,8 +32,22 @@
     justify-content: center;
     
     
-   }     
+   }  
+   .archivo input[type="file"] {
+  
+  content: 'aaa';
+  width: 200px;
+  height: 32px;
+  display: inline-block;
+}
+#document1::before {
+  content: 'aaa';
+}
+#archivo::before {
+  content: 'aaa';
 
+
+}
 </style>
 {{-- 
 <form name="adjuntarfomr" enctype="multipart/form-data" id="adjuntarfomr"> --}}
@@ -48,6 +62,56 @@
         <b>DATOS DE LA SOLICITUD</b>
     </center>
     </div>
+    <div class="container">
+    {{-- <div class="row align-items-start">
+      <div class="col" style="border: 2px">
+        <b>Solicitante: <br> </b> {{$nombrecompleto}}
+      </div>
+  
+        <div class="col">
+          <b>Fecha de Solicitud: <br> </b> {{$dato->fec_solicitud_tramite}}
+        </div>
+
+          <div class="col">
+            <b>Asunto: <br> </b> {{$dato->asuntos->nombre}}
+          </div>
+          <div class="col">
+            <b>Sub Asunto: <br> </b> {{$dato->subasuntos->nombre}}
+          </div>
+          <div class="col">
+            <b>Cuantia: <br> </b> {{$dato->cuantia}}
+          </div>
+        </div>
+        <div class="row align-items-start">
+          <div class="col-12">
+            <b>Resumen de la pretensión o conflicto: <br> </b> {{$dato->detalle}}
+          </div>
+      </div> --}}
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th scope="col">Solicitante</th>
+              <th scope="col">Fecha de Solicitud</th>
+              <th scope="col">Asunto</th>
+              <th scope="col">Sub Asunto</th>
+              <th scope="col">Cuantia</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th> {{$nombrecompleto}}</th>
+              <td>{{$dato->fec_solicitud_tramite}}</td>
+              <td>{{$dato->asuntos->nombre}}</td>
+              <td>{{$dato->subasuntos->nombre}}</td>
+              <td>{{$dato->cuantia}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+
+{{--       
     <ul class="list-group list-group-horizontal">
       
       <li class="list-group-item"><b>Solicitante: <br> </b> {{$nombrecompleto}} </li>
@@ -55,13 +119,16 @@
       <li class="list-group-item"><b>Asunto:</b> <br>{{$dato->asuntos->nombre}} </li>
       <li class="list-group-item"><b>Sub Asunto:</b><br> {{$dato->subasuntos->nombre}}</li>
       <li class="list-group-item"><b>Cuantia:</b> <br> {{$dato->cuantia}}</li>
-    </ul>
+    </ul> --}}
       <ul class="list-group list-group-flush">
       <li class="list-group-item"><b>Resumen de la pretensión o conflicto:</b><p> {{$dato->detalle}}</p></li>
     </ul>
   </div>
 </div>
 <br>
+<div class="card">
+  <div class="card-body">
+   
 
 <div class="row">
   <div class="col-md-12">
@@ -120,10 +187,10 @@
 
 
   
-    <ul>
+<ul class="list-group">
       @foreach ($data['detalleAbc'] as $info)
-      <li>
-        <div class="container text-left" >
+      <li class="list-group-item">
+        <div class="container" >
           <div class="row">
             <div class="col-5 texto">
             <span style="text-justify">{!! $info->descripcion->nombre !!} *</span>
@@ -145,7 +212,7 @@
   <br>
 
       @endforeach
-      <li>
+      <li class="list-group-item">
         <div class="container text-left" >
           <div class="row">
             <div class="col-5">
@@ -169,7 +236,7 @@
 <br>
     @if($tiposolicitud==1)
         
-    <li>
+    <li class="list-group-item">
       <div class="container text-left" >
         <div class="row">
           <div class="col-5">
@@ -195,7 +262,8 @@
 
     </ul>        
 
-
+  </div>
+</div>
 
 
 <div class="row">

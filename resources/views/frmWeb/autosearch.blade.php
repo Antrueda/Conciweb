@@ -50,10 +50,9 @@
             </div>
         </div>
     </div>  
+  </div>  
 
-</form>
-
-<div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel"
+  <div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -71,7 +70,12 @@
         </div>
     </div>
 
-<div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+
+</form>
+
+
+
+{{-- <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
 {{-- {!! Form::open(['route' => ['cambioestado',$dato->num_solicitud],'class' => 'form-horizontal']) !!}
 
 <div class="row">
@@ -111,7 +115,7 @@
 </div>
 
 {!! Form::close() !!} --}}
-  </div>
+  {{-- </div>
   <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -127,10 +131,10 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> --}} 
 
 
-<div id="modalRespuesta"></div>
+
 
 @endsection
 

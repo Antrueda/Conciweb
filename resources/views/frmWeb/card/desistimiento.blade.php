@@ -12,7 +12,7 @@
 
 <div class="row">
   <div class="col-md-12">
-    <div class="alert alert-success" role="alert">
+    <div class="card" role="alert">
       <small class="text-justify">
         <div class="card-body">
         <div class="row">
@@ -45,13 +45,14 @@
    
               </div>
           </div>
+          <center>
             <div class="row">
-              <div class="col-md-4" style="align-content: center;">
-                {{ Form::submit('Actualizar', ['class' => 'btn btn-primary' ]) }}
+              <div style="align-content: center;">
+                {{ Form::submit('Actualizar', ['class' => 'btn btn-success' ]) }}
               </div>
 
             </div>
-            
+          </center>
       </div>
       </small>
     </div>

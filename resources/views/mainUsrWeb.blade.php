@@ -50,10 +50,20 @@
             }
             body {
                 /*font-family: Avant Garde,Avantgarde,Century Gothic,CenturyGothic,AppleGothic,sans-serif; */
-                font-family: Arial; font-weight: regular;
-                background-repeat: no-repeat;
-                background-attachment: fixed;
-                width: 100%;
+              /* padding: 30px;
+              font-family: Arial; font-weight: regular;
+              */
+              padding-bottom: 30px;
+              padding-top: 30px;
+              font-family: 'Public Sans', sans-serif;
+              background: -webkit-gradient(linear, 0% 5%, 0% 30%, from(#003E65), to(white));
+              /* background: -webkit-linear-gradient(top, #0071BC, white); */
+              background: -moz-linear-gradient(top, #003E65, white);
+              background: -o-linear-background(top, #003E65, white);
+              background: -ms-linear-background(top, #003E65, white);
+              background: linear-background(top, #003E65, white);
+              background-repeat: no-repeat;
+              background-attachment: fixed;
             }
             .btn-perso{
              background-color: #003e65;
@@ -86,7 +96,7 @@
 
     </head>
     <body>
-      <div class="container-fluid header">
+      {{-- <div class="container-fluid header">
         <div class="row">
             <div class="col-sm-2">
                 <a href="https://www.personeriabogota.gov.co/" data-toggle="tooltip" data-placement="bottom" title="" style="text-decoration: none;" data-bs-original-title="Regresar al portal">
@@ -102,7 +112,7 @@
             </div>
         </div>
         <img src="/imagen/menu-after-05.png" alt="Colores bandera Bogotá" class="bandera">
-    </div>
+    </div> --}}
 
         @can('administrar-modulo')
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -176,7 +186,7 @@
              @endcan
     <br>
 
-    <div class="container" style="background-color: white">
+    <div class="container">
         <br>
 
         <div>
@@ -184,7 +194,17 @@
                 <div class="col-12">
                     <section class="content-body">
                         <br>
-                            @yield('content')
+                        <div>
+                          <div class="card">
+                            <div class="card-body">
+                              <h5 class="card-title">             <div class="col-md-4 text-right"><img src="{{URL::asset('imagen/Propuesta logo Conciweb-2.png')}}" class="rounded mx-auto d-block"  style="width: 100%;
+                                height: auto;"></div></h5>
+                              @yield('content')
+                              
+                            </div>
+                          </div>
+                        </div>
+               
                         <br>
                     </section>
                 </div>
@@ -193,7 +213,11 @@
     </div>
 
     </body>
-    <div class="container-fluid footer">
+
+    <div class="text-center text-secondary" style="margin-top: -20px; font-size: 80%;">
+      © 2022 Copyright:<img style="margin-right: 2px; margin-left: 7px;" src="imagen/escBta.png" alt=""> Personería de Bogotá D.C.
+    </div>
+    {{-- <div class="container-fluid footer">
       <p>
           <a href="https://www.personeriabogota.gov.co/mecanismos-de-contacto-con-el-sujeto-obligado/proteccion-de-datos-personales/politicas-de-seguridad-de-la-informacion-del-sitio-web" title="Politicas de Seguridad de la información" alt="Link a Politicas de Seguridad de la información" target="_blank">
               Políticas de seguridad de la información del sitio WEB
@@ -202,7 +226,7 @@
               Política de tratamiento de datos personales
           </a>
       </p>
-  </div>
+  </div> --}}
     <!-- auto complete oof-->
     <!-- 
 

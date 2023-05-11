@@ -78,6 +78,7 @@ Route::get('Adjuntar/{id}','App\Http\Controllers\Webcontroller@adjuntararchivos'
 Route::get('Desistir/{id}','App\Http\Controllers\Webcontroller@Desistir')->name('desistir');
 Route::post('Test/{id}','App\Http\Controllers\Webcontroller@Test')->name('test');
 Route::post('Cambioestado/{id}','App\Http\Controllers\Webcontroller@CambioEstado')->name('cambioestado');
+Route::get('getMunicipio','App\Http\Controllers\Webcontroller@getMunicipio')->name('municipio');
 Route::post('Adjunta/{id}','App\Http\Controllers\Webcontroller@CargaArchivos')->name('cargararchivos');
 Route::get('subasunto', [
     'uses' => 'App\Http\Controllers\Webcontroller@getSubasunto',
