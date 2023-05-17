@@ -50,6 +50,14 @@ class Tramiteusuario extends Model
       'estadodoc',
       'sis_departam_id',
       'sis_municipio_id',
+
+            'fechanacimiento',
+      'escolaridad',
+      'sexo',
+      'genero',
+      'orientacion',
+      
+
         'sis_esta_id'
       ];
 

@@ -41,6 +41,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Sistema\SisLocalidad;
 use App\Models\Sistema\SisMunicipio;
+use App\Models\Sistema\SisPai;
 use App\Traits\Combos\CombosTrait;
 
 class Webcontroller extends Controller
@@ -52,7 +53,7 @@ class Webcontroller extends Controller
             $mensaje = Texto::where('sis_esta_id', 1)->first();
             //ddd( Auth::user());
             $salario = Salario::find(1)->first();
-            
+            $Maxhoy = Carbon::today()->isoFormat('YYYY-MM-DD');
             $localidadList = SisLocalidad::combo();
             $listaSedes = SisLocalidad::combo();
             $listaAsuntos = Asunto::combo(true, false);
@@ -60,6 +61,11 @@ class Webcontroller extends Controller
             $departamentos = SisDepartam::combo(true,false);
             $municipios = ['' => 'Seleccione'];
             $listaTipoDoc = Tema::combo(3, true, false);
+            $sexocombo = Tema::combo(4, true, false);
+            $generocombo = Tema::combo(5, true, false);
+            $orientacioncombo = Tema::combo(6, true, false);
+            $escolaridad = Tema::combo(7, true, false);
+            //$nacionalidad = SisPai::combo(true, false);
             $tipoSolicitud = '';
             $data = array(
                 "listaLocalidades" => $localidadList,
@@ -71,6 +77,12 @@ class Webcontroller extends Controller
                 "salario" => $salario,
                 "departamentos" => $departamentos,
                 "municipios" => $municipios,
+                "Maxhoy" => $Maxhoy,
+                // "sexocombo" => $sexocombo,
+                // "generocombo" => $generocombo,
+                // "orientacioncombo" => $orientacioncombo,
+                // "escolaridad" => $escolaridad,
+                // "nacionalidad" => $nacionalidad,
             );
     
     
@@ -559,7 +571,8 @@ class Webcontroller extends Controller
             ->where('sis_esta_id', 1)
             ->orderBy('id')
             ->get();
-
+        
+        
 
 
         trim($emailApoderado);
@@ -573,6 +586,7 @@ class Webcontroller extends Controller
                     'asuntos' => $asuntos,
                     'nombrecompleto' => $nombrecompleto,
                     'subject' => $subject,
+                    'tiposolicitud' => $dato->tiposolicitud,
                     'numSolicitud' => $numSolicitud,
                     'fechaRegistro' => $fechaRegistroA,
                     'llaveingreso' => $code,

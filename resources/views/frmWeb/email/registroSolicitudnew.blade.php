@@ -247,6 +247,9 @@
             @foreach ($asuntos as $info)
             <li style="text-justify">{!! $info->descripcion->nombre !!}</li> 
             @endforeach
+            @if($tiposolicitud==1)
+            <li style="text-justify">Poder especial para conciliar dirigido al centro de conciliación de la personería de Bogota D.C. *</li> 
+            @endif
           </ul>  
     </div>
     <p> Para finalizar, debe tener presente los siguientes datos y dar clic en el botón adjuntar documentos: </p>

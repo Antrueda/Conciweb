@@ -95,7 +95,7 @@
           </tbody>
         </table>
       </div>
-{{$tiposolicitud}}
+
 
 {{--       
     <ul class="list-group list-group-horizontal">

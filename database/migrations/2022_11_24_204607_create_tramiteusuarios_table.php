@@ -40,6 +40,7 @@ return new class extends Migration
             $table->string('tarjetaProfesional')->nullable();
             $table->string('primerTelefonoApoderado')->nullable();
             $table->string('segundoTelefonoApoderado')->nullable();
+            $table->date('fechanacimiento')->nullable();
             $table->string('emailApoderado')->nullable();
             $table->string('tipoAudiencia')->nullable();
             $table->string('sedePrincipal')->nullable();
@@ -47,11 +48,22 @@ return new class extends Migration
             $table->integer('asunto')->unsigned()->nullable();
             $table->integer('subAsunto')->unsigned()->nullable();
             $table->integer('sis_departam_id')->unsigned()->nullable();
+            
             $table->integer('sis_municipio_id')->unsigned()->nullable();
+
             
             $table->foreign('asunto')->references('id')->on('conci_asuntos');
             $table->foreign('subAsunto')->references('id')->on('conci_sub_asuntos');
-            $table->string('tipoDocumento')->nullable();
+            $table->string('tipoDocumento')->nullable()->unsigned();
+            $table->foreign('tipoDocumento')->references('id')->on('conci_parametros');
+            $table->string('escolaridad')->nullable()->unsigned();
+            $table->foreign('escolaridad')->references('id')->on('conci_parametros');
+            $table->string('sexo')->nullable()->unsigned();
+            $table->foreign('sexo')->references('id')->on('conci_parametros');
+            $table->string('genero')->nullable()->unsigned();
+            $table->foreign('genero')->references('id')->on('conci_parametros');
+            $table->string('orientacion')->nullable()->unsigned();
+            $table->foreign('orientacion')->references('id')->on('conci_parametros');
             $table->string('detalle',2000)->nullable();
             $table->string('cuantia')->nullable();
             $table->string('code')->nullable();

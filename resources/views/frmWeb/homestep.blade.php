@@ -284,12 +284,101 @@
                 <label for="sis_municipio_id"> Municipio</label>
               </div>
             </div>
+            <div class="col-md-3">
+    
+                <div class="form-floating mb-3">
+  
+                {{ Form::date('fechanacimiento', null, ['class' => $errors->first('localidad') ? 'form-control form-control-sm is-invalid validate' : 'form-control form-control-sm validate','id'=>'fechanacimiento','required', 'max'=>$data['Maxhoy']]) }}
+                @if($errors->has('fechanacimiento'))
+                    <div class="invalid-feedback d-block">
+                        {{ $errors->first('fechanacimiento') }}
+                    </div>
+                @endif
+                <label for="localidad"> 11. Fecha de Nacimiento *</label>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+    
+                <div class="form-floating mb-3">
+  
+                {{ Form::text('edad', null, ['class' => $errors->first('localidad') ? 'form-control form-control-sm is-invalid validate' : 'form-control form-control-sm validate','id'=>'edad']) }}
+        
+                <label for="localidad"> Edad</label>
+              </div>
+            </div>
+            <div class="col-md-3">
+    
+                <div class="form-floating mb-3">
+  
+                {{ Form::select('escolaridad', $data['listaLocalidades'], null, ['class' => $errors->first('escolaridad') ? 'form-control form-control-sm is-invalid validate' : 'form-control form-control-sm validate','id'=>'escolaridad','required']) }}
+                @if($errors->has('escolaridad'))
+                    <div class="invalid-feedback d-block">
+                        {{ $errors->first('escolaridad') }}
+                    </div>
+                @endif
+                <label for="localidad"> 12. Nivel de Escolaridad *</label>
+              </div>
+            </div>
+            <div class="col-md-3">
+    
+                <div class="form-floating mb-3">
+  
+                {{ Form::select('nacionalidad', $data['listaLocalidades'], null, ['class' => $errors->first('nacionalidad') ? 'form-control form-control-sm is-invalid validate' : 'form-control form-control-sm validate','id'=>'nacionalidad','required',]) }}
+                @if($errors->has('nacionalidad'))
+                    <div class="invalid-feedback d-block">
+                        {{ $errors->first('nacionalidad') }}
+                    </div>
+                @endif
+                <label for="localidad"> 13. Nacionalidad *</label>
+              </div>
+            </div>
+            <div class="col-md-3">
+    
+                <div class="form-floating mb-3">
+  
+                {{ Form::select('sexo', $data['listaLocalidades'], null, ['class' => $errors->first('sexo') ? 'form-control form-control-sm is-invalid validate' : 'form-control form-control-sm validate','id'=>'sexo','required', ]) }}
+                @if($errors->has('sexo'))
+                    <div class="invalid-feedback d-block">
+                        {{ $errors->first('sexo') }}
+                    </div>
+                @endif
+                <label for="localidad"> 14. Sexo *</label>
+              </div>
+            </div>
+            <div class="col-md-3">
+    
+                <div class="form-floating mb-3">
+  
+                {{ Form::select('genero', $data['listaLocalidades'], null, ['class' => $errors->first('localidad') ? 'form-control form-control-sm is-invalid validate' : 'form-control form-control-sm validate','id'=>'localidad','required', ]) }}
+                @if($errors->has('localidad'))
+                    <div class="invalid-feedback d-block">
+                        {{ $errors->first('localidad') }}
+                    </div>
+                @endif
+                <label for="localidad"> 15. Identidad de Genero *</label>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+    
+                <div class="form-floating mb-3">
+  
+                {{ Form::select('orientacion', $data['listaLocalidades'], null, ['class' => $errors->first('orientacion') ? 'form-control form-control-sm is-invalid validate' : 'form-control form-control-sm validate','id'=>'orientacion','required',]) }}
+                @if($errors->has('orientacion'))
+                    <div class="invalid-feedback d-block">
+                        {{ $errors->first('orientacion') }}
+                    </div>
+                @endif
+                <label for="localidad"> 16. Orientación Sexual *</label>
+              </div>
+            </div>
 
                 <div class="col-md-6">
                     <div class="form-floating mb-3">
                     
                         <input type="email" class="form-control form-control-sm validate[required, custom[email]]" name="email" id="email" autocomplete="off" placeholder="0">
-                        <label for="email"> 11. Correo electrónico *</label>
+                        <label for="email"> 17. Correo electrónico *</label>
                         <div class="invalid-feedback email">
                             Campo obligatorio.
                           </div>
@@ -298,7 +387,7 @@
                 <div class="col-md-6">
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control form-control-sm validate[required, custom[email]]" name="emailCon" id="emailCon" autocomplete="off" placeholder="0">
-                        <label for="emailCon"> 11.1. Confirme correo electrónico *</label>
+                        <label for="emailCon"> 17.1. Confirme correo electrónico *</label>
                     </div> 
                 </div>
 
@@ -314,7 +403,7 @@
                             <option value="0">Directa</option>
                             <option value="1">Apoderado</option>
                         </select>
-                        <label for="tipoSolicitud"> 12. Tipo de Solicitud *</label>
+                        <label for="tipoSolicitud"> 18. Tipo de Solicitud *</label>
                         <div class="invalid-feedback">Example invalid select feedback</div>
                         </div>
                     </div> 
@@ -1621,6 +1710,28 @@ $('#add_btn').on('click',function(){
             $(this).closest('tr').remove();
         });
 
+
+
+        $(function(){
+            $('#fechanacimiento').on('change', calcularEdad);
+        });
+        
+        function calcularEdad() {
+            
+            fecha = $(this).val();
+            var hoy = new Date();
+            var cumpleanos = new Date(fecha);
+            var edad = hoy.getFullYear() - cumpleanos.getFullYear();
+            var m = hoy.getMonth() - cumpleanos.getMonth();
+
+            if (m < 0 || (m === 0 && hoy.getDate() < cumpleanos.getDate())) {
+                edad--;
+            }
+            $('#edad').val(edad);
+        }
+
+
+
 function soloNumeros(e) {
         var keynum = window.event ? window.event.keyCode : e.which;
         if ((keynum == 48) || (keynum == 57))
@@ -1702,8 +1813,6 @@ function doc1(valor){
         doc(document.getElementById('tipoSolicitud').value);
         
 }
-
-
 
 
     window.onload=carga;
