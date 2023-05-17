@@ -174,7 +174,7 @@
                 </div>
                 <div class="col-md-6">
                 <div class="form-floating mb-3">
-                    <input type="number" class="form-control form-control-sm validate" id="numeroDocumento" name="numeroDocumento" autocomplete="off" onkeypress = "return soloNumeros(event);" required placeholder="0" minlength="4" maxlength="10" pattern="[0-9]+">
+                    <input type="text" class="form-control form-control-sm validate" id="numeroDocumento" name="numeroDocumento" autocomplete="off" onkeypress = "return soloNumeros(event);" required placeholder="0" minlength="4" maxlength="10" pattern="[0-9]+">
                     <label for="numeroDocumento">2. No. de cédula *</label>
                     <div class="invalid-feedback numeroDocumento">
                         Campo obligatorio.
@@ -528,7 +528,7 @@
                     <div class="col-md-3">
                          
                    <button type="button" class="btn btn-success" id="add_btn" >Agregar <i class="fas fa-plus"></i></button> 
-                    <button type="button" id="deletebtn" class="btn btn-danger deleteBtn">Eliminar</button>
+                    
     
       
                   </div>
@@ -682,7 +682,7 @@
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-floating mb-3">
-                                <input class="form-control form-control-sm validate" type="number" name="cuantia" id="cuantia" autocomplete="off" placeholder="0" min="1" max="100" maxlength="3">
+                                <input class="form-control form-control-sm validate" type="text" name="cuantia" id="cuantia" onkeypress = "return soloNumeros(event);" autocomplete="off" placeholder="0" min="1" max="100" maxlength="3">
                                 <label for="cuantia"> 16. Valor de la Cuantía *</label>
                                 <div id="test">
                                     {{ Form::number('salario', $data['salario']->numero, ['class' => 'form-control-plaintext' ,'id'=>'salario', 'style'=>"display: none"]) }}

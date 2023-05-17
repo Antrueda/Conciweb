@@ -33,21 +33,7 @@
     
     
    }  
-   .archivo input[type="file"] {
-  
-  content: 'aaa';
-  width: 200px;
-  height: 32px;
-  display: inline-block;
-}
-#document1::before {
-  content: 'aaa';
-}
-#archivo::before {
-  content: 'aaa';
 
-
-}
 </style>
 {{-- 
 <form name="adjuntarfomr" enctype="multipart/form-data" id="adjuntarfomr"> --}}
@@ -109,7 +95,7 @@
           </tbody>
         </table>
       </div>
-
+{{$tiposolicitud}}
 
 {{--       
     <ul class="list-group list-group-horizontal">
@@ -187,80 +173,84 @@
 
 
   
-<ul class="list-group">
-      @foreach ($data['detalleAbc'] as $info)
-      <li class="list-group-item">
-        <div class="container" >
-          <div class="row">
-            <div class="col-5 texto">
-            <span style="text-justify">{!! $info->descripcion->nombre !!} *</span>
-            </div>
-            <div style="display:none">
-            <input type="text" class="form-control" name="descripcion[]" id="descripcion"/> 
-          </div>
-          <div class="col-5 archivo">
-           <input type="file" class="validate[required] form-control" name="document1[]" id="document1" required accept=".pdf"/>
-           <button class="btn btn-danger btn-reset" style="margin-left: 10px;" id="limpia" type="button"> <i class="fas fa-broom"></i></button>
-          </div>
 
-          </div>
-            <div id="my_pdf_viewer">
-     
+      @foreach ($data['detalleAbc'] as $info)
+          <div class="row">
+            
+          
+            <div class="col-md-6">
+            <span style="text-justify">{!! $info->descripcion->nombre !!} *</span>
+                <div style="display:none">
+                <input type="text" class="form-control" name="descripcion[]" id="descripcion"/> 
+              </div>
             </div>
+            <div class="col-md-6">
+          <div class="input-group">
+            <input type="file" class="form-control" name="document1[]" id="document1" aria-label="Upload" required accept=".pdf"/>
+            <button class="btn btn-danger btn-reset" id="limpia" type="button"> <i class="fas fa-trash"></i></button>
+          </div>
         </div>
-      </li>
+        </div>
+
+      
+         
+     
+         
+
+ 
   <br>
 
       @endforeach
-      <li class="list-group-item">
-        <div class="container text-left" >
+   
+
           <div class="row">
-            <div class="col-5">
+            <div class="col-md-6">
             <span style="text-justify">Documentos que complementen su solicitud </span>
-          </div>
+       
           <div style="display:none">
           <input type="text" class="form-control" name="descripcion[]" id="descripcion" value="Documentos que complementen su solicitud"/> 
           </div>
-          <div class="col-5 archivo">
+        </div>
+          <div class="col-md-6">
+            <div class="input-group">
            <input type="file" class="validate[required] form-control" name="document1[]"   accept=".pdf"/>
-           <button class="btn btn-danger btn-reset" style="margin-left: 10px;" id="limpia" type="button"> <i class="fas fa-broom"></i></button>
+           <button class="btn btn-danger btn-reset" id="limpia" type="button"> <i class="fas fa-trash"></i></button>
           </div>
         </div>
-            <div id="my_pdf_viewer">
-     
-            </div>
-       
       </div>
+   
+       
+ 
       
-    </li>
+  
 <br>
     @if($tiposolicitud==1)
         
-    <li class="list-group-item">
-      <div class="container text-left" >
+ 
+
         <div class="row">
-          <div class="col-5">
+          <div class="col-md-6">
             <span style="text-justify">Poder especial para conciliar dirigido al centro de conciliación de la personería de Bogota D.C. *</span>
-        </div>
+      
         <div style="display:none">
           <input type="text" class="form-control" name="descripcion[]" id="descripcion" value="Poder especial para conciliar dirigido al centro de conciliación de la personería de Bogota D.C"/> 
         </div>
-        <div class="col-5 archivo">
+      </div>
+        <div class="col-md-6">
+          <div class="input-group">
          <input type="file" class="validate[required] form-control" name="document1[]"   accept=".pdf"/>
-         <button class="btn btn-danger btn-reset" style="margin-left: 10px;" id="limpia" type="button"> <i class="fas fa-broom"></i></button>
+         <button class="btn btn-danger btn-reset" id="limpia" type="button"> <i class="fas fa-trash"></i></button>
         </div>
       </div>
-          <div id="my_pdf_viewer">
-   
-          </div>
+    </div>
      
-      </div>
+
     
       
-      </li>
+
         @endif
 
-    </ul>        
+   
 
   </div>
 </div>

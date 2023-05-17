@@ -911,7 +911,8 @@ class Webcontroller extends Controller
         $dato = ModelsTramiteusuario::where('num_solicitud', $id)->first();
         //ddd($dato->subasunto);
         //ddd($dato->subasuntos);
-        $tiposolicitud= $dato->TIPOSOLICITUD;
+        $tiposolicitud= $dato->tiposolicitud;
+        //dd( $tiposolicitud);
         $nombrecompleto = $dato->primernombre . ' ' . $dato->segundonombre . ' ' . $dato->primerapellido  . ' ' . $dato->segundoapellido;
         //ddd($dato);
         $detalleAbc = Subdescripcion::where('subasu_id', $dato->subasunto)

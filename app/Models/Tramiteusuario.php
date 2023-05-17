@@ -48,6 +48,8 @@ class Tramiteusuario extends Model
       'CODE',
       'ESTADO_TRAMITE',
       'estadodoc',
+      'sis_departam_id',
+      'sis_municipio_id',
         'sis_esta_id'
       ];
 
