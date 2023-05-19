@@ -58,7 +58,7 @@ class Tramiteusuario extends Model
       'orientacion',
       'nacionalidad',
       
-
+        'rangoedad',
         'sis_esta_id',
       ];
 
