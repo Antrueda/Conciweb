@@ -72,19 +72,20 @@ class TemasTableSeeder extends Seeder
             27 => $camposmagicos,
             28 => $camposmagicos,
             29 => $camposmagicos,
-            30 => $camposmagicos,
-            31 => $camposmagicos,
         ]);
 
         $tema = Tema::create(['id' => 6, 'user_crea_id' => 1, 'user_edita_id' => 1, 'sis_esta_id' => 1, 'nombre' => 'Orientacion']);
         $tema->parametros()->sync([
+            30 => $camposmagicos,
+            31 => $camposmagicos,
             32 => $camposmagicos,
-            33 => $camposmagicos,
-            34 => $camposmagicos,
+            29 => $camposmagicos,
         ]);
 
         $tema = Tema::create(['id' => 7, 'user_crea_id' => 1, 'user_edita_id' => 1, 'sis_esta_id' => 1, 'nombre' => 'Nivel de Escolaridad']);
         $tema->parametros()->sync([
+            33 => $camposmagicos,
+            34 => $camposmagicos,
             35 => $camposmagicos,
             36 => $camposmagicos,
             37 => $camposmagicos,
@@ -94,7 +95,17 @@ class TemasTableSeeder extends Seeder
             41 => $camposmagicos,
             42 => $camposmagicos,
             43 => $camposmagicos,
+        ]);
+
+        $tema = Tema::create(['id' => 8, 'user_crea_id' => 1, 'user_edita_id' => 1, 'sis_esta_id' => 1, 'nombre' => 'Rango de Edad']);
+        $tema->parametros()->sync([
             44 => $camposmagicos,
+            45 => $camposmagicos,
+            46 => $camposmagicos,
+            47 => $camposmagicos,
+            48 => $camposmagicos,
+            49 => $camposmagicos,
+            
         ]);
 
 

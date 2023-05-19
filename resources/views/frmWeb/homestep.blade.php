@@ -159,7 +159,7 @@
         </center>
         </div>
         <div class="card-body" style="margin-bottom: 40px; height">
-            <div class="row g-2">
+            <div class="row">
                 <div class="col-md-6">
                     <div class="form-floating">
          
@@ -185,7 +185,7 @@
 
                 
               
-            <div class="row">
+     
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
                     <input type="text" class="form-control form-control-sm validate" minlength="3" name="primerNombre" id="primerNombre" autocomplete="off" placeholder="0" required>
@@ -217,8 +217,8 @@
                         <label for="segundoApellido">6. Segundo Apellido</label>
                     </div>
                 </div>
-            </div>
-            <div class="row">
+        
+         
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control form-control-sm validate" name="primerTelefono" id="primerTelefono"  onkeypress = "return soloNumeros(event);" autocomplete="off" placeholder="0"  minlength="10" max="10" required>
@@ -288,13 +288,13 @@
     
                 <div class="form-floating mb-3">
   
-                {{ Form::date('fechanacimiento', null, ['class' => $errors->first('localidad') ? 'form-control form-control-sm is-invalid validate' : 'form-control form-control-sm validate','id'=>'fechanacimiento','required', 'max'=>$data['Maxhoy']]) }}
+                {{ Form::date('fechanacimiento', null, ['class' => $errors->first('fechanacimiento') ? 'form-control form-control-sm is-invalid validate' : 'form-control form-control-sm validate','id'=>'fechanacimiento','required', 'max'=>$data['Maxhoy']]) }}
                 @if($errors->has('fechanacimiento'))
                     <div class="invalid-feedback d-block">
                         {{ $errors->first('fechanacimiento') }}
                     </div>
                 @endif
-                <label for="localidad"> 11. Fecha de Nacimiento *</label>
+                <label for="fechanacimiento"> 11. Fecha de Nacimiento *</label>
               </div>
             </div>
 
@@ -302,61 +302,61 @@
     
                 <div class="form-floating mb-3">
   
-                {{ Form::text('edad', null, ['class' => $errors->first('localidad') ? 'form-control form-control-sm is-invalid validate' : 'form-control form-control-sm validate','id'=>'edad']) }}
+                {{ Form::text('rangoedad', null, ['class' => $errors->first('rangoedad') ? 'form-control form-control-sm is-invalid validate' : 'form-control form-control-sm validate','id'=>'rangoedad']) }}
         
-                <label for="localidad"> Edad</label>
+                <label for="rangoedad">12. Rango de Edad</label>
               </div>
             </div>
             <div class="col-md-3">
     
                 <div class="form-floating mb-3">
   
-                {{ Form::select('escolaridad', $data['listaLocalidades'], null, ['class' => $errors->first('escolaridad') ? 'form-control form-control-sm is-invalid validate' : 'form-control form-control-sm validate','id'=>'escolaridad','required']) }}
+                {{ Form::select('escolaridad', $data['escolaridad'], null, ['class' => $errors->first('escolaridad') ? 'form-control form-control-sm is-invalid validate' : 'form-control form-control-sm validate','id'=>'escolaridad','required']) }}
                 @if($errors->has('escolaridad'))
                     <div class="invalid-feedback d-block">
                         {{ $errors->first('escolaridad') }}
                     </div>
                 @endif
-                <label for="localidad"> 12. Nivel de Escolaridad *</label>
+                <label for="escolaridad"> 13. Nivel de Escolaridad *</label>
               </div>
             </div>
             <div class="col-md-3">
     
                 <div class="form-floating mb-3">
   
-                {{ Form::select('nacionalidad', $data['listaLocalidades'], null, ['class' => $errors->first('nacionalidad') ? 'form-control form-control-sm is-invalid validate' : 'form-control form-control-sm validate','id'=>'nacionalidad','required',]) }}
+                {{ Form::select('nacionalidad', $data['nacionalidad'], null, ['class' => $errors->first('nacionalidad') ? 'form-control form-control-sm is-invalid validate' : 'form-control form-control-sm validate','id'=>'nacionalidad','required',]) }}
                 @if($errors->has('nacionalidad'))
                     <div class="invalid-feedback d-block">
                         {{ $errors->first('nacionalidad') }}
                     </div>
                 @endif
-                <label for="localidad"> 13. Nacionalidad *</label>
+                <label for="nacionalidad"> 14. Nacionalidad *</label>
               </div>
             </div>
             <div class="col-md-3">
     
                 <div class="form-floating mb-3">
   
-                {{ Form::select('sexo', $data['listaLocalidades'], null, ['class' => $errors->first('sexo') ? 'form-control form-control-sm is-invalid validate' : 'form-control form-control-sm validate','id'=>'sexo','required', ]) }}
+                {{ Form::select('sexo', $data['sexocombo'], null, ['class' => $errors->first('sexo') ? 'form-control form-control-sm is-invalid validate' : 'form-control form-control-sm validate','id'=>'sexo','required', ]) }}
                 @if($errors->has('sexo'))
                     <div class="invalid-feedback d-block">
                         {{ $errors->first('sexo') }}
                     </div>
                 @endif
-                <label for="localidad"> 14. Sexo *</label>
+                <label for="sexo"> 15. Sexo *</label>
               </div>
             </div>
             <div class="col-md-3">
     
                 <div class="form-floating mb-3">
   
-                {{ Form::select('genero', $data['listaLocalidades'], null, ['class' => $errors->first('localidad') ? 'form-control form-control-sm is-invalid validate' : 'form-control form-control-sm validate','id'=>'localidad','required', ]) }}
+                {{ Form::select('genero', $data['generocombo'], null, ['class' => $errors->first('localidad') ? 'form-control form-control-sm is-invalid validate' : 'form-control form-control-sm validate','id'=>'localidad','required', ]) }}
                 @if($errors->has('localidad'))
                     <div class="invalid-feedback d-block">
                         {{ $errors->first('localidad') }}
                     </div>
                 @endif
-                <label for="localidad"> 15. Identidad de Genero *</label>
+                <label for="genero"> 16. Identidad de Genero *</label>
               </div>
             </div>
 
@@ -364,13 +364,13 @@
     
                 <div class="form-floating mb-3">
   
-                {{ Form::select('orientacion', $data['listaLocalidades'], null, ['class' => $errors->first('orientacion') ? 'form-control form-control-sm is-invalid validate' : 'form-control form-control-sm validate','id'=>'orientacion','required',]) }}
+                {{ Form::select('orientacion', $data['orientacioncombo'], null, ['class' => $errors->first('orientacion') ? 'form-control form-control-sm is-invalid validate' : 'form-control form-control-sm validate','id'=>'orientacion','required',]) }}
                 @if($errors->has('orientacion'))
                     <div class="invalid-feedback d-block">
                         {{ $errors->first('orientacion') }}
                     </div>
                 @endif
-                <label for="localidad"> 16. Orientación Sexual *</label>
+                <label for="localidad"> 17. Orientación Sexual *</label>
               </div>
             </div>
 
@@ -378,7 +378,7 @@
                     <div class="form-floating mb-3">
                     
                         <input type="email" class="form-control form-control-sm validate[required, custom[email]]" name="email" id="email" autocomplete="off" placeholder="0">
-                        <label for="email"> 17. Correo electrónico *</label>
+                        <label for="email"> 18. Correo electrónico *</label>
                         <div class="invalid-feedback email">
                             Campo obligatorio.
                           </div>
@@ -387,7 +387,7 @@
                 <div class="col-md-6">
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control form-control-sm validate[required, custom[email]]" name="emailCon" id="emailCon" autocomplete="off" placeholder="0">
-                        <label for="emailCon"> 17.1. Confirme correo electrónico *</label>
+                        <label for="emailCon"> 18.1. Confirme correo electrónico *</label>
                     </div> 
                 </div>
 
@@ -403,11 +403,11 @@
                             <option value="0">Directa</option>
                             <option value="1">Apoderado</option>
                         </select>
-                        <label for="tipoSolicitud"> 18. Tipo de Solicitud *</label>
+                        <label for="tipoSolicitud"> 19. Tipo de Solicitud *</label>
                         <div class="invalid-feedback">Example invalid select feedback</div>
                         </div>
                     </div> 
-                </div>
+               
             </div>
             <br>
             <!-- FIN TIPO SOLICITUD -->
@@ -1721,13 +1721,42 @@ $('#add_btn').on('click',function(){
             fecha = $(this).val();
             var hoy = new Date();
             var cumpleanos = new Date(fecha);
+            
             var edad = hoy.getFullYear() - cumpleanos.getFullYear();
             var m = hoy.getMonth() - cumpleanos.getMonth();
 
             if (m < 0 || (m === 0 && hoy.getDate() < cumpleanos.getDate())) {
                 edad--;
             }
-            $('#edad').val(edad);
+
+            if(edad<=5){
+                $('#rangoedad').val('Primera Infancia (0-5 años)');
+            }else 
+            if(edad>=6&&edad<=11){
+                $('#rangoedad').val('Infancia (6 - 11 años)');
+            }else
+
+            if(edad>=12&&edad<=14){
+                $('#rangoedad').val('Adolescencia (12 - 13 años)');
+            }else
+
+            if(edad>=14&&edad<=26){
+                $('#rangoedad').val('Juventud (14 - 26 años)');
+            }else
+
+            if(edad>=27&&edad<=59){
+                $('#rangoedad').val('Adultez (27- 59 años)');
+            }else
+
+            if(edad>=60){
+                $('#rangoedad').val('Persona Mayor (60 años o mas) envejecimiento y vejez');
+            }
+                        
+            
+
+
+
+            //$('#edad').val(edad);
         }
 
 

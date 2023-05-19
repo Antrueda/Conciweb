@@ -56,9 +56,10 @@ class Tramiteusuario extends Model
       'sexo',
       'genero',
       'orientacion',
+      'nacionalidad',
       
 
-        'sis_esta_id'
+        'sis_esta_id',
       ];
 
       public function asuntos()

@@ -46,25 +46,34 @@ class SisParametrosSeeder extends Seeder
          Parametro::create(['id' => 25, 'nombre' => 'INTERSEXUAL', 'user_crea_id' => '1', 'user_edita_id' => '1', 'sis_esta_id' => '1', ]); // 22
          Parametro::create(['id' => 26, 'nombre' => 'FEMENINO', 'user_crea_id' => '1', 'user_edita_id' => '1', 'sis_esta_id' => '1', ]); // 23
          Parametro::create(['id' => 27, 'nombre' => 'MASCULINO', 'user_crea_id' => '1', 'user_edita_id' => '1', 'sis_esta_id' => '1', ]); // 24
-         Parametro::create(['id' => 28, 'nombre' => 'TRANS. MASCULINO', 'user_crea_id' => '1', 'user_edita_id' => '1', 'sis_esta_id' => '1', ]); // 25
-         Parametro::create(['id' => 29, 'nombre' => 'TRANS. FEMENINO', 'user_crea_id' => '1', 'user_edita_id' => '1', 'sis_esta_id' => '1', ]); // 26
-         Parametro::create(['id' => 30, 'nombre' => 'NS/NR', 'user_crea_id' => '1', 'user_edita_id' => '1', 'sis_esta_id' => '1', ]); // 27
-         Parametro::create(['id' => 31, 'nombre' => 'OTRO', 'user_crea_id' => '1', 'user_edita_id' => '1', 'sis_esta_id' => '1', ]); // 28
-         Parametro::create(['id' => 32, 'nombre' => 'HETEROSEXUAL', 'user_crea_id' => '1', 'user_edita_id' => '1', 'sis_esta_id' => '1', ]); // 29
-         Parametro::create(['id' => 33, 'nombre' => 'BISEXUAL', 'user_crea_id' => '1', 'user_edita_id' => '1', 'sis_esta_id' => '1', ]); // 30
-         Parametro::create(['id' => 34, 'nombre' => 'HOMOSEXUAL', 'user_crea_id' => '1', 'user_edita_id' => '1', 'sis_esta_id' => '1', ]); // 31
+         Parametro::create(['id' => 28, 'nombre' => 'TRANSGENERO', 'user_crea_id' => '1', 'user_edita_id' => '1', 'sis_esta_id' => '1', ]); // 25
+         Parametro::create(['id' => 29, 'nombre' => 'NO DESEO INFORMAR', 'user_crea_id' => '1', 'user_edita_id' => '1', 'sis_esta_id' => '1', ]); // 28
+         Parametro::create(['id' => 30, 'nombre' => 'HETEROSEXUAL', 'user_crea_id' => '1', 'user_edita_id' => '1', 'sis_esta_id' => '1', ]); // 29
+         Parametro::create(['id' => 31, 'nombre' => 'BISEXUAL', 'user_crea_id' => '1', 'user_edita_id' => '1', 'sis_esta_id' => '1', ]); // 30
+         Parametro::create(['id' => 32, 'nombre' => 'HOMOSEXUAL', 'user_crea_id' => '1', 'user_edita_id' => '1', 'sis_esta_id' => '1', ]); // 31
 
 
-        Parametro::create(['id' => 35, 'nombre' => 'NO FUE A LA ESCUELA', 'user_crea_id' => '1', 'user_edita_id' => '1', 'sis_esta_id' => '1', ]); // 829
-        Parametro::create(['id' => 36, 'nombre' => 'INICIAL/PREESCOLAR', 'user_crea_id' => '1', 'user_edita_id' => '1', 'sis_esta_id' => '1', ]); // 830
-        Parametro::create(['id' => 37, 'nombre' => 'PRIMARIA', 'user_crea_id' => '1', 'user_edita_id' => '1', 'sis_esta_id' => '1', ]); // 831
-        Parametro::create(['id' => 38, 'nombre' => 'BÁSICA SECUNDARIA', 'user_crea_id' => '1', 'user_edita_id' => '1', 'sis_esta_id' => '1', ]); // 832
-        Parametro::create(['id' => 39, 'nombre' => 'BACHILLERATO ', 'user_crea_id' => '1', 'user_edita_id' => '1', 'sis_esta_id' => '1', ]); // 833
-        Parametro::create(['id' => 40, 'nombre' => 'TÉCNICO', 'user_crea_id' => '1', 'user_edita_id' => '1', 'sis_esta_id' => '1', ]); // 834
-        Parametro::create(['id' => 41, 'nombre' => 'TECNÓLOGO', 'user_crea_id' => '1', 'user_edita_id' => '1', 'sis_esta_id' => '1', ]); // 835
-        Parametro::create(['id' => 42, 'nombre' => 'PROFESIONAL', 'user_crea_id' => '1', 'user_edita_id' => '1', 'sis_esta_id' => '1', ]); // 836
-        Parametro::create(['id' => 43, 'nombre' => 'POSTGRADO', 'user_crea_id' => '1', 'user_edita_id' => '1', 'sis_esta_id' => '1', ]); // 837
-        Parametro::create(['id' => 44, 'nombre' => 'MAESTRÍA', 'user_crea_id' => '1', 'user_edita_id' => '1', 'sis_esta_id' => '1', ]); // 838
+        Parametro::create(['id' => 33, 'nombre' => 'NINGUNA', 'user_crea_id' => '1', 'user_edita_id' => '1', 'sis_esta_id' => '1', ]); // 829
+        Parametro::create(['id' => 34, 'nombre' => 'EDUCACIÓN DE LA PRIMERA INFANCIA', 'user_crea_id' => '1', 'user_edita_id' => '1', 'sis_esta_id' => '1', ]); // 830
+        Parametro::create(['id' => 35, 'nombre' => 'EDUCACIÓN BÁSICA PRIMARIA', 'user_crea_id' => '1', 'user_edita_id' => '1', 'sis_esta_id' => '1', ]); // 831
+        Parametro::create(['id' => 36, 'nombre' => 'EDUCACIÓN BÁSICA SECUNDARIA O SECUNDARIA BAJA', 'user_crea_id' => '1', 'user_edita_id' => '1', 'sis_esta_id' => '1', ]); // 832
+        Parametro::create(['id' => 37, 'nombre' => 'EDUCACIÓN MEDIA O SECUNDARIA ALTA ', 'user_crea_id' => '1', 'user_edita_id' => '1', 'sis_esta_id' => '1', ]); // 833
+        Parametro::create(['id' => 38, 'nombre' => 'EDUCACIÓN POSTSECUNDARIA NO SUPERIOR', 'user_crea_id' => '1', 'user_edita_id' => '1', 'sis_esta_id' => '1', ]); // 834
+        Parametro::create(['id' => 39, 'nombre' => 'EDUCACIÓN TÉCNICA PROFESIONAL Y TECNOLÓGICA', 'user_crea_id' => '1', 'user_edita_id' => '1', 'sis_esta_id' => '1', ]); // 835
+        Parametro::create(['id' => 40, 'nombre' => 'UNIVERSITARIO O EQUIVALENTE', 'user_crea_id' => '1', 'user_edita_id' => '1', 'sis_esta_id' => '1', ]); // 836
+        Parametro::create(['id' => 41, 'nombre' => 'ESPECIALIZACIÓN MAESTRIA O EQUIVALENTE', 'user_crea_id' => '1', 'user_edita_id' => '1', 'sis_esta_id' => '1', ]); // 837
+        Parametro::create(['id' => 42, 'nombre' => 'DOCTORADO O EQUIVALENTE', 'user_crea_id' => '1', 'user_edita_id' => '1', 'sis_esta_id' => '1', ]); // 838
+        Parametro::create(['id' => 43, 'nombre' => 'NO INFORMA', 'user_crea_id' => '1', 'user_edita_id' => '1', 'sis_esta_id' => '1', ]); // 838
+
+
+        Parametro::create(['id' => 44, 'nombre' => 'PRIMERA INFANCIA (0-5 AÑOS)', 'user_crea_id' => '1', 'user_edita_id' => '1', 'sis_esta_id' => '1', ]); // 838
+        Parametro::create(['id' => 45, 'nombre' => 'INFANCIA (6 - 11 AÑOS)', 'user_crea_id' => '1', 'user_edita_id' => '1', 'sis_esta_id' => '1', ]); // 838
+        Parametro::create(['id' => 46, 'nombre' => 'ADOLESCENCIA (12 - 13 AÑOS)', 'user_crea_id' => '1', 'user_edita_id' => '1', 'sis_esta_id' => '1', ]); // 838
+        Parametro::create(['id' => 47, 'nombre' => 'JUVENTUD (14 - 26 AÑOS)', 'user_crea_id' => '1', 'user_edita_id' => '1', 'sis_esta_id' => '1', ]); // 838
+        Parametro::create(['id' => 48, 'nombre' => 'ADULTEZ (27- 59 AÑOS)', 'user_crea_id' => '1', 'user_edita_id' => '1', 'sis_esta_id' => '1', ]); // 838
+        Parametro::create(['id' => 49, 'nombre' => 'PERSONA MAYOR (60 AÑOS O MAS) ENVEJECIMIENTO Y VEJEZ', 'user_crea_id' => '1', 'user_edita_id' => '1', 'sis_esta_id' => '1', ]); // 838
+
+
 
         //  Parametro::create(['id' => 21, 'sis_esta_id' => 1, 'user_crea_id' => 1, 'user_edita_id' => 1, 'nombre' => 'CONTRATO O DOCUMENTO DONDE SE ACORDÓ LA ADMINISTRACIÓN O DONDE CONSTE LA COMUNIDAD DE UN BIEN']);
         //  Parametro::create(['id' => 22, 'sis_esta_id' => 1, 'user_crea_id' => 1, 'user_edita_id' => 1, 'nombre' => 'FORMULARIO DE SOLICITUD DE CONCILIACIÓN DEBIDAMENTE DILIGENCIADO Y FIRMADO']);

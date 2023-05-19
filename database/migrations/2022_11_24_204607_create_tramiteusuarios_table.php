@@ -45,6 +45,7 @@ return new class extends Migration
             $table->string('tipoAudiencia')->nullable();
             $table->string('sedePrincipal')->nullable();
             $table->string('sedeSecundaria')->nullable();
+            $table->string('rangoedad')->nullable();
             $table->integer('asunto')->unsigned()->nullable();
             $table->integer('subAsunto')->unsigned()->nullable();
             $table->integer('sis_departam_id')->unsigned()->nullable();
@@ -54,15 +55,15 @@ return new class extends Migration
             
             $table->foreign('asunto')->references('id')->on('conci_asuntos');
             $table->foreign('subAsunto')->references('id')->on('conci_sub_asuntos');
-            $table->string('tipoDocumento')->nullable()->unsigned();
+            $table->integer('tipoDocumento')->nullable()->unsigned();
             $table->foreign('tipoDocumento')->references('id')->on('conci_parametros');
-            $table->string('escolaridad')->nullable()->unsigned();
+            $table->integer('escolaridad')->nullable()->unsigned();
             $table->foreign('escolaridad')->references('id')->on('conci_parametros');
-            $table->string('sexo')->nullable()->unsigned();
+            $table->integer('sexo')->nullable()->unsigned();
             $table->foreign('sexo')->references('id')->on('conci_parametros');
-            $table->string('genero')->nullable()->unsigned();
+            $table->integer('genero')->nullable()->unsigned();
             $table->foreign('genero')->references('id')->on('conci_parametros');
-            $table->string('orientacion')->nullable()->unsigned();
+            $table->integer('orientacion')->nullable()->unsigned();
             $table->foreign('orientacion')->references('id')->on('conci_parametros');
             $table->string('detalle',2000)->nullable();
             $table->string('cuantia')->nullable();
@@ -72,6 +73,8 @@ return new class extends Migration
             $table->foreign('sis_esta_id')->references('id')->on('conci_sis_estas');
             $table->foreign('sis_departam_id')->references('id')->on('sis_departams');
             $table->foreign('sis_municipio_id')->references('id')->on('sis_municipios');
+            $table->integer('nacionalidad')->nullable()->unsigned();
+            $table->foreign('nacionalidad')->references('id')->on('sis_pais');
             $table->timestamps();
         });
     }

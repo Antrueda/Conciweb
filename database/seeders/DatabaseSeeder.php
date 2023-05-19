@@ -7,6 +7,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -18,6 +19,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(SisEstasSeeder::class);
         $this->call(SisParametrosSeeder::class);
+        $this->call(SisPaisSeeder::class);
         $this->call(SisDepartamSeeder::class);
         $this->call(SisMunicipioSeeder::class);
       //  $this->call(SisDepartamSisMunicipioSeeder::class);

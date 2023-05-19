@@ -12,11 +12,12 @@ class AdjuntarRequest extends FormRequest
     public function __construct()
     {
         $this->_mensaje = [
-            'document1.required' => 'Debe adjuntar el soporte',
-            'document1.mimes' => 'El archivo debe ser imagen o pdf',
+            'document1.*.required' => 'Ingrese el documento',
+            //'document1.*.mimes' => 'Formato no permitido',
+            'document1.*.max' => 'El tamaño permitido es de 10MB',
         ];
         $this->_reglasx = [
-            'document1' => 'required|file|mimes:pdf,jpg,jpeg|max:10024',
+            'document1.*' => 'required|max:6024',
         ];
     }
     /**

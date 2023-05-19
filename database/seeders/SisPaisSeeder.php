@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\Models\Sistema\SisPai;
 use Illuminate\Database\Seeder;
 
@@ -12,7 +14,7 @@ class SisPaisSeeder extends Seeder
      */
     public function run()
     {
-        SisPai::create(['s_pais' => 'N/A', 's_iso' => 'N/A', 'simianti_id' => '246', 'sis_esta_id' => '1', 'user_crea_id' => '1', 'user_edita_id' => '1']);
+        
         SisPai::create(['s_pais' => 'COLOMBIA', 's_iso' => 'CO', 'simianti_id' => '48', 'sis_esta_id' => '1', 'user_crea_id' => '1', 'user_edita_id' => '1']);
         SisPai::create(['s_pais' => 'ANDORRA', 's_iso' => 'AD', 'simianti_id' => '1', 'sis_esta_id' => '1', 'user_crea_id' => '1', 'user_edita_id' => '1']);
         SisPai::create(['s_pais' => 'EMIRATOS ÁRABES UNIDOS', 's_iso' => 'AE', 'simianti_id' => '2', 'sis_esta_id' => '1', 'user_crea_id' => '1', 'user_edita_id' => '1']);

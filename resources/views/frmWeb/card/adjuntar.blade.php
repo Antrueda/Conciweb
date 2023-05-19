@@ -40,6 +40,23 @@
 
   {{-- {!! Form::open(['route' => ['test',$dato->num_solicitud],'class' => 'form-horizontal','id'=>"adjuntarfomr",'name'=>"adjuntarfomr",'enctype'=>"multipart/form-data"]) !!} --}}
   {!! Form::open(['route' => ['cargararchivos',$dato->num_solicitud],'class' => 'form-horizontal', 'enctype'=>"multipart/form-data" ]) !!}
+
+  @csrf
+  @if ($msg = Session::get('success'))
+  <div class="alert alert-success">
+      <strong>{{ $msg }}</strong>
+  </div>
+@endif
+
+@if (count($errors) > 0)
+  <div class="alert alert-danger">
+      <ul>
+          @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+          @endforeach
+      </ul>
+  </div>
+@endif
   
   <div>
   <div class="card" style="padding-top: 3px; padding-bottom: 3px;">
@@ -175,7 +192,7 @@
   
 
       @foreach ($data['detalleAbc'] as $info)
-          <div class="row">
+          <div class="row input-file">
             
           
             <div class="col-md-6">
@@ -188,6 +205,11 @@
           <div class="input-group">
             <input type="file" class="form-control" name="document1[]" id="document1" aria-label="Upload" required accept=".pdf"/>
             <button class="btn btn-danger btn-reset" id="limpia" type="button"> <i class="fas fa-trash"></i></button>
+            @if($errors->has('document1'))
+            <div class="invalid-feedback d-block">
+              {{ $errors->first('document1') }}
+            </div>
+            @endif
           </div>
         </div>
         </div>
@@ -258,7 +280,7 @@
 
 <div class="row">
   <div class="col-md-4" style="padding-left: 10%;margin-top:10px;margin-left:30%">
-    <button type="button" class="btn btn-perso btn-block btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal"> <span class="fas fa-upload"> </span> Registrar Adjuntos</button>
+    <button type="button" class="btn btn-success btn-block btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal"> <span class="fas fa-upload"> </span> Registrar Adjuntos</button>
   </div>
 </div>
 
@@ -276,7 +298,7 @@
       
       <div class="modal-footer">
 
-        <button type="submit" class="btn btn-perso" id="submits"><span class="fas fa-upload"> </span> Si</button>
+        <button type="submit" class="btn btn-success" id="submits"><span class="fas fa-upload"> </span> Si</button>
         <button type="button" class="btn btn-info" data-bs-dismiss="modal"><i class="fas fa-times"></i> No</button>
  
       </div>
@@ -295,16 +317,32 @@
 
 <script>
  $(".btn-danger").click(function() {
-  $(this).parents(".archivo").find('input').val('');
-  console.log(  $(this).parents(".archivo").find('input').val(''));
+  $(this).parents(".input-file").find('input').val('');
     toastr.warning("Se ha limpiado el documento");
     });
+
+$("input").change(function() {
+    console.log(this.files[0].size);
+    if(this.files[0].size>10289594){
+    toastr.error("El tamaño permitido es de 10MB");
+    this.value = "";
+    }
+    });
+
+
 
     function PreviewImage() {
     pdffile=document.getElementById("document1").files[0];
     pdffile_url=URL.createObjectURL(pdffile);
     $('#viewer').attr('src',pdffile_url);
 }
+
+
+
+
+
+
+
 $(document).ready(function() {
 // $("#submits").click(function() {
 

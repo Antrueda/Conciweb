@@ -884,7 +884,7 @@ class Webcontroller extends Controller
         }
     }
 
-    public function Adjunta(Request $request, $id)
+    public function Adjunta(AdjuntarRequest $request, $id)
     {
 
         // $this->validate($request, [
@@ -925,11 +925,11 @@ class Webcontroller extends Controller
             //     'document1.max' => 'Capacidad maxima de 10MB',
             // ]
         );
-        //dd($input_data);
+        dd($input_data);
 
         if ($validator->fails()) {
             $messages = $validator->messages();
-            //ddd($messages);
+        
             return Redirect::back()->withErrors($validator);
         }
 

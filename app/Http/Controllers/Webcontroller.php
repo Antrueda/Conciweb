@@ -65,7 +65,7 @@ class Webcontroller extends Controller
             $generocombo = Tema::combo(5, true, false);
             $orientacioncombo = Tema::combo(6, true, false);
             $escolaridad = Tema::combo(7, true, false);
-            //$nacionalidad = SisPai::combo(true, false);
+            $nacionalidad = SisPai::combo(true, false);
             $tipoSolicitud = '';
             $data = array(
                 "listaLocalidades" => $localidadList,
@@ -78,11 +78,11 @@ class Webcontroller extends Controller
                 "departamentos" => $departamentos,
                 "municipios" => $municipios,
                 "Maxhoy" => $Maxhoy,
-                // "sexocombo" => $sexocombo,
-                // "generocombo" => $generocombo,
-                // "orientacioncombo" => $orientacioncombo,
-                // "escolaridad" => $escolaridad,
-                // "nacionalidad" => $nacionalidad,
+                 "sexocombo" => $sexocombo,
+                 "generocombo" => $generocombo,
+                 "orientacioncombo" => $orientacioncombo,
+                 "escolaridad" => $escolaridad,
+                 "nacionalidad" => $nacionalidad,
             );
     
     
@@ -988,7 +988,6 @@ class Webcontroller extends Controller
                 'document1.*' => 'required|max:10000'
                 ],[
                     'document1.*.required' => 'Ingrese el documento',
-                    'document1.*.mimes' => 'Formato no permitido',
                     'document1.*.max' => 'El tamaño permitido es de 10MB',
                 ]
        
@@ -1009,8 +1008,9 @@ class Webcontroller extends Controller
                 // $nombreOriginalFile = $value->getClientOriginalName();
                 // $rutaFinalFile = Storage::disk('local')->put("", $value);
             }
+            
             $descripcion[] = 'Documentos que complementen su solicitud';
-            if($dato->TIPOSOLICITUD==1){
+            if($dato->tiposolicitud==1){
                 $descripcion[] = 'Poder especial para conciliar dirigido al centro de conciliación de la personería de Bogota D.C. *';
             }
            
@@ -1018,8 +1018,8 @@ class Webcontroller extends Controller
 
         if ($validator->fails()) {
             $messages = $validator->messages();
-            ddd($messages);
-            return '|0| 0.0) Problema al anexar el soporte en el sistema';
+     
+            return Redirect::back()->withErrors($validator);
         }
 
 
