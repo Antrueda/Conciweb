@@ -22,7 +22,37 @@
         display: inline-block;
         opacity: 0.25;
 }
+.selectize-input {
+    min-height: calc(1.5em + 0.5rem + calc(var(--bs-border-width) * 2));
+    padding: 0.25rem 0.5rem;
+    font-size: .875rem;
+    color: black;
+    border-radius: 0.25rem;
+    appearance: none;
+    color: var(--bs-body-color);
+        border: 0px solid #d0d0d0;
+        background: 0 0!important;
+}
+.selectize-input>input[placeholder] {
+    box-sizing: initial;
+    color: black;
+    opacity: 100;
+}
 
+.selectize-input>input {
+    display: inline-block!important;
+    padding: 0!important;
+    min-height: 0!important;
+    max-height: none!important;
+    max-width: 100%!important;
+    margin: 0!important;
+    text-indent: 0!important;
+    border: 0 none!important;
+    background: 0 0!important;
+    line-height: inherit!important;
+    user-select: auto!important;
+    box-shadow: none!important;
+}
 .progress{
         height: 25px;
 }
@@ -163,7 +193,7 @@
                 <div class="col-md-6">
                     <div class="form-floating">
          
-                    {{ Form::select('tipoDocumento', $data['listaTipoDoc'], null, ['class' => $errors->first('tipoDocumento') ? 'form-select form-select-sm is-invalid' : 'form-select form-select-sm validate[required]'.'required','id'=>'tipoDocumento','aria-label'=>"Floating label select example",'required']) }}
+                    {{ Form::select('tipoDocumento', $data['listaTipoDoc'], null, ['class' => $errors->first('tipoDocumento') ? 'form-select form-select-sm is-invalid' : 'form-select form-select-sm validate[required]'.'required','id'=>'tipoDocumento','aria-label'=>"tipoDocumento",'required']) }}
                     @if($errors->has('tipoDocumento'))
                         <div class="invalid-feedback d-block">
                             {{ $errors->first('tipoDocumento') }}
@@ -324,7 +354,7 @@
     
                 <div class="form-floating mb-3">
   
-                {{ Form::select('nacionalidad', $data['nacionalidad'], null, ['class' => $errors->first('nacionalidad') ? 'form-control form-control-sm is-invalid validate' : 'form-control form-control-sm validate','id'=>'nacionalidad','required',]) }}
+                {{ Form::select('nacionalidad', $data['nacionalidad'], null, ['class' => $errors->first('nacionalidad') ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm','placeholder'=>'Seleccione','id'=>'nacionalidad','required',]) }}
                 @if($errors->has('nacionalidad'))
                     <div class="invalid-feedback d-block">
                         {{ $errors->first('nacionalidad') }}
@@ -398,7 +428,7 @@
                 <div class="col-md-3">
                     
                     <div class="form-floating mb-3">
-                        <select class="form-control form-control-sm custom-select validate[required]" name="tipoSolicitud" id="tipoSolicitud" onchange = 'doc(this.value)' required>
+                        <select class="form-select form-select-sm validate[required]" name="tipoSolicitud" id="tipoSolicitud" onchange = 'doc(this.value)' required>
                             <option value=" ">- Seleccione una opcion -</option>
                             <option value="0">Directa</option>
                             <option value="1">Apoderado</option>
@@ -407,6 +437,9 @@
                         <div class="invalid-feedback">Example invalid select feedback</div>
                         </div>
                     </div> 
+
+
+       
                
             </div>
             <br>
@@ -579,16 +612,16 @@
                 <div class="row">
                     <div class="col-md-3">
                         <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm" name="nomConvocantes[]" id="nomConvocantes" autocomplete="off" placeholder="0" minlength="3" >
-                            <label for="nomConvocante">Nombres convocado</label>
-                            <div class="invalid-feedback nomConvocante">
+                        <input type="text" class="form-control form-control-sm" name="nomConvoc" id="nomConvoc" autocomplete="off" placeholder="0" minlength="3" >
+                            <label for="nomConvoc">Nombres convocado</label>
+                            <div class="invalid-feedback nomConvoc">
                                 Campo obligatorio.
                               </div>
                     </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm" name="apeConvocantes[]" id="apeConvocantes" autocomplete="off" placeholder="0" minlength="3" >
+                        <input type="text" class="form-control form-control-sm" name="apeConvoca" id="apeConvoca" autocomplete="off" placeholder="0" minlength="3" >
                             <label for="apeConvocante">Apellidos convocado</label>
                             <div class="invalid-feedback apeConvocante">
                                 Campo obligatorio.
@@ -598,7 +631,7 @@
                     <div class="col-md-4">
                         <div class="form-floating mb-6">
                         
-                            <input type="email" class="form-control form-control-sm" name="emailConvocantes[]" id="emailConUs" autocomplete="off" placeholder="0" >
+                            <input type="email" class="form-control form-control-sm" name="emailConvo" id="emailConvo" autocomplete="off" placeholder="0" >
                             <label for="email"> Correo electronico</label>
                             <div class="invalid-feedback emailConU">
                                 Campo obligatorio.
@@ -771,7 +804,7 @@
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-floating mb-3">
-                                <input class="form-control form-control-sm validate" type="text" name="cuantia" id="cuantia" onkeypress = "return soloNumeros(event);" autocomplete="off" placeholder="0" min="1" max="100" maxlength="3">
+                                <input class="form-control form-control-sm validate" type="text" name="cuantia" id="cuantia" onkeypress = "return soloNumeros(event);" autocomplete="off" placeholder="0" min="1" max="116000000" maxlength="10">
                                 <label for="cuantia"> 16. Valor de la Cuantía *</label>
                                 <div id="test">
                                     {{ Form::number('salario', $data['salario']->numero, ['class' => 'form-control-plaintext' ,'id'=>'salario', 'style'=>"display: none"]) }}
@@ -1417,7 +1450,14 @@
         );
     }
   
+    $(document).ready(function () {
+//change selectboxes to selectize mode to be searchable
+$('#nacionalidad').selectize({
+    searchField: 'option',
+    valueField: 'id',
+      });
 
+})  ;
     (function($) {
             $.fn.extend( {
                 limiter: function(limit, elem) {
@@ -1591,12 +1631,13 @@ function run(hideTab, showTab){
                     if (y[i].value == ""||$(y[i]).val().length < y[i].minLength){
                         var nombre= y[i].name;
                         $(y[i]).css("background", "#ffdddd");
-        
+                        console.log(y[i].value);
                         nombre= nombre.replace('[]','')
         
                         $('.invalid-feedback.'+nombre).show();
                         return false;
                     }else{
+                        console.log(y[i].name);
                         var nombre= y[i].name;
             
                         nombre= nombre.replace('[]','')
@@ -1673,9 +1714,9 @@ function run(hideTab, showTab){
 }
 
 $('#add_btn').on('click',function(){
-    var nomConvocante= $("#nomConvocantes").val() ;
-    var apeConvocante= $("#apeConvocantes").val();
-    var emailConU= $("#emailConUs").val();
+    var nomConvocante= $("#nomConvoc").val() ;
+    var apeConvocante= $("#apeConvoca").val();
+    var emailConU= $("#emailCon").val();
 
     var html='';
      html+=' <tr>';

@@ -51,7 +51,7 @@ class Webcontroller extends Controller
             public function home()
         {
             $mensaje = Texto::where('sis_esta_id', 1)->first();
-            //ddd( Auth::user());
+
             $salario = Salario::find(1)->first();
             $Maxhoy = Carbon::today()->isoFormat('YYYY-MM-DD');
             $localidadList = SisLocalidad::combo();
@@ -61,11 +61,11 @@ class Webcontroller extends Controller
             $departamentos = SisDepartam::combo(true,false);
             $municipios = ['' => 'Seleccione'];
             $listaTipoDoc = Tema::combo(3, true, false);
-            $sexocombo = Tema::combo(4, true, false);
-            $generocombo = Tema::combo(5, true, false);
-            $orientacioncombo = Tema::combo(6, true, false);
-            $escolaridad = Tema::combo(7, true, false);
-            $nacionalidad = SisPai::combo(true, false);
+            $sexocombo = Tema::comboasc(4, true, false);
+            $generocombo = Tema::comboasc(5, true, false);
+            $orientacioncombo = Tema::comboasc(6, true, false);
+            $escolaridad = Tema::comboasc(7, true, false);
+            $nacionalidad = SisPai::combo(false, false);
             $tipoSolicitud = '';
             $data = array(
                 "listaLocalidades" => $localidadList,
@@ -517,7 +517,7 @@ class Webcontroller extends Controller
             DB::rollback();
             return '|0| 2.1.1) Problema al actualizar los datos del funcionario responsable TAB_REPARTO_WEB' . $e->getMessage();
         }
-
+        print_r($nombreConvocados);
         $i = 0;
         foreach ($nombreConvocados as $quan) {
             if ($quan != null) {

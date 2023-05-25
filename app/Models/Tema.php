@@ -61,11 +61,36 @@ class Tema extends Model {
       }
     }
 
-    $parametr = Tema::select(['parametros.id', 'parametros.nombre'])
-            ->join('parametro_tema', 'temas.id', '=', 'parametro_tema.tema_id')
-            ->join('parametros', 'parametro_tema.parametro_id', '=', 'parametros.id')
-            ->where('temas.id', $temaxxxx)
-            ->orderBy('parametros.id', 'desc')
+    $parametr = Tema::select(['conci_parametros.id', 'conci_parametros.nombre'])
+            ->join('parametro_tema', 'conci_temas.id', '=', 'parametro_tema.tema_id')
+            ->join('conci_parametros', 'parametro_tema.parametro_id', '=', 'conci_parametros.id')
+            ->where('conci_temas.id', $temaxxxx)
+            ->orderBy('conci_parametros.nombre', 'desc')
+            ->get();
+    foreach ($parametr as $registro) {
+      if ($ajaxxxxx) {
+        $comboxxx[] = ['valuexxx' => $registro->id, 'optionxx' => $registro->nombre];
+      } else {
+        $comboxxx[$registro->id] = $registro->nombre;
+      }
+    }
+    return $comboxxx;
+  }
+  public static function comboasc($temaxxxx, $cabecera, $ajaxxxxx) {
+    $comboxxx = [];
+    if ($cabecera) {
+      if ($ajaxxxxx) {
+        $comboxxx = ['valuexxx' => '', 'optionxx' => 'Seleccione'];
+      } else {
+        $comboxxx = ['' => 'Seleccione'];
+      }
+    }
+
+    $parametr = Tema::select(['conci_parametros.id', 'conci_parametros.nombre'])
+            ->join('parametro_tema', 'conci_temas.id', '=', 'parametro_tema.tema_id')
+            ->join('conci_parametros', 'parametro_tema.parametro_id', '=', 'conci_parametros.id')
+            ->where('conci_temas.id', $temaxxxx)
+            ->orderBy('conci_parametros.nombre', 'asc')
             ->get();
     foreach ($parametr as $registro) {
       if ($ajaxxxxx) {
