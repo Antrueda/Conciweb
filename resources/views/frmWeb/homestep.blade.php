@@ -22,6 +22,7 @@
         display: inline-block;
         opacity: 0.25;
 }
+
 .selectize-input {
     min-height: calc(1.5em + 0.5rem + calc(var(--bs-border-width) * 2));
     padding: 0.25rem 0.5rem;
@@ -381,7 +382,7 @@
                 <div class="form-floating mb-3">
   
                 {{ Form::select('genero', $data['generocombo'], null, ['class' => $errors->first('localidad') ? 'form-control form-control-sm is-invalid validate' : 'form-control form-control-sm validate','id'=>'localidad','required', ]) }}
-                @if($errors->has('localidad'))
+                @if($errors->has('genero'))
                     <div class="invalid-feedback d-block">
                         {{ $errors->first('localidad') }}
                     </div>
@@ -437,8 +438,61 @@
                         <div class="invalid-feedback">Example invalid select feedback</div>
                         </div>
                     </div> 
-
-
+                    <div class="col-md-3">
+    
+                        <div class="form-floating mb-3">
+                       
+                        {{ Form::select('grupoafectado', $data['grupoafectado'], null, ['class' => $errors->first('grupoafectado') ? 'form-control form-control-sm is-invalid validate' : 'form-control form-control-sm validate','id'=>'grupoafectado','required',]) }}
+                        @if($errors->has('grupoafectado'))
+                            <div class="invalid-feedback d-block">
+                                {{ $errors->first('grupoafectado') }}
+                            </div>
+                        @endif
+                        <label for="localidad"> 20. Grupo Afectado *</label>
+                      </div>
+                    </div>
+                    <div class="d-flex mt-3 mb-1">
+                        <label class="py-1">21. Condiciones de Protección</label>
+                    </div>
+                    <div class="container pb-2 @error('selectedCondiciones') is-invalid border border-danger @enderror">            
+                        <div class="row row-cols-sm-3 justify-content-md-center px-5 pt-3">
+                            @foreach ($listaCondicionesProteccion as $key => $condicion)
+                                <div class="col col-md-1">                                                
+                                    <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover focus" data-bs-title="{{$condicion['nombre']}}" @isset($condicion['descripcion']) data-bs-content="{{ $condicion['descripcion'] }}" @endisset >
+                                        <button class="btn" onclick="seleccionarCondicion({{$key}});" @if(!$condicion['enabled']) echo disabled @endif type="button">
+                                            {{-- <button class="btn" wire:click="seleccionarCondicion({{$key}})" @if(!$condicion['enabled']) echo disabled @endif type="button"> --}}
+                                            @if(!$condicion['checked']) 
+                                                <img src="{{asset($condicion['imagen_on'])}}" alt="">
+                                            @else 
+                                                <img src="{{asset($condicion['imagen_off'])}}" alt="">
+                                            @endif
+                                        </button>
+                                    </span>
+                                </div>
+                            @endforeach
+                            {{-- <div class="col col-md-2">
+                                <div class="d-flex w-100 h-100 align-items-center justify-content-center">
+                                    <button wire:click="resetCondiciones" type="button" class="btn btn-danger ">
+                                        Reiniciar
+                                    </button>
+                                </div>
+                            </div> --}}
+                        </div>
+                        <div wire:loading wire:target="seleccionarCondicion, resetCondiciones" class="row row-cols-1 pt-1">
+                            <div class="col">
+                                <div class="clearfix">
+                                    <div class="spinner-border float-end" role="status">
+                                      <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @error('selectedCondiciones')
+                        <span class="invalid-feedback">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
        
                
             </div>
@@ -1456,8 +1510,13 @@ $('#nacionalidad').selectize({
     searchField: 'option',
     valueField: 'id',
       });
-
+      $('#grupoafectado').selectize({
+    searchField: 'option',
+    valueField: 'id',
+      });
 })  ;
+
+
     (function($) {
             $.fn.extend( {
                 limiter: function(limit, elem) {
@@ -1799,6 +1858,36 @@ $('#add_btn').on('click',function(){
 
             //$('#edad').val(edad);
         }
+
+    //     $(".btn").click(() => {
+    //     alert('jorge');
+    //     var id = $(".btn").val();
+    //     console.log(id);
+    //     seleccionarCondicion(id);
+    // });
+
+function seleccionarCondicion(id){
+    console.log(id);
+        $.ajax({
+            url: "seleccionarCondicion",
+            type: "POST",
+            data: {
+                id: id,
+              
+            },
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(id) {
+                console.log(id);
+                },
+                error: function(xhr, status) {
+                    alert('Disculpe, existió un problema al cargar los municipios');
+                },
+        })
+    };
+
+
 
 
 

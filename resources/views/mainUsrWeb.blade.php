@@ -40,7 +40,11 @@
         <!--
         <link rel="stylesheet" href="{{URL::asset('https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.18/af-2.3.3/b-1.5.6/b-colvis-1.5.6/b-flash-1.5.6/b-html5-1.5.6/b-print-1.5.6/cr-1.5.0/fc-3.2.5/fh-3.1.4/kt-2.5.0/r-2.2.2/rg-1.1.0/rr-1.2.4/sc-2.0.0/sl-1.3.0/datatables.min.css')}}" />
         -->
-
+        <link rel="stylesheet" href="{{ asset('css/fonts.css') }}">
+        <link rel="stylesheet" href="{{asset('css/stepper.css')}}">
+        <link rel="stylesheet" href="{{asset('css/button-file.css')}}">
+        <link rel="stylesheet" href="{{ asset('css/fonts.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/base.css') }}">
         <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/css/selectize.default.min.css"
@@ -106,7 +110,7 @@
         </style>
         
     @yield('AddScritpHeader')
-
+    @livewireStyles
     </head>
     <body>
       {{-- <div class="container-fluid header">
@@ -224,7 +228,7 @@
             </div>
         </div>
     </div>
-
+    @livewireScripts
     </body>
 
     <div class="text-center text-secondary" style="margin-top: -20px; font-size: 80%;">
@@ -271,10 +275,11 @@
 
 <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
-
+<script src="{{asset('js/popoversController.js')}}"></script>
 
 @yield('AddScriptFooter')
 <script>
+  
     @if(Session::has('message'))
     toastr.options =
     {

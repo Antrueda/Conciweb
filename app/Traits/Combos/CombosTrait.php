@@ -10,6 +10,7 @@ use App\Models\Educacion\Administ\Pruediag\EdaAsignatu;
 use App\Models\Educacion\Administ\Pruediag\EdaGrado;
 use App\Models\Educacion\Administ\Pruediag\EdaPresaber;
 use App\Models\Educacion\Usuariox\Pruediag\EduPresaber;
+use App\Models\Sistema\CondicionProteccion;
 use App\Models\Sistema\SisBarrio;
 use App\Models\sistema\SisDepartam;
 use App\Models\Sistema\SisDepen;
@@ -45,6 +46,32 @@ trait CombosTrait
         return $comboxxx;
     }
 
+    public function getDesplegable($data)
+    {
+        if (!isset($data['campo'])) {
+            $data['campo'] = 'nombre';
+        }
+
+        if (!isset($data['order_by'])) {
+            $data['order_by'] = 'ASC';
+        }
+
+        $consulta = CondicionProteccion::where('id', $data['condicion'])
+            ->with(['parametros' => function ($query) use ($data) {
+                $query->select(['id', 'nombre','id_condicion']);
+                $query->where('dcondicionesproteccion.habilitado', 1);
+                $query->orderBy($data['campo'], $data['order_by']);
+            }])
+            ->first();
+        if(count($consulta->parametros) > 0){
+            // $data['data'] = $consulta->parametros->toArray();
+            // dd($consulta->parametros->toArray());
+            return $consulta->parametros->toArray();
+        } else{
+            return null;
+        }
+        
+    }
 
     /**
      * encontrar los parámetros del tema indicado

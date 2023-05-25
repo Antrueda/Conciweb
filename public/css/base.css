@@ -1,0 +1,75 @@
+body {
+    /* background: -webkit-gradient(linear, 0% 5%, 0% 30%, from(#003E65), to(white)); */
+
+    /*background: linear-gradient(top, black, white);*/
+
+    /* Safari 4-5, Chrome 1-9 */
+    background: -webkit-gradient(linear, 0% 5%, 0% 30%, from(#003E65), to(white));
+    /* Safari 5.1+, Chrome 10+ */
+    background: -webkit-linear-gradient(top, #003E65, white);
+    /* Firefox 3.6+ */
+    background: -moz-linear-gradient(top, #003E65, white);
+    /* Opera 11.10+ */
+    background: -o-linear-background(top, #003E65, white);
+    /* IE 10 */
+    background: -ms-linear-background(top, #003E65, white);
+    /* estándar */
+    background: linear-background(top, #003E65, white);
+
+    
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+    /* background-color: rgba(0, 0, 0, 0);
+    background-position-x: 0%;
+    background-position-y: 0%;
+    background-repeat: repeat;
+    background-attachment: scroll;
+    background-image: linear-gradient(rgb(0, 62, 101) 0%, white 100%);
+    background-size: auto;
+    background-origin: padding-box;
+    background-clip: border-box;
+    color: #212529; */
+}
+
+
+
+button, p, a{
+    font-family: PublicSans-custom !important;
+    font-size: 0.9rem;
+}
+
+
+h1, h2, h3, h5{
+    font-family: Monserrat-custom !important;
+    font-size: 1.1rem;
+    color: #0069a8 ;
+    font-weight: bold !important;
+}
+
+h4 {
+    font-family: Monserrat-custom !important;
+    /* font-size: 1.1rem; */
+    color: #0069a8 ;
+    /* font-weight: bold !important; */
+}
+
+label{
+    font-family: PublicSans-custom !important;
+}
+
+.step-title{
+    font-family: Monserrat-custom !important;
+    color: #0069a8 ;
+    font-weight: bold !important;
+
+}
+
+.step-button{
+    font-family: Monserrat-custom !important;
+    /* color: #0069a8 ; */
+    font-weight: bold !important;
+
+}
+
+

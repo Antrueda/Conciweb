@@ -1,0 +1,12 @@
+@font-face {
+    font-family: PublicSans-custom;
+    src: url('/fuentes/PublicSans-VariableFont_wght.ttf') format('truetype');
+}
+@font-face {
+    font-family: Monserrat-custom;
+    src: url('/fuentes/Montserrat-VariableFont_wght.ttf') format('truetype');
+}
+@font-face {
+    font-family: AvantGarde-custom;
+    src: url('/fuentes/ITC_Avant_Garde_Gothic_LT_Demi_Regular.otf') format('opentype');
+}

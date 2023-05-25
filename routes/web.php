@@ -68,6 +68,8 @@ Route::post('modalMensajeBienvenida','App\Http\Controllers\Webcontroller@modalMe
 Route::post('modalTratamientoDatos','App\Http\Controllers\Webcontroller@modalTratamientoDatos');
 Route::post('solicitud','App\Http\Controllers\Webcontroller@solicitud');
 Route::post('consultalistaSubAsuntos','App\Http\Controllers\Webcontroller@consultalistaSubAsuntos');
+Route::post('seleccionarCondicion','App\Http\Controllers\Webcontroller@seleccionarCondicion');
+Route::post('updateCondicionesDisponibles','App\Http\Controllers\Webcontroller@updateCondicionesDisponibles');
 Route::post('consultaDocumentosRelacionados','App\Http\Controllers\Webcontroller@detalleAbcAsunto');
 Route::post('registroConciliacionWeb','App\Http\Controllers\Webcontroller@registroConciliacionWeb');
 Route::get('conciliacionWebUpdateDatos','App\Http\Controllers\Webcontroller@actualizarDato')->name('actualiza');

@@ -11,6 +11,8 @@ use File;
 use Illuminate\Support\Facades\Storage;
 use Response;
 use Brian2694\Toastr\Toastr;
+use Livewire\Component;
+use Livewire\WithFileUploads;
 
 //MODELS
 use App\tramiteusuario;
@@ -23,6 +25,9 @@ use App\Models\Asunto;
 use App\Models\Estadoform;
 use App\Models\Parametro;
 use App\Models\Salario;
+use App\Models\Sistema\CondicionProteccion;
+use App\Models\Sistema\GrupoAfectado;
+use App\Models\Sistema\RelacionCondicionProteccion;
 use App\Models\Sistema\SisDepartam;
 use App\Models\Soportecon;
 use App\Models\SubAsunto;
@@ -47,7 +52,12 @@ use App\Traits\Combos\CombosTrait;
 class Webcontroller extends Controller
 {
     use CombosTrait;
-    
+
+
+    public $listaCondicionesProteccion, $auxLista = [], $selectedCondiciones = [];
+    public $listaDesplegables = [], $selectListaDesplegables = [];
+
+
             public function home()
         {
             $mensaje = Texto::where('sis_esta_id', 1)->first();
@@ -59,6 +69,7 @@ class Webcontroller extends Controller
             $listaAsuntos = Asunto::combo(true, false);
             $estadoTipoAudi = SisLocalidad::combo();
             $departamentos = SisDepartam::combo(true,false);
+            $grupoafectado = GrupoAfectado::combo(true,false);
             $municipios = ['' => 'Seleccione'];
             $listaTipoDoc = Tema::combo(3, true, false);
             $sexocombo = Tema::comboasc(4, true, false);
@@ -66,6 +77,23 @@ class Webcontroller extends Controller
             $orientacioncombo = Tema::comboasc(6, true, false);
             $escolaridad = Tema::comboasc(7, true, false);
             $nacionalidad = SisPai::combo(false, false);
+       
+            $listaCondiciones = CondicionProteccion::where('habilitado', true)
+            ->select('id', 'nombre', 'descripcion', 'imagen_on', 'imagen_off','habilitado')
+            ->orderBy('id', 'ASC')
+            ->get()->toArray();
+
+            foreach ($listaCondiciones as $key => $lista) {
+                /**
+                 * Agrega a la lista traida de la base de dato los siguientes campos:
+                 * enabled -> activar o desactivar boton en front
+                 * checked -> cambiar icono al seleccionar o deseleccionar condicion
+                 */
+                $listaCondiciones[$key] += ['enabled' => true];
+                $listaCondiciones[$key] += ['checked' => false];
+            }
+            $this->listaCondicionesProteccion=collect($listaCondiciones);
+            //dd($this->listaCondicionesProteccion);
             $tipoSolicitud = '';
             $data = array(
                 "listaLocalidades" => $localidadList,
@@ -73,6 +101,7 @@ class Webcontroller extends Controller
                 "listaAsuntos" => $listaAsuntos,
                 "listaTipoDoc" => $listaTipoDoc,
                 "estadoTipoAudi" => $estadoTipoAudi,
+                "grupoafectado" => $grupoafectado,
                 "mensaje" => $mensaje,
                 "salario" => $salario,
                 "departamentos" => $departamentos,
@@ -83,11 +112,142 @@ class Webcontroller extends Controller
                  "orientacioncombo" => $orientacioncombo,
                  "escolaridad" => $escolaridad,
                  "nacionalidad" => $nacionalidad,
+                 "listaCondiciones" => $listaCondiciones,
             );
-    
-    
-            return ((string)\View::make("frmWeb.homestep", array("data" => $data)));
+            
+            
+            return ((string)\View::make("frmWeb.homestep", array("data" => $data,"listaCondicionesProteccion"=>$this->listaCondicionesProteccion)));
         }
+
+        private function fetchCondicionesProteccion(){
+            /**
+             * Esta funcion se encarga de traer la lista inicial de condiciones
+             * de proteccion de acuerdo con lo registrado en la base de datos
+             */
+            $this->listaCondicionesProteccion = 
+                CondicionProteccion::where('habilitado', true)
+                    ->select('id', 'nombre', 'descripcion', 'imagen_on', 'imagen_off','habilitado')
+                    ->orderBy('id', 'ASC')
+                    ->get();
+            foreach ($this->listaCondicionesProteccion as $key => $lista) {
+                /**
+                 * Agrega a la lista traida de la base de dato los siguientes campos:
+                 * enabled -> activar o desactivar boton en front
+                 * checked -> cambiar icono al seleccionar o deseleccionar condicion
+                 */
+                $this->listaCondicionesProteccion[$key] += ['enabled' => true];
+                $this->listaCondicionesProteccion[$key] += ['checked' => false];
+            }
+        }
+    
+        private function updateCondicionesDisponibles($undo){
+            /**
+             * Esta funcion se encarga de actualizar las condiciones posibles de seleccionar
+             * de acuerdo con la seleccion del ususario y las relaciones asignadas en DB
+             */
+        
+            if(count($this->selectedCondiciones) > 0){
+                /**
+                 * undo -> booleano usado para identificar la accion del usuario, es decir,
+                 * si el usuario esta seleccionando o deseleccionando una condicion
+                 */
+       
+                if(!$undo){
+                    //Selecciona una condicion
+               
+                    //Itera el arreglo con las selecciones del peticionario
+                    foreach ($this->selectedCondiciones as $selected) {
+                        //Trae las relaciones de cada condicion seleccionada
+                        $relaciones = RelacionCondicionProteccion::where('condicion', $selected)->get();
+                        //Itera las relacioens
+                        foreach ($this->listaCondicionesProteccion as $key => $lista) {
+                            //Desactiva las condiciones que no posean relacion con la seleccion del peticionario
+                            if($lista['id'] != $selected && $relaciones->where('relacion', $lista['id'])->first() == null){
+                                $this->listaCondicionesProteccion[$key]['enabled'] = false;
+                        
+                            }
+                        }
+                    }
+                } else{
+                    //Deseleccionando una condicion
+                    foreach ($this->listaCondicionesProteccion as $key => $lista) {
+                        //Habilita todas las condiciones
+                        $this->listaCondicionesProteccion[$key]['enabled'] = true;
+                    }
+                    //Recursividad para desactivar botones de acuerdo a las relaciones
+                    $this->updateCondicionesDisponibles(false);
+                }
+            }else{
+                //Habilita todos los botones
+                foreach ($this->listaCondicionesProteccion as $key => $lista) {
+                    $this->listaCondicionesProteccion[$key]['enabled'] = true;
+                }
+            }  
+        }
+
+        public function seleccionarCondicion(Request $request){
+   
+
+            $this->listaCondicionesProteccion = CondicionProteccion::where('habilitado', true)
+            ->select('id', 'nombre', 'descripcion', 'imagen_on', 'imagen_off','habilitado')
+            ->orderBy('id', 'ASC')
+            ->get()->toArray();
+
+            foreach ($this->listaCondicionesProteccion as $key => $lista) {
+                /**
+                 * Agrega a la lista traida de la base de dato los siguientes campos:
+                 * enabled -> activar o desactivar boton en front
+                 * checked -> cambiar icono al seleccionar o deseleccionar condicion
+                 */
+                $this->listaCondicionesProteccion[$key] += ['enabled' => true];
+                $this->listaCondicionesProteccion[$key] += ['checked' => false];
+            }
+    
+            if ($request->ajax()) {
+            $id=$request->id;
+            //Trae toda la informacion de la condicion seleccionada
+            //$table = CondicionProteccion::find($request->id);
+            $table = CondicionProteccion::find($this->listaCondicionesProteccion[$id]['id']);
+
+            /**
+             * Valida la accion del usuario
+             * - Si el id que recibe la funcion no esta en el arreglo selectedCondiciones,
+             *   es por que el usuario esta seleccionando una condicion
+             * - Si el id que recibe la funcion SI existe en el arreglo selectedCondiciones,
+             *   es porque el usuario esta deseleccionando una condicion
+             */
+            if(!in_array($this->listaCondicionesProteccion[$id]['id'], $this->selectedCondiciones)){
+                //guarda el id de base de datos correspondiente a la condicion seleccionada
+                array_push($this->selectedCondiciones, $this->listaCondicionesProteccion[$id]['id']);
+                //marca como seleccionado el boton para cambiar el icono
+                $this->listaCondicionesProteccion[$id]['checked'] = true;
+                //valida si la condicion seleccionada posee una lista desplegable
+            
+                $lista = $this->getDesplegable(['condicion' => $table->id]);
+          
+                if(isset($lista)){
+                    //trae la lista desplegable correspondiente a la condicion
+                    $this->listaDesplegables[$table->id] = [
+                        // 'datos' => DB::table($table->tabla_desplegable)->where('habilitado', true)->get(),
+                        'datos' => $lista,
+                        'nombre' =>  $table->tabla_desplegable,
+                        // 'id' => $table->id,
+                    ];
+                    
+                    // dd($this->listaDesplegables);
+                    // $this->selectListaDesplegables[$table->tabla_desplegable] = '';
+                }
+                //actualiza las condiciones disponibles para seleccion
+                $this->updateCondicionesDisponibles(false);
+            } else{
+                $indexCondicion = array_search($this->listaCondicionesProteccion[$id]['id'], $this->selectedCondiciones);
+                //Elimina la condicion recibida del arreglo selectedCondiciones
+                unset($this->selectedCondiciones[$indexCondicion], $this->listaDesplegables[$table->id], $this->selectListaDesplegables[$table->id]);
+                $this->listaCondicionesProteccion[$id]['checked'] = false;
+                $this->updateCondicionesDisponibles(true);
+            }
+        }
+    }
     //Modal con el texto de bienvenida
     public function modalMensajeBienvenida()
     {
@@ -258,7 +418,22 @@ class Webcontroller extends Controller
         $subAsunto = $request->input("subAsunto");
         $detalle = $request->input("detalle");
         $cuantia = $request->input("cuantia");
-        //Documento
+        
+
+        //Nuevos campos
+        $fechanacimiento = $request->input("fechanacimiento");
+        $rangoedad = $request->input("rangoedad");
+        $escolaridad = $request->input("escolaridad");
+        $nacionalidad = $request->input("nacionalidad");
+        $sexo = $request->input("sexo");
+        $genero = $request->input("genero");
+        $orientacion = $request->input("orientacion");
+        $grupoafectado = $request->input("grupoafectado");
+        
+
+
+
+        //Conciweb 1.0
         $asuntoold =Asunto::select(['nombre'])
         ->where('id', $request->input("asunto"))
         ->first();
@@ -366,6 +541,16 @@ class Webcontroller extends Controller
                     'detalle' => DB::raw("'$detalle'"),
                     'cuantia' => $cuantia,
                     'code' => DB::raw("'$code'"),
+
+                    'fechanacimiento' => $fechanacimiento,
+                    'rangoedad' => $rangoedad,
+                    'escolaridad' => $escolaridad,
+                    'nacionalidad' => DB::raw("'$nacionalidad'"),
+                    'sexo' => $sexo,
+                    'genero' => DB::raw("'$genero'"),
+                    'orientacion' => DB::raw("'$orientacion'"),
+                    'grupoafectado' => DB::raw("'$grupoafectado'"),
+
                    
                 ]
             );
