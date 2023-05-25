@@ -29,7 +29,7 @@ class TextosSeeder extends Seeder
          <p>Como titular de la información tiene derecho a conocer, actualizar, rectificar sus datos personales y en los casos en que sea procedente, suprimir o revocar la autorización otorgada para su tratamiento, 
          solicitar prueba de la autorización otorgada al responsable del tratamiento y ser informado sobre el uso que le han dado a los mismos, presentar quejas ante la SIC por infracción a la ley y acceder en forma gratuita 
          a sus datos personales.</p>
-         <p>Para profundizar sobre sus derechos como titular y otros aspectos relevantes, consulte nuestra Política de Tratamiento de Datos Personales en el siguiente link: <a href="https://www.personeriabogota.gov.co/mecanismos-de-contacto-con-el-sujeto-obligado/proteccion-de-datos-personales/politica-de-proteccion-de-datos-personales">Politica de tratamiento</a></p>
+         <p>Para profundizar sobre sus derechos como titular y otros aspectos relevantes, consulte nuestra Política de Tratamiento de Datos Personales en el siguiente link: <a href="https://www.personeriabogota.gov.co/mecanismos-de-contacto-con-el-sujeto-obligado/proteccion-de-datos-personales/politica-de-proteccion-de-datos-personales" Target="_blank">Politica de tratamiento</a></p>
          
          '
          ,'tipotexto_id'=>19,'user_crea_id'=>1,'user_edita_id'=>1, 'sis_esta_id'=>1]);

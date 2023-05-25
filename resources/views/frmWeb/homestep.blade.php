@@ -441,8 +441,8 @@
                     <div class="col-md-3">
     
                         <div class="form-floating mb-3">
-                       
-                        {{ Form::select('grupoafectado', $data['grupoafectado'], null, ['class' => $errors->first('grupoafectado') ? 'form-control form-control-sm is-invalid validate' : 'form-control form-control-sm validate','id'=>'grupoafectado','required',]) }}
+                            
+                        {{ Form::select('grupoafectado', $data['grupoafectado'], null, ['class' => $errors->first('grupoafectado') ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm','id'=>'grupoafectado','required',]) }}
                         @if($errors->has('grupoafectado'))
                             <div class="invalid-feedback d-block">
                                 {{ $errors->first('grupoafectado') }}
@@ -462,9 +462,9 @@
                                         <button class="btn" onclick="seleccionarCondicion({{$key}});" @if(!$condicion['enabled']) echo disabled @endif type="button">
                                             {{-- <button class="btn" wire:click="seleccionarCondicion({{$key}})" @if(!$condicion['enabled']) echo disabled @endif type="button"> --}}
                                             @if(!$condicion['checked']) 
-                                                <img src="{{asset($condicion['imagen_on'])}}" alt="">
+                                                <img src="{{URL::asset($condicion['imagen_on'])}}" alt="">
                                             @else 
-                                                <img src="{{asset($condicion['imagen_off'])}}" alt="">
+                                                <img src="{{URL::asset($condicion['imagen_off'])}}" alt="">
                                             @endif
                                         </button>
                                     </span>
@@ -478,7 +478,7 @@
                                 </div>
                             </div> --}}
                         </div>
-                        <div wire:loading wire:target="seleccionarCondicion, resetCondiciones" class="row row-cols-1 pt-1">
+                        {{-- <div wire:loading wire:target="seleccionarCondicion, resetCondiciones" class="row row-cols-1 pt-1">
                             <div class="col">
                                 <div class="clearfix">
                                     <div class="spinner-border float-end" role="status">
@@ -486,7 +486,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                     @error('selectedCondiciones')
                         <span class="invalid-feedback">

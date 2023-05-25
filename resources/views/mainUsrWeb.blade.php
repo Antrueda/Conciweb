@@ -110,7 +110,7 @@
         </style>
         
     @yield('AddScritpHeader')
-    @livewireStyles
+    {{-- @livewireStyles --}}
     </head>
     <body>
       {{-- <div class="container-fluid header">
@@ -228,7 +228,7 @@
             </div>
         </div>
     </div>
-    @livewireScripts
+    {{-- @livewireScripts --}}
     </body>
 
     <div class="text-center text-secondary" style="margin-top: -20px; font-size: 80%;">

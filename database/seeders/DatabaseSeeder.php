@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
         $this->call(DCondicionProteccionTableSeeder::class);
         $this->call(TemasTableSeeder::class);
         $this->call(RolesYPermisosSeeder::class);
-        //$this->call(UsuariosSeeder::class);
+        $this->call(GrupoAfectadoSeeder::class);
         $this->call(SisLocalidadsSeeder::class);
         $this->call(TextosSeeder::class);
         $this->call(AsuntosSeeder::class);
