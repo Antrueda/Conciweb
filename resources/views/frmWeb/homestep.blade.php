@@ -23,6 +23,13 @@
         opacity: 0.25;
 }
 
+textarea {
+    resize: none;
+    overflow: hidden;
+    min-height: 80px;
+    max-height: 210px;
+}
+
 .form-floating>.form-control, .form-floating>.form-control-plaintext, .form-floating>.form-select {
     height: calc(3.99rem + calc(var(--bs-border-width) * 2));
     line-height: 1.25;
@@ -202,6 +209,13 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
     margin-top: -2px;  */
     border-radius: 25px;
     }
+
+
+.btn-indigo{
+    background-color: #6610f2;
+    color: white;
+}
+
 .btn-indigo{
     background-color: #6610f2;
     color: white;
@@ -209,6 +223,11 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
 .btn-default{
     background-color: #20c997;
     color: white;
+}
+
+.btn-step{
+    background-color: var(--prm-color);
+    color: #fff;
 }
 
 .btn-light{
@@ -224,8 +243,6 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
 }
 .btn-primary{
     border-color: #2039c9;
-  
-
  
 }
 
@@ -234,6 +251,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
 
 
 </style>
+
     <div class="row">
         <center>
         <div class="col-md-6">
@@ -256,7 +274,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
     <div class="steps-form">
         <div class="steps-row setup-panel">
           <div class="steps-step">
-            <a href="#step-1" type="button" class="btn btn-success btn-circle" id = "step-1"><span id="text-1">1</span><i id="stepi-1" class="fas fa-check" style="display:none;"></i></a>
+            <a href="#step-1" type="button" class="btn btn-step btn-circle" id = "step-1"><span id="text-1">1</span><i id="stepi-1" class="fas fa-check" style="display:none;"></i></a>
         
             
 
@@ -278,7 +296,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
 
       </div>
       <div class="progress">
-        <div class="progress-bar bg-success" role="progressbar" id="progressbar" style="width: 12%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+        <div class="progress-bar bg-primary" role="progressbar" id="progressbar" style="width: 12%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
       </div>
       {{-- <div style="text-align:center;">
         <span class="step" id = "step-1"></span>
@@ -286,7 +304,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
         <span class="step" id = "step-3"></span>
         <span class="step" id = "step-4"></span>
       </div> --}}
-      <br>
+      <br>   <br>
  
     
     <!-- INICIO DATOS DEL SOLICITANTE -->
@@ -298,7 +316,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
         </div>
         <div class="card-body" style="margin-bottom: 40px; height">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <div class="form-floating">
          
                     {{ Form::select('tipoDocumento', $data['listaTipoDoc'], null, ['class' => $errors->first('tipoDocumento') ? 'form-select form-select-sm is-invalid' : 'form-select form-select-sm validate[required]'.'required','id'=>'tipoDocumento','aria-label'=>"tipoDocumento",'required']) }}
@@ -310,10 +328,10 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                     <label for="tipoDocumento">1. Tipo Documento *</label>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-3">
                 <div class="form-floating mb-3">
                     <input type="number" class="form-control form-control-sm validate" id="numeroDocumento" name="numeroDocumento" autocomplete="off" onkeypress = "return soloNumeros(event);" required placeholder="0" minlength="4" maxlength="10" pattern="[0-9]+">
-                    <label for="numeroDocumento">2. No. de cédula *</label>
+                    <label for="numeroDocumento">2. No. de documento *</label>
                     <div class="invalid-feedback numeroDocumento">
                         Campo obligatorio.
                       </div>
@@ -397,32 +415,32 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                 </div>
             
 
-                    <div class="col-md-3" id="fuera_div" style="display:none">
+                    <div class="col-md-3" id="fuera_div" >
     
                         <div class="form-floating mb-3">
-                            {!! Form::select('sis_departam_id',  $data['departamentos'], null, ['class' => 'form-control form-control-sm', 'id'=>'sis_departam_id']) !!}
+                            {!! Form::select('sis_departam_id',  $data['departamentos'], null, ['class' => 'form-control form-control-sm', 'id'=>'sis_departam_id', 'disabled']) !!}
                     @if($errors->has('sis_departam_id'))
                         <div class="invalid-feedback d-block">
                             {{ $errors->first('sis_departam_id') }}
                      
                         </div>
                     @endif
-                    <label for="sis_departam_id"> Departamento:</label>
+                    <label for="sis_departam_id">10.1 Departamento:</label>
                   </div>
                 </div>
        
-                <div class="col-md-3" id="fueras_div" style="display:none">
+                <div class="col-md-3" id="fueras_div" >
     
                     <div class="form-floating mb-3">
   
-                        {!! Form::select('sis_municipio_id',  $data['municipios'], null, ['class' => 'form-control form-control-sm','id'=>'sis_municipio_id']) !!}
+                        {!! Form::select('sis_municipio_id',  $data['municipios'], null, ['class' => 'form-control form-control-sm','id'=>'sis_municipio_id','disabled']) !!}
                 @if($errors->has('sis_municipio_id'))
                     <div class="invalid-feedback d-block">
                         {{ $errors->first('sis_municipio_id') }}
 
                     </div>
                 @endif
-                <label for="sis_municipio_id"> Municipio</label>
+                <label for="sis_municipio_id">10.2 Municipio</label>
               </div>
             </div>
             <div class="col-md-3">
@@ -900,7 +918,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                                     {{ $errors->first('asunto') }}
                                 </div>
                             @endif
-                            <label for="asunto"> 14. Asunto *</label>
+                            <label for="asunto">21. Asunto *</label>
                         </div>
                         </div>
                     </div>
@@ -910,7 +928,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                                 <select class="form-control form-control-sm custom-select validate[required]" name="subAsunto" id="subAsunto">
                                     <option value=" ">- Seleccione una opcion -</option>
                                 </select>
-                                <label for="subAsunto"> 14.1. Sub Asunto *</label>
+                                <label for="subAsunto"> 21.1. Sub Asunto *</label>
                             </div>
                          
                         </div>
@@ -918,8 +936,8 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-floating mb-3">
-                                <textarea class="form-control form-control-sm validate[required, maxSize[1000]]" name="detalle" id="detalle" placeholder="Resumen" maxlength="1000" ></textarea>
-                                <label for="detalle"> 15. Resumen de la pretensión o conflicto (Máximo 1000 caracteres)*</label>
+                                <textarea class="form-control form-control-sm validate[required, maxSize[1000]]" name="detalle" id="detalle" placeholder="Resumen" oninput="auto_grow(this)" maxlength="1000"  cols='30' rows='20'></textarea>
+                                <label for="detalle"> 22. Resumen de la pretensión o conflicto (Máximo 1000 caracteres)*</label>
                                 <span id="chars"></span>
                                 </div>
              
@@ -937,7 +955,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                         <div class="col-md-3">
                             <div class="form-floating mb-3">
                                 <input class="form-control form-control-sm validate" type="number" name="cuantia" id="cuantia" onkeypress = "return soloNumeros(event);" autocomplete="off" placeholder="0" min="1" max="116000000" maxlength="9">
-                                <label for="cuantia"> 16. Valor de la Cuantía *</label>
+                                <label for="cuantia"> 23. Valor de la Cuantía *</label>
                                 <div id="test">
                                     {{ Form::number('salario', $data['salario']->numero, ['class' => 'form-control-plaintext' ,'id'=>'salario', 'style'=>"display: none"]) }}
                                     {{ Form::number('maximo', $data['salario']->maximo, ['class' => 'form-control-plaintext','id'=>'maximo','style'=>"display: none"]) }}
@@ -1419,16 +1437,17 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
         }
     });
 
-    $("#localidad").change(function() {
+     $("#localidad").change(function() {
         
         if ($("#localidad").val()==23) {
             console.log($("#localidad").val());
-            $("#fuera_div").css("display", "block");
-            $("#fueras_div").css("display", "block");
+            $("#sis_departam_id").removeAttr('disabled');
+            $("#sis_municipio_id").removeAttr('disabled');
+         
             
         } else {
-            $("#fuera_div").css("display", "none");
-            $("#fueras_div").css("display", "none");
+            $("#sis_departam_id").attr('disabled','disabled');
+            $("#sis_municipio_id").attr('disabled','disabled');
         }
     });
 
@@ -1889,6 +1908,8 @@ function run(hideTab, showTab){
             $("#step-2").hide();
           }else{
             $("#step-2").show();
+            $("#step-2").removeClass('btn-light');
+            $("#step-2").addClass('btn-step');
           }
            $("#step-"+i).addClass("opacity", "1");
           console.log(i)
@@ -1898,12 +1919,12 @@ function run(hideTab, showTab){
         // Switch tab
         $("#tab-"+hideTab).css("display", "none");
         $("#tab-"+showTab).css("display", "block");
-        $("#step-"+hideTab).removeClass('btn-success').addClass('btn-light');
-       // $("#stepi-"+hideTab).css("display", "block");
-       // $("#text-"+hideTab).css("display", "none");
+        //$("#step-"+hideTab).removeClass('btn-success').addClass('btn-light');
+        // $("#stepi-"+hideTab).css("display", "block");
+        // $("#text-"+hideTab).css("display", "none");
         $("#step-"+showTab).removeClass('btn-light');
-        $("#step-"+showTab).addClass('btn-success');
-        $("input").css("background", "#fff");
+        $("#step-"+showTab).addClass('btn-step');
+        //$("input").css("background", "#fff");
         if(showTab===1){
             $("#progressbar").css("width", "12%");
         }else
@@ -1913,7 +1934,7 @@ function run(hideTab, showTab){
         if(showTab===3){
             $("#progressbar").css("width", "63.5%");
         }else{
-            $("#progressbar").css("width", "100%");
+            $("#progressbar").css("width", "89%");
 
         }
     
@@ -1922,7 +1943,7 @@ function run(hideTab, showTab){
 $('#add_btn').on('click',function(){
     var nomConvocante= $("#nomConvoc").val() ;
     var apeConvocante= $("#apeConvoca").val();
-    var emailConU= $("#emailCon").val();
+    var emailConU= $("#emailConvo").val();
 
     var html='';
      html+=' <tr>';
@@ -1937,9 +1958,9 @@ $('#add_btn').on('click',function(){
      }else
         if (isValidEmail(emailConU)) {
                     $('.invalid-feedback.emailConU').hide();
-                    $("#nomConvocantes").val('');
-                    $("#apeConvocantes").val('');
-                    $("#emailConUs").val('');
+                    $("#nomConvoc").val('');
+                    $("#apeConvoca").val('');
+                    $("#emailConvo").val('');
                     $('#tablita').append(html);
                  }else{
                     $('.invalid-feedback.emailConU').show();
@@ -2076,7 +2097,10 @@ function soloNumeros(e) {
 //       formEl.addEventListener("submit", onAddWebsite);
 //       tableEl.addEventListener("click", onDeleteRow);
 
-
+function auto_grow(element) {
+    element.style.height = "5px";
+    element.style.height = (element.scrollHeight)+"px";
+}
 
 function doc(valor){
     document.getElementById("dire_id").hidden=true;
@@ -2107,10 +2131,14 @@ function doc(valor){
 function doc1(valor){
         if(valor == 23){
          
-            document.getElementById("fuera_div").hidden=false;
+  
+            document.getElementById("sis_departam_id").readonly=false;
+            document.getElementById("sis_municipio_id").readonly=false;
             
     }else{
-        document.getElementById("fuera_div").hidden=true;
+    
+        document.getElementById("sis_departam_id").readOnly=true;
+        document.getElementById('sis_municipio_id').readOnly = true;
      
         }  
     } 

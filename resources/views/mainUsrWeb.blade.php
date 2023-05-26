@@ -230,10 +230,22 @@
     </div>
     {{-- @livewireScripts --}}
     </body>
-
-    <div class="text-center text-secondary" style="margin-top: -20px; font-size: 80%;">
+    <footer style="font-family: PublicSans-custom !important;
+    position:fixed;
+    z-index: 10;
+    bottom: 0;
+    width: 100%;
+    background: #003E65;	
+    color: #fff;
+    font-weight: normal;
+    font-size: 14px;
+    text-align: center;
+    line-height: 30px;	
+    margin-left: auto;
+    margin-right: auto;">© 2023 Copyright  <i><img src="imagen/escBta.png"></i>  Personería de Bogotá D.C.</footer>
+    {{-- <div class="text-center text-secondary" style="margin-top: -20px; font-size: 80%;">
       © 2022 Copyright:<img style="margin-right: 2px; margin-left: 7px;" src="imagen/escBta.png" alt=""> Personería de Bogotá D.C.
-    </div>
+    </div> --}}
     {{-- <div class="container-fluid footer">
       <p>
           <a href="https://www.personeriabogota.gov.co/mecanismos-de-contacto-con-el-sujeto-obligado/proteccion-de-datos-personales/politicas-de-seguridad-de-la-informacion-del-sitio-web" title="Politicas de Seguridad de la información" alt="Link a Politicas de Seguridad de la información" target="_blank">

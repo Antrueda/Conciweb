@@ -57,7 +57,7 @@ class Webcontroller extends Controller
     public $listaCondicionesProteccion, $auxLista = [], $selectedCondiciones = [];
     public $listaDesplegables = [], $selectListaDesplegables = [];
 
-
+//Funcion para cargar combos y vista del formulario
             public function home()
         {
             $mensaje = Texto::where('sis_esta_id', 1)->first();
@@ -269,6 +269,8 @@ class Webcontroller extends Controller
         }
       
     }
+
+    //Funcion de carga de municipios
     public function getMunicipio(Request $request)
     {
         $respuest = [
@@ -283,6 +285,7 @@ class Webcontroller extends Controller
         return response()->json($respuest);
     }
 
+    //Creacion de combo de carga de municipios
     public function getSisMunicipioCT($dataxxxx)
     {
         $dataxxxx = $this->getDefaultCT($dataxxxx);
@@ -433,7 +436,7 @@ class Webcontroller extends Controller
 
 
 
-        //Conciweb 1.0
+        //Valores Conciweb 1.0
         $asuntoold =Asunto::select(['nombre'])
         ->where('id', $request->input("asunto"))
         ->first();
@@ -863,8 +866,12 @@ class Webcontroller extends Controller
         }
 
         DB::commit();
-        return '|1|El registro finalizo de forma correcta <br> su numero de solicitud es: <strong>' . $numSolicitud . '</strong> <br> Por favor verifique su correo electronico para mas información.';
+        //return '|1|El registro finalizo de forma correcta <br> su numero de solicitud es: <strong>' . $numSolicitud . '</strong> <br> Por favor verifique su correo electronico para mas información.';
+        return '|1|Señor usuario, <br> Su número de solicitud es <strong>' . $numSolicitud . '.</strong> <br> Se informa que se ha enviado un mensaje a la dirección de correo 
+        electrónico que proporcionó en la <strong>solicitud de conciliación</strong> en línea, el cual contiene las instrucciones para adjuntar los soportes correspondientes, teniendo en cuenta la temática que seleccionó y de esta forma finalizar este proceso..';
     }
+
+ 
 
     // Retornar vista con información del funcionario a atualizar
     public function actualizarDato(Request $request)
@@ -1159,11 +1166,12 @@ class Webcontroller extends Controller
         }
     }
 
-
+//Funcion de carga de documentos
     public function CargaArchivos(Request $request, $id)
     {
-        
+        //Se carga los datos del formulario 
         $dato = ModelsTramiteusuario::where('num_solicitud', $id)->first();
+        //Se realiza validacion por request
 
         $input_data = $request->all();
 
@@ -1177,7 +1185,7 @@ class Webcontroller extends Controller
                 ]
        
         );
-        //dd($input_data);
+
 
         $detalleAbc = Subdescripcion::where('subasu_id', $dato->subasunto)
         ->where('sis_esta_id', 1)
@@ -1289,10 +1297,10 @@ class Webcontroller extends Controller
     }
 
 
-    public function reloadCaptcha()
-    {
-        return response()->json(['captcha'=> captcha_img()]);
-    }
+    // public function reloadCaptcha()
+    // {
+    //     return response()->json(['captcha'=> captcha_img()]);
+    // }
 
 
     /*

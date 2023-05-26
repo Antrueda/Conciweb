@@ -445,8 +445,14 @@ class frmWebController extends Controller
         }
 
         DB::commit();
-        return '|1|El registro finalizo de forma correcta <br> su numero de solicitud es: <strong>' . $numSolicitud . '</strong> <br> Por favor verifique su correo electronico para mas información.';
+        return '|1|Señor usuario, <br> Su número de solicitud es <strong>' . $numSolicitud . '.</strong> <br> Se informa que se ha enviado un mensaje a la dirección de correo 
+        electrónico que proporcionó en la <strong> solicitud de conciliación</strong> en línea, el cual contiene las instrucciones para adjuntar los soportes correspondientes, teniendo en cuenta la temática que seleccionó y de esta forma finalizar este proceso..';
     }
+
+
+    Señor usuario, Su número de solicitud es 3000764. 
+    se informa que se ha enviado un mensaje a la dirección de correo 
+    electrónico que proporcionó en la solicitud de conciliación en línea, el cual contiene las instrucciones para adjuntar los soportes correspondientes, teniendo en cuenta la temática que seleccionó y de esta forma finalizar este proceso.
 
     // Retornar vista con información del funcionario a atualizar
     public function actualizarDato(Request $request)
