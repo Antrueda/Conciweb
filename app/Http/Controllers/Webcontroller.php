@@ -556,7 +556,7 @@ class Webcontroller extends Controller
             );
         } catch (\Exception $e) {
             DB::rollback();
-            return '|0| Problema al Insertar la informacion al sistema TRAMITEUSUARIO LOCAL ' . $e->getMessage();
+            return '|0| Problema al Insertar la informacion al sistema TRAMITEUSUARIO NUEVO ' . $e->getMessage();
         }
         //1.b) Registrar informacion en tramiteusuario Local
         try {

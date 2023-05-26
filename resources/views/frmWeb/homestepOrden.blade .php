@@ -1369,6 +1369,7 @@ function run(hideTab, showTab){
                 //     return;
                 //  }
                 */
+                console.log(y)
                 for (i = 0; i < y.length; i++){
                     if (y[i].value == ""||$(y[i]).val().length < y[i].minLength){
                         var nombre= y[i].name;

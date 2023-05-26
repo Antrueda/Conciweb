@@ -99,75 +99,15 @@ input[type=number] {
     user-select: auto!important;
     box-shadow: none!important;
 }
-
-.progress, .progress-stacked {
-    --bs-progress-height: 5px;
-    --bs-progress-font-size: 0.75rem;
-    --bs-progress-bg: var(--bs-secondary-bg);
-    --bs-progress-border-radius: var(--bs-border-radius);
-    --bs-progress-box-shadow: var(--bs-box-shadow-inset);
-    --bs-progress-bar-color: #fff;
-    --bs-progress-bar-bg: #0d6efd;
-    --bs-progress-bar-transition: width 0.6s ease;
-    display: flex;
-    height: var(--bs-progress-height);
-    overflow: hidden;
-    font-size: var(--bs-progress-font-size);
-    background-color: var(--bs-progress-bg);
-    border-radius: var(--bs-progress-border-radius);
-    margin-top: -21px;
-}
-/* .progress{
-        height: 5px;
-        margin-top: 2px;
+.progress{
+        height: 25px;
 }
 .progress-bar{
         height: 25px;
         color: transparent;
         opacity: 0.0;
-} */
-
-.select2-container {
-    box-sizing: border-box;
-    display: contents;
-    
-    margin-bottom: 222px;
-    position: relative;
-    vertical-align: middle;
 }
 
-
-.select2 {
-width:100%!important;
-padding: -0.625rem 0.75rem 0.375rem 2.25rem;
-     background-image: ; 
-     background-repeat: no-repeat; 
-    background-position: right 0.75rem center; 
-    background-size: 0px 0px;
-	appearance: none;
-    font-family: 'Public Sans', sans-serif;
-    font-size: .875rem;
-
-
-}
-
-
-.select2-container--default .select2-selection--single .select2-selection__arrow b {
-  background-image: url(https://cdn4.iconfinder.com/data/icons/user-interface-174/32/UIF-76-512.png);
-  background-color: transparent;
-  background-size: contain;
-  border: none !important;
-  height: 20px !important;
-  width: 20px !important;
-  margin: auto !important;
-  top: auto !important;
-  left: auto !important;
-}
-
-
-.select2-selection__arrow b{
-    display:none !important;
-}
 .steps-form {
     display: table;
     width: 100%;
@@ -197,10 +137,9 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
     text-align: center;
     padding: 7px 0;
     font-size: 12px;
-    /* line-height: 1.528571429;
-    
-    margin-top: -2px;  */
+    line-height: 1.528571429;
     border-radius: 25px;
+    margin-top: -2px; 
     }
 .btn-indigo{
     background-color: #6610f2;
@@ -232,7 +171,6 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
 
 
 
-
 </style>
     <div class="row">
         <center>
@@ -251,8 +189,13 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
         <span class="step" id = "step-4"><i class="fas fa-clipboard-list"></i></span>
       </div> --}}
 
-
-    
+      {{-- <div class="progress">
+        <span class="progress-bar progress-bar-striped progress-bar-animated" id = "step-1" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</span>
+        <span class="progress-bar progress-bar-striped progress-bar-animated" id = "step-2" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">50%</span>
+        <span class="progress-bar progress-bar-striped progress-bar-animated" id = "step-3" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">75%</span>
+        <span class="progress-bar progress-bar-striped progress-bar-animated" id = "step-4" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</span>
+    </div>
+     --}}
     <div class="steps-form">
         <div class="steps-row setup-panel">
           <div class="steps-step">
@@ -274,11 +217,6 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
          
           </div>
         </div>
-        
-
-      </div>
-      <div class="progress">
-        <div class="progress-bar bg-success" role="progressbar" id="progressbar" style="width: 12%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
       </div>
       {{-- <div style="text-align:center;">
         <span class="step" id = "step-1"></span>
@@ -389,7 +327,6 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                     @if($errors->has('localidad'))
                         <div class="invalid-feedback d-block">
                             {{ $errors->first('localidad') }}
-                            Campo obligatorio.
                         </div>
                     @endif
                     <label for="localidad"> 10. Localidad *</label>
@@ -404,7 +341,6 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                     @if($errors->has('sis_departam_id'))
                         <div class="invalid-feedback d-block">
                             {{ $errors->first('sis_departam_id') }}
-                     
                         </div>
                     @endif
                     <label for="sis_departam_id"> Departamento:</label>
@@ -419,7 +355,6 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                 @if($errors->has('sis_municipio_id'))
                     <div class="invalid-feedback d-block">
                         {{ $errors->first('sis_municipio_id') }}
-
                     </div>
                 @endif
                 <label for="sis_municipio_id"> Municipio</label>
@@ -433,7 +368,6 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                 @if($errors->has('fechanacimiento'))
                     <div class="invalid-feedback d-block">
                         {{ $errors->first('fechanacimiento') }}
-                        Campo obligatorio.
                     </div>
                 @endif
                 <label for="fechanacimiento"> 11. Fecha de Nacimiento *</label>
@@ -457,7 +391,6 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                 @if($errors->has('escolaridad'))
                     <div class="invalid-feedback d-block">
                         {{ $errors->first('escolaridad') }}
-                        Campo obligatorio.
                     </div>
                 @endif
                 <label for="escolaridad"> 13. Nivel de Escolaridad *</label>
@@ -468,11 +401,9 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                 <div class="form-floating mb-3">
   
                 {{ Form::select('nacionalidad', $data['nacionalidad'], null, ['class' => $errors->first('nacionalidad') ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm','placeholder'=>'Seleccione','id'=>'nacionalidad','required',]) }}
-                
                 @if($errors->has('nacionalidad'))
                     <div class="invalid-feedback d-block">
                         {{ $errors->first('nacionalidad') }}
-                        Campo obligatorio.
                     </div>
                 @endif
                 <label for="nacionalidad"> 14. Nacionalidad *</label>
@@ -484,9 +415,8 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
   
                 {{ Form::select('sexo', $data['sexocombo'], null, ['class' => $errors->first('sexo') ? 'form-control form-control-sm is-invalid validate' : 'form-control form-control-sm validate','id'=>'sexo','required', ]) }}
                 @if($errors->has('sexo'))
-                    <div class="invalid-feedback sexo">
+                    <div class="invalid-feedback d-block">
                         {{ $errors->first('sexo') }}
-                        Campo obligatorio.
                     </div>
                 @endif
                 <label for="sexo"> 15. Sexo *</label>
@@ -498,8 +428,8 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
   
                 {{ Form::select('genero', $data['generocombo'], null, ['class' => $errors->first('localidad') ? 'form-control form-control-sm is-invalid validate' : 'form-control form-control-sm validate','id'=>'localidad','required', ]) }}
                 @if($errors->has('genero'))
-                    <div class="invalid-feedback genero">
-                        {{ $errors->first('genero') }}
+                    <div class="invalid-feedback d-block">
+                        {{ $errors->first('localidad') }}
                     </div>
                 @endif
                 <label for="genero"> 16. Identidad de Genero *</label>
@@ -512,9 +442,8 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
   
                 {{ Form::select('orientacion', $data['orientacioncombo'], null, ['class' => $errors->first('orientacion') ? 'form-control form-control-sm is-invalid validate' : 'form-control form-control-sm validate','id'=>'orientacion','required',]) }}
                 @if($errors->has('orientacion'))
-                    <div class="invalid-feedback orientacion">
+                    <div class="invalid-feedback d-block">
                         {{ $errors->first('orientacion') }}
-                        Campo obligatorio.
                     </div>
                 @endif
                 <label for="localidad"> 17. Orientación Sexual *</label>
@@ -526,9 +455,8 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                     
                 {{ Form::select('grupoafectado', $data['grupoafectado'], null, ['class' => $errors->first('grupoafectado') ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm','id'=>'grupoafectado','required',]) }}
                 @if($errors->has('grupoafectado'))
-                    <div class="invalid-feedback grupoafectado">
+                    <div class="invalid-feedback d-block">
                         {{ $errors->first('grupoafectado') }}
-                        Campo obligatorio.
                     </div>
                 @endif
                 <label for="localidad"> 18. Grupo Afectado *</label>
@@ -1584,65 +1512,11 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
   
     $(document).ready(function () {
 //change selectboxes to selectize mode to be searchable
-// $('#nacionalidad').select2({
-//     theme: "bootstrap-5",
-
-//     width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
-//     placeholder: $( this ).data( 'placeholder' ),
-//       });
-//       $('b[role="presentation"]').hide();
-
-//     $('#nacionalidad')
-//     .parent('div')
-//     .children('span')
-//     .children('span')
-//     .children('span')
-//     .css('height', ' calc(4.1rem)');
-//     $('#nacionalidad')
-//     .parent('div')
-//     .children('span')
-//     .children('span')
-//     .children('span')
-//     .css('font-size', ' .875rem');
-
-//     $('#nacionalidad')
-//     .parent('div')
-//     .children('span')
-//     .children('span')
-//     .children('span')
-//     .children('span')
-//     .css('margin-top', '20px');
-//     $('#nacionalidad')
-//     .parent('div')
-//     .children('span')
-//     .children('span')
-//     .children('span')
-//     .children('span')
-//     .css('margin-left', '-20px');
-//     $('#nacionalidad')
-//     .parent('div')
-//     .children('span')
-//     .children('span')
-//     .children('span')
-//     .children('span')
-//     .children('span')
-
-//     .css('border', '20px');
-    
-//     $('#nacionalidad')
-//     .parent('div')
-//     .find('label')
-//     .css('z-index', '1');
-
-
-    $('#nacionalidad').selectize({
+$('#nacionalidad').selectize({
     searchField: 'text',
     valueField: 'id',
     plugins: ["auto_position"],
       });
-    
-
-
       $('#grupoafectado').selectize({
     searchField: 'text',
     valueField: 'id',
@@ -1833,7 +1707,7 @@ function run(hideTab, showTab){
                         console.log(y[i].name);
                         var nombre= y[i].name;
             
-                        nombre= nombre.replace('[]','');
+                        nombre= nombre.replace('[]','')
                 
                         $(y[i]).css("background", "transparent");
                         $('.invalid-feedback.'+nombre).hide();
@@ -1890,9 +1764,8 @@ function run(hideTab, showTab){
           }else{
             $("#step-2").show();
           }
-           $("#step-"+i).addClass("opacity", "1");
+        //   $("#step-"+i).addClass("opacity", "1");
           console.log(i)
-          
         }
 
         // Switch tab
@@ -1904,18 +1777,6 @@ function run(hideTab, showTab){
         $("#step-"+showTab).removeClass('btn-light');
         $("#step-"+showTab).addClass('btn-success');
         $("input").css("background", "#fff");
-        if(showTab===1){
-            $("#progressbar").css("width", "12%");
-        }else
-        if(showTab===2){
-            $("#progressbar").css("width", "39%");
-        }else
-        if(showTab===3){
-            $("#progressbar").css("width", "63.5%");
-        }else{
-            $("#progressbar").css("width", "100%");
-
-        }
     
 }
 
