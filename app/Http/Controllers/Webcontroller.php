@@ -1278,9 +1278,9 @@ class Webcontroller extends Controller
                 $message->bcc('jaruedag@personeriabogota.gov.co');
                 $message->bcc('jamumi14@gmail.com');
                // $message->attach('FORMATO_SOLICITUD_DE_CONCILIACION_V4');
-                $message->bcc('ljmeza@personeriabogota.gov.co');
-                $message->bcc('nylopez@personeriabogota.gov.co');
-                $message->bcc('asarmiento@personeriabogota.gov.co');
+                // $message->bcc('ljmeza@personeriabogota.gov.co');
+                // $message->bcc('nylopez@personeriabogota.gov.co');
+                // $message->bcc('asarmiento@personeriabogota.gov.co');
                 $message->subject($data['subject']);
             });
         } catch (\Exception $e) {
@@ -1297,10 +1297,7 @@ class Webcontroller extends Controller
     }
 
 
-    // public function reloadCaptcha()
-    // {
-    //     return response()->json(['captcha'=> captcha_img()]);
-    // }
+
 
 
     /*
