@@ -624,7 +624,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                             {{ $errors->first('tipoDocApoderado') }}
                         </div>
                     @endif
-                    <label for="tipoDocApoderado"> 11.1. Tipo Documento *</label>
+                    <label for="tipoDocApoderado"> 20.1. Tipo Documento *</label>
                     <div class="invalid-feedback tipoDocApoderado">
                         Campo obligatorio.
                       </div>
@@ -633,7 +633,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                  <div class="col-md-6">
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control form-control-sm validate" name="numDocApoderado" id="numDocApoderado" autocomplete="off" placeholder="0" onkeypress = "return soloNumeros(event);">
-                        <label for="numDocApoderado"> 11.2. No. de cédula *</label>
+                        <label for="numDocApoderado"> 20.2. No. de Documento *</label>
                         <div class="invalid-feedback numDocApoderado">
                             Campo obligatorio.
                           </div>
@@ -644,7 +644,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control form-control-sm validate" name="primerNombreApoderado" id="primerNombreApoderado" autocomplete="off" placeholder="0">
-                        <label for="primerNombreApoderado"> 11.3. Primer Nombre *</label>
+                        <label for="primerNombreApoderado"> 20.3. Primer Nombre *</label>
                         <div class="invalid-feedback primerNombreApoderado">
                             Campo obligatorio.
                           </div>
@@ -654,14 +654,14 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                 <div class="col-md-3">
                   <div class="form-floating mb-3">
                         <input type="text" class="form-control form-control-sm" name="segundoNombreApoderado" id="segundoNombreApoderado" autocomplete="off" placeholder="0">
-                        <label for="segundoNombreApoderado"> 11.4. Segundo Nombre</label>
+                        <label for="segundoNombreApoderado"> 20.4. Segundo Nombre</label>
                     </label>
                 </div>
             </div>
                 <div class="col-md-3">
                   <div class="form-floating mb-3">
                         <input type="text" class="form-control form-control-sm validate" name="primerApellidoApoderado" id="primerApellidoApoderado" autocomplete="off" placeholder="0">
-                        <label for="primerApellidoApoderado"> 11.5. Primer Apellido *</label>
+                        <label for="primerApellidoApoderado"> 20.5. Primer Apellido *</label>
                         <div class="invalid-feedback primerApellidoApoderado">
                             Campo obligatorio.
                           </div>
@@ -671,7 +671,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                 <div class="col-md-3">
                   <div class="form-floating mb-3">
                         <input type="text" class="form-control form-control-sm" name="segundoApellidoApoderado" id="segundoApellidoApoderado" autocomplete="off" placeholder="0">
-                        <label for="segundoApellidoApoderado"> 11.6. Segundo Apellido</label>
+                        <label for="segundoApellidoApoderado"> 20.6. Segundo Apellido</label>
                         
                     </div>
                 </div>
@@ -680,7 +680,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                 <div class="col-md-3">
                   <div class="form-floating mb-3">
                         <input type="text" class="form-control form-control-sm validate" name="tarjetaProfesional" id="tarjetaProfesional" autocomplete="off" placeholder="0">
-                        <label for="tarjetaProfesional"> 11.7. No. tarjeta Profesional *</label>
+                        <label for="tarjetaProfesional"> 20.7. No. tarjeta Profesional *</label>
                         <div class="invalid-feedback tarjetaProfesional">
                             Campo obligatorio.
                           </div>
@@ -690,7 +690,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                 <div class="col-md-3">
                   <div class="form-floating mb-3">
                         <input type="text" class="form-control form-control-sm" name="direccionApoderado" id="direccionApoderado" autocomplete="off" placeholder="0">
-                        <label for="tarjetaProfesional"> 11.8. Dirección *</label>
+                        <label for="tarjetaProfesional"> 20.8. Dirección *</label>
                         <div class="invalid-feedback direccionApoderado">
                             Campo obligatorio.
                           </div>
@@ -700,7 +700,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                 <div class="col-md-3">
                   <div class="form-floating mb-3">
                         <input type="text" class="form-control form-control-sm validate" name="primerTelefonoApoderado" id="primerTelefonoApoderado" autocomplete="off" placeholder="0" onkeypress = "return soloNumeros(event);">
-                        <label for="primerTelefonoApoderado"> 11.9. Teléfono Celular *</label>
+                        <label for="primerTelefonoApoderado"> 20.9. Teléfono Celular *</label>
                         <div class="invalid-feedback primerTelefonoApoderado">
                             Campo obligatorio.
                           </div>
@@ -709,7 +709,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                 <div class="col-md-3">
                   <div class="form-floating mb-3">
                         <input type="text" class="form-control form-control-sm validate[required minSize[7], maxSize[10]]" name="segundoTelefonoApoderado" id="segundoTelefonoApoderado" autocomplete="off" placeholder="0" onkeypress = "return soloNumeros(event);">
-                        <label for="segundoTelefonoApoderado"> 11.10. Teléfono fijo</label>
+                        <label for="segundoTelefonoApoderado"> 20.10. Teléfono fijo</label>
            
                     </div>
                 </div>
@@ -718,7 +718,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                 <div class="col-md-6">
                   <div class="form-floating mb-3">
                         <input type="text" class="form-control form-control-sm validate[required, custom[email]]" name="emailApoderado" id="emailApoderado" autocomplete="off" placeholder="0">
-                        <label for="emailApoderado"> 11.10. Correo electronico*</label>
+                        <label for="emailApoderado"> 20.10. Correo electronico*</label>
                         <div class="invalid-feedback emailApoderado">
                             Campo obligatorio.
                           </div>
@@ -728,7 +728,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                 <div class="col-md-6">
                   <div class="form-floating mb-3">
                         <input type="text" class="form-control form-control-sm validate[required, custom[email]]" name="emailApoderadoCon" id="emailApoderadoCon" autocomplete="off" placeholder="0">
-                        <label for="emailApoderadoCon"> 11.12. Confirme correo electronico *</label>
+                        <label for="emailApoderadoCon"> 20.12. Confirme correo electronico *</label>
                         <div class="invalid-feedback emailApoderadoCon">
                             Campo obligatorio.
                           </div>
@@ -1018,7 +1018,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                         </div>
                         
                         <div class="modal-footer">
-                        <button type="submit" class="btn btn-success"><i class="fa fa-save"> </i> Si </button>
+                        <button type="submit" class="btn btn-success" ><i class="fa fa-save"> </i> Si </button>
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fas fa-times"></i> No</button>
                 
                         </div>

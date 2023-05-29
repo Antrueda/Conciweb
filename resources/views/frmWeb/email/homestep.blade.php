@@ -534,7 +534,7 @@ input[type=number] {
                             {{ $errors->first('tipoDocApoderado') }}
                         </div>
                     @endif
-                    <label for="tipoDocApoderado"> 11.1. Tipo Documento *</label>
+                    <label for="tipoDocApoderado"> 20.1. Tipo Documento *</label>
                     <div class="invalid-feedback tipoDocApoderado">
                         Campo obligatorio.
                       </div>
@@ -543,7 +543,7 @@ input[type=number] {
                  <div class="col-md-6">
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control form-control-sm validate" name="numDocApoderado" id="numDocApoderado" autocomplete="off" placeholder="0" onkeypress = "return soloNumeros(event);">
-                        <label for="numDocApoderado"> 11.2. No. de cédula *</label>
+                        <label for="numDocApoderado"> 20.2. No. de Documento *</label>
                         <div class="invalid-feedback numDocApoderado">
                             Campo obligatorio.
                           </div>
@@ -554,7 +554,7 @@ input[type=number] {
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control form-control-sm validate" name="primerNombreApoderado" id="primerNombreApoderado" autocomplete="off" placeholder="0">
-                        <label for="primerNombreApoderado"> 11.3. Primer Nombre *</label>
+                        <label for="primerNombreApoderado"> 20.3. Primer Nombre *</label>
                         <div class="invalid-feedback primerNombreApoderado">
                             Campo obligatorio.
                           </div>
@@ -564,14 +564,14 @@ input[type=number] {
                 <div class="col-md-3">
                   <div class="form-floating mb-3">
                         <input type="text" class="form-control form-control-sm" name="segundoNombreApoderado" id="segundoNombreApoderado" autocomplete="off" placeholder="0">
-                        <label for="segundoNombreApoderado"> 11.4. Segundo Nombre</label>
+                        <label for="segundoNombreApoderado"> 20.4. Segundo Nombre</label>
                     </label>
                 </div>
             </div>
                 <div class="col-md-3">
                   <div class="form-floating mb-3">
                         <input type="text" class="form-control form-control-sm validate" name="primerApellidoApoderado" id="primerApellidoApoderado" autocomplete="off" placeholder="0">
-                        <label for="primerApellidoApoderado"> 11.5. Primer Apellido *</label>
+                        <label for="primerApellidoApoderado"> 20.5. Primer Apellido *</label>
                         <div class="invalid-feedback primerApellidoApoderado">
                             Campo obligatorio.
                           </div>
@@ -581,7 +581,7 @@ input[type=number] {
                 <div class="col-md-3">
                   <div class="form-floating mb-3">
                         <input type="text" class="form-control form-control-sm" name="segundoApellidoApoderado" id="segundoApellidoApoderado" autocomplete="off" placeholder="0">
-                        <label for="segundoApellidoApoderado"> 11.6. Segundo Apellido</label>
+                        <label for="segundoApellidoApoderado"> 20.6. Segundo Apellido</label>
                         
                     </div>
                 </div>
@@ -590,7 +590,7 @@ input[type=number] {
                 <div class="col-md-3">
                   <div class="form-floating mb-3">
                         <input type="text" class="form-control form-control-sm validate" name="tarjetaProfesional" id="tarjetaProfesional" autocomplete="off" placeholder="0">
-                        <label for="tarjetaProfesional"> 11.7. No. tarjeta Profesional *</label>
+                        <label for="tarjetaProfesional"> 20.7. No. tarjeta Profesional *</label>
                         <div class="invalid-feedback tarjetaProfesional">
                             Campo obligatorio.
                           </div>
@@ -600,7 +600,7 @@ input[type=number] {
                 <div class="col-md-3">
                   <div class="form-floating mb-3">
                         <input type="text" class="form-control form-control-sm" name="direccionApoderado" id="direccionApoderado" autocomplete="off" placeholder="0">
-                        <label for="tarjetaProfesional"> 11.8. Dirección *</label>
+                        <label for="tarjetaProfesional"> 20.8. Dirección *</label>
                         <div class="invalid-feedback direccionApoderado">
                             Campo obligatorio.
                           </div>
@@ -610,7 +610,7 @@ input[type=number] {
                 <div class="col-md-3">
                   <div class="form-floating mb-3">
                         <input type="text" class="form-control form-control-sm validate" name="primerTelefonoApoderado" id="primerTelefonoApoderado" autocomplete="off" placeholder="0" onkeypress = "return soloNumeros(event);">
-                        <label for="primerTelefonoApoderado"> 11.9. Teléfono Celular *</label>
+                        <label for="primerTelefonoApoderado"> 20.9. Teléfono Celular *</label>
                         <div class="invalid-feedback primerTelefonoApoderado">
                             Campo obligatorio.
                           </div>
@@ -619,7 +619,7 @@ input[type=number] {
                 <div class="col-md-3">
                   <div class="form-floating mb-3">
                         <input type="text" class="form-control form-control-sm validate[required minSize[7], maxSize[10]]" name="segundoTelefonoApoderado" id="segundoTelefonoApoderado" autocomplete="off" placeholder="0" onkeypress = "return soloNumeros(event);">
-                        <label for="segundoTelefonoApoderado"> 11.10. Teléfono fijo</label>
+                        <label for="segundoTelefonoApoderado"> 20.10. Teléfono fijo</label>
            
                     </div>
                 </div>
@@ -628,7 +628,7 @@ input[type=number] {
                 <div class="col-md-6">
                   <div class="form-floating mb-3">
                         <input type="text" class="form-control form-control-sm validate[required, custom[email]]" name="emailApoderado" id="emailApoderado" autocomplete="off" placeholder="0">
-                        <label for="emailApoderado"> 11.10. Correo electronico*</label>
+                        <label for="emailApoderado"> 20.10. Correo electronico*</label>
                         <div class="invalid-feedback emailApoderado">
                             Campo obligatorio.
                           </div>
@@ -638,7 +638,7 @@ input[type=number] {
                 <div class="col-md-6">
                   <div class="form-floating mb-3">
                         <input type="text" class="form-control form-control-sm validate[required, custom[email]]" name="emailApoderadoCon" id="emailApoderadoCon" autocomplete="off" placeholder="0">
-                        <label for="emailApoderadoCon"> 11.12. Confirme correo electronico *</label>
+                        <label for="emailApoderadoCon"> 20.12. Confirme correo electronico *</label>
                         <div class="invalid-feedback emailApoderadoCon">
                             Campo obligatorio.
                           </div>
@@ -921,15 +921,15 @@ input[type=number] {
                     <div class="modal-content">
                         <div class="modal-header">
                         <h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" id="close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                         Antes de terminar el proceso ¿Esta seguro de la informacion ingresada?
                         </div>
                         
                         <div class="modal-footer">
-                        <button type="submit" class="btn btn-success"><i class="fa fa-save"> </i> Si </button>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fas fa-times"></i> No</button>
+                        <button type="submit" id="btnRegistro" class="btn btn-success"><i class="fa fa-save"> </i> Si </button>
+                        <button type="button" class="btn btn-danger" id="btnno" data-bs-dismiss="modal"><i class="fas fa-times"></i> No</button>
                 
                         </div>
                     </div>
@@ -1291,8 +1291,10 @@ input[type=number] {
                     var msg = "<center><p><i class='fas fa-times fa-3x'></i></p></center>" + msg;
                     llamarNotyTime('error', msg, 'topRight', 3000);
                     $("#btnRegistro").show();
+                    $('#btnRegistro').prop('disabled', false);
                 } else {
                     $("#btnRegistro").hide();
+                    $('#btnRegistro').prop('disabled', true);
                     var msg = "<center><p><i class='fas fa-check-circle fa-3x'></i></p></center>" + msg;
                     new Noty({
                         text: msg,
@@ -1318,8 +1320,18 @@ input[type=number] {
         });
     }
 
+    
+    // $("btnRegistro").click(function() {
+    //     $('#btnRegistro').prop('disabled', true);
+    //                 });
 
+    //  $("btnno").click(function() {
+    //     $('#btnRegistro').prop('disabled', false);
+    //                 });
 
+    //     $("close").click(function() {
+    //     $('#btnRegistro').prop('disabled', false);
+    //                 });
 
     //Abrir modal con mnesaje de bienvenida
     function modalBienvendia() {

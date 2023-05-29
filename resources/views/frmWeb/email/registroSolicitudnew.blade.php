@@ -263,9 +263,16 @@
           </ul>  
        
         <center>
-        <button class="btn btn-perso"><a class="btn btn-info" href="{{ route('search') }} ">Adjuntar Documentos</a></button>
+       
+       <br>
+       <a class="btn btn-perso"  type="button" href="https://conciweb2-dev.personeriabogota.gov.co/search">Adjuntar Documentos</a>
+
+   
+        <div></div>
      </center>
     </div>
+    <br>
+    <br>
     <div class='noRespuesta'>El presente mensaje es EXCLUSIVAMENTE informativo, y no deber&aacute; ser respondido.
     <p> <strong> IMPORTANTE.</strong> Si usted desconoce el trámite que mediante el presente correo la Personería de Bogotá D.C., le está dando a conocer, le solicitamos reportarlo al correo <strong> conciliaciones@personeriabogota.gov.co</strong> 
         para adelantar el procedimiento correspondiente y proceder a la eliminación de sus datos del sistema <strong> CONCIWEB.</strong> </p>
