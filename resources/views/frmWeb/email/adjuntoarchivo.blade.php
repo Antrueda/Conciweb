@@ -105,7 +105,7 @@
     <!-- end css -->
 </head>
 <div class="cabecera">
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnAAAACrCAMAAADRq1FUAAAA5FBMVEVMaXEdcLcdcLc1qOAdcLcd
+    {{-- <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnAAAACrCAMAAADRq1FUAAAA5FBMVEVMaXEdcLcdcLc1qOAdcLcd
     cLcdcLcdcLcdcLc1qOAdcLcdcLcdcLcdcLftHCQdcLcdcLftHCQdcLcdcLftHCQdcLcdcLcdcLcd
     cLcdcLcdcLcdcLcdcLc1qOAdcLcdcLc1qOAdcLc1qOA1qOA1qOA1qOA1qOA1qOA1qOAdcLc1qOA1
     qOAdcLftHCQdcLc1qODtHCTtHCTtHCTtHCTtHCTtHCTtHCTtHCTtHCTtHCTtHCTtHCTtHCTtHCTt
@@ -228,7 +228,8 @@
     oDJy/PnlU/Ubi9x9e8h8L4lLlR/RWszs6WW+zQvPK8ZD1eu9WM4VWlHoGmG6Lc2wCJDBsGHkR2Td
     a3t0OWwtZfsG15cQYfyuUCuxtvvj9nn9eRDGb4+R6bbV84ZfBiPHGLeEzLQSi8GIAFz9x3ECo37o
     l8mY7wlkMOpA+7I1qWDlH4PBYDAYDAaDwWAwGAwGg8FgMBgMBoPBYDAYDAaDwWAwGAwGg8FgMBgM
-    BoMRjyRJ/h+GoUfSgT6GhQAAAABJRU5ErkJggg==" alt="img" />
+    BoMRjyRJ/h+GoUfSgT6GhQAAAABJRU5ErkJggg==" alt="img" /> --}}
+    <img  src="{{asset('imagen/PropuestalogoConciweb1.png')}}" alt="ConciwebLogo">
 </div>
 <div class='saludo'>
     <p>Cordial saludo <strong>{{$nombrecompleto}}</strong></p>

@@ -776,7 +776,7 @@ class Webcontroller extends Controller
                     'subject' => $subject,
                     'tiposolicitud' => $dato->tiposolicitud,
                     'numSolicitud' => $numSolicitud,
-                    'fechaRegistro' => $fechaRegistroA,
+                    'fechaRegistro' => explode(' ',$fechaRegistroA)[0],
                     'llaveingreso' => $code,
                     'emailApoderado' => $data['emailApoderado']
                 );
@@ -1117,6 +1117,7 @@ class Webcontroller extends Controller
         $dato = ModelsTramiteusuario::where('num_solicitud', $id)->first();
         //ddd($dato->subasunto);
         //ddd($dato->subasuntos);
+
         $tiposolicitud= $dato->tiposolicitud;
         //dd( $tiposolicitud);
         $nombrecompleto = $dato->primernombre . ' ' . $dato->segundonombre . ' ' . $dato->primerapellido  . ' ' . $dato->segundoapellido;
@@ -1254,7 +1255,7 @@ class Webcontroller extends Controller
             ->orderBy('id')
             ->get();
 
-   
+    
 
         
         $conteo= count($detalleAbc)-1;
@@ -1266,7 +1267,8 @@ class Webcontroller extends Controller
                 'nombrecompleto' => $nombrecompleto,
                 'subject' => $subject,
                 'numSolicitud' => $id,
-                'fechaRegistro' => $fecha,
+                'emailApoderado' => $dato->emailapoderado,
+                'fechaRegistro' => explode(' ',$fecha)[0],
             );
 
             Mail::send('frmWeb.email.adjuntoarchivo', $data, function ($message) use ($data) {
