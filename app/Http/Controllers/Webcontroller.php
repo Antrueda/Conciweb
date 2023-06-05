@@ -382,7 +382,7 @@ class Webcontroller extends Controller
         $fechaRegistro = date_format($carbonDate, 'd/m/Y h:m:s');
         $fechaRegistroA = date('d/m/Y H:i:s A');
 
-        $idTramite = 330;
+        $idTramite = 335; 
         $msg = "Registro conciliaciones Web.";
         //Datos del solictante
         $tipoDocumento = $request->input("tipoDocumento");
@@ -561,12 +561,15 @@ class Webcontroller extends Controller
             DB::rollback();
             return '|0| Problema al Insertar la informacion al sistema TRAMITEUSUARIO NUEVO ' . $e->getMessage();
         }
-        //1.b) Registrar informacion en tramiteusuario Local
+        //1.b) Registrar informacion en tramiteusuario SINPROC
         try {
+            // 335  id tramite
 
+
+            //administracion copia correo
             tramiteusuario::insert(
                 [
-                    'NUM_SOLICITUD' => $numSolicitud,
+                'NUM_SOLICITUD' => $numSolicitud,
                 'ID_TRAMITE' => $idTramite,
                 'ID_USUARIO_REG' => $numeroDocumento,
                 'FEC_SOLICITUD_TRAMITE' => DB::raw("TO_DATE('" . $fechaRegistro . "','DD/MM/YYYY HH24:MI:SS')"),
@@ -580,7 +583,7 @@ class Webcontroller extends Controller
                 'TEXTO05' => DB::raw("'$primerTelefono'"),
                 'TEXTO06' => DB::raw("'$segundoTelefono'"),
                 'TEXTO07' => DB::raw("'$email'"),
-                'TEXTO08' => DB::raw("'$direccion'"),
+                'TEXTO08' => DB::raw("'$detalle'"),
                 'TEXTO09' => DB::raw("'$localidadnom->s_localidad'"),
                 'NUMERO01' => $tipoSolicitud,
                 'TEXTO10' => DB::raw("'$tipoDocApoderado'"),
@@ -653,7 +656,7 @@ class Webcontroller extends Controller
                 ->orderBy('contador', 'asc')
                 ->first();
 
-            $datosSolicitante = User::where('cedula', DB::raw("TO_CHAR(1010213817)"))->first();
+          //  $datosSolicitante = User::where('cedula', DB::raw("TO_CHAR(1010213817)"))->first();
             $depAsignada = $datosSolicitante->depend_codigo;
             $consecResponsable = $datosSolicitante->consec;
             $contador = $datosSolicitante->contador + 1;
@@ -1226,12 +1229,13 @@ class Webcontroller extends Controller
           
       
                 $files[]['name'] = $descripcion[$key];
-                
-                $filePath = $file->storeAs('documentos/'.$id, $descripcion[$key].'.pdf', 'public');
+                //id + @ nombreoriginal
+                $nombreOriginalFile = $file->getClientOriginalName();
+                $filePath = $file->storeAs('documentos/'.$id, $nombreOriginalFile.'.pdf', 'public');
                 $rutaFinalFile =$file->getRealPath();
                 echo $rutaFinalFile;
-                $nombreOriginalFile = $file->getClientOriginalName();
-                $ddd = Soportecon::create(['NUM_SOLICITUD' => $id, 'descripcion' => $descripcion[$key], 'rutaFinalFile' => $filePath, 'nombreOriginalFile' => $nombreOriginalFile]);
+                
+                $ddd = Soportecon::create(['NUM_SOLICITUD' => $id, 'descripcion' => $descripcion[$key], 'rutaFinalFile' => $filePath, 'nombreOriginalFile' =>$id.'_@_'. $nombreOriginalFile]);
   
             }
 

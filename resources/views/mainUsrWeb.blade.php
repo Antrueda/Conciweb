@@ -139,11 +139,11 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
               <ul class="navbar-nav">
-                {{-- <li class="nav-item">
-                  <a href="{{ route('gestion') }}" class="nav-link">
-                    <p>Gestión</p>
+                <li class="nav-item">
+                  <a href="{{ route('consultac') }}" class="nav-link">
+                    <p>Consulta</p>
                 </a>
-                </li> --}}
+                </li>
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
                     Administración
@@ -182,6 +182,8 @@
                           <p>Roles</p>
                       </a>
                     @endcan
+
+                    
                     @can('usuario-leer')
                     <a href="{{ route('usuario')}}" class="nav-link">
                             <i class="fa fa-users nav-icon"></i>

@@ -20,6 +20,7 @@ class Role extends Model implements RoleContract
 
     protected $connection = 'oracle';
     protected $guarded = [];
+    protected $guard_name = 'web';
 
     public function __construct(array $attributes = [])
     {

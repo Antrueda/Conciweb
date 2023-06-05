@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Traits\TextoAdmin\Texto;
+namespace App\Traits\ConsultaConci\Consulta;
 
 
 
@@ -21,9 +21,9 @@ trait DataTablesTrait
         $dataxxxx['tablasxx'] = [
             [
                 'titunuev' => 'NUEVO TEXTO',
-                'titulist' => 'LISTA DE TEXTOS',
+                'titulist' => 'LISTA DE CONCILIACIONES',
                 'archdttb' => $dataxxxx['rutacarp'] . 'Acomponentes.Adatatable.index',
-                'vercrear' => true,
+                'vercrear' => false,
                 'urlxxxxx' => route($dataxxxx['routxxxx'] . '.listaxxx', []),
                 'permtabl' => [
                     $dataxxxx['permisox'] . '-leer',
@@ -33,19 +33,21 @@ trait DataTablesTrait
                 ],
                 'cabecera' => [
                     [
-                        ['td' => 'ACCIONES', 'widthxxx' => 10, 'rowspanx' => 1, 'colspanx' => 1],
-                        ['td' => 'ID', 'widthxxx' => 0, 'rowspanx' => 1, 'colspanx' => 1],
-                        ['td' => 'TEXTO', 'widthxxx' => 0, 'rowspanx' => 1, 'colspanx' => 1],
-                        ['td' => 'TIPO DE TEXTO', 'widthxxx' => 0, 'rowspanx' => 1, 'colspanx' => 1],
+                   
+                        ['td' => 'NUM SOLICITUD', 'widthxxx' => 0, 'rowspanx' => 1, 'colspanx' => 1],
+                        ['td' => 'ID TRAMITE', 'widthxxx' => 0, 'rowspanx' => 1, 'colspanx' => 1],
+                        ['td' => 'FECHA SOLICITUD', 'widthxxx' => 0, 'rowspanx' => 1, 'colspanx' => 1],
                         ['td' => 'ESTADO', 'widthxxx' => 0, 'rowspanx' => 1, 'colspanx' => 1],
+                        ['td' => 'ACCIONES', 'widthxxx' => 1, 'rowspanx' => 1, 'colspanx' => 1],
                     ]
                 ],
                 'columnsx' => [
-                    ['data' => 'botonexx', 'name' => 'botonexx'],
-                    ['data' => 'id', 'name' => 'textos.id'],
-                    ['data' => 'texto', 'name' => 'textos.texto'],
-                    ['data' => 'tipotexto', 'name' => 'tipotexto.nombre as tipotexto'],
-                    ['data' => 's_estado', 'name' => 'sis_estas.s_estado'],
+                  
+                    ['data' => 'num_solicitud', 'name' => 'conci_tramiteusuarios.num_solicitud'],
+                    ['data' => 'id_tramite', 'name' => 'conci_tramiteusuarios.id_tramite'],
+                    ['data' => 'fec_solicitud_tramite', 'name' => 'conci_tramiteusuarios.fec_solicitud_tramite'],
+                    ['data' => 's_estado', 'name' => 'conci_sis_estas.s_estado'],
+                      ['data' => 'botonexx', 'name' => 'botonexx'],
                 ],
                 'tablaxxx' => 'datatable',
                 'permisox' => $dataxxxx['permisox'],

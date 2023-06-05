@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Traits\TextoAdmin\Texto;
+namespace App\Traits\TextoAdmin\Modulo;
 
 
 
 /**
  * Este trait permite armar las consultas para ubicacion que arman las datatable
  */
-trait ParametrizarTrait
+trait ParametrizarModuloTrait
 {
 
     public $opciones;
@@ -20,11 +20,8 @@ trait ParametrizarTrait
     public function getMware()
     {
         $permisos = ['permission:'
-            . $this->opciones['permisox'] . '-leer|'
-            . $this->opciones['permisox'] . '-crear|'
-            . $this->opciones['permisox'] . '-editar|'
-            . $this->opciones['permisox'] . '-borrar|'
-            . $this->opciones['permisox'] . '-activarx'];
+            . $this->opciones['permmidd'] . '-modulo'
+        ];
         return  $permisos;
     }
     /**
@@ -36,26 +33,25 @@ trait ParametrizarTrait
     {
         $this->opciones['vocalesx'] = ['Á', 'É', 'Í', 'Ó', 'Ú'];
         $this->opciones['pestpadr'] = 1; // darle prioridad a las pestañas
-        $this->opciones['tituhead'] = 'ADMINISTRACIÓN DE TEXTO';
+        $this->opciones['tituhead'] = 'ADMINISTRACIÓN TEXTO';
         $this->opciones['routxxxx'] = $this->opciones['routxxxx'];
         $this->opciones['slotxxxx'] = $this->opciones['permisox'];
         $this->opciones['perfilxx'] = 'sinperfi';
         $this->opciones['rutacarp'] = 'TextoAdmin.';
         $this->opciones['parametr'] = [];
         $this->opciones['routingx'] = [];
-        $this->opciones['carpetax'] = 'Texto';
+        $this->opciones['carpetax'] = 'Modulo';
         /** botones que se presentan en los formularios */
         $this->opciones['botonesx'] = $this->opciones['rutacarp'] . 'Acomponentes.Botones.botonesx';
         /** informacion que se va a mostrar en la vista */
         $this->opciones['formular'] = $this->opciones['rutacarp'] . $this->opciones['carpetax'] . '.formulario.formulario';
         /** ruta que arma el formulario */
         $this->opciones['rutarchi'] = $this->opciones['rutacarp'] . 'Acomponentes.Acrud.index';
-        $this->opciones['tituloxx'] = "TEXTO";
+        $this->opciones['tituloxx'] = "MÓDULO";
     }
 
     public function getBotones($dataxxxx)
     {
-
         if (auth()->user()->can($this->opciones['permisox'] . '-' . $dataxxxx[0])) {
             $this->opciones['botoform'][] = [
                 'routingx' => $dataxxxx[1],

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\TextoAdmin;
+namespace App\Http\Controllers\ConsultaConci;
 
 use App\Http\Controllers\Controller;
 use App\Traits\TextoAdmin\Modulo\DataTablesModuloTrait;
@@ -16,9 +16,9 @@ class ConsultaModuloController extends Controller
     use PestaniasTrait; // trit que construye las pestañas que va a tener el modulo con respectiva logica
     public function __construct()
     {
-        $this->opciones['permmidd'] = 'textosadmin';
-        $this->opciones['permisox'] = 'textosadmin';
-        $this->opciones['routxxxx'] = 'textosadmin';
+        $this->opciones['permmidd'] = 'consultamodulo';
+        $this->opciones['permisox'] = 'consultamodulo';
+        $this->opciones['routxxxx'] = 'consultamodulo';
         $this->getOpciones();
         $this->middleware($this->getMware());
     }

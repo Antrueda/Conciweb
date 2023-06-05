@@ -311,7 +311,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
     <div class="card tab" id="tab-1"">
         <div class="card-header">
             <center>
-            <b>DATOS DEL SOLICITANTE</b>
+            <b>DATOS DEL SOLICITANTE PRU DEV</b>
         </center>
         </div>
         <div class="card-body" style="margin-bottom: 40px; height">

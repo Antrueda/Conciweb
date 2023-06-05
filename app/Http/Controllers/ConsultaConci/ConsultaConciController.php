@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\TextoAdmin;
+namespace App\Http\Controllers\ConsultaConci;
 
 use App\Http\Controllers\Controller;
 
@@ -9,12 +9,14 @@ use App\Http\Requests\TextoAdmin\TextoEditarRequest;
 
 
 use App\Models\Texto;
-use App\Traits\TextoAdmin\Texto\CrudTrait;
-use App\Traits\TextoAdmin\Texto\DataTablesTrait;
-use App\Traits\TextoAdmin\Texto\ParametrizarTrait;
-use App\Traits\TextoAdmin\Texto\VistasTrait;
-use App\Traits\TextoAdmin\ListadosTrait;
-use App\Traits\TextoAdmin\PestaniasTrait;
+use App\Models\Tramiteusuario;
+use App\Traits\ConsultaConci\Consulta\CrudTrait;
+use App\Traits\ConsultaConci\Consulta\DataTablesTrait;
+use App\Traits\ConsultaConci\Consulta\ParametrizarTrait;
+use App\Traits\ConsultaConci\Consulta\VistasTrait;
+use App\Traits\ConsultaConci\ListadosTrait;
+use App\Traits\ConsultaConci\PestaniasTrait;
+use App\tramiteusuario as AppTramiteusuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 /**
@@ -31,14 +33,15 @@ class ConsultaConciController extends Controller
     use PestaniasTrait; // trit que construye las pestañas que va a tener el modulo con respectiva logica
     public function __construct()
     {
-        $this->opciones['permisox'] = 'textos';
-        $this->opciones['routxxxx'] = 'textos';
+        $this->opciones['permisox'] = 'consultac';
+        $this->opciones['routxxxx'] = 'consultac';
         $this->getOpciones();
         $this->middleware($this->getMware());
     }
 
     public function index()
     {
+        
         $this->opciones['pestania'] = $this->getPestanias($this->opciones);
 
         return view($this->opciones['rutacarp'] . 'pestanias', ['todoxxxx' => $this->getTablas($this->opciones)]);
@@ -65,12 +68,12 @@ class ConsultaConciController extends Controller
     }
 
 
-    public function show(Texto $modeloxx)
+    public function show(Tramiteusuario $modeloxx)
     {
         
          $this->opciones['pestania'] = $this->getPestanias($this->opciones);
          $this->getBotones(['leer', [$this->opciones['routxxxx'], [$modeloxx->id]], 2, 'VOLVER A TIPO DE SEGUIMIENTO', 'btn btn-sm btn-primary']);
-         $this->getBotones(['editar', [], 1, 'EDITAR DOCUMENTO', 'btn btn-sm btn-primary']);
+         //$this->getBotones(['editar', [], 1, 'EDITAR', 'btn btn-sm btn-primary']);
         $do=$this->getBotones(['crear', [$this->opciones['routxxxx'], [$modeloxx->id]], 2, 'CREAR TIPO SEGUIMIENTO', 'btn btn-sm btn-primary']);
 
         return $this->view($do,
@@ -79,7 +82,7 @@ class ConsultaConciController extends Controller
     }
 
 
-    public function edit(Texto $modeloxx)
+    public function edit(Tramiteusuario $modeloxx)
     {
         $this->opciones['pestania'] = $this->getPestanias($this->opciones);
         $this->getBotones(['leer', [$this->opciones['routxxxx'], [$modeloxx->sis_nnaj]], 2, 'VOLVER A TEXTO', 'btn btn-sm btn-primary']);
@@ -91,7 +94,7 @@ class ConsultaConciController extends Controller
     }
 
 
-    public function update(TextoEditarRequest $request,  Texto $modeloxx)
+    public function update(TextoEditarRequest $request,  Tramiteusuario $modeloxx)
     {
         return $this->setTexto([
             'requestx' => $request,
@@ -111,7 +114,7 @@ class ConsultaConciController extends Controller
     }
 
 
-    public function destroy(Request $request, Texto $modeloxx)
+    public function destroy(Request $request, Tramiteusuario $modeloxx)
     {
 
         $modeloxx->update(['sis_esta_id' => 2, 'user_edita_id' => Auth::user()->id]);
@@ -120,7 +123,7 @@ class ConsultaConciController extends Controller
             ->with('info', 'Texto inactivado correctamente');
     }
 
-    public function activate(Texto $modeloxx)
+    public function activate(Tramiteusuario $modeloxx)
     {
         $this->opciones['pestania'] = $this->getPestanias($this->opciones);
         return $this->view(
@@ -129,7 +132,7 @@ class ConsultaConciController extends Controller
         );
 
     }
-    public function activar(Request $request, Texto $modeloxx)
+    public function activar(Request $request, Tramiteusuario $modeloxx)
     {
         $modeloxx->update(['sis_esta_id' => 1, 'user_edita_id' => Auth::user()->id]);
         return redirect()

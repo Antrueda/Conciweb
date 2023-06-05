@@ -26,6 +26,7 @@ class User extends Authenticatable
     protected $table = 'usuario_rol';
     protected $primaryKey = 'cedula';
     protected $keyType = 'string';
+    protected $guard_name = 'web';
     /**
      * The attributes that are mass assignable.
      *

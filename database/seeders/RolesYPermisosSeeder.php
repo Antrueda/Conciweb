@@ -81,14 +81,18 @@ class RolesYPermisosSeeder extends Seeder
         $this->getPermisos(['permisox' => 'permiso', 'permisos' => ['leer', 'crear', 'editar', 'borrar','activarx'], 'compleme' => 'permisos de un rol']);
 
         $this->getPermisos(['permisox' => 'permirol', 'permisos' => ['leer', 'crear', 'editar', 'borrar','activarx'], 'compleme' => 'permisos de un rol']);
+        
+        $this->getPermisos(['permisox' => 'consultac', 'permisos' => ['leer', 'crear', 'editar', 'borrar','activarx'], 'compleme' => 'Consulta Conciliaciones']);
+        
+        $this->getPermisos(['permisox' => 'asignafun', 'permisos' => ['leer', 'crear', 'editar', 'borrar','activarx'], 'compleme' => 'Asignacion de usuario']);
 
  
         Role::create(['name' => 'super-administrador',])->givePermissionTo(Permission::all());
         Role::create(['name' => 'administrador',])->givePermissionTo(Permission::all());
         Role::create(['name' => 'consulta',]);
         Role::create(['name' => 'conciliacion',]);
-        // $user=User::where('consec',52283026)->first();
-        // $user->assignRole('super-administrador');
+         $user=User::where('consec',52283026)->first();
+         $user->assignRole('super-administrador');
         
         
             

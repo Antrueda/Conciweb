@@ -11,7 +11,7 @@ class Roleext extends Role
 {
     protected $fillable = ['name', 'guard_name'];
 
-
+    protected $guard_name = 'web';
 
     public static function transaccion($dataxxxx)
     {

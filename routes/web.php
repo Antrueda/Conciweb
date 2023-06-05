@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\auth\AuthController;
+use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Webcontroller;
 use Illuminate\Support\Composer;
 use Illuminate\Support\Facades\Artisan;
@@ -106,9 +106,12 @@ require_once('Administracion/web_salario.php');
 require_once('Administracion/web_estadoform.php');
 require_once('Administracion/web_tema.php');
 require_once('Seguridad/web_usuario.php');
+require_once('Consulta/web_consulta.php');
+require_once('AsignarUsuario/web_asignaruser.php');
 
 
 Route::get('login', [AuthController::class, "login"]);
+// login?key=Wnp5TEVrTlc0U05jVzcreU1CWnVjcFlPeDdETDMxR3E2MzRSU0ZVS3lETT0=
 // login?key=Wnp5TEVrTlc0U05jVzcreU1CWnVjcFlPeDdETDMxR3E2MzRSU0ZVS3lETT0=
 
 

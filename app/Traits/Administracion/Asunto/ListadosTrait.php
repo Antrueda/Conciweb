@@ -42,13 +42,13 @@ trait ListadosTrait
             $request->estadoxx = 'layouts.components.botones.estadosx';
             $dataxxxx = Asunto::select(
 				[
-					'asuntos.id',
-					'asuntos.nombre',
-                    'asuntos.sis_esta_id',
-					'sis_estas.s_estado'
+					'conci_asuntos.id',
+					'conci_asuntos.nombre',
+                    'conci_asuntos.sis_esta_id',
+					'conci_sis_estas.s_estado'
 				]
 			)
-				->join('sis_estas', 'asuntos.sis_esta_id', '=', 'sis_estas.id');
+				->join('conci_sis_estas', 'conci_asuntos.sis_esta_id', '=', 'conci_sis_estas.id');
                 
 
             return $this->getDt($dataxxxx, $request);
@@ -65,13 +65,13 @@ trait ListadosTrait
             $request->estadoxx = 'layouts.components.botones.estadosx';
             $dataxxxx = SubAsunto::select(
 				[
-					'sub_asuntos.id',
-					'sub_asuntos.nombre',
-                    'sub_asuntos.sis_esta_id',
-					'sis_estas.s_estado'
+					'conci_sub_asuntos.id',
+					'conci_sub_asuntos.nombre',
+                    'conci_sub_asuntos.sis_esta_id',
+					'conci_sis_estas.s_estado'
 				]
 			)
-				->join('sis_estas', 'sub_asuntos.sis_esta_id', '=', 'sis_estas.id');
+				->join('conci_sis_estas', 'conci_sub_asuntos.sis_esta_id', '=', 'conci_sis_estas.id');
                 
 
             return $this->getDt($dataxxxx, $request);
@@ -90,17 +90,17 @@ trait ListadosTrait
              $request->estadoxx = 'layouts.components.botones.estadosx';
              $dataxxxx = ASubasunto::select(
                  [
-                     'a_subasuntos.id',
+                     'conci_a_subasuntos.id',
                      'asunto.nombre as asunto',
                      'sub.nombre as sub',
-                     'a_subasuntos.sis_esta_id',
-                     'sis_estas.s_estado'
+                     'conci_a_subasuntos.sis_esta_id',
+                     'conci_sis_estas.s_estado'
                  ]
              )
 
-                ->join('asuntos as asunto', 'a_subasuntos.asunto_id', '=', 'asunto.id')
-                ->join('sub_asuntos as sub', 'a_subasuntos.subasu_id', '=', 'sub.id')
-                 ->join('sis_estas', 'a_subasuntos.sis_esta_id', '=', 'sis_estas.id');
+                ->join('conci_asuntos as asunto', 'conci_a_subasuntos.asunto_id', '=', 'asunto.id')
+                ->join('conci_sub_asuntos as sub', 'conci_a_subasuntos.subasu_id', '=', 'sub.id')
+                 ->join('conci_sis_estas', 'conci_a_subasuntos.sis_esta_id', '=', 'conci_sis_estas.id');
                  
  
              return $this->getDt($dataxxxx, $request);
@@ -121,13 +121,13 @@ trait ListadosTrait
               $request->estadoxx = 'layouts.components.botones.estadosx';
               $dataxxxx = Descripciona::select(
                   [
-                      'descripcionas.id',
-                      'descripcionas.nombre',
-                      'descripcionas.sis_esta_id',
-                      'sis_estas.s_estado'
+                      'conci_descripcionas.id',
+                      'conci_descripcionas.nombre',
+                      'conci_descripcionas.sis_esta_id',
+                      'conci_sis_estas.s_estado'
                   ]
               )
-                  ->join('sis_estas', 'descripcionas.sis_esta_id', '=', 'sis_estas.id');
+                  ->join('conci_sis_estas', 'conci_descripcionas.sis_esta_id', '=', 'conci_sis_estas.id');
                   
   
               return $this->getDt($dataxxxx, $request);
@@ -144,17 +144,17 @@ trait ListadosTrait
              $request->estadoxx = 'layouts.components.botones.estadosx';
              $dataxxxx = Subdescripcion::select(
                  [
-                     'subdescripcions.id',
+                     'conci_subdescripcions.id',
                      'descri.nombre as descri',
                      'sub.nombre as sub',
-                     'subdescripcions.sis_esta_id',
-                     'sis_estas.s_estado'
+                     'conci_subdescripcions.sis_esta_id',
+                     'conci_sis_estas.s_estado'
                  ]
              )
 
-                ->join('descripcionas as descri', 'subdescripcions.descri_id', '=', 'descri.id')
-                ->join('sub_asuntos as sub', 'subdescripcions.subasu_id', '=', 'sub.id')
-                 ->join('sis_estas', 'subdescripcions.sis_esta_id', '=', 'sis_estas.id');
+                ->join('conci_descripcionas as descri', 'conci_subdescripcions.descri_id', '=', 'descri.id')
+                ->join('conci_sub_asuntos as sub', 'conci_subdescripcions.subasu_id', '=', 'sub.id')
+                 ->join('conci_sis_estas', 'conci_subdescripcions.sis_esta_id', '=', 'conci_sis_estas.id');
                  
  
              return $this->getDt($dataxxxx, $request);

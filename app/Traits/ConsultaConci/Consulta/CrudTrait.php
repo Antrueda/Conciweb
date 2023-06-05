@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Traits\TextoAdmin\Texto;
+namespace App\Traits\ConsultaConci\Consulta;
 
 use App\Models\Acciones\Grupales\Traslado\MotivoEgreso;
 use App\Models\Acciones\Grupales\Traslado\MotivoEgresoSecu;

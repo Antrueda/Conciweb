@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use app\Models\Soportecon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -71,5 +72,10 @@ class Tramiteusuario extends Model
       public function subasuntos()
       {
         return $this->belongsTo(SubAsunto::class, 'subasunto');
+      }
+
+      public function soportes()
+      {
+        return $this->hasMany(Soportecon::class, 'subasunto');
       }
 }

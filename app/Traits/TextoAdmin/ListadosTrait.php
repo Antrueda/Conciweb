@@ -37,16 +37,16 @@ trait ListadosTrait
             $request->estadoxx = 'layouts.components.botones.estadosx';
             $dataxxxx = Texto::select(
 				[
-					'textos.id',
-					'textos.texto',
+					'conci_textos.id',
+					'conci_textos.texto',
                     'tipotexto.nombre as tipotexto',
    
-					'textos.sis_esta_id',
-					'sis_estas.s_estado'
+					'conci_textos.sis_esta_id',
+					'conci_sis_estas.s_estado'
 				]
 			)
-				->join('sis_estas', 'textos.sis_esta_id', '=', 'sis_estas.id')
-                ->join('parametros as tipotexto', 'textos.tipotexto_id', '=', 'tipotexto.id');
+				->join('conci_sis_estas', 'conci_textos.sis_esta_id', '=', 'conci_sis_estas.id')
+                ->join('conci_parametros as tipotexto', 'conci_textos.tipotexto_id', '=', 'tipotexto.id');
 
             return $this->getDt($dataxxxx, $request);
         }
