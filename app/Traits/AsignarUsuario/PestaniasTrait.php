@@ -6,7 +6,7 @@ namespace App\Traits\AsignarUsuario;
 trait PestaniasTrait
 {
     public $pestanix = [
-        'textos' => [true, []],
+      //  'textos' => [true, []],
         
         
     ];
@@ -15,7 +15,7 @@ trait PestaniasTrait
     {
         $permisox = [
 
-            'textos' => ['leer', 'crear', 'editar', 'borrar', 'activar'],
+        //    'textos' => ['leer', 'crear', 'editar', 'borrar', 'activar'],
         
         ];
         $cananyxx = [];

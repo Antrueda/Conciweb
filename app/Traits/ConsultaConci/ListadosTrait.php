@@ -47,7 +47,7 @@ trait ListadosTrait
 				]
 			)
                 ->where('conci_tramiteusuarios.id_tramite', 335)
-				->join('conci_sis_estas', 'conci_tramiteusuarios.sis_esta_id', '=', 'conci_sis_estas.id');
+				->join('conci_sis_estas', 'conci_tramiteusuarios.sis_esta_id', '=', 'conci_sis_estas.id')->orderBy('num_solicitud', 'desc');;
 
             return $this->getDt($dataxxxx, $request);
         }
@@ -69,31 +69,7 @@ trait ListadosTrait
     //     }
     // }
 
-    public function listaFosts(Request $request)
-    {
 
-        if ($request->ajax()) {
-            // ddd($request);
-            $request->routexxx = [$this->opciones['routxxxx'],'textos'];
-            $request->botonesx = $this->opciones['rutacarp'] .
-                $this->opciones['carpetax'] . '.Botones.botonesapi';
-            $request->estadoxx = 'layouts.components.botones.estadosx';
-            $dataxxxx = Texto::select(
-				[
-					'textos.id',
-					'textos.texto',
-                    'tipotexto.nombre as tipotexto',
-   
-					'textos.sis_esta_id',
-					'sis_estas.s_estado'
-				]
-			)
-				->join('sis_estas', 'textos.sis_esta_id', '=', 'sis_estas.id')
-                ->join('parametros as tipotexto', 'textos.tipotexto_id', '=', 'tipotexto.id');
-
-            return $this->getDt($dataxxxx, $request);
-        }
-    }
 
 
 

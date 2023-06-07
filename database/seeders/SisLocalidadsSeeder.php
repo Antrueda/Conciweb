@@ -94,16 +94,16 @@ class SisLocalidadsSeeder extends Seeder
             's_localidad' => '20 - SUMAPAZ',
         ]);
         SisLocalidad::create([
-            'id'=>21,
+            'id'=>23,
             's_localidad' => '23 - SIN REGISTRO',
         ]);
         SisLocalidad::create([
-            'id'=>22,
+            'id'=>24,
             's_localidad' => '24 - NO SABE / NO RESPONDE',
         ]);
 
         SisLocalidad::create([
-            'id'=>23,
+            'id'=>60,
             's_localidad' => '60 - FUERA DE BOGOTA',
         ]);
 

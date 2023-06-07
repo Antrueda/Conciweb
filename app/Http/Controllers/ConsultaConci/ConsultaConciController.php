@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 
 use App\Http\Requests\TextoAdmin\TextoCrearRequest;
 use App\Http\Requests\TextoAdmin\TextoEditarRequest;
-
-
+use App\Models\Soportecon;
+use App\Models\Subdescripcion;
 use App\Models\Texto;
 use App\Models\Tramiteusuario;
 use App\Traits\ConsultaConci\Consulta\CrudTrait;
@@ -16,7 +16,7 @@ use App\Traits\ConsultaConci\Consulta\ParametrizarTrait;
 use App\Traits\ConsultaConci\Consulta\VistasTrait;
 use App\Traits\ConsultaConci\ListadosTrait;
 use App\Traits\ConsultaConci\PestaniasTrait;
-use App\tramiteusuario as AppTramiteusuario;
+use Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 /**
@@ -67,18 +67,41 @@ class ConsultaConciController extends Controller
         ]);
     }
 
+    public function agregar($modeloxx)
+    {
+        
+        $dato = Tramiteusuario::where('num_solicitud', $modeloxx)->first();
+        $tiposolicitud= $dato->tiposolicitud;
+        //dd( $tiposolicitud);
+        $nombrecompleto = $dato->primernombre . ' ' . $dato->segundonombre . ' ' . $dato->primerapellido  . ' ' . $dato->segundoapellido;
+        //ddd($dato);
+        $detalleAbc = Subdescripcion::where('subasu_id', $dato->subasunto)
+            ->where('sis_esta_id', 1)
+            ->orderBy('id')
+            ->get();
+
+        $adjuntos=Soportecon::where('num_solicitud', $modeloxx)->get();
+        //dd($adjuntos);
+        $data = array(
+            "detalleAbc" => $detalleAbc,
+            "adjuntos" =>$adjuntos
+        );
+        return view('Consulta.Consulta.Formulario.agregar', compact('dato', 'data', 'nombrecompleto','tiposolicitud','adjuntos'));
+    }
+
+    public function archivo($id)
+    {
+
+        $adjuntos=Soportecon::where('id', $id)->first();
+      
+        $filepath = public_path("storage/".$adjuntos->rutafinalfile);
+        return Response::download($filepath); 
+    }
 
     public function show(Tramiteusuario $modeloxx)
     {
+        return view('AsignaUsuario.Asignar.Formulario.autosearch');
         
-         $this->opciones['pestania'] = $this->getPestanias($this->opciones);
-         $this->getBotones(['leer', [$this->opciones['routxxxx'], [$modeloxx->id]], 2, 'VOLVER A TIPO DE SEGUIMIENTO', 'btn btn-sm btn-primary']);
-         //$this->getBotones(['editar', [], 1, 'EDITAR', 'btn btn-sm btn-primary']);
-        $do=$this->getBotones(['crear', [$this->opciones['routxxxx'], [$modeloxx->id]], 2, 'CREAR TIPO SEGUIMIENTO', 'btn btn-sm btn-primary']);
-
-        return $this->view($do,
-            ['modeloxx' => $modeloxx, 'accionxx' => ['ver', 'formulario'],'padrexxx'=>'']
-        );
     }
 
 

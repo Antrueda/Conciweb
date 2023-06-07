@@ -6,16 +6,17 @@ use App\Http\Controllers\Controller;
 
 use App\Http\Requests\TextoAdmin\TextoCrearRequest;
 use App\Http\Requests\TextoAdmin\TextoEditarRequest;
-
-
+use App\Models\ConciReferente;
 use App\Models\Texto;
 use App\Models\Tramiteusuario;
-use App\Traits\TextoAdmin\Texto\CrudTrait;
-use App\Traits\TextoAdmin\Texto\DataTablesTrait;
-use App\Traits\TextoAdmin\Texto\ParametrizarTrait;
-use App\Traits\TextoAdmin\Texto\VistasTrait;
-use App\Traits\TextoAdmin\ListadosTrait;
-use App\Traits\TextoAdmin\PestaniasTrait;
+use App\Models\User;
+use App\Traits\AsignarUsuario\Asignar\CrudTrait;
+use App\Traits\AsignarUsuario\Asignar\DataTablesTrait;
+use App\Traits\AsignarUsuario\Asignar\ParametrizarTrait;
+use App\Traits\AsignarUsuario\Asignar\VistasTrait;
+use App\Traits\AsignarUsuario\ListadosTrait;
+use App\Traits\AsignarUsuario\PestaniasTrait;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 /**
@@ -46,67 +47,134 @@ class AsignaFuncionarioController extends Controller
     }
 
 
-    public function create()
+    public function search(Request $request)
     {
-        $this->opciones['pestania'] = $this->getPestanias($this->opciones);
-        return $this->view(
-            $this->getBotones(['crear', [], 1, 'GUARDAR TEXTO', 'btn btn-sm btn-primary']),
-            ['modeloxx' => '', 'accionxx' => ['crear', 'formulario']]
-        );
+        if ($request->ajax()) {
+
+            $data = User::where('CEDULA', $request->cedula)->get();
+
+
+            $output = '';
+            if (count($data) > 0) {
+                $output = '<ul class="list-group" style="display: block; position: relative; z-index: 1">';
+                foreach ($data as $row) {
+                    $id = $row->cedula;
+                    $output .= '
+                   
+                    <div class="table-responsive">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th scope="col">Cedula</th>
+                          <th scope="col">'.$row->cedula.'</th>
+                        </tr>
+                        <tr>
+                        <th scope="col">Nombre Completo</th>
+                        <th scope="col">'.$row->nombre.' '.$row->apellido.'</th>
+                      </tr>
+                      <tr>
+                      <th scope="col">Correo</th>
+                      <th scope="col">'.$row->email.'</th>
+                    </tr>
+                      <tr>
+                      <th scope="col">Estado</th>
+                      <th scope="col">'.$row->estado.'</th>
+                    </tr>
+                      </thead>
+                    
+                    </table>
+                  </div>
+
+
+                    
+                    <a class="btn btn-success" data-bs-toggle="modal" id="mediumButton" data-target="#mediumModal" data-attr="' . route('asignafun.agregar', ['id' => $id]) . '" style="color:white">Agregar Usuario   <i class="fas fa-minus-square"></i></a>
+                    ';
+                }
+                $output .= '</ul>';
+            } else {
+                $output .= '<li class="list-group-item">' . 'No se encuentra usuario' . '</li>';
+            }
+            return $output;
+        }
+        return view('AsignaUsuario.Asignar.Formulario.autosearch');
     }
-    public function store(TextoCrearRequest $request)
+
+
+    public function modalagregar($id)
     {
+        $dato = User::where('cedula', $id)->first();
+
+        return view('AsignaUsuario.Asignar.Formulario.agregar', compact('dato'));
+    }
+
+
+//Funcion para el cambio de estado de la conciliacion
+    public function asignar(Request $request, $id)
+    {
+        $dato = User::where('cedula', $id)->first();
+
+        $correo = $request->input("correo");
+        $arrayxx =
+                    [
+                        "ccfuncionario" => $dato->cedula,
+                        "contador" =>  0,
+                        "estado" =>  1,
+                        "fechaing" =>  Carbon::today()->isoFormat('YYYY-MM-DD'),
+                        "correo" =>  $correo,
+                        "email" =>  $dato->email,
+                        "fechafin" =>  '',
+                    ];
+
+
+        $modelo = ConciReferente::create($arrayxx);
+        return redirect()->route('asignafun')->with('info', 'Registro actualizado con éxito');
         
-        return $this->setTexto([
-            'requestx' => $request,
-            'modeloxx' => '',
-            'infoxxxx' =>       'Texto creado con éxito',
-            'routxxxx' => $this->opciones['routxxxx'] . '.editar'
-        ]);
     }
 
 
-    public function show(Tramiteusuario $modeloxx)
+    public function edit(ConciReferente $modeloxx)
     {
-        
-         $this->opciones['pestania'] = $this->getPestanias($this->opciones);
-         $this->getBotones(['leer', [$this->opciones['routxxxx'], [$modeloxx->id]], 2, 'VOLVER A TIPO DE SEGUIMIENTO', 'btn btn-sm btn-primary']);
-         $this->getBotones(['editar', [], 1, 'EDITAR DOCUMENTO', 'btn btn-sm btn-primary']);
-        $do=$this->getBotones(['crear', [$this->opciones['routxxxx'], [$modeloxx->id]], 2, 'CREAR TIPO SEGUIMIENTO', 'btn btn-sm btn-primary']);
 
-        return $this->view($do,
-            ['modeloxx' => $modeloxx, 'accionxx' => ['ver', 'formulario'],'padrexxx'=>'']
-        );
-    }
-
-
-    public function edit(Tramiteusuario $modeloxx)
-    {
+        $this->opciones['userrolx'] = User::where('CEDULA', $modeloxx->ccfuncionario)->first();
         $this->opciones['pestania'] = $this->getPestanias($this->opciones);
-        $this->getBotones(['leer', [$this->opciones['routxxxx'], [$modeloxx->sis_nnaj]], 2, 'VOLVER A TEXTO', 'btn btn-sm btn-primary']);
-        $this->getBotones(['editar', [], 1, 'EDITAR TEXTO', 'btn btn-sm btn-primary']);
-        return $this->view($this->getBotones(['crear', [$this->opciones['routxxxx'], [$modeloxx->sis_nnaj]], 2, 'CREAR NUEVO TEXTO', 'btn btn-sm btn-primary'])
+        $this->opciones['correose'] = [''=>'- Seleccione una opcion -',1=>'SI',0=>'NO'];
+        $this->opciones['estadoxx'] = [''=>'- Seleccione una opcion -',1=>'ACTIVO',0=>'INACTIVO'];
+        $this->getBotones(['leer', [$this->opciones['routxxxx'], [$modeloxx->ccfuncionario]], 2, 'VOLVER A USUARIOS', 'btn btn-sm btn-success']);
+       
+        return $this->view($this->getBotones(['editar', [], 1, 'EDITAR', 'btn btn-sm btn-success'])
             ,
-            ['modeloxx' => $modeloxx, 'accionxx' => ['editar', 'formulario'],'padrexxx'=>$modeloxx->sis_nnaj]
+            ['modeloxx' => $modeloxx, 'accionxx' => ['editar', 'formulario'],'padrexxx'=>$modeloxx->ccfuncionario]
         );
     }
 
 
-    public function update(TextoEditarRequest $request,  Tramiteusuario $modeloxx)
+    public function update(Request $request,  ConciReferente $modeloxx)
     {
-        return $this->setTexto([
-            'requestx' => $request,
-            'modeloxx' => $modeloxx,
-            'infoxxxx' => 'Texto editado con éxito',
-            'routxxxx' => $this->opciones['routxxxx'] . '.editar'
-        ]);
+
+        $correo = $request->input("correo");
+        $estado = $request->input("estado");
+        $fechafin='';
+        if($estado==0){
+            $fechafin=Carbon::today()->isoFormat('YYYY-MM-DD');
+        }
+          
+        $modeloxx->update([ "ccfuncionario" => $modeloxx->ccfuncionario,
+        "contador" =>  $modeloxx->contador,
+        "estado" =>  $estado,
+        "fechaing" =>  $modeloxx->fechaing,
+        "correo" =>  $correo,
+        "email" =>  $modeloxx->email,
+        "fechafin" =>  $fechafin,]);
+        
+        return redirect()->route('asignafun')->with('info', 'Registro actualizado con éxito');
+
     }
 
     public function inactivate(Texto $modeloxx)
     {
         $this->opciones['pestania'] = $this->getPestanias($this->opciones);
         return $this->view(
-            $this->getBotones(['borrar', [], 1, 'INACTIVAR TEXTO', 'btn btn-sm btn-primary'])            ,
+            $this->getBotones(['borrar', [], 1, 'INACTIVAR', 'btn btn-sm btn-primary'])            ,
             ['modeloxx' => $modeloxx, 'accionxx' => ['destroy', 'destroy'],'padrexxx'=>$modeloxx->sis_nnaj]
         );
     }
@@ -118,14 +186,14 @@ class AsignaFuncionarioController extends Controller
         $modeloxx->update(['sis_esta_id' => 2, 'user_edita_id' => Auth::user()->id]);
         return redirect()
             ->route($this->opciones['permisox'], [$modeloxx->sis_nnaj_id])
-            ->with('info', 'Texto inactivado correctamente');
+            ->with('info', 'Usuario inactivado correctamente');
     }
 
     public function activate(Tramiteusuario $modeloxx)
     {
         $this->opciones['pestania'] = $this->getPestanias($this->opciones);
         return $this->view(
-            $this->getBotones(['activarx', [], 1, 'ACTIVAR TEXTO', 'btn btn-sm btn-primary'])            ,
+            $this->getBotones(['activarx', [], 1, 'ACTIVAR', 'btn btn-sm btn-primary'])            ,
             ['modeloxx' => $modeloxx, 'accionxx' => ['activar', 'activar'],'padrexxx'=>$modeloxx->sis_nnaj]
         );
 
@@ -135,6 +203,6 @@ class AsignaFuncionarioController extends Controller
         $modeloxx->update(['sis_esta_id' => 1, 'user_edita_id' => Auth::user()->id]);
         return redirect()
             ->route($this->opciones['permisox'], [$modeloxx->sis_nnaj_id])
-            ->with('info', 'Texto activado correctamente');
+            ->with('info', 'Usuario activado correctamente');
     }
 }

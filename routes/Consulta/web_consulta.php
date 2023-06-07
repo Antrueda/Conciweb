@@ -36,6 +36,17 @@ Route::group(['prefix' => 'ConsultaConci'], function () use($controll,$routxxxx)
 		'middleware' => ['permission:'.$routxxxx.'-leer']
 	])->name($routxxxx.'.ver');
 
+	Route::get('agregar/{modeloxx}', [
+		'uses' => $controll.'Controller@agregar',
+		'middleware' => ['permission:'.$routxxxx.'-leer']
+	])->name($routxxxx.'.agregar');
+
+	Route::get('archivo/{id}', [
+		'uses' => $controll.'Controller@archivo',
+		'middleware' => ['permission:'.$routxxxx.'-leer']
+	])->name($routxxxx.'.archivo');
+
+
 	Route::get('borrar/{modeloxx}', [
 	    'uses' => $controll.'Controller@inactivate',
 	    'middleware' => ['permission:'.$routxxxx.'-borrar']

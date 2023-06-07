@@ -5,12 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ConciRepartoweb extends Model
+class ConciReferente extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'ccfuncionario',
+        'consec',
         'contador',
         'estado',
         'fechaing',

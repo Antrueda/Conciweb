@@ -1,35 +1,60 @@
-<script src="{{ asset('/vendors/ckeditor/ckeditor.js') }}"></script>
+<style>
+    input {
+    
+    width: 50%;
+     }
+</style>
+
 
 <div class="form-row align-items-end">
     <div class="row">
-        <div class="form-group col-md">
-        {{ Form::label('tipotexto_id', 'Tipo de Texto', ['class' => 'control-label']) }}
-        {{ Form::select('tipotexto_id',$todoxxxx['tipotext'], null,['class'=> $errors->first('tipotexto_id') ? 'form-control is-invalid ' :'form-control form-control-sm ','autofocus']) }}
-        @if($errors->has('tipotexto_id'))
-        <div class="invalid-feedback d-block">
-            {{ $errors->first('tipotexto_id') }}
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">Cedula</th>
+                <th scope="col"> {{$todoxxxx['userrolx']->cedula}}</th>
+              </tr>
+              <tr>
+              <th scope="col">Nombre Completo</th>
+              <th scope="col">{{$todoxxxx['userrolx']->nombre}} {{$todoxxxx['userrolx']->apellido}}</th>
+            </tr>
+            <tr>
+            <th scope="col">Correo</th>
+            <th scope="col">{{$todoxxxx['userrolx']->email}}</th>
+          </tr>
+            <tr>
+            <th scope="col">Estado</th>
+            <th scope="col">{{$todoxxxx['userrolx']->estado}}</th>
+          </tr>
+            </thead>
+          
+          </table>
         </div>
-        @endif
     </div>
 </div>
-    <div class="form-group col-md-12">
-        {{ Form::label('texto', 'Descripción:', ['class' => 'control-label col-form-label-sm']) }}
-        {{ Form::textarea('texto', null, ['class' => $errors->first('texto') ? 'form-control form-control-sm is-invalid contarcaracteres' :'form-control form-control-sm contarcaracteres ckeditor']) }}
-        @if($errors->has('texto'))
-        <div class="invalid-feedback d-block">
-            {{ $errors->first('texto') }}
+    
+    <div class="row">
+        <div class="form-group col-md-6">
+            
+            {{ Form::label('correo', '¿Desea recibir correo?:', ['class' => 'control-label col-form-label-sm']) }}
+            {{ Form::select('correo', $todoxxxx['correose'],$todoxxxx['modeloxx']->correo, ['class' => 'form-control form-control-sm', 'date-placeholder'=>'- Seleccione una opcion -', 'id'=>'correo']) }}
+              {{-- <option value=" ">- Seleccione una opcion -</option>
+              <option value=1>Si</option>
+              <option value=0>No</option>
+          </select> --}}
+    
         </div>
-        @endif
+        <div class="form-group col-md-6">
+    	{{ Form::label('estado', 'Estado:', ['class' => 'control-label col-form-label-sm']) }}
+        {{ Form::select('estado', $todoxxxx['estadoxx'],$todoxxxx['modeloxx']->estado, ['class' => 'form-control form-control-sm', 'date-placeholder'=>'- Seleccione una opcion -', 'id'=>'estado']) }}
+        {{-- <select class="form-control form-control-sm custom-select" name="correo" id="correo" required>
+            <option value=" ">- Seleccione una opcion -</option>
+            <option value=1>Si</option>
+            <option value=0>No</option>
+        </select> --}}
     </div>
-    <div class="form-group col-md-6">
-        {{ Form::label('sis_esta_id', 'Estado', ['class' => 'control-label']) }}
-        {{ Form::select('sis_esta_id', $todoxxxx['estadoxx'], null, ['class' => $errors->first('sis_esta_id') ?
-    'form-control select2 form-control-sm is-invalid cargos' : 'form-control select2 form-control-sm cargos',
-    'data-placeholder' => 'Seleccione un estado']) }}
-        @if($errors->has('sis_esta_id'))
-        <div class="invalid-feedback d-block">
-            {{ $errors->first('sis_esta_id') }}
-        </div>
-        @endif
-    </div>
+
 </div>
+<br>
+

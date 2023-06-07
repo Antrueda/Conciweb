@@ -26,14 +26,14 @@ trait VistasTrait
     }
     public function view($opciones, $dataxxxx)
     {
-
+      
         $opciones = $this->getVista($opciones, $dataxxxx);
 
         // indica si se esta actualizando o viendo
         if ($dataxxxx['modeloxx'] != '') {
             $opciones['modeloxx'] = $dataxxxx['modeloxx'];
             $opciones['modeloxx'] = $dataxxxx['modeloxx'];
-            $opciones['parametr'] = [$dataxxxx['modeloxx']->id];
+            $opciones['parametr'] = [$dataxxxx['modeloxx']->num_solicitud];
       
         }
 

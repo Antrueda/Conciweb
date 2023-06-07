@@ -11,9 +11,27 @@ Route::group(['prefix' => 'Asignafuncionario'], function () use($controll,$routx
 		'middleware' => ['permission:'.$routxxxx.'-leer']
     ])->name($routxxxx.'.listaxxx');
 	Route::get('nuevo', [
-		'uses' => $controll.'Controller@create',
+		'uses' => $controll.'Controller@search',
 		'middleware' => ['permission:'.$routxxxx.'-crear']
 	])->name($routxxxx.'.nuevo');
+
+	Route::get('search', [
+		'uses' => $controll.'Controller@search',
+		'middleware' => ['permission:'.$routxxxx.'-crear']
+	])->name($routxxxx.'.search');
+
+	Route::get('agregar/{id}', [
+		'uses' => $controll.'Controller@modalagregar',
+		'middleware' => ['permission:'.$routxxxx.'-crear']
+	])->name($routxxxx.'.agregar');
+
+
+
+	Route::post('asignar/{id}', [
+		'uses' => $controll.'Controller@asignar',
+		'middleware' => ['permission:'.$routxxxx.'-crear']
+    ])->name($routxxxx.'.asignar');
+
 
 	Route::post('crear', [
 		'uses' => $controll.'Controller@store',

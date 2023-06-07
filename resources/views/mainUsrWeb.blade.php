@@ -71,8 +71,8 @@
               /* padding: 30px;
               font-family: Arial; font-weight: regular;
               */
-              padding-bottom: 30px;
-              padding-top: 30px;
+              padding-bottom: 35px;
+              padding-top: 35px;
               font-family: 'Public Sans', sans-serif;
               background: -webkit-gradient(linear, 0% 5%, 0% 30%, from(#003E65), to(white));
               /* background: -webkit-linear-gradient(top, #0071BC, white); */
@@ -106,6 +106,19 @@
             border: 1px solid rgba(0,0,0,.125);
             border-radius: 0.45rem;
         }
+        .container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+    width: 100%;
+    padding-right: 1.75rem;
+    padding-left: 0.25rem;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+        .navbar-expand-lg {
+    flex-wrap: nowrap;
+    border-radius: 0.45rem;
+    justify-content: flex-start;
+}
 
         </style>
         
@@ -131,81 +144,82 @@
         <img src="/imagen/menu-after-05.png" alt="Colores bandera Bogotá" class="bandera">
     </div> --}}
 
-        @can('administrar-modulo')
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#"></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-              <ul class="navbar-nav">
-                <li class="nav-item">
-                  <a href="{{ route('consultac') }}" class="nav-link">
-                    <p>Consulta</p>
-                </a>
-                </li>
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
-                    Administración
-                  </a>
-                  <div class="dropdown-menu">
-                    @can('tema-leer')
-                    <a href="{{ route('tema') }}" class="nav-link">
-                        <p>Tema</p>
-                    </a>
-                    @endcan
-                    @can('salario-leer')
-                    <a href="{{ route('salario.editar',1) }}" class="nav-link">
-                        <p>Salario Minimo</p>
-                    </a>
-                    @endcan
-                    @can('parametro-leer')
-                    <a href="{{ route('parametro') }}" class="nav-link">
-                           <p>Par&aacute;metro</p>
-                    </a>
-                    @endcan
-                    @can('textosadmin-modulo')
-                    <a href="{{ route('textos') }}" class="nav-link">
-                        <p>Textos</p>
-                      @endcan
-                  </a>
-
-                  @can('asuntomodulo-modulo')
-                  <a href="{{ route('asuntomodulo') }}" class="nav-link">
- 
-                      <p>Asuntos</p>
-                  </a>
-                  @endcan
-                  @can('rolesxxx-leer')
-                    <a href="{{ route('rolesxxx')}}" class="nav-link">
-                          <i class="fas fa-user-lock nav-icon"></i>
-                          <p>Roles</p>
-                      </a>
-                    @endcan
-
-                    
-                    @can('usuario-leer')
-                    <a href="{{ route('usuario')}}" class="nav-link">
-                            <i class="fa fa-users nav-icon"></i>
-                            <p>Usuarios</p>
-                    </a>
-
-                    @endcan
-                    @can('usuario-leer')
-                    <a href="{{ route('estadoform.editar',1)}}" class="nav-link">
-                      <i class="fa fa-users nav-icon"></i>
-                      <p>Estado Formulario</p>
-                    </a>
-                    @endcan
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </nav>
-             @endcan
+   
     <br>
 
     <div class="container">
+      @can('administrar-modulo')
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <a class="navbar-brand" href="#"></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a href="{{ route('consultac') }}" class="nav-link">
+                  <p>Consulta</p>
+              </a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                  Administración
+                </a>
+                <div class="dropdown-menu">
+                  @can('tema-leer')
+                  <a href="{{ route('tema') }}" class="nav-link">
+                      <p>Tema</p>
+                  </a>
+                  @endcan
+                  @can('salario-leer')
+                  <a href="{{ route('salario.editar',1) }}" class="nav-link">
+                      <p>Salario Minimo</p>
+                  </a>
+                  @endcan
+                  @can('parametro-leer')
+                  <a href="{{ route('parametro') }}" class="nav-link">
+                         <p>Par&aacute;metro</p>
+                  </a>
+                  @endcan
+                  @can('textosadmin-modulo')
+                  <a href="{{ route('textos') }}" class="nav-link">
+                      <p>Textos</p>
+                    @endcan
+                </a>
+
+                @can('asuntomodulo-modulo')
+                <a href="{{ route('asuntomodulo') }}" class="nav-link">
+
+                    <p>Asuntos</p>
+                </a>
+                @endcan
+                @can('rolesxxx-leer')
+                  <a href="{{ route('rolesxxx')}}" class="nav-link">
+                        <i class="fas fa-user-lock nav-icon"></i>
+                        <p>Roles</p>
+                    </a>
+                  @endcan
+
+                  
+                  @can('usuario-leer')
+                  <a href="{{ route('asignafun')}}" class="nav-link">
+                          <i class="fa fa-users nav-icon"></i>
+                          <p>Usuarios</p>
+                  </a>
+
+                  @endcan
+                  @can('usuario-leer')
+                  <a href="{{ route('estadoform.editar',1)}}" class="nav-link">
+                    <i class="fa fa-users nav-icon"></i>
+                    <p>Estado Formulario</p>
+                  </a>
+                  @endcan
+                </div>
+              </li>
+            </ul>
+          </div>
+        </nav>
+           @endcan
         <br>
 
         <div>
@@ -244,7 +258,7 @@
     text-align: center;
     line-height: 30px;	
     margin-left: auto;
-    margin-right: auto;">© 2023 Copyright  <i><img src="imagen/escBta.png"></i>  Personería de Bogotá D.C.</footer>
+    margin-right: auto;">© 2023 Copyright <img  src="{{asset('imagen/escBta.png')}}" alt="logo">Personería de Bogotá D.C.</footer>
     {{-- <div class="text-center text-secondary" style="margin-top: -20px; font-size: 80%;">
       © 2022 Copyright:<img style="margin-right: 2px; margin-left: 7px;" src="imagen/escBta.png" alt=""> Personería de Bogotá D.C.
     </div> --}}

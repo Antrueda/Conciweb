@@ -22,6 +22,7 @@ use App\Http\Requests\AdjuntarRequest;
 use App\Mail\Conci;
 use App\Models\ASubasunto;
 use App\Models\Asunto;
+use App\Models\ConciReferente;
 use App\Models\Estadoform;
 use App\Models\Parametro;
 use App\Models\Salario;
@@ -396,6 +397,8 @@ class Webcontroller extends Controller
         $email = $request->input("email");
         $direccion = $request->input("direccion");
         $localidad = $request->input("localidad");
+        $departamento = $request->input("sis_departam_id");
+        $municipio = $request->input("sis_municipio_id");
         //Tipo de solicitud
         $tipoSolicitud = $request->input("tipoSolicitud");
         //Datos convocados
@@ -444,10 +447,6 @@ class Webcontroller extends Controller
         ->where('id', $request->input("subAsunto"))
         ->first();
 
-        $localidadnom = SisLocalidad::select(['s_localidad'])
-        ->where('id', $request->input("localidad"))
-        ->first();
-
         $documentonombre = Parametro::select(['nombre'])
         ->where('id', $request->input("tipoDocumento"))
         ->first();
@@ -476,13 +475,6 @@ class Webcontroller extends Controller
         }
 
 
-
-
-        /*
-         $rutaFinalFile='asb.lm_ruta';
-         $nombreOriginalFile='asb.lm_ruta.pdf';
-         */
-        //0) Extrear el consecutivo de la solicitud
         try {
 
             $user = binconsecutivo::orderBy('secuencial', 'DESC')->first();
@@ -502,6 +494,37 @@ class Webcontroller extends Controller
             DB::rollback();
             return '|0| 0.2) Problema al actualizar el numero asignado por el sistema' . $e->getMessage();
         }
+        $datosSolicitante = ConciReferente::where('estado', 1)
+        ->orderBy('contador', 'asc')
+        ->first();
+            
+            
+        //  $datosSolicitante = User::where('cedula', DB::raw("TO_CHAR(1010213817)"))->first();
+            $depAsignada = $datosSolicitante->depend_codigo;
+            $consecResponsable = $datosSolicitante->consec;
+            $contador = $datosSolicitante->contador + 1;
+
+                
+
+                   // //2.1) Extraer datos del funcionario asignado
+                // try {
+
+                //     $datosSolicitante = tabrepartoweb::select('TR.CONSEC', 'UR.depend_codigo', 'TR.contador')
+                //         ->join("USUARIO_ROL UR", "UR.CONSEC", "TR.CONSEC")
+                //         ->where('TR.ESTADO', 0)
+                //         ->orderBy('contador', 'asc')
+                //         ->first();
+        
+                //   //  $datosSolicitante = User::where('cedula', DB::raw("TO_CHAR(1010213817)"))->first();
+                //     $depAsignada = $datosSolicitante->depend_codigo;
+                //     $consecResponsable = $datosSolicitante->consec;
+                //     $contador = $datosSolicitante->contador + 1;
+                // } catch (\Exception $e) {
+                //     DB::rollback();
+                //     return '|0| 2.1) problema al extraer datos del funcionario asignado para el caso' . $e->getMessage();
+                // }
+
+
 
         //1.a) Registrar informacion en tramiteusuario Local
         try {
@@ -564,7 +587,8 @@ class Webcontroller extends Controller
         //1.b) Registrar informacion en tramiteusuario SINPROC
         try {
             // 335  id tramite
-
+            $nombre= $primerNombre . ' ' . $segundoNombre ;
+            $apellido=$primerApellido . ' ' . $segundoApellido ;
 
             //administracion copia correo
             tramiteusuario::insert(
@@ -572,20 +596,22 @@ class Webcontroller extends Controller
                 'NUM_SOLICITUD' => $numSolicitud,
                 'ID_TRAMITE' => $idTramite,
                 'ID_USUARIO_REG' => $numeroDocumento,
+                'ID_USUARIO_ADM' => $datosSolicitante->consec,
                 'FEC_SOLICITUD_TRAMITE' => DB::raw("TO_DATE('" . $fechaRegistro . "','DD/MM/YYYY HH24:MI:SS')"),
                 'ESTADO_TRAMITE' => DB::raw("'Remitido'"),
                 'VIGENCIA' => $vigencia,
                 'OIDO_CODIGO' => 0,
-                'TEXTO01' => DB::raw("'$primerNombre'"),
-                'TEXTO02' => DB::raw("'$segundoNombre'"),
-                'TEXTO03' => DB::raw("'$primerApellido'"),
-                'TEXTO04' => DB::raw("'$segundoApellido'"),
-                'TEXTO05' => DB::raw("'$primerTelefono'"),
-                'TEXTO06' => DB::raw("'$segundoTelefono'"),
-                'TEXTO07' => DB::raw("'$email'"),
-                'TEXTO08' => DB::raw("'$detalle'"),
-                'TEXTO09' => DB::raw("'$localidadnom->s_localidad'"),
-                'NUMERO01' => $tipoSolicitud,
+                'TEXTO01' => DB::raw("'$nombre'"),
+                'TEXTO02' => DB::raw("'$apellido'"),
+                'TEXTO03' => DB::raw("'$email'"),
+                'TEXTO05' => DB::raw("'$localidad'"),
+                'TEXTO06' => DB::raw("'$departamento'"),
+                'NUMERO40' => $municipio,
+                'TEXTO20' => DB::raw("'$direccion'"),
+                'TEXTO31' => DB::raw("'$primerTelefono'"),
+                'TEXTO29' => DB::raw("'$tipoDocumento'"),
+                'NUMERO01' => $numeroDocumento,
+                'NUMERO08' => $tipoSolicitud,
                 'TEXTO10' => DB::raw("'$tipoDocApoderado'"),
                 'TEXTO11' => DB::raw("'$numDocApoderado'"),
                 'TEXTO12' => DB::raw("'$primerNombreApoderado'"),
@@ -604,8 +630,7 @@ class Webcontroller extends Controller
                 'NUMERO07' => $tipoDocumento,
                 'TEXTO21' => DB::raw("'$detalle'"),
                 'NUMERO08' => $cuantia,
-                // 'TEXTO22' => DB::raw("'$rutaFinalFile'"),
-                // 'TEXTO23' => DB::raw("'$nombreOriginalFile'")
+
                 ]
             );
         } catch (\Exception $e) {
@@ -647,23 +672,7 @@ class Webcontroller extends Controller
             DB::rollback();
             return '|0| 2.0) Problema al extraer el consecutivo TR' . $e->getMessage();
         }
-        //2.1) Extraer datos del funcionario asignado
-        try {
 
-            $datosSolicitante = tabrepartoweb::select('TR.CONSEC', 'UR.depend_codigo', 'TR.contador')
-                ->join("USUARIO_ROL UR", "UR.CONSEC", "TR.CONSEC")
-                ->where('TR.ESTADO', 0)
-                ->orderBy('contador', 'asc')
-                ->first();
-
-          //  $datosSolicitante = User::where('cedula', DB::raw("TO_CHAR(1010213817)"))->first();
-            $depAsignada = $datosSolicitante->depend_codigo;
-            $consecResponsable = $datosSolicitante->consec;
-            $contador = $datosSolicitante->contador + 1;
-        } catch (\Exception $e) {
-            DB::rollback();
-            return '|0| 2.1) problema al extraer datos del funcionario asignado para el caso' . $e->getMessage();
-        }
 
         //2.2.a) INSERT DEL PASO 0
         try {
@@ -701,8 +710,13 @@ class Webcontroller extends Controller
 
         //2.1.1) actualziar datos del funcionario asignado
         try {
+            
             tabrepartoweb::where('CONSEC', $consecResponsable)
                 ->update(['contador' => $contador]);
+ 
+           $test= ConciReferente::where('CONSEC', $consecResponsable)
+           ->update(['contador' => $contador]);
+           
         }
         catch (\Exception $e) {
             DB::rollback();
@@ -1112,9 +1126,7 @@ class Webcontroller extends Controller
         }
         return view('frmWeb.autosearch');
     }
-    //'<a href="' .view('parametro.index'). '">Actualizar Datos</a>'; 
-    //view('administracion.parametro.index', compact('datos', 'buscar'));
-    //<a href="' .route('desistir',['id'=>$id]). '" class="btn btn-danger data-toggle="modal" data-target="#myModal"">Desistimiento del proceso  <i class="fas fa-minus-square"></i></a> 
+ 
     public function adjuntararchivos($id)
     {
         $dato = ModelsTramiteusuario::where('num_solicitud', $id)->first();
@@ -1138,6 +1150,7 @@ class Webcontroller extends Controller
         return view('frmWeb.card.adjuntar', compact('dato', 'data', 'nombrecompleto','tiposolicitud'));
     }
 
+ //Modal de desestimiento   
     public function Desistir($id)
     {
         $dato = ModelsTramiteusuario::where('num_solicitud', $id)->first();
@@ -1146,7 +1159,7 @@ class Webcontroller extends Controller
     }
 
 
-
+//Funcion para el cambio de estado de la conciliacion
     public function Cambioestado(Request $request, $id)
     {
         $detalle = $request->input("desistir");
@@ -1159,16 +1172,7 @@ class Webcontroller extends Controller
     }
 
 
-    public function Test(Request $request, $id)
-    {
-        ddd($request);
-        $modelo = ModelsTramiteusuario::where('num_solicitud', $id)->update(['ESTADO_TRAMITE' => $detalle]);
-        if ($detalle == 'Cancelado') {
-            return redirect('https://www.personeriabogota.gov.co/')->with('info', 'Registro actualizado con éxito');
-        } else {
-            return redirect()->route('search')->with('info', 'Registro actualizado con éxito');
-        }
-    }
+
 
 //Funcion de carga de documentos
     public function CargaArchivos(Request $request, $id)
@@ -1231,11 +1235,11 @@ class Webcontroller extends Controller
                 $files[]['name'] = $descripcion[$key];
                 //id + @ nombreoriginal
                 $nombreOriginalFile = $file->getClientOriginalName();
-                $filePath = $file->storeAs('documentos/'.$id, $nombreOriginalFile.'.pdf', 'public');
+                $filePath = $file->storeAs('documentos/'.$id, $nombreOriginalFile, 'public');
                 $rutaFinalFile =$file->getRealPath();
                 echo $rutaFinalFile;
                 
-                $ddd = Soportecon::create(['NUM_SOLICITUD' => $id, 'descripcion' => $descripcion[$key], 'rutaFinalFile' => $filePath, 'nombreOriginalFile' =>$id.'_@_'. $nombreOriginalFile]);
+                $ddd = Soportecon::create(['NUM_SOLICITUD' => $id, 'descripcion' => $descripcion[$key], 'rutaFinalFile' => $filePath, 'nombreOriginalFile' =>$id.'--'. $nombreOriginalFile]);
   
             }
 
@@ -1306,29 +1310,5 @@ class Webcontroller extends Controller
 
 
 
-    /*
-        try {
-            $files=[];
-            $descripcion=[];
-            foreach($request->input("descripcion")as $key =>$file){
-                    $descripcion[] = $file;
-                // $nombreOriginalFile = $value->getClientOriginalName();
-                // $rutaFinalFile = Storage::disk('local')->put("", $value);
-            }
-            
-    
-            foreach($request->file("document") as $key =>$file){
-                $rutaFinalFile = Storage::disk('local')->put("", $file);
-                $files[]['name'] =$descripcion[$key];
-                $nombreOriginalFile = $file->getClientOriginalName();
-                Soportecon::create(['NUM_SOLICITUD' => $numSolicitud, 'descripcion' => $descripcion[$key], 'rutaFinalFile' => $rutaFinalFile,'nombreOriginalFile' => $nombreOriginalFile]);
-            }
-            //print_r($files);
-           
-        }
-        catch (\Exception $e) {
-            DB::rollback();
-            return '|0| 0.0) Problema al anexar el soporte en el sistema' . $e->getMessage();
-        }
-*/
+  
 }

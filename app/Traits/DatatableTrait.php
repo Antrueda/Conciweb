@@ -444,7 +444,7 @@ trait DatatableTrait
                 }
             )
             ->addColumn(
-                's_estado',
+                'estado',
                 function ($queryxxx) use ($requestx) {
                     return  view($requestx->estadoxx, [
                         'queryxxx' => $queryxxx,
@@ -453,7 +453,48 @@ trait DatatableTrait
                 }
 
             )
-            ->rawColumns(['botonexx', 's_estado'])
+            ->rawColumns(['botonexx', 'estado'])
+            ->toJson();
+    }
+
+    public  function getAsignaDt($queryxxx, $requestx)
+    {
+        return datatables()
+            ->of($queryxxx)
+            ->addColumn(
+                'botonexx',
+                function ($queryxxx) use ($requestx) {
+                    /**
+                     * validaciones para los permisos
+                     */
+
+                    return  view($requestx->botonesx, [
+                        'queryxxx' => $queryxxx,
+                        'requestx' => $requestx,
+                    ]);
+                }
+            )
+            ->addColumn(
+                'estado',
+                function ($queryxxx) use ($requestx) {
+                    return  view($requestx->estadoxx, [
+                        'queryxxx' => $queryxxx,
+                        'requestx' => $requestx,
+                    ]);
+                }
+
+            )
+            ->addColumn(
+                'correo',
+                function ($queryxxx) use ($requestx) {
+                    return  view($requestx->correo, [
+                        'queryxxx' => $queryxxx,
+                        'requestx' => $requestx,
+                    ]);
+                }
+
+            )
+            ->rawColumns(['botonexx', 'estado','correo'])
             ->toJson();
     }
 

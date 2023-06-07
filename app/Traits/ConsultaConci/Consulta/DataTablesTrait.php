@@ -58,7 +58,8 @@ trait DataTablesTrait
         $dataxxxx['ruarchjs'] = [
             ['jsxxxxxx' => 'TextoAdmin.Texto.Js.tabla']
         ];
-
+    
         return $dataxxxx;
     }
+
 }

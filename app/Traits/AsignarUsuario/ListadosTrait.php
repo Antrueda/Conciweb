@@ -5,6 +5,7 @@ namespace App\Traits\AsignarUsuario;
 use App\Models\Acciones\Grupales\Traslado\MotivoEgreso;
 use App\Models\Acciones\Grupales\Traslado\MotivoEgresoSecu;
 use App\Models\Acciones\Grupales\Traslado\MotivoEgreu;
+use App\Models\ConciReferente;
 use App\Models\fichaobservacion\FosSeguimiento;
 use App\Models\fichaobservacion\FosStse;
 use App\Models\fichaobservacion\FosStsesTest;
@@ -27,7 +28,7 @@ trait ListadosTrait
      * 
      */
 
-    public function listaConciliaciones(Request $request)
+    public function listaUsers(Request $request)
     {
 
         if ($request->ajax()) {
@@ -35,49 +36,27 @@ trait ListadosTrait
             $request->routexxx = [$this->opciones['routxxxx'],'textos'];
             $request->botonesx = $this->opciones['rutacarp'] .
                 $this->opciones['carpetax'] . '.Botones.botonesapi';
-            $request->estadoxx = 'layouts.components.botones.estadosx';
-            $dataxxxx = Tramiteusuario::select(
+                
+            $request->estadoxx = $this->opciones['rutacarp'] .
+            $this->opciones['carpetax'] . '.Botones.estadosx';
+            $request->correo = $this->opciones['rutacarp'] .
+            $this->opciones['carpetax'] . '.Botones.correo';
+            $dataxxxx = ConciReferente::select(
 				[
-					'textos.id',
-					'textos.texto',
-                    'tipotexto.nombre as tipotexto',
-   
-					'textos.sis_esta_id',
-					'sis_estas.s_estado'
+					'conci_referentes.id',
+					'conci_referentes.ccfuncionario',
+                    'conci_referentes.contador',
+                    'conci_referentes.email',
+                    'conci_referentes.correo',
+					'conci_referentes.estado',
 				]
-			)
-				->join('sis_estas', 'textos.sis_esta_id', '=', 'sis_estas.id')
-                ->join('parametros as tipotexto', 'textos.tipotexto_id', '=', 'tipotexto.id');
+                );
 
-            return $this->getDt($dataxxxx, $request);
+            return $this->getAsignaDt($dataxxxx, $request);
         }
     }
 
-    public function listaFosts(Request $request)
-    {
-
-        if ($request->ajax()) {
-            // ddd($request);
-            $request->routexxx = [$this->opciones['routxxxx'],'textos'];
-            $request->botonesx = $this->opciones['rutacarp'] .
-                $this->opciones['carpetax'] . '.Botones.botonesapi';
-            $request->estadoxx = 'layouts.components.botones.estadosx';
-            $dataxxxx = Texto::select(
-				[
-					'textos.id',
-					'textos.texto',
-                    'tipotexto.nombre as tipotexto',
-   
-					'textos.sis_esta_id',
-					'sis_estas.s_estado'
-				]
-			)
-				->join('sis_estas', 'textos.sis_esta_id', '=', 'sis_estas.id')
-                ->join('parametros as tipotexto', 'textos.tipotexto_id', '=', 'tipotexto.id');
-
-            return $this->getDt($dataxxxx, $request);
-        }
-    }
+  
 
 
 
