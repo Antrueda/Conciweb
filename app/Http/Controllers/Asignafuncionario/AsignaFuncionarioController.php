@@ -8,6 +8,7 @@ use App\Http\Requests\TextoAdmin\TextoCrearRequest;
 use App\Http\Requests\TextoAdmin\TextoEditarRequest;
 use App\Models\ConciReferente;
 use App\Models\Texto;
+use App\Models\Tramite;
 use App\Models\Tramiteusuario;
 use App\Models\User;
 use App\Traits\AsignarUsuario\Asignar\CrudTrait;
@@ -42,6 +43,13 @@ class AsignaFuncionarioController extends Controller
     public function index()
     {
         $this->opciones['pestania'] = $this->getPestanias($this->opciones);
+        $correos=ConciReferente::where('correo', 1)
+        ->get();
+        $correosactivos=[];
+        foreach ($correos as $activo) {
+            $correosactivos[] = $activo->email;
+        }
+
 
         return view($this->opciones['rutacarp'] . 'pestanias', ['todoxxxx' => $this->getTablas($this->opciones)]);
     }
@@ -49,6 +57,7 @@ class AsignaFuncionarioController extends Controller
 
     public function search(Request $request)
     {
+        //ddd($request);
         if ($request->ajax()) {
 
             $data = User::where('CEDULA', $request->cedula)->get();
@@ -119,6 +128,8 @@ class AsignaFuncionarioController extends Controller
                         "ccfuncionario" => $dato->cedula,
                         "contador" =>  0,
                         "estado" =>  1,
+                        "depend_codigo" =>  $dato->depend_codigo,
+                        "consec" =>  $dato->consec,
                         "fechaing" =>  Carbon::today()->isoFormat('YYYY-MM-DD'),
                         "correo" =>  $correo,
                         "email" =>  $dato->email,
@@ -162,6 +173,8 @@ class AsignaFuncionarioController extends Controller
         "contador" =>  $modeloxx->contador,
         "estado" =>  $estado,
         "fechaing" =>  $modeloxx->fechaing,
+        "depend_codigo" =>  $modeloxx->depend_codigo,
+        "consec" =>  $modeloxx->consec,
         "correo" =>  $correo,
         "email" =>  $modeloxx->email,
         "fechafin" =>  $fechafin,]);

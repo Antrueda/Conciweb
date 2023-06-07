@@ -12,6 +12,7 @@ class ConciReferente extends Model
     protected $fillable = [
         'ccfuncionario',
         'consec',
+        'depend_codigo',
         'contador',
         'estado',
         'fechaing',

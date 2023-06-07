@@ -103,7 +103,7 @@
           </thead>
           <tbody>
             <tr>
-              <th> {{$nombrecompleto}}</th>
+              <th style="text-transform: uppercase"> {{$nombrecompleto}}</th>
               <td>{{$dato->fec_solicitud_tramite}}</td>
               <td>{{$dato->asuntos->nombre}}</td>
               <td>{{$dato->subasuntos->nombre}}</td>

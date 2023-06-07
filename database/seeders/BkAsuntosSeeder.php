@@ -11,7 +11,7 @@ use App\Models\SubAsunto;
 use App\Models\subdescripcion;
 use App\Models\User;
 
-class AsuntosSeeder extends Seeder
+class BkAsuntosSeeder extends Seeder
 {
 
 

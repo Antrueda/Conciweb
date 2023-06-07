@@ -32,11 +32,11 @@
               </thead>
               <tbody>
                 <tr>
-                  <th> {{$nombrecompleto}}</th>
+                  <th style="text-transform: uppercase"> {{$nombrecompleto}}</th>
                   <td>{{$dato->fec_solicitud_tramite}}</td>
                   <td>{{$dato->asuntos->nombre}}</td>
                   <td>{{$dato->subasuntos->nombre}}</td>
-                  <td>{{$dato->cuantia}}</td>
+                  <td>{{$numero}}</td>
                 </tr>
               </tbody>
             </table>
@@ -58,7 +58,7 @@
             <div class="col-md-6">
           <div class>
             <a href="{{asset("storage/".$info->rutafinalfile)}}" target="_blank" class="btn btn-info" > Ver PDF <i class="fas fa-file-pdf"></i></a>
-            <a href="{{route('consultac.archivo', ['id'=>$info->id]) }}"  target="_blank"  class="btn btn-info" > Descargar <i class="fas fa-file-pdf"></i></a>
+            {{-- <a href="{{route('consultac.archivo', ['id'=>$info->id]) }}"  target="_blank"  class="btn btn-info" > Descargar <i class="fas fa-file-pdf"></i></a> --}}
         
           
           </div>

@@ -10,6 +10,6 @@ class Tramite extends Model
     use HasFactory;
     protected $connection = 'oracleexterna';
 //    protected $table = 'usuario_rol';
-    protected $table = 'tramiteusuario as TU';
+    protected $table = 'tramite';
     public $timestamps = false;
 }

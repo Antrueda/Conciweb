@@ -48,6 +48,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Sistema\SisLocalidad;
 use App\Models\Sistema\SisMunicipio;
 use App\Models\Sistema\SisPai;
+use App\Models\Tramite;
 use App\Traits\Combos\CombosTrait;
 
 class Webcontroller extends Controller
@@ -57,6 +58,7 @@ class Webcontroller extends Controller
 
     public $listaCondicionesProteccion, $auxLista = [], $selectedCondiciones = [];
     public $listaDesplegables = [], $selectListaDesplegables = [];
+
 
 //Funcion para cargar combos y vista del formulario
             public function home()
@@ -376,6 +378,7 @@ class Webcontroller extends Controller
     public function registroConciliacionWeb(Request $request)
     {
 
+        $tramiteid=Tramite::select('id_tramite')->where('nom_tramite', 'CONCILIACIONES WEB V2')->first();
         
         //Datos requeridos por sistema
         $carbonDate = Carbon::now();
@@ -383,7 +386,7 @@ class Webcontroller extends Controller
         $fechaRegistro = date_format($carbonDate, 'd/m/Y h:m:s');
         $fechaRegistroA = date('d/m/Y H:i:s A');
 
-        $idTramite = 335; 
+        $idTramite = $tramiteid->id_tramite; 
         $msg = "Registro conciliaciones Web.";
         //Datos del solictante
         $tipoDocumento = $request->input("tipoDocumento");
@@ -503,7 +506,8 @@ class Webcontroller extends Controller
             $depAsignada = $datosSolicitante->depend_codigo;
             $consecResponsable = $datosSolicitante->consec;
             $contador = $datosSolicitante->contador + 1;
-
+            
+   
                 
 
                    // //2.1) Extraer datos del funcionario asignado
@@ -611,7 +615,7 @@ class Webcontroller extends Controller
                 'TEXTO31' => DB::raw("'$primerTelefono'"),
                 'TEXTO29' => DB::raw("'$tipoDocumento'"),
                 'NUMERO01' => $numeroDocumento,
-                'NUMERO08' => $tipoSolicitud,
+                'NUMERO04' => $tipoSolicitud,
                 'TEXTO10' => DB::raw("'$tipoDocApoderado'"),
                 'TEXTO11' => DB::raw("'$numDocApoderado'"),
                 'TEXTO12' => DB::raw("'$primerNombreApoderado'"),
@@ -628,8 +632,8 @@ class Webcontroller extends Controller
                 'NUMERO05' => $asunto,
                 'NUMERO06' => $subAsunto,
                 'NUMERO07' => $tipoDocumento,
-                'TEXTO21' => DB::raw("'$detalle'"),
-                'NUMERO08' => $cuantia,
+                'TEXTO08' => DB::raw("'$detalle'"),
+                'NUMERO03' => $cuantia,
 
                 ]
             );
@@ -777,7 +781,12 @@ class Webcontroller extends Controller
             ->orderBy('id')
             ->get();
         
-        
+            $correos=ConciReferente::where('correo', 1)
+            ->get();
+            $correosactivos=[];
+            foreach ($correos as $activo) {
+                $correosactivos[] = $activo->email;
+            }
 
 
         trim($emailApoderado);
@@ -795,8 +804,13 @@ class Webcontroller extends Controller
                     'numSolicitud' => $numSolicitud,
                     'fechaRegistro' => explode(' ',$fechaRegistroA)[0],
                     'llaveingreso' => $code,
-                    'emailApoderado' => $data['emailApoderado']
+                    'emailApoderado' => $data['emailApoderado'],
+                    'correosactivos' => $correosactivos
                 );
+
+                //Usuario asignado puede tener la opcion copia de correo activo, sin importar el estado que se encuentre
+
+
 
                 Mail::send('frmWeb.email.registroSolicitudnew', $data, function ($message) use ($data) {
                     $message->from('master@personeriabogota.gov.co', 'Solicitud conciliaciones Web - Personería de Bogotá D.C.');
@@ -806,6 +820,10 @@ class Webcontroller extends Controller
                     }
                     $message->bcc('jaruedag@personeriabogota.gov.co');
                     $message->bcc('jamumi14@gmail.com');
+                    foreach ($data['correosactivos'] as $key => $enviar) {
+                        $message->bcc($enviar);
+                    }
+   
                   //  $message->attach('/FORMATO_SOLICITUD_DE_CONCILIACION_V4');
                     // $message->bcc('ljmeza@personeriabogota.gov.co');
                     // $message->bcc('nylopez@personeriabogota.gov.co');
@@ -1104,26 +1122,35 @@ class Webcontroller extends Controller
     public function autosearch(Request $request)
     {
         if ($request->ajax()) {
-            $data = ModelsTramiteusuario::where('num_solicitud', $request->num_solicitud)->where('CODE', $request->codigo)->where('estadodoc',)->get();
-
+            //$data = ModelsTramiteusuario::where('num_solicitud', $request->num_solicitud)->where('CODE', $request->codigo)->where('estadodoc',)->get();
+            $data = ModelsTramiteusuario::where('num_solicitud', $request->num_solicitud)->where('CODE', $request->codigo)->first();
+            
 
             $output = '';
-            if (count($data) > 0) {
+            if ($data) {
+                if($data->estadodoc==''){
+                    
+                
                 $output = '<ul class="list-group" style="display: block; position: relative; z-index: 1">';
-                foreach ($data as $row) {
-                    $id = $row->num_solicitud;
+          
+                    $id = $data->num_solicitud;
                     $output .= '
                     <a class="btn btn-danger" data-bs-toggle="modal" id="mediumButton" data-target="#mediumModal" data-attr="' . route('desistir', ['id' => $id]) . '" style="color:white">Desistimiento del proceso   <i class="fas fa-minus-square"></i></a>
 
                     <a href="' . route('adjuntar', ['id' => $id]) . '" class="btn btn-success">Adjuntar Documentos  <i class="fas fa-folder-plus"></i></a> 
                     ';
-                }
+              
                 $output .= '</ul>';
             } else {
-                $output .= '<li class="list-group-item">' . 'No se encuentra informacion o el proceso de adjuntar documentos fue completado' . '</li>';
+             
+                $output .= '<li class="list-group-item">' . 'El proceso de adjuntar documentos ha finalizado' . '</li>';
             }
             return $output;
+        }else{
+            $output .= '<li class="list-group-item">' . 'No se encuentra informacion' . '</li>';
+            return $output;
         }
+    }
         return view('frmWeb.autosearch');
     }
  

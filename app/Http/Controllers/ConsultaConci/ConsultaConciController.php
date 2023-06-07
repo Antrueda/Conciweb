@@ -79,14 +79,14 @@ class ConsultaConciController extends Controller
             ->where('sis_esta_id', 1)
             ->orderBy('id')
             ->get();
-
+        $numero=number_format($dato->cuantia,2);
         $adjuntos=Soportecon::where('num_solicitud', $modeloxx)->get();
         //dd($adjuntos);
         $data = array(
             "detalleAbc" => $detalleAbc,
             "adjuntos" =>$adjuntos
         );
-        return view('Consulta.Consulta.Formulario.agregar', compact('dato', 'data', 'nombrecompleto','tiposolicitud','adjuntos'));
+        return view('Consulta.Consulta.Formulario.agregar', compact('dato', 'data', 'nombrecompleto','tiposolicitud','adjuntos','numero'));
     }
 
     public function archivo($id)
