@@ -57,8 +57,8 @@
             </div>
             <div class="col-md-6">
           <div class>
-            <a href="{{asset("storage/".$info->rutafinalfile)}}" target="_blank" class="btn btn-info" > Ver PDF <i class="fas fa-file-pdf"></i></a>
-            {{-- <a href="{{route('consultac.archivo', ['id'=>$info->id]) }}"  target="_blank"  class="btn btn-info" > Descargar <i class="fas fa-file-pdf"></i></a> --}}
+            {{-- <a href="{{asset($info->rutafinalfile)}}" target="_blank" class="btn btn-info" > Ver PDF <i class="fas fa-file-pdf"></i></a> --}}
+             <a href="{{route('consultac.archivo', ['id'=>$info->id]) }}"  target="_blank"  class="btn btn-info" > Descargar <i class="fas fa-file-pdf"></i></a> 
         
           
           </div>

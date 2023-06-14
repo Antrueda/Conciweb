@@ -107,7 +107,7 @@
               <td>{{$dato->fec_solicitud_tramite}}</td>
               <td>{{$dato->asuntos->nombre}}</td>
               <td>{{$dato->subasuntos->nombre}}</td>
-              <td>{{$dato->cuantia}}</td>
+              <td>{{$numero}}</td>
             </tr>
           </tbody>
         </table>

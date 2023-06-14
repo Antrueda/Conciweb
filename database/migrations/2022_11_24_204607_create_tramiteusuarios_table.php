@@ -19,6 +19,7 @@ return new class extends Migration
             $table->Integer('id_usuario_reg')->nullable();
             $table->date('fec_solicitud_tramite')->nullable();
             $table->string('estado_tramite')->nullable();
+            $table->string('id_usuario_adm')->nullable();
             $table->string('vigencia')->nullable();
             $table->string('oido_codigo')->nullable();
             $table->string('primerNombre')->nullable();

@@ -51,7 +51,7 @@ class Tramiteusuario extends Model
       'estadodoc',
       'sis_departam_id',
       'sis_municipio_id',
-
+      'id_usuario_adm',
             'fechanacimiento',
       'escolaridad',
       'sexo',

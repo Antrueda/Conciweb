@@ -1018,7 +1018,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                         </div>
                         
                         <div class="modal-footer">
-                        <button type="submit" class="btn btn-success" ><i class="fa fa-save"> </i> Si </button>
+                        <button type="submit" class="btn btn-success" id="btnRegistro" ><i class="fa fa-save"> </i> Si </button>
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fas fa-times"></i> No</button>
                 
                         </div>
@@ -1121,7 +1121,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
     }
 
     function campostab2(texto) {
-        var msg = "Faltan el campo." +texto;
+        var msg = "No se ha agregado un convocante." ;
         var msg = "<center><p><i class='fas fa-times-circle fa-3x'></i></p></center>" + msg;
         llamarNotyTime('error', msg, 'center', 3000);
     }
@@ -1318,41 +1318,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
      
  
 
-//     /*
-//      html+='<tr>';
-//      html+='<td><input type="text" class="form-control form-control-sm validate" name="nomConvocante[]" autocomplete="off"></td>';
-//      html+='<td><input type="text" class="form-control form-control-sm" name="emailConvocante[]" id="emailConU" autocomplete="off"></td>';
-//      html+='<td><input type="text" class="form-control form-control-sm" id="emailConUC[]" autocomplete="off"></td>';
-//      html+='<td><button type="button" class="btn btn-success" id="remove"><i class="fas fa-minus"></i></button></td>';
-//      html+='</tr>';
-//      html+='<br>
-//      html+='<div class="row">
-//      html+='<div class="col-md-3">
-//      html+='<div class="form-floating mb-3">
-//      html+='<input type="text" class="form-control form-control-sm validate" name="nomConvocante[]" id="primerNombre" autocomplete="off" placeholder="0">
-//      html+='<label for="nomConvocante">Nombre completo convocado</label>
-//      html+='</label>
-//      html+='</div>
-//      html+='</div>
-//      html+='<div class="col-md-3">
-//      html+='<div class="form-floating mb-3">
-//      html+='<input type="email" class="form-control form-control-sm validate[required, custom[email]]" name="emailConvocante[]" id="email" autocomplete="off" placeholder="0">
-//      html+='<label for="email"> Correo electronico</label>
-//      html+='         </div> 
-//      html+='    </div>
-//      html+='    <div class="col-md-3">
-//      html+='       <div class="form-floating mb-3">
-//      html+='           <input type="text" class="form-control form-control-sm validate[required, custom[email]]" name="emailCon" id="emailConUC" autocomplete="off" placeholder="0">
-//      html+='           <label for="emailCon"> Confirme correo electronico</label>
-//      html+='       </div> 
-//      html+='   </div>
-//      html+='<br>
-// */ 
-//      $('.agregar').append(html);
-//     });
-//     $(document).on('click','#remove',function(){
-//             $(this).closest('#lista').remove();
-//         });
+
 
     //Registro de informacion en backend
     
@@ -1372,6 +1338,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
             beforeSend: function() {
                 llamarNotyCarga();
                 $("#btnRegistro").hide();
+                $('#btnRegistro').prop('disabled', true);
             },
             success: function(r) {
                 var datUsr = r.split("|");
@@ -1381,8 +1348,10 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                     var msg = "<center><p><i class='fas fa-times fa-3x'></i></p></center>" + msg;
                     llamarNotyTime('error', msg, 'topRight', 3000);
                     $("#btnRegistro").show();
+                    $('#btnRegistro').prop('disabled', false);
                 } else {
                     $("#btnRegistro").hide();
+                    $('#btnRegistro').prop('disabled', true);
                     var msg = "<center><p><i class='fas fa-check-circle fa-3x'></i></p></center>" + msg;
                     new Noty({
                         text: msg,
@@ -1404,6 +1373,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                 var msg = "<center><p><i class='fas fa-times fa-3x'></i></p></center>" + msg;
                 llamarNotyTime('error', msg, 'topRight', 3000);
                 $("#btnRegistro").show();
+                $('#btnRegistro').prop('disabled', false);
             }
         });
     }
@@ -1439,7 +1409,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
 
      $("#localidad").change(function() {
         
-        if ($("#localidad").val()==23) {
+        if ($("#localidad").val()==60) {
             console.log($("#localidad").val());
             $("#sis_departam_id").removeAttr('disabled');
             $("#sis_municipio_id").removeAttr('disabled');
@@ -1815,6 +1785,19 @@ function run(hideTab, showTab){
                 
 
         }
+
+        if (hideTab==3){
+            
+
+                if ($("#nomConvocante").val()===undefined) {
+                    var texto="Nombre";
+                    campostab2(texto);
+                    return;
+                }
+                
+
+        }
+
         /*
              if (hideTab==2){
                 //  if ($("#nomConvocante").val()=== "") {
@@ -1840,6 +1823,7 @@ function run(hideTab, showTab){
                 //  }
                 */
                 for (i = 0; i < y.length; i++){
+                    console.log(hideTab);
                     if (y[i].value == ""||$(y[i]).val().length < y[i].minLength){
                         var nombre= y[i].name;
                         $(y[i]).css("background", "#ffdddd");

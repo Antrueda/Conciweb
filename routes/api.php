@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\API\DocumentsController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -16,4 +16,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+Route::get('documentos/{id}', [DocumentsController::class, 'show'])->name('documentos.show');
+
+
+Route::middleware(['token'])->group(function () {
+    Route::post('/getSoporte', [DocumentsController::class, 'getSoporte']);
+    Route::get('/document', [DocumentsController::class, 'index']);
+    Route::post('/getDocuments', [DocumentsController::class, 'getDocuments']);
+    Route::get('/{id}/descargar', [DocumentsController::class, 'descargar'])->name('descargar');
+ 
+    Route::get('documentos/{id}/download', [DocumentsController::class, 'download'])->name('documentos.download');
+
 });

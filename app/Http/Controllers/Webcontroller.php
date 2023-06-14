@@ -292,17 +292,17 @@ class Webcontroller extends Controller
     public function getSisMunicipioCT($dataxxxx)
     {
         $dataxxxx = $this->getDefaultCT($dataxxxx);
-        $dataxxxx['dataxxxx'] = SisMunicipio::select('sis_municipios.s_municipio as optionxx', 'sis_municipios.id as valuexxx')
+        $dataxxxx['dataxxxx'] = SisMunicipio::select('sis_municipios.s_municipio as optionxx', 'sis_municipios.codigo as valuexxx')
             ->where(function ($queryxxx) use ($dataxxxx) {
                 $queryxxx->where('sis_departam_id', $dataxxxx['padrexxx']);
                 if (isset($dataxxxx['whereinx']) && count($dataxxxx['whereinx'])) {
-                    $queryxxx->whereIN('id', $dataxxxx['whereinx']);
+                    $queryxxx->whereIN('codigo', $dataxxxx['whereinx']);
                 }
                 if (isset($dataxxxx['wherenot']) && count($dataxxxx['wherenot'])) {
-                    $queryxxx->whereNotIn('id', $dataxxxx['wherenot']);
+                    $queryxxx->whereNotIn('codigo', $dataxxxx['wherenot']);
                 }
             })
-            ->get();
+            ->orderBy('s_municipio', 'asc')->get();
         $respuest = ['comboxxx' => $this->getCuerpoComboSinValueCT($dataxxxx)];
         return $respuest;
     }
@@ -497,9 +497,21 @@ class Webcontroller extends Controller
             DB::rollback();
             return '|0| 0.2) Problema al actualizar el numero asignado por el sistema' . $e->getMessage();
         }
-        $datosSolicitante = ConciReferente::where('estado', 1)
-        ->orderBy('contador', 'asc')
-        ->first();
+        // $datosSolicitante = ConciReferente::select('consec','contador','depend_codigo')->where('estado', 1)
+        // ->orderBy('contador', 'asc')
+        // ->get();
+
+        $Contadorminimo =ConciReferente::min('contador');
+
+        $datosminimos = ConciReferente::select('consec','contador','depend_codigo')->where('estado', 1)
+        ->where('contador', $Contadorminimo)
+        ->get();
+
+        //dd($datosminimos);
+
+        $Solicitanteminimo= $datosminimos->shuffle();
+
+        $datosSolicitante= $Solicitanteminimo->first();
             
             
         //  $datosSolicitante = User::where('cedula', DB::raw("TO_CHAR(1010213817)"))->first();
@@ -538,6 +550,7 @@ class Webcontroller extends Controller
                     'num_solicitud' => $numSolicitud,
                     'id_tramite' => $idTramite,
                     'id_usuario_reg' => $numeroDocumento,
+                    'id_usuario_adm' => $datosSolicitante->consec,
                     'fec_solicitud_tramite' => DB::raw("TO_DATE('" . $fechaRegistro . "','DD/MM/YYYY HH24:MI:SS')"),
                     'estado_tramite' => DB::raw("'Remitido'"),
                     'vigencia' => $vigencia,
@@ -626,6 +639,9 @@ class Webcontroller extends Controller
                 'TEXTO17' => DB::raw("'$primerTelefonoApoderado'"),
                 'TEXTO18' => DB::raw("'$segundoTelefonoApoderado'"),
                 'TEXTO19' => DB::raw("'$emailApoderado'"),
+                'TEXTO24' => DB::raw("'$sexo'"),
+                'TEXTO22' => DB::raw("'$genero'"),
+                'TEXTO25' => DB::raw("'$orientacion'"),
                 'NUMERO02' => $tipoAudiencia,
                 'NUMERO03' => $sedePrincipal,
                 'NUMERO04' => $sedeSecundaria,
@@ -634,7 +650,6 @@ class Webcontroller extends Controller
                 'NUMERO07' => $tipoDocumento,
                 'TEXTO08' => DB::raw("'$detalle'"),
                 'NUMERO03' => $cuantia,
-
                 ]
             );
         } catch (\Exception $e) {
@@ -775,7 +790,7 @@ class Webcontroller extends Controller
         // 3.1 Se asegura que la variable tenga un valor en $emailapoderado
         $nombrecompleto = $primerNombre . ' ' . $segundoNombre . ' ' . $primerApellido  . ' ' . $segundoApellido;
         $dato = ModelsTramiteusuario::where('num_solicitud', $numSolicitud)->first();
-
+  
         $asuntos = Subdescripcion::where('subasu_id', $dato->subasunto)
             ->where('sis_esta_id', 1)
             ->orderBy('id')
@@ -1164,6 +1179,7 @@ class Webcontroller extends Controller
         //dd( $tiposolicitud);
         $nombrecompleto = $dato->primernombre . ' ' . $dato->segundonombre . ' ' . $dato->primerapellido  . ' ' . $dato->segundoapellido;
         //ddd($dato);
+        $numero=number_format($dato->cuantia,0);
         $detalleAbc = Subdescripcion::where('subasu_id', $dato->subasunto)
             ->where('sis_esta_id', 1)
             ->orderBy('id')
@@ -1174,7 +1190,7 @@ class Webcontroller extends Controller
         $data = array(
             "detalleAbc" => $detalleAbc
         );
-        return view('frmWeb.card.adjuntar', compact('dato', 'data', 'nombrecompleto','tiposolicitud'));
+        return view('frmWeb.card.adjuntar', compact('dato', 'data', 'nombrecompleto','tiposolicitud','numero'));
     }
 
  //Modal de desestimiento   
@@ -1262,7 +1278,7 @@ class Webcontroller extends Controller
                 $files[]['name'] = $descripcion[$key];
                 //id + @ nombreoriginal
                 $nombreOriginalFile = $file->getClientOriginalName();
-                $filePath = $file->storeAs('documentos/'.$id, $nombreOriginalFile, 'public');
+                $filePath = $file->storeAs('Documentos/'.$id, $nombreOriginalFile);
                 $rutaFinalFile =$file->getRealPath();
                 echo $rutaFinalFile;
                 

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\ConsultaConci;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
-use App\Http\Requests\TextoAdmin\TextoCrearRequest;
-use App\Http\Requests\TextoAdmin\TextoEditarRequest;
+use App\Models\ConciReferente;
 use App\Models\Soportecon;
 use App\Models\Subdescripcion;
 use App\Models\Texto;
@@ -43,33 +43,43 @@ class ConsultaConciController extends Controller
     {
         
         $this->opciones['pestania'] = $this->getPestanias($this->opciones);
-
+        $datosSolicitante = ConciReferente::where('estado', 1)
+        ->orderBy('contador', 'desc')
+        ->get();
+        
+        $random=[];
+        foreach($datosSolicitante as $consec){
+            
+            $random[]=$consec->consec;
+        }
+        //dd($random);
+        //dd($datosSolicitante);
         return view($this->opciones['rutacarp'] . 'pestanias', ['todoxxxx' => $this->getTablas($this->opciones)]);
     }
 
 
-    public function create()
-    {
-        $this->opciones['pestania'] = $this->getPestanias($this->opciones);
-        return $this->view(
-            $this->getBotones(['crear', [], 1, 'GUARDAR TEXTO', 'btn btn-sm btn-primary']),
-            ['modeloxx' => '', 'accionxx' => ['crear', 'formulario']]
-        );
-    }
-    public function store(TextoCrearRequest $request)
-    {
+    // public function create()
+    // {
+    //     $this->opciones['pestania'] = $this->getPestanias($this->opciones);
+    //     return $this->view(
+    //         $this->getBotones(['crear', [], 1, 'GUARDAR TEXTO', 'btn btn-sm btn-primary']),
+    //         ['modeloxx' => '', 'accionxx' => ['crear', 'formulario']]
+    //     );
+    // }
+    // public function store(TextoCrearRequest $request)
+    // {
         
-        return $this->setTexto([
-            'requestx' => $request,
-            'modeloxx' => '',
-            'infoxxxx' =>       'Texto creado con éxito',
-            'routxxxx' => $this->opciones['routxxxx'] . '.editar'
-        ]);
-    }
+    //     return $this->setTexto([
+    //         'requestx' => $request,
+    //         'modeloxx' => '',
+    //         'infoxxxx' =>       'Texto creado con éxito',
+    //         'routxxxx' => $this->opciones['routxxxx'] . '.editar'
+    //     ]);
+    // }
 
     public function agregar($modeloxx)
     {
-        
+    
         $dato = Tramiteusuario::where('num_solicitud', $modeloxx)->first();
         $tiposolicitud= $dato->tiposolicitud;
         //dd( $tiposolicitud);
@@ -79,7 +89,7 @@ class ConsultaConciController extends Controller
             ->where('sis_esta_id', 1)
             ->orderBy('id')
             ->get();
-        $numero=number_format($dato->cuantia,2);
+        $numero=number_format($dato->cuantia,0);
         $adjuntos=Soportecon::where('num_solicitud', $modeloxx)->get();
         //dd($adjuntos);
         $data = array(
@@ -93,9 +103,9 @@ class ConsultaConciController extends Controller
     {
 
         $adjuntos=Soportecon::where('id', $id)->first();
-      
-        $filepath = public_path("storage/".$adjuntos->rutafinalfile);
-        return Response::download($filepath); 
+
+  
+        return response()->download(Storage::path($adjuntos->rutafinalfile));
     }
 
     public function show(Tramiteusuario $modeloxx)
@@ -105,61 +115,5 @@ class ConsultaConciController extends Controller
     }
 
 
-    public function edit(Tramiteusuario $modeloxx)
-    {
-        $this->opciones['pestania'] = $this->getPestanias($this->opciones);
-        $this->getBotones(['leer', [$this->opciones['routxxxx'], [$modeloxx->sis_nnaj]], 2, 'VOLVER A TEXTO', 'btn btn-sm btn-primary']);
-        $this->getBotones(['editar', [], 1, 'EDITAR TEXTO', 'btn btn-sm btn-primary']);
-        return $this->view($this->getBotones(['crear', [$this->opciones['routxxxx'], [$modeloxx->sis_nnaj]], 2, 'CREAR NUEVO TEXTO', 'btn btn-sm btn-primary'])
-            ,
-            ['modeloxx' => $modeloxx, 'accionxx' => ['editar', 'formulario'],'padrexxx'=>$modeloxx->sis_nnaj]
-        );
-    }
-
-
-    public function update(TextoEditarRequest $request,  Tramiteusuario $modeloxx)
-    {
-        return $this->setTexto([
-            'requestx' => $request,
-            'modeloxx' => $modeloxx,
-            'infoxxxx' => 'Texto editado con éxito',
-            'routxxxx' => $this->opciones['routxxxx'] . '.editar'
-        ]);
-    }
-
-    public function inactivate(Texto $modeloxx)
-    {
-        $this->opciones['pestania'] = $this->getPestanias($this->opciones);
-        return $this->view(
-            $this->getBotones(['borrar', [], 1, 'INACTIVAR TEXTO', 'btn btn-sm btn-primary'])            ,
-            ['modeloxx' => $modeloxx, 'accionxx' => ['destroy', 'destroy'],'padrexxx'=>$modeloxx->sis_nnaj]
-        );
-    }
-
-
-    public function destroy(Request $request, Tramiteusuario $modeloxx)
-    {
-
-        $modeloxx->update(['sis_esta_id' => 2, 'user_edita_id' => Auth::user()->id]);
-        return redirect()
-            ->route($this->opciones['permisox'], [$modeloxx->sis_nnaj_id])
-            ->with('info', 'Texto inactivado correctamente');
-    }
-
-    public function activate(Tramiteusuario $modeloxx)
-    {
-        $this->opciones['pestania'] = $this->getPestanias($this->opciones);
-        return $this->view(
-            $this->getBotones(['activarx', [], 1, 'ACTIVAR TEXTO', 'btn btn-sm btn-primary'])            ,
-            ['modeloxx' => $modeloxx, 'accionxx' => ['activar', 'activar'],'padrexxx'=>$modeloxx->sis_nnaj]
-        );
-
-    }
-    public function activar(Request $request, Tramiteusuario $modeloxx)
-    {
-        $modeloxx->update(['sis_esta_id' => 1, 'user_edita_id' => Auth::user()->id]);
-        return redirect()
-            ->route($this->opciones['permisox'], [$modeloxx->sis_nnaj_id])
-            ->with('info', 'Texto activado correctamente');
-    }
+   
 }

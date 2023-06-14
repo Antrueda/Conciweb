@@ -19,7 +19,7 @@ class CreateSisMunicipiosTable extends Migration
             $table->increments('id')->start(1)->nocache()->comment('CAMPO DE LLAVE PRIMARIA DE LA TABLA');
             $table->integer('sis_departam_id')->unsigned()->comment('CAMPO DE ID DEL DEPARTAMENTO');
             $table->string('s_municipio')->comment('CAMPO NOMBRE DEL MUNICIPIO');
-            $table->Integer('simianti_id')->nullable()->comment('IDENTIFICADOR EN EL SIMI ANTIGUO');
+            $table->Integer('codigo')->nullable()->comment('IDENTIFICADOR EN EL SIMI ANTIGUO');
             $table->Integer('user_crea_id');
             $table->integer('user_edita_id');
             $table->integer('sis_esta_id')->unsigned();
