@@ -77,6 +77,23 @@ class DocumentsController extends Controller
         }
     }
 
+
+    public function getDocumentos($id){
+
+   
+        // Retrieve the validated input...
+          $tramite = Soportecon::where('num_solicitud', $id)->get();
+
+        if($tramite != null){
+            return view('archivos', compact('tramite'));
+            //return response()->json($tramite);
+        } else{
+            return response([
+                'message' => 'sinproc existe pero NO TIENE ADJUNTO SDP',
+            ], 404);
+        }
+    }
+
         public function descargar($id)
         {
             $archivo = Soportecon::where('id', $id)->first();
@@ -104,7 +121,7 @@ class DocumentsController extends Controller
     
             $response = $client->request('GET', '/api/documentos/17/download', ['form_params' => [], 'headers' => $headers]);
             
-            return $response->getBody()->getContents();
+            return $response;
           
         }
 

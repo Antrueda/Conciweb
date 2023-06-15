@@ -6,7 +6,7 @@
     @foreach($tramite as $archivo)
         <li>
             {{ $archivo->descripcion }}
-            
+            {{-- <a href="{{ route('documentos.show', $archivo->id) }}"   class="btn btn-info" > Descargarr <i class="fas fa-file-pdf"></i></a>  --}}
             <a href="{{asset($archivo->rutafinalfile)}}"  class="btn btn-info" > Ver PDF <i class="fas fa-file-pdf"></i></a>
             <a href="{{ route('documentos.download', $archivo->id) }}"   class="btn btn-info" > Descargar <i class="fas fa-file-pdf"></i></a> 
         </li>
