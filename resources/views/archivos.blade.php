@@ -1,5 +1,6 @@
 @extends('../mainUsrWeb')
 
+@section('title','LISTADO DE ARCHIVOS')
 @section('content')
 
 <div class="table-responsive">
@@ -26,8 +27,9 @@
       </tbody>
     </table>
   </div>
-
+<center>
 <h1>Lista de Archivos</h1>
+</center>
 <div class="row">
     @foreach($tramite as $archivo)
 

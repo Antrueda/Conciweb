@@ -1,5 +1,6 @@
 @extends('../mainUsrWeb')
 
+@section('title','ADMINISTRACION')
 @section('content')
 
 <div class="card-body">
