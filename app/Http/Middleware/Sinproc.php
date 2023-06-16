@@ -1,37 +1,26 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Middleware;
 
+use App\Providers\RouteServiceProvider;
+use Closure;
+use Illuminate\Http\Response;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
-class AuthController extends Controller
+class Sinproc
 {
-
-    public function loginView()
+  
+    public function handle(Request $request, Closure $next, ...$guards)
     {
-        return view('login/main', [
-            'theme' => 'light',
-            'page_name' => 'auth-login',
-            'layout' => 'login'
-        ]);
-    }
 
-
-    public function login(Request $request)
-    {
-        //Login desde SINPROC se envia semilla encryptada y luego a json encode en variable key con tres variables 
         if (!isset($_GET['key'])) {
-            return redirect('/validation/103');
+            abort(Response::HTTP_UNAUTHORIZED);
         }
-
         $key = base64_decode($_GET['key']);
-
-        //enviamos key a data funcion encargada de desencryptar la semilla
         $acceso = $this->data($key);
-
+        //dd($acceso);
         if (count($acceso) == 3) {
             $user = User::where('consec', $acceso[0])
                 ->where('cedula', $acceso[1])
@@ -39,38 +28,19 @@ class AuthController extends Controller
                 ->where('estado', 'A')
                 ->first();
         } else {
-            return redirect('/validation/104');
+            abort(Response::HTTP_UNAUTHORIZED);
         }
  
-       // ddd($user->roles);
+        //dd($user->roles);
         if ($user != null) {
             //valido que ya tenga un rol asignado
-            if (count($user->roles) > 0) {
-                Auth::login($user);
-                return redirect()->route('home');
-                exit;
-            } else {
-                return redirect('/unautorized');
-            }
+            return $next($request);
         } else {
             // validation not successful, send back to form
-            return redirect('/validation/105');
+            abort(Response::HTTP_UNAUTHORIZED);
         }
     }
 
-    /**
-     * Logout user.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function logout()
-    {
-        \Auth::logout();
-        return view('administracion.viewlogout');
-    }
-
-    //funcion encargada de desencryptar la semilla
     public function data($key)
     {
         //Configuración del algoritmo de encriptación
@@ -101,3 +71,15 @@ class AuthController extends Controller
         return $data;
     }
 }
+
+
+    // public function handle(Request $request, Closure $next, ...$guards)
+    // {
+    //     $validSecrets = explode(',', env('ACCEPTED_SECRETS'));
+    //     if (in_array($request->header('Authorization'), $validSecrets)) {
+    //         return $next($request);
+    //     }
+
+    //     abort(Response::HTTP_UNAUTHORIZED);
+    // }
+

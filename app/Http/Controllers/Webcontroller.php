@@ -1193,6 +1193,9 @@ class Webcontroller extends Controller
         return view('frmWeb.card.adjuntar', compact('dato', 'data', 'nombrecompleto','tiposolicitud','numero'));
     }
 
+
+    
+
  //Modal de desestimiento   
     public function Desistir($id)
     {

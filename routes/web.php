@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Administracion\AdministracionController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Webcontroller;
 use Illuminate\Support\Composer;
@@ -109,7 +110,7 @@ require_once('Seguridad/web_usuario.php');
 require_once('Consulta/web_consulta.php');
 require_once('AsignarUsuario/web_asignaruser.php');
 
-
+Route::get('/administracion', [AdministracionController::class, 'index'])->name('admin');
 Route::get('login', [AuthController::class, "login"]);
 // login?key=Wnp5TEVrTlc0U05jVzcreU1CWnVjcFlPeDdETDMxR3E2MzRSU0ZVS3lETT0=
 // login?key=Wnp5TEVrTlc0U05jVzcreU1CWnVjcFlPeDdETDMxR3E2MzRSU0ZVS3lETT0=

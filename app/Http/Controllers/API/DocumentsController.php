@@ -7,10 +7,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Soportecon;
-
-
+use App\Models\Subdescripcion;
 //Models
 Use App\Models\Tramite;
+use App\Models\Tramiterespuesta;
+use App\Models\Tramiteusuario;
 use GuzzleHttp\Client;
 
 class DocumentsController extends Controller
@@ -80,12 +81,32 @@ class DocumentsController extends Controller
 
     public function getDocumentos($id){
 
-   
+        //
+
         // Retrieve the validated input...
           $tramite = Soportecon::where('num_solicitud', $id)->get();
+          $dato = Tramiteusuario::where('num_solicitud', $id)->first();
+          //ddd($dato->subasunto);
+          //ddd($dato->subasuntos);
+  
+          $tiposolicitud= $dato->tiposolicitud;
+          //dd( $tiposolicitud);
+          $nombrecompleto = $dato->primernombre . ' ' . $dato->segundonombre . ' ' . $dato->primerapellido  . ' ' . $dato->segundoapellido;
+          //ddd($dato);
+          $numero=number_format($dato->cuantia,0);
+          $detalleAbc = Subdescripcion::where('subasu_id', $dato->subasunto)
+              ->where('sis_esta_id', 1)
+              ->orderBy('id')
+              ->get();
+          //INFORMACION RETORNADA EN LA VISTA
+          //$conteo= count($detalleAbc)-1;
+  
+          $data = array(
+              "detalleAbc" => $detalleAbc
+          );
 
         if($tramite != null){
-            return view('archivos', compact('tramite'));
+            return view('archivos', compact('tramite','dato', 'data', 'nombrecompleto','tiposolicitud','numero'));
             //return response()->json($tramite);
         } else{
             return response([

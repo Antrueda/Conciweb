@@ -236,11 +236,11 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
     
 }
 
-.btn-light:hover {
+/* .btn-light:hover {
   color: #1F2D3D;
   background-color: #e2e6ea;
   
-}
+} */
 .btn-primary{
     border-color: #2039c9;
  
@@ -255,7 +255,8 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
     <div class="row">
         <center>
         <div class="col-md-6">
-            {{-- <h5><b class="text-justify">SOLICITUD DE CONCILIACIÓN</b></h5> --}}
+            
+            <h3 class="mt-2">SOLICITUD DE CONCILIACIÓN</h3>
         </div>
     </center>
         <div class="col-md-1"> </div>
@@ -311,7 +312,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
     <div class="card tab" id="tab-1"">
         <div class="card-header">
             <center>
-            <b>DATOS DEL SOLICITANTE PRU DEV</b>
+            <b>DATOS DEL SOLICITANTE</b>
         </center>
         </div>
         <div class="card-body" style="margin-bottom: 40px; height">
@@ -1037,7 +1038,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                 </center>
        
                 <div class="col-md-2"></div>
-                <br>
+        
             </div>
         </div>
 
@@ -1047,7 +1048,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
 
 
 
-    <br>
+  
 </form>
 
 <div id="modalRespuesta"></div>

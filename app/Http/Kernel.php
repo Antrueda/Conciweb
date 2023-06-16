@@ -44,8 +44,8 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
 
-        'token' => [
-            \App\Http\Middleware\Token::class,
+        'Sinproc' => [
+            \App\Http\Middleware\Sinproc::class,
         ],
     ];
 

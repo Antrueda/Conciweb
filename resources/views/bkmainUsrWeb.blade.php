@@ -145,53 +145,84 @@
     </div> --}}
 
    
-
+    <br>
 
     <div class="container">
-      <nav class="navbar navbar-light bg-white rounded-3 mb-3 shadow pb-3">
-        <div class="container-fluid">
-            <a class="navbar-brand col-12 col-md-3" href="https://www.personeriabogota.gov.co/">
-              <img src="{{URL::asset('imagen/Propuesta logo Conciweb-2.png')}}" class="rounded mx-auto d-block"  style="width: 100%; height: auto;">
-            </a>
-     
-            <a class="navbar-brand" href="#"></a>
-            @can('administrar-modulo')  
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-   
-              <ul class="navbar-nav">
-                <li class="nav-item">
-                  <a href="{{ route('consultac') }}" class="nav-link">
-                    <i class="fas fa-search"></i> Consulta
+      @can('administrar-modulo')
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <a class="navbar-brand" href="#"></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a href="{{ route('consultac') }}" class="nav-link">
+                  <p>Consulta</p>
+              </a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                  Administración
                 </a>
-                </li>
-                <li class="nav-item">
-                  <a href="{{ route('admin') }}" class="nav-link">
-                  {{-- <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"> --}}
-                    <i class="fas fa-cog"></i>  Administración  
+                <div class="dropdown-menu">
+                  @can('tema-leer')
+                  <a href="{{ route('tema') }}" class="nav-link">
+                      <p>Tema</p>
                   </a>
-  
-                </li>
-                <li class="nav-item">
-                  <a href="{{ route('logout') }}" class="nav-link">
-                  {{-- <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"> --}}
-                    <i class="fas fa-cog"></i>  Salir de Conciweb  
+                  @endcan
+                  @can('salario-leer')
+                  <a href="{{ route('salario.editar',1) }}" class="nav-link">
+                      <p>Salario Minimo</p>
                   </a>
-  
-                </li>
-              </ul>
-            </div>
-            @endcan
-          </nav>
-      
-        </div>
-  
-        <div class="container">
-          
-      
+                  @endcan
+                  @can('parametro-leer')
+                  <a href="{{ route('parametro') }}" class="nav-link">
+                         <p>Par&aacute;metro</p>
+                  </a>
+                  @endcan
+                  @can('textosadmin-modulo')
+                  <a href="{{ route('textos') }}" class="nav-link">
+                      <p>Textos</p>
+                    @endcan
+                </a>
 
+                @can('asuntomodulo-modulo')
+                <a href="{{ route('asuntomodulo') }}" class="nav-link">
+
+                    <p>Asuntos</p>
+                </a>
+                @endcan
+                @can('rolesxxx-leer')
+                  <a href="{{ route('rolesxxx')}}" class="nav-link">
+                        <i class="fas fa-user-lock nav-icon"></i>
+                        <p>Roles</p>
+                    </a>
+                  @endcan
+
+                  
+                  @can('usuario-leer')
+                  <a href="{{ route('asignafun')}}" class="nav-link">
+                          <i class="fa fa-users nav-icon"></i>
+                          <p>Usuarios</p>
+                  </a>
+
+                  @endcan
+                  @can('usuario-leer')
+                  <a href="{{ route('estadoform.editar',1)}}" class="nav-link">
+                    <i class="fa fa-users nav-icon"></i>
+                    <p>Estado Formulario</p>
+                  </a>
+                  @endcan
+                </div>
+              </li>
+            </ul>
+          </div>
+        </nav>
+           @endcan
+        <br>
+
+        <div>
             <div class="row">
                 <div class="col-12">
                     <section class="content-body">
@@ -199,7 +230,8 @@
                         <div>
                           <div class="card">
                             <div class="card-body">
-                              <h5 class="card-title">             <div class="col-md-4 text-right"></div></h5>
+                              <h5 class="card-title">             <div class="col-md-4 text-right"><img src="{{URL::asset('imagen/Propuesta logo Conciweb-2.png')}}" class="rounded mx-auto d-block"  style="width: 100%;
+                                height: auto;"></div></h5>
                               @yield('content')
                               
                             </div>
@@ -211,8 +243,7 @@
                 </div>
             </div>
         </div>
- 
-
+    </div>
     {{-- @livewireScripts --}}
     </body>
     <footer style="font-family: PublicSans-custom !important;
