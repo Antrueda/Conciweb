@@ -11,7 +11,8 @@ use App\Models\User;
 
 class Sinproc
 {
-  
+ 
+    //ZzyLEkNW4SNcW7yMBZucqXcQbi31vOY9usUR7zXIys9dVAOqA469kYECbW8faoX
     public function handle(Request $request, Closure $next, ...$guards)
     {
 
@@ -20,8 +21,8 @@ class Sinproc
         }
         $key = base64_decode($_GET['key']);
         $acceso = $this->data($key);
-        //dd($acceso);
-        if (count($acceso) == 3) {
+       // dd($acceso);
+        if (count($acceso) == 5) {
             $user = User::where('consec', $acceso[0])
                 ->where('cedula', $acceso[1])
                 ->where('tipo', 'FU')
@@ -41,8 +42,11 @@ class Sinproc
         }
     }
 
+
     public function data($key)
     {
+
+        
         //Configuración del algoritmo de encriptación
         //Esta cadena, debe ser larga y unica nadie mas debe conocerla. Fue la cadea empleda en la encripción por lo tanto no se puede variar
         $clave = 'Modelo de encriptación de los datos requeridos de SINPROC para consultarlos en otros módulos misionales de la Personería de Bogotá D.C. ';
@@ -63,23 +67,22 @@ class Sinproc
         $encriptar = function ($valor) use ($method, $clave, $iv) {
             return @openssl_encrypt($valor, $method, $clave, 0, $iv);
         };
-
+       // dd($encriptar('52283026_@@_79802309_@@_2') );
+        
         $dato_desencriptado = $desencriptar($key);
         $data = explode("_@@_", $dato_desencriptado);
 
 
         return $data;
     }
+
+
+
+
+    
 }
 
 
-    // public function handle(Request $request, Closure $next, ...$guards)
-    // {
-    //     $validSecrets = explode(',', env('ACCEPTED_SECRETS'));
-    //     if (in_array($request->header('Authorization'), $validSecrets)) {
-    //         return $next($request);
-    //     }
+    
 
-    //     abort(Response::HTTP_UNAUTHORIZED);
-    // }
 

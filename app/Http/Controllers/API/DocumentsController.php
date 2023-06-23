@@ -79,13 +79,15 @@ class DocumentsController extends Controller
     }
 
 
-    public function getDocumentos($id){
+    public function getDocumentos(){
 
         //
-
+        $key = base64_decode($_GET['key']);
+        $acceso = $this->data($key);
+        //dd($acceso);
         // Retrieve the validated input...
-          $tramite = Soportecon::where('num_solicitud', $id)->get();
-          $dato = Tramiteusuario::where('num_solicitud', $id)->first();
+          $tramite = Soportecon::where('num_solicitud', $acceso[3])->get();
+          $dato = Tramiteusuario::where('num_solicitud', $acceso[3])->where('vigencia',$acceso[4])->first();
           //ddd($dato->subasunto);
           //ddd($dato->subasuntos);
   
@@ -150,35 +152,40 @@ class DocumentsController extends Controller
 
 
 
-
+        public function data($key)
+        {
+            //Configuración del algoritmo de encriptación
+            //Esta cadena, debe ser larga y unica nadie mas debe conocerla. Fue la cadea empleda en la encripción por lo tanto no se puede variar
+            $clave = 'Modelo de encriptación de los datos requeridos de SINPROC para consultarlos en otros módulos misionales de la Personería de Bogotá D.C. ';
+            $clave .= 'Fuente Dirección TIC';
+            //Metodo de encriptación
+            $method = 'aes-256-cbc';
+            // Puedes generar una diferente usando la funcion $getIV()
+            $iv = "_@_C9fBxl1EWtYjL";
+            /*
+    
+            
+         Desencripta el texto recibido
+         */
+            $desencriptar = function ($valor) use ($method, $clave, $iv) {
+                $encrypted_data = base64_decode($valor);
+                return openssl_decrypt($valor, $method, $clave, 0, $iv);
+            };
+            $encriptar = function ($valor) use ($method, $clave, $iv) {
+                return @openssl_encrypt($valor, $method, $clave, 0, $iv);
+            };
+    
+            $dato_desencriptado = $desencriptar($key);
+            $data = explode("_@@_", $dato_desencriptado);
+    
+    
+            return $data;
+        }
 
 
 
     
 
 
-    // public function getDerechoPeticion($id_sinproc){
-    //     $request = ['id_sinproc' => $id_sinproc];
-
-    //     $validator = Validator::make($request, [
-    //         'id_sinproc' => 'required|numeric|exists:tramites,id_sinproc',
-    //     ]);
- 
-    //     if ($validator->fails()) {
-    //         return response([
-    //             'message' => 'El SINPROC ingresado no existe',
-    //         ], 400);
-    //     }
- 
-    //     // Retrieve the validated input...
-    //     $validated = $validator->validated();
-    //     $tramite = Tramite::where('id_sinproc', $validated['id_sinproc'])->first();
-    //     if($tramite->ruta_dp != null){
-    //         return response()->download(Storage::path($tramite->ruta_dp));
-    //     } else{
-    //         return response([
-    //             'message' => 'sinproc existe pero NO TIENE ADJUNTO SDP',
-    //         ], 404);
-    //     }
-    // }
+    
 }

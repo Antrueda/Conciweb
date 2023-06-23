@@ -25,7 +25,7 @@ function llamarNotyTime(type,msg,layout,timeout){
     new Noty({
         text: msg,
         type: type,
-        layout: layout,
+        layout: 'topRight',
         theme: 'bootstrap-v4',
         killer: true,
         progressBar: true,
@@ -38,7 +38,8 @@ function llamarNotyCarga(){
     new Noty({
         text: msg,
         type: 'info',
-        layout: 'center',
+        //layout: 'center',
+        layout: 'topRight',
         theme: 'bootstrap-v4',
         killer: true,
         progressBar: true,
@@ -63,7 +64,8 @@ function llamarNotyError(type,msg,layout,timeout){
     new Noty({
         text: msg,
         type: 'error',
-        layout: layout,
+        //layout: layout,
+        layout: 'topRight',
         theme: 'bootstrap-v4',
         killer: true,
         progressBar: true,

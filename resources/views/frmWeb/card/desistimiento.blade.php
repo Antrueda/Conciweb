@@ -48,7 +48,7 @@
           <center>
             <div class="row">
               <div style="align-content: center;">
-                {{ Form::submit('Actualizar', ['class' => 'btn btn-success' ]) }}
+                {{ Form::submit('Actualizar', ['class' => 'btn btn-outline-success' ]) }}
               </div>
 
             </div>

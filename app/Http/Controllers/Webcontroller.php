@@ -1150,9 +1150,9 @@ class Webcontroller extends Controller
           
                     $id = $data->num_solicitud;
                     $output .= '
-                    <a class="btn btn-danger" data-bs-toggle="modal" id="mediumButton" data-target="#mediumModal" data-attr="' . route('desistir', ['id' => $id]) . '" style="color:white">Desistimiento del proceso   <i class="fas fa-minus-square"></i></a>
+                    <a class="btn btn-outline-secondary" data-bs-toggle="modal" id="mediumButton" data-target="#mediumModal" data-attr="' . route('desistir', ['id' => $id]) . '" >Desistimiento del proceso   <i class="fas fa-minus-square"></i></a>
 
-                    <a href="' . route('adjuntar', ['id' => $id]) . '" class="btn btn-success">Adjuntar Documentos  <i class="fas fa-folder-plus"></i></a> 
+                    <a href="' . route('adjuntar', ['id' => $id]) . '" class="btn btn-outline-success">Adjuntar Documentos  <i class="fas fa-folder-plus"></i></a> 
                     ';
               
                 $output .= '</ul>';

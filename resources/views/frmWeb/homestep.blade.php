@@ -22,6 +22,33 @@
         display: inline-block;
         opacity: 0.25;
 }
+.d-flex {
+    display: flex!important;
+}
+.ps-1 {
+    padding-left: 0.25rem!important;
+}
+.align-items-center {
+    align-items: center!important;
+}
+
+img, svg {
+    vertical-align: middle;
+}
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+
+.icono
+{
+    margin-left: 10px;
+    float: left;
+}
+
+img {
+    overflow-clip-margin: content-box;
+    overflow: clip;
+}
 
 textarea {
     resize: none;
@@ -595,14 +622,17 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
             </div>
             <br>
             <!-- FIN TIPO SOLICITUD -->
-            <center>
-                <div id="apode_id">
-                <div class="btn btn-success" onclick="run(1, 2);" style="width: 120px">Siguiente <i class="fas fa-angle-right"></i></div>
+
+            <div class="row justify-content-md-center">
+                <div id="apode_id" class="col-2">
+                <a class="btn btn-success" onclick="run(1, 2);" style="width: 120px"> Siguiente  <i class="far fa-check-circle"></i> </a>
+                
                  </div>
-                 <div id="dire_id">
-                <div class="btn btn-success" onclick="run(1, 3);" style="width: 120px">Siguiente <i class="fas fa-angle-right"></i></div>
+                 <div id="dire_id" class="col-2" >
+                    
+                <a class="btn btn-success" onclick="run(1, 3);" style="width: 120px" > Siguiente  <i class="far fa-check-circle"></i> </a>
              </div>
-            </center>
+            </div>
             <br>
         </div>
 
@@ -739,10 +769,14 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
         </div>
 
    
-        <center>
-        <div class="btn btn-success" onclick="run(2, 1);" style="width: 120px"><i class="fas fa-angle-left"></i> Anterior</div>
-        <div class="btn btn-success" onclick="run(2, 3);" style="width: 120px">Siguiente<i class="fas fa-angle-right"></i></div>
-        </center>
+        <div class="row justify-content-md-center">
+                <div class="col-2">
+                     <div class="btn btn-outline-secondary " onclick="run(2, 1);" style="width: 120px"><svg style="height: 25px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 101 101" id="left"><path  d="M50.5 16.4c-18.8 0-34.1 15.3-34.1 34.1s15.3 34.1 34.1 34.1 34.1-15.3 34.1-34.1-15.3-34.1-34.1-34.1zm0 63.4c-16.1 0-29.3-13.1-29.3-29.3s13.1-29.3 29.3-29.3 29.3 13.1 29.3 29.3-13.2 29.3-29.3 29.3z"></path><path d="M57.1 33.1c-.9-.9-2.5-.9-3.4 0L38.2 48.6c-.5.5-.7 1.1-.7 1.7s.3 1.2.7 1.7l15.5 15.5c.5.5 1.1.7 1.7.7s1.2-.2 1.7-.7c.9-.9.9-2.5 0-3.4L43.3 50.3l13.8-13.8c1-.9 1-2.4 0-3.4z"></path></svg> Anterior </div>
+                </div>    
+                <div class="col-2">
+                     <div class="btn btn-success " onclick="run(2, 3);" style="width: 120px"> Siguiente  <i class="far fa-check-circle"></i> </div>
+                </div>
+        </div>
         <br>
     </div>
 
@@ -800,7 +834,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                     </div> --}}
                     <div class="col-md-3">
                          
-                   <button type="button" class="btn btn-success" id="add_btn" >Agregar <i class="fas fa-plus"></i></button> 
+                   <button type="button" class="btn btn-success" id="add_btn" >Agregar <i class="fa-solid fa-user-plus"></i></button> 
                     
     
       
@@ -829,9 +863,15 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
 
 
             <center>
-            <div class="btn btn-success" onclick="run(3, 1);" id="audi_div" style="width: 120px"><i class="fas fa-angle-left"></i> Anterior</div>
-            <div class="btn btn-success" onclick="run(3, 2);" id="full_div" style="width: 120px"><i class="fas fa-angle-left"></i> Anterior</div>
-            <div class="btn btn-success" onclick="run(3, 4);" style="width: 120px">Siguiente <i class="fas fa-angle-right"></i></div>
+            <div class="row justify-content-md-center">
+                <div class="col-2" id="audi_div">
+            <div class="btn btn-outline-secondary" onclick="run(3, 1);"  style="width: 120px"><svg style="height: 25px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 101 101" id="left"><path  d="M50.5 16.4c-18.8 0-34.1 15.3-34.1 34.1s15.3 34.1 34.1 34.1 34.1-15.3 34.1-34.1-15.3-34.1-34.1-34.1zm0 63.4c-16.1 0-29.3-13.1-29.3-29.3s13.1-29.3 29.3-29.3 29.3 13.1 29.3 29.3-13.2 29.3-29.3 29.3z"></path><path d="M57.1 33.1c-.9-.9-2.5-.9-3.4 0L38.2 48.6c-.5.5-.7 1.1-.7 1.7s.3 1.2.7 1.7l15.5 15.5c.5.5 1.1.7 1.7.7s1.2-.2 1.7-.7c.9-.9.9-2.5 0-3.4L43.3 50.3l13.8-13.8c1-.9 1-2.4 0-3.4z"></path></svg> Anterior </div>
+                </div>
+                <div class="col-2" id="full_div">
+            <div class="btn btn-outline-secondary" onclick="run(3, 2);" style="width: 120px"><svg style="height: 25px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 101 101" id="left"><path  d="M50.5 16.4c-18.8 0-34.1 15.3-34.1 34.1s15.3 34.1 34.1 34.1 34.1-15.3 34.1-34.1-15.3-34.1-34.1-34.1zm0 63.4c-16.1 0-29.3-13.1-29.3-29.3s13.1-29.3 29.3-29.3 29.3 13.1 29.3 29.3-13.2 29.3-29.3 29.3z"></path><path d="M57.1 33.1c-.9-.9-2.5-.9-3.4 0L38.2 48.6c-.5.5-.7 1.1-.7 1.7s.3 1.2.7 1.7l15.5 15.5c.5.5 1.1.7 1.7.7s1.2-.2 1.7-.7c.9-.9.9-2.5 0-3.4L43.3 50.3l13.8-13.8c1-.9 1-2.4 0-3.4z"></path></svg> Anterior </div>
+            </div>
+            <div class="btn btn-success" onclick="run(3, 4);" style="width: 120px"> Siguiente  <i class="far fa-check-circle"></i></div>
+        </div>
         </center>
         <br>
         </div>
@@ -947,7 +987,8 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                     <div class="row">
                         <div class="col-md-12 text-justify">
                             <div class="alert alert-success text-justify" role="alert">
-                                <small class="text-justify">La pretensión no podrá ser superior a <span style="color: red">100 SMMLV (${{(number_format($data['salario']->maximo));}})</span>, salvo que se trate de solicitudes de conciliación promovida por persona natural deudor hipotecario y por persona natural que reclame ser damnificado o victima el pago de indemnización de seguros de responsabilidad civil.</small>
+                                <img src="{{URL::asset('imagen/warning-sign.png')}}" alt="Esta es una descripcion alternativa de la imagen para cuando no se pueda mostrar" width="45" height="45" align="left"/> 
+                                <span class="text-justify">La pretensión no podrá ser superior a <u><b><span >100 SMMLV (${{(number_format($data['salario']->maximo));}})</span></b></u>, salvo que se trate de solicitudes de conciliación promovida por persona natural deudor hipotecario y por persona natural que reclame ser damnificado o victima el pago de indemnización de seguros de responsabilidad civil.</span>
                             </div>
                         </div>
                     </div>
@@ -995,17 +1036,17 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
               
                 <center>
          
-                <div class="btn btn-success" onclick="run(4, 3);" style="width: 120px"><i class="fas fa-angle-left"></i> Anterior</div>
+                <div class="btn btn-outline-secondary" onclick="run(4, 3);" style="width: 120px"><svg style="height: 25px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 101 101" id="left"><path  d="M50.5 16.4c-18.8 0-34.1 15.3-34.1 34.1s15.3 34.1 34.1 34.1 34.1-15.3 34.1-34.1-15.3-34.1-34.1-34.1zm0 63.4c-16.1 0-29.3-13.1-29.3-29.3s13.1-29.3 29.3-29.3 29.3 13.1 29.3 29.3-13.2 29.3-29.3 29.3z"></path><path d="M57.1 33.1c-.9-.9-2.5-.9-3.4 0L38.2 48.6c-.5.5-.7 1.1-.7 1.7s.3 1.2.7 1.7l15.5 15.5c.5.5 1.1.7 1.7.7s1.2-.2 1.7-.7c.9-.9.9-2.5 0-3.4L43.3 50.3l13.8-13.8c1-.9 1-2.4 0-3.4z"></path></svg> Anterior </div> 
                 <br>
                 <hr>
                 {!! htmlFormSnippet() !!}
                 <br>
                 <div class="row">
                     <div class="col-md-4" style="padding-left: 10%;margin-top:10px;margin-left:30%">
-                      <button type="button" class="btn btn-success btn-block btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal"> <span class="fa fa-save pr-4"> </span> Registrar Solicitud</button>
+                      <button type="button" class="btn btn-success btn-block btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal"> Registrar Solicitud  <i class="far fa-check-circle"></i></button>
                     </div>
                   </div>
-
+<br>
                 <!-- Modal -->
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
@@ -1019,8 +1060,8 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                         </div>
                         
                         <div class="modal-footer">
-                        <button type="submit" class="btn btn-success" id="btnRegistro" ><i class="fa fa-save"> </i> Si </button>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fas fa-times"></i> No</button>
+                        <button type="submit" class="btn btn-success" id="btnRegistro" > Si  <i class="far fa-check-circle"></i></button>
+                        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal"> No <i class="far fa-times-circle"></i></button>
                 
                         </div>
                     </div>
@@ -1312,7 +1353,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
 //     //  html+='</div>' 
 //     //  html+='</div>'
 //      html+='<div class="col-md-3">'
-//      html+='<button type="button" class="btn btn-danger" id="remove" style="height: 50px; width: 120px">Eliminar <i class="fas fa-minus"></i></button>'
+//      html+='<button type="button" class="btn btn-outline-danger" id="remove" style="height: 50px; width: 120px">Eliminar <i class="far fa-times-circle"></i></button>'
 //      html+='   </div>';
 //      html+='</div>'
 //      html+='</div>'
@@ -1361,7 +1402,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                         theme: 'bootstrap-v4',
                         killer: true,
                         progressBar: true,
-                        timeout: 5000,
+                        timeout: 15000,
                         callbacks: {
                             afterClose: function() {
                                 window.location.href = "https://www.personeriabogota.gov.co/";
@@ -1935,7 +1976,7 @@ $('#add_btn').on('click',function(){
      html+='<td><input type="text" class="form-control form-control-sm" name="nomConvocante[]" id="nomConvocante" value='+nomConvocante+' style="display:none;" >'+nomConvocante+'</td>';
      html+='<td><input type="text" class="form-control form-control-sm" name="apeConvocante[]" id="apeConvocante" value='+apeConvocante+' style="display:none;" >'+apeConvocante+'</td>';
      html+='<td><input type="email" class="form-control form-control-sm" name="emailConvocante[]" id="emailConU" value='+emailConU+' style="display:none;" >'+emailConU+'</td>';
-     html+='<td> <button type="button" id="deletebtn" class="btn btn-danger deletebtn">Eliminar</button> </td>';
+     html+='<td> <button type="button" id="deletebtn" class="btn btn btn-outline-danger deletebtn">Eliminar <i class="far fa-times-circle"></i></button> </td>';
      html+='</tr>';
 
      if(nomConvocante ==='' || apeConvocante ==='' || emailConU ===''){
@@ -2083,13 +2124,13 @@ function soloNumeros(e) {
 //       tableEl.addEventListener("click", onDeleteRow);
 
 function auto_grow(element) {
-    element.style.height = "5px";
+    element.style.height = "8px";
     element.style.height = (element.scrollHeight)+"px";
 }
 
 function doc(valor){
     document.getElementById("dire_id").hidden=true;
-    document.getElementById("apode_id").hidden=false;
+    document.getElementById("apode_id").hidden=true;
         if(valor == 1){
          
             document.getElementById("full_div").hidden=false;

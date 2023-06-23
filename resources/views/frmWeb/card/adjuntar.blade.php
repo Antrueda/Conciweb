@@ -93,7 +93,8 @@
       <div class="table-responsive">
         <table class="table table-bordered">
           <thead>
-            <tr>
+            <tr style=" text-align: center;">
+              <th scope="col">Numero de Documento</th>
               <th scope="col">Solicitante</th>
               <th scope="col">Fecha de Solicitud</th>
               <th scope="col">Asunto</th>
@@ -102,7 +103,8 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr style=" text-align: center;">
+              <th>{{$dato->id_usuario_reg}}</th>
               <th style="text-transform: uppercase"> {{$nombrecompleto}}</th>
               <td>{{$dato->fec_solicitud_tramite}}</td>
               <td>{{$dato->asuntos->nombre}}</td>
@@ -280,7 +282,7 @@
 
 <div class="row">
   <div class="col-md-4" style="padding-left: 10%;margin-top:10px;margin-left:30%">
-    <button type="button" class="btn btn-success btn-block btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal"> <span class="fas fa-upload"> </span> Registrar Adjuntos</button>
+    <button type="button" class="btn btn-outline-success btn-block btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal"> <span class="fas fa-upload"> </span> Registrar Adjuntos</button>
   </div>
 </div>
 
@@ -298,8 +300,8 @@
       
       <div class="modal-footer">
 
-        <button type="submit" class="btn btn-success" id="submits"><span class="fas fa-upload"> </span> Si</button>
-        <button type="button" class="btn btn-info" data-bs-dismiss="modal"><i class="fas fa-times"></i> No</button>
+        <button type="submit" class="btn btn-outline-success" id="submits"><span class="fas fa-upload"> </span> Si</button>
+        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal"><i class="fas fa-times"></i> No</button>
  
       </div>
     </div>

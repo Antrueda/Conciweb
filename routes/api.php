@@ -19,11 +19,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::get('documentos/{id}', [DocumentsController::class, 'show'])->name('documentos.show');
 
+
 Route::get('documentos/{id}/download', [DocumentsController::class, 'download'])->name('documentos.download');
 Route::middleware(['Sinproc'])->group(function () {
     Route::post('/getSoporte', [DocumentsController::class, 'getSoporte']);
     Route::get('/document', [DocumentsController::class, 'index']);
-    Route::get('/getDocumentos/{id}', [DocumentsController::class, 'getDocumentos' ]);
+    Route::get('/getDocumentos', [DocumentsController::class, 'getDocumentos' ]);
+    //Route::get('/getDocumentos/{id}', [DocumentsController::class, 'getDocumentos' ]);
     Route::post('/getDocuments', [DocumentsController::class, 'getDocuments']);
     Route::get('/{id}/descargar', [DocumentsController::class, 'descargar'])->name('descargar');
  
