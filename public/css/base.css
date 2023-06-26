@@ -15,7 +15,7 @@ body {
     background: -ms-linear-background(top, #003E65, white);
     /* estándar */
     background: linear-background(top, #003E65, white);
-
+    font-family: PublicSans-custom;
     
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -40,10 +40,10 @@ button, p, a{
 }
 
 
-h1, h2, h3, h5{
+h1, h2, h3, h5, h6{
     font-family: Monserrat-custom !important;
-    font-size: 1.1rem;
-    color: #0069a8 ;
+    /*font-size: 1.1rem;*/
+    /*color: #0069a8 ;*/
     font-weight: bold !important;
 }
 

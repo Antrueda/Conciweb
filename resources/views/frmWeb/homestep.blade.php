@@ -22,6 +22,16 @@
         display: inline-block;
         opacity: 0.25;
 }
+.col-md-3 {
+    flex: 0 0 auto;
+    width: 25%;
+    padding: 10px;
+}
+.col-md-4 {
+    flex: 0 0 auto;
+    width: 25%;
+    padding: 10px;
+}
 .d-flex {
     display: flex!important;
 }
@@ -59,6 +69,7 @@ textarea {
 
 .form-floating>.form-control, .form-floating>.form-control-plaintext, .form-floating>.form-select {
     height: calc(3.99rem + calc(var(--bs-border-width) * 2));
+    margin: 2px;
     line-height: 1.25;
 }
 
@@ -333,16 +344,16 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
         <span class="step" id = "step-4"></span>
       </div> --}}
       <br>   <br>
- 
+
     
     <!-- INICIO DATOS DEL SOLICITANTE -->
-    <div class="card tab" id="tab-1"">
+    <div class="card tab" id="tab-1">
         <div class="card-header">
             <center>
             <b>DATOS DEL SOLICITANTE</b>
         </center>
         </div>
-        <div class="card-body" style="margin-bottom: 40px; height">
+        <div class="card-body" style="margin-bottom: 40px;">
             <div class="row">
                 <div class="col-md-3">
                     <div class="form-floating">
@@ -358,7 +369,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                 </div>
                 <div class="col-md-3">
                 <div class="form-floating mb-3">
-                    <input type="number" class="form-control form-control-sm validate" id="numeroDocumento" name="numeroDocumento" autocomplete="off" onkeypress = "return soloNumeros(event);" required placeholder="0" minlength="4" maxlength="10" pattern="[0-9]+">
+                    <input type="number" class="form-control form-control-sm validate" id="numeroDocumento" name="numeroDocumento" autocomplete="off" onkeypress = "return soloNumeros(event);" required placeholder="0" minlength="4" maxlength="10" pattern="[0-9]+" >
                     <label for="numeroDocumento">2. No. de documento *</label>
                     <div class="invalid-feedback numeroDocumento">
                         Campo obligatorio.
@@ -372,7 +383,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
      
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
-                    <input type="text" class="form-control form-control-sm validate" minlength="3" name="primerNombre" id="primerNombre" autocomplete="off" placeholder="0" required>
+                    <input type="text" class="form-control form-control-sm validate" minlength="3" name="primerNombre" id="primerNombre" autocomplete="off" placeholder="0" required style="text-transform: uppercase">
                         <label for="primerNombre">3. Primer Nombre *</label>
                         <div class="invalid-feedback primerNombre">
                             Campo obligatorio.
@@ -382,13 +393,13 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
 
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm" name="segundoNombre" id="segundoNombre" autocomplete="off" placeholder="0" >
+                        <input type="text" class="form-control form-control-sm" name="segundoNombre" id="segundoNombre" autocomplete="off" placeholder="0" style="text-transform: uppercase" >
                         <label for="segundoNombre">4. Segundo Nombre</label>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm validate" minlength="3" name="primerApellido" id="primerApellido" autocomplete="off" placeholder="0" required>
+                        <input type="text" class="form-control form-control-sm validate" minlength="3" name="primerApellido" id="primerApellido" autocomplete="off" placeholder="0" required style="text-transform: uppercase">
                         <label for="primerApellido">5. Primer Apellido*</label>
                         <div class="invalid-feedback primerApellido">
                             Campo obligatorio.
@@ -397,7 +408,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                 </div>
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm" name="segundoApellido" id="segundoApellido" autocomplete="off" placeholder="0">
+                        <input type="text" class="form-control form-control-sm" name="segundoApellido" id="segundoApellido" autocomplete="off" placeholder="0" style="text-transform: uppercase">
                         <label for="segundoApellido">6. Segundo Apellido</label>
                     </div>
                 </div>
@@ -420,7 +431,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                 </div>
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm validate" name="direccion" id="direccion" autocomplete="off" placeholder="0" required>
+                        <input type="text" class="form-control form-control-sm validate" name="direccion" id="direccion" autocomplete="off" placeholder="0" required style="text-transform: uppercase">
                         <label for="direccion">9. Dirección *</label>
                         <div class="invalid-feedback direccion">
                             Campo obligatorio.
@@ -622,7 +633,8 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
             </div>
             <br>
             <!-- FIN TIPO SOLICITUD -->
-
+  
+            </div>
             <div class="row justify-content-md-center">
                 <div id="apode_id" class="col-2">
                 <a class="btn btn-success" onclick="run(1, 2);" style="width: 120px"> Siguiente  <i class="far fa-check-circle"></i> </a>
@@ -636,7 +648,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
             <br>
         </div>
 
-    </div>
+
     <!-- FIN DATOS DEL SOLICTANTE -->
     <!-- INICIO DATOS DE LOS CONVOCADOS -->
     <div class="card tab" id="tab-2">
@@ -645,9 +657,9 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
             <b>DATOS DEL APODERADO</b>
         </center>
         </div>
-        <div class="card-body" >
+        <div class="card-body" style="margin-bottom: 40px; height" >
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <div class="form-floating mb-3">
                         {{ Form::select('tipoDocApoderado', $data['listaTipoDoc'], null, ['class' => $errors->first('tipoDocApoderado') ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm']) }}
                     @if($errors->has('tipoDocApoderado'))
@@ -661,7 +673,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                       </div>
                     </div>
                 </div>
-                 <div class="col-md-6">
+                 <div class="col-md-3">
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control form-control-sm validate" name="numDocApoderado" id="numDocApoderado" autocomplete="off" placeholder="0" onkeypress = "return soloNumeros(event);">
                         <label for="numDocApoderado"> 20.2. No. de Documento *</label>
@@ -670,11 +682,11 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                           </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
+         
+
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm validate" name="primerNombreApoderado" id="primerNombreApoderado" autocomplete="off" placeholder="0">
+                        <input type="text" class="form-control form-control-sm validate" name="primerNombreApoderado" id="primerNombreApoderado" autocomplete="off" placeholder="0" style="text-transform: uppercase">
                         <label for="primerNombreApoderado"> 20.3. Primer Nombre *</label>
                         <div class="invalid-feedback primerNombreApoderado">
                             Campo obligatorio.
@@ -684,14 +696,14 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                 </div>
                 <div class="col-md-3">
                   <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm" name="segundoNombreApoderado" id="segundoNombreApoderado" autocomplete="off" placeholder="0">
+                        <input type="text" class="form-control form-control-sm" name="segundoNombreApoderado" id="segundoNombreApoderado" autocomplete="off" placeholder="0" style="text-transform: uppercase">
                         <label for="segundoNombreApoderado"> 20.4. Segundo Nombre</label>
                     </label>
                 </div>
             </div>
                 <div class="col-md-3">
                   <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm validate" name="primerApellidoApoderado" id="primerApellidoApoderado" autocomplete="off" placeholder="0">
+                        <input type="text" class="form-control form-control-sm validate" name="primerApellidoApoderado" id="primerApellidoApoderado" autocomplete="off" placeholder="0" style="text-transform: uppercase">
                         <label for="primerApellidoApoderado"> 20.5. Primer Apellido *</label>
                         <div class="invalid-feedback primerApellidoApoderado">
                             Campo obligatorio.
@@ -701,16 +713,16 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                 </div>
                 <div class="col-md-3">
                   <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm" name="segundoApellidoApoderado" id="segundoApellidoApoderado" autocomplete="off" placeholder="0">
+                        <input type="text" class="form-control form-control-sm" name="segundoApellidoApoderado" id="segundoApellidoApoderado" autocomplete="off" placeholder="0" style="text-transform: uppercase">
                         <label for="segundoApellidoApoderado"> 20.6. Segundo Apellido</label>
                         
                     </div>
                 </div>
-            </div>
-            <div class="row">
+         
+        
                 <div class="col-md-3">
                   <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm validate" name="tarjetaProfesional" id="tarjetaProfesional" autocomplete="off" placeholder="0">
+                        <input type="text" class="form-control form-control-sm validate" name="tarjetaProfesional" id="tarjetaProfesional" autocomplete="off" placeholder="0" style="text-transform: uppercase">
                         <label for="tarjetaProfesional"> 20.7. No. tarjeta Profesional *</label>
                         <div class="invalid-feedback tarjetaProfesional">
                             Campo obligatorio.
@@ -720,8 +732,8 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                 </div>
                 <div class="col-md-3">
                   <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm" name="direccionApoderado" id="direccionApoderado" autocomplete="off" placeholder="0">
-                        <label for="tarjetaProfesional"> 20.8. Dirección *</label>
+                        <input type="text" class="form-control form-control-sm" name="direccionApoderado" id="direccionApoderado" autocomplete="off" placeholder="0" style="text-transform: uppercase">
+                        <label for="direccionApoderado"> 20.8. Dirección *</label>
                         <div class="invalid-feedback direccionApoderado">
                             Campo obligatorio.
                           </div>
@@ -744,7 +756,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
            
                     </div>
                 </div>
-            </div>
+        
             <div class="row">
                 <div class="col-md-6">
                   <div class="form-floating mb-3">
@@ -767,7 +779,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                 </div>
             </div>
         </div>
-
+    </div>
    
         <div class="row justify-content-md-center">
                 <div class="col-2">
@@ -791,8 +803,9 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                 <b>DATOS DEL CONVOCADO/S</b>
             </center>
             </div>
-            <div class="card-body">
+            <div class="card-body" style="margin-bottom: 40px; height">
                 <p class="text-justify">Si es un numero plural de convocados indique los correos electrónicos de cada uno de ellos. Se advierte que la invitación a la audiencia de conciliación virtual se realizará por correo electrónico, y por tanto deben ser verídicos. Si no cuenta con ellos, adelante la solicitud de conciliación presencial en la Sedes de Conciliación del Personería de Bogotá D.C. que se encuentra publicadas en la página web de la Entidad.</p>
+                <br><br>
                 <div class="agregar">
                 <div class="row">
                     <div class="col-md-3">
@@ -832,6 +845,10 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                               </div>
                         </div> 
                     </div> --}}
+                </div>
+                    <br>
+
+                    
                     <div class="col-md-3">
                          
                    <button type="button" class="btn btn-success" id="add_btn" >Agregar <i class="fa-solid fa-user-plus"></i></button> 
@@ -839,7 +856,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
     
       
                   </div>
-                </div>
+              <br><br>
               
             </div>
             <div class="test">
@@ -847,9 +864,9 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                 <table class="table table-striped">
                     <thead>
                       <tr>
-                        <th>Nombres Convocado</th>
-                        <th>Apellidos Convocado</th>
-                        <th>Email</th>
+                        <th>NOMBRES CONVOCADO</th>
+                        <th>APELLIDOS CONVOCADO</th>
+                        <th>EMAIL</th>
                         <th></th>
                       </tr>
                     </thead>
@@ -897,7 +914,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                 <b>DATOS DE LA AUDIENCIA</b>
             </center>
             </div>
-            <div class="card-body">
+            <div class="card-body" style="margin-bottom: 40px; height">
 
                 <div id="tipoAudienciaSeleccion" style="display: none">
 
@@ -977,7 +994,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-floating mb-3">
-                                <textarea class="form-control form-control-sm validate[required, maxSize[1000]]" name="detalle" id="detalle" placeholder="Resumen" oninput="auto_grow(this)" maxlength="1000"  cols='30' rows='20'></textarea>
+                                <textarea class="form-control form-control-sm validate[required, maxSize[1000]]" name="detalle" id="detalle" placeholder="Resumen" oninput="auto_grow(this)" maxlength="1000"  cols='30' rows='20' style="text-transform: uppercase"></textarea>
                                 <label for="detalle"> 22. Resumen de la pretensión o conflicto (Máximo 1000 caracteres)*</label>
                                 <span id="chars"></span>
                                 </div>
@@ -986,8 +1003,10 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                     </div>
                     <div class="row">
                         <div class="col-md-12 text-justify">
-                            <div class="alert alert-success text-justify" role="alert">
-                                <img src="{{URL::asset('imagen/warning-sign.png')}}" alt="Esta es una descripcion alternativa de la imagen para cuando no se pueda mostrar" width="45" height="45" align="left"/> 
+                            <div class="alert alert-success text-justify" role="alert" style="--bs-success-text-emphasis: #083822;">
+                                {{-- <div class="alert alert-success text-justify" role="alert" style="--bs-success-bg-subtle:#0f5132;--bs-success-text-emphasis: #083822;"> --}}
+                                
+                              <img src="{{URL::asset('imagen/warning-sign-removebg-preview.png')}}" alt="Esta es una descripcion alternativa de la imagen para cuando no se pueda mostrar" width="45" height="45" align="left"/> 
                                 <span class="text-justify">La pretensión no podrá ser superior a <u><b><span >100 SMMLV (${{(number_format($data['salario']->maximo));}})</span></b></u>, salvo que se trate de solicitudes de conciliación promovida por persona natural deudor hipotecario y por persona natural que reclame ser damnificado o victima el pago de indemnización de seguros de responsabilidad civil.</span>
                             </div>
                         </div>
@@ -1041,9 +1060,9 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                 <hr>
                 {!! htmlFormSnippet() !!}
                 <br>
-                <div class="row">
-                    <div class="col-md-4" style="padding-left: 10%;margin-top:10px;margin-left:30%">
-                      <button type="button" class="btn btn-success btn-block btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal"> Registrar Solicitud  <i class="far fa-check-circle"></i></button>
+                <div class="row justify-content-md-center">
+                    <div class="col-4">
+                      <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal"> Registrar Solicitud  <i class="far fa-check-circle"></i></button>
                     </div>
                   </div>
 <br>
@@ -1060,7 +1079,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                         </div>
                         
                         <div class="modal-footer">
-                        <button type="submit" class="btn btn-success" id="btnRegistro" > Si  <i class="far fa-check-circle"></i></button>
+                        <button type="submit" class="btn btn-success" id="btnRegistro"  > Si  <i class="far fa-check-circle"></i></button>
                         <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal"> No <i class="far fa-times-circle"></i></button>
                 
                         </div>
@@ -1946,7 +1965,7 @@ function run(hideTab, showTab){
         $("#tab-"+hideTab).css("display", "none");
         $("#tab-"+showTab).css("display", "block");
         //$("#step-"+hideTab).removeClass('btn-success').addClass('btn-light');
-        // $("#stepi-"+hideTab).css("display", "block");
+        // $("#stepi-"+hideTab).css("display", "block"); 0f5132
         // $("#text-"+hideTab).css("display", "none");
         $("#step-"+showTab).removeClass('btn-light');
         $("#step-"+showTab).addClass('btn-step');
@@ -1984,12 +2003,14 @@ $('#add_btn').on('click',function(){
      }else
         if (isValidEmail(emailConU)) {
                     $('.invalid-feedback.emailConU').hide();
+              
                     $("#nomConvoc").val('');
                     $("#apeConvoca").val('');
                     $("#emailConvo").val('');
                     $('#tablita').append(html);
                  }else{
                     $('.invalid-feedback.emailConU').show();
+                    $("#emailConvo").css("background", "#ffdddd");
                     correonovalido();
                     return;
                  }
@@ -2127,10 +2148,10 @@ function auto_grow(element) {
     element.style.height = "8px";
     element.style.height = (element.scrollHeight)+"px";
 }
-
+document.getElementById("dire_id").hidden=true;
+document.getElementById("apode_id").hidden=true;
 function doc(valor){
-    document.getElementById("dire_id").hidden=true;
-    document.getElementById("apode_id").hidden=true;
+ 
         if(valor == 1){
          
             document.getElementById("full_div").hidden=false;

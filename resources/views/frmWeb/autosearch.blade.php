@@ -38,7 +38,7 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-1" style="padding: 6px;margin-top:7px;width:60px;height:60px">
-                                  <div id="search" class="btn btn-perso btn-block btn-md" ><i class="fas fa-search-plus"></i></div>
+                                  <div id="search" class="btn btn-outline-primary" ><i class="fas fa-search-plus"></i></div>
                                 </div>
                                 </div>
                                 <div id="product_list"></div>
@@ -46,6 +46,7 @@
                             <div class="col-lg-3"></div>
                         </div>
                     </div>
+                    <br>
                 </div>
             </div>
         </div>

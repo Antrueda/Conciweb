@@ -106,7 +106,7 @@
             <tr style=" text-align: center;">
               <th>{{$dato->id_usuario_reg}}</th>
               <th style="text-transform: uppercase"> {{$nombrecompleto}}</th>
-              <td>{{$dato->fec_solicitud_tramite}}</td>
+              <td>{{explode(' ',$dato->fec_solicitud_tramite)[0]}}</td>
               <td>{{$dato->asuntos->nombre}}</td>
               <td>{{$dato->subasuntos->nombre}}</td>
               <td>{{$numero}}</td>

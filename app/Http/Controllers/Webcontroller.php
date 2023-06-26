@@ -1125,11 +1125,11 @@ class Webcontroller extends Controller
     //Descargar archivo word
     public function descargaWord()
     {
-        $file = public_path() . "/FORMATO_SOLICITUD_DE_CONCILIACION_V4.DOCX";
+        $file = public_path() . "/05FR40Solicitud_de_ConciliacinV6.DOCX";
         $headers = array(
             'Content-Type: application/word',
         );
-        return Response::download($file, 'FORMATO_SOLICITUD_DE_CONCILIACION_V4.DOCX', $headers);
+        return Response::download($file, '05FR40Solicitud_de_ConciliacinV6.DOCX', $headers);
     }
 
 
@@ -1146,11 +1146,11 @@ class Webcontroller extends Controller
                 if($data->estadodoc==''){
                     
                 
-                $output = '<ul class="list-group" style="display: block; position: relative; z-index: 1">';
+                $output = '<br><ul class="list-group" style="display: block; position: relative; z-index: 1">';
           
                     $id = $data->num_solicitud;
                     $output .= '
-                    <a class="btn btn-outline-secondary" data-bs-toggle="modal" id="mediumButton" data-target="#mediumModal" data-attr="' . route('desistir', ['id' => $id]) . '" >Desistimiento del proceso   <i class="fas fa-minus-square"></i></a>
+                    <a class="btn btn-outline-secondary" data-bs-toggle="modal" id="mediumButton" data-target="#mediumModal" data-attr="' . route('desistir', ['id' => $id]) . '" > Desistimiento del proceso    <i class="fa-regular fa-file-excel"></i></a>
 
                     <a href="' . route('adjuntar', ['id' => $id]) . '" class="btn btn-outline-success">Adjuntar Documentos  <i class="fas fa-folder-plus"></i></a> 
                     ';
@@ -1158,11 +1158,11 @@ class Webcontroller extends Controller
                 $output .= '</ul>';
             } else {
              
-                $output .= '<li class="list-group-item">' . 'El proceso de adjuntar documentos ha finalizado' . '</li>';
+                $output .= '<br><li class="alert alert-success"><i class="fa-regular fa-circle-check"></i></i>' . ' El proceso de adjuntar documentos ha finalizado' . '</li>';
             }
             return $output;
         }else{
-            $output .= '<li class="list-group-item">' . 'No se encuentra informacion' . '</li>';
+            $output .= '<br><li class="alert alert-warning"> <i class="fa-solid fa-triangle-exclamation"></i>' . '  No se encuentra informacion' . '    </li>';
             return $output;
         }
     }
@@ -1211,9 +1211,9 @@ class Webcontroller extends Controller
         $detalle = $request->input("desistir");
         $modelo = ModelsTramiteusuario::where('num_solicitud', $id)->update(['ESTADO_TRAMITE' => $detalle]);
         if ($detalle == 'Cancelado') {
-            return redirect('https://www.personeriabogota.gov.co/')->with('info', 'Registro actualizado con éxito');
+            return redirect('https://www.personeriabogota.gov.co/');
         } else {
-            return redirect()->route('search')->with('info', 'Registro actualizado con éxito');
+            return redirect()->route('search');
         }
     }
 
@@ -1342,7 +1342,7 @@ class Webcontroller extends Controller
         } catch (\Exception $e) {
             return '|0| 3.0) Problema al enviar el correo de confirmacion: </br>' . $e->getMessage();
         }
-        return redirect('https://www.personeriabogota.gov.co/')->with('info', 'Registro actualizado con éxito');
+        return redirect('https://www.personeriabogota.gov.co/');
         //return '|0| 3.0) Test: </br>' ;
         DB::commit();
      

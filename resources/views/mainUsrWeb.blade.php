@@ -10,8 +10,6 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta name="description" content="Porto Admin - Responsive HTML5 Template">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-        <!-- <link rel="stylesheet" href="URL::asset('css/bootstrap.css')}}" /> -->
-        <!-- <link rel="stylesheet" href="URL::asset('css/bootstrap.css')}}" /> -->
         {{-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"> --}}
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
@@ -77,7 +75,7 @@
               padding-bottom: 35px;
               padding-top: 35px;
               src: url(/fuentes/PublicSans-VariableFont_wght.ttf);
-              font-family: 'Public Sans', sans-serif;
+              font-family: PublicSans-custom;
               background: -webkit-gradient(linear, 0% 5%, 0% 30%, from(#003E65), to(white));
               /* background: -webkit-linear-gradient(top, #0071BC, white); */
               background: -moz-linear-gradient(top, #003E65, white);
@@ -109,6 +107,7 @@
             background-clip: border-box;
             border: 1px solid rgba(0,0,0,.125);
             border-radius: 0.45rem;
+            padding: 4px
         }
         .container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
     width: 100%;

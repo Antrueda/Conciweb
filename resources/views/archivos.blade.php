@@ -22,7 +22,7 @@
           <th style="text-transform: uppercase"> {{$nombrecompleto}}</th>
           
           <th>{{$dato->num_solicitud}}</th>
-          <td>{{$dato->fec_solicitud_tramite}}</td>
+          <td>{{explode(' ',$dato->fec_solicitud_tramite)[0]}}</td>
           <td>{{$dato->asuntos->nombre}}</td>
           <td>{{$dato->subasuntos->nombre}}</td>
           <td>{{$numero}}</td>
