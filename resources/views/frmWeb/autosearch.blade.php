@@ -16,25 +16,25 @@
             <div class="col-md-10 offset-1">
                 <div class="card">
                     <div class="card-header">
-                        <h5>Por favor ingrese el numero de solicitud y el codigo correspondiente</h5>
+                        <h5>Por favor ingrese el Número de solicitud y el Código correspondiente</h5>
                     </div>
                     <div class="card-body">
-                        <div class="row">
+                        <div class="row justify-content-md-center">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <div class="row">
+                                    <div class="row justify-content-md-center">
                                     <div class="col-md-5">
                                       <div class="form-floating mb-3">
                               
                                         <input type="text" name="num_solicitud" id="num_solicitud" class="form-control" autocomplete="off" placeholder="0">
-                                        <label for="num_solicitud">Numero de Solicitud</label>
+                                        <label for="num_solicitud">Número de Solicitud</label>
                                       </div>
                                     </div>
                                     <div class="col-md-5">
                                       <div class="form-floating mb-3">
                                    
                                     <input type="text" name="codigo" id="codigo" class="form-control" autocomplete="off" placeholder="0">
-                                    <label for="codigo">Codigo</label>
+                                    <label for="codigo">Código</label>
                                     </div>
                                 </div>
                                 <div class="col-sm-1" style="padding: 6px;margin-top:7px;width:60px;height:60px">
@@ -52,7 +52,7 @@
         </div>
     </div>  
   </div>  
-
+<br><br>
   <div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">

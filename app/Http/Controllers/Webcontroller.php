@@ -1146,23 +1146,26 @@ class Webcontroller extends Controller
                 if($data->estadodoc==''){
                     
                 
-                $output = '<br><ul class="list-group" style="display: block; position: relative; z-index: 1">';
+                $output = '<br><div class="row justify-content-md-center">';
           
                     $id = $data->num_solicitud;
-                    $output .= '
+                    $output .= '<div class="col-md-4">
+                    
                     <a class="btn btn-outline-secondary" data-bs-toggle="modal" id="mediumButton" data-target="#mediumModal" data-attr="' . route('desistir', ['id' => $id]) . '" > Desistimiento del proceso    <i class="fa-regular fa-file-excel"></i></a>
-
+                    </div>
+                    <div class="col-md-4">
                     <a href="' . route('adjuntar', ['id' => $id]) . '" class="btn btn-outline-success">Adjuntar Documentos  <i class="fas fa-folder-plus"></i></a> 
+                    </div>
                     ';
               
-                $output .= '</ul>';
+                $output .= '</div>';
             } else {
              
-                $output .= '<br><li class="alert alert-success"><i class="fa-regular fa-circle-check"></i></i>' . ' El proceso de adjuntar documentos ha finalizado' . '</li>';
+                $output .= '<br><p class="alert alert-success"><i class="fa-regular fa-circle-check fa-2xl"></i>' . '<span style="padding:8px;"> El proceso de adjuntar documentos ha finalizado' . '</span></p>';
             }
             return $output;
         }else{
-            $output .= '<br><li class="alert alert-warning"> <i class="fa-solid fa-triangle-exclamation"></i>' . '  No se encuentra informacion' . '    </li>';
+            $output .= '<br><p class="alert alert-warning"> <i class="fa-solid fa-triangle-exclamation fa-2xl"></i>' . '<span style="padding:8px;">  No se encuentra información' . ' </span>   </p>';
             return $output;
         }
     }

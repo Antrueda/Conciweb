@@ -43,7 +43,7 @@ function llamarNotyCarga(){
         theme: 'bootstrap-v4',
         killer: true,
         progressBar: true,
-        //timeout: 2000
+        timeout: 2000
     }).show();
 }
 

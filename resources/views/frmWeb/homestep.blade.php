@@ -501,7 +501,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
     
                 <div class="form-floating mb-3">
   
-                {{ Form::text('rangoedad', null, ['class' => $errors->first('rangoedad') ? 'form-control form-control-sm is-invalid validate' : 'form-control form-control-sm validate','id'=>'rangoedad']) }}
+                {{ Form::text('rangoedad', null, ['class' => $errors->first('rangoedad') ? 'form-control form-control-sm is-invalid validate' : 'form-control form-control-sm validate','style'="text-transform: uppercase",'id'=>'rangoedad'] ) }}
         
                 <label for="rangoedad">12. Rango de Edad</label>
               </div>
@@ -618,8 +618,8 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                     <div class="form-floating mb-3">
                         <select class="form-select form-select-sm validate[required]" name="tipoSolicitud" id="tipoSolicitud" onchange = 'doc(this.value)' required>
                             <option value=" ">- Seleccione una opcion -</option>
-                            <option value="0">Directa</option>
-                            <option value="1">Apoderado</option>
+                            <option value="0">DIRECTA</option>
+                            <option value="1">APODERADO</option>
                         </select>
                         <label for="tipoSolicitud"> 20. Tipo de Solicitud *</label>
                         <div class="invalid-feedback">Example invalid select feedback</div>
@@ -805,7 +805,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
             </div>
             <div class="card-body" style="margin-bottom: 40px; height">
                 <p class="text-justify">Si es un numero plural de convocados indique los correos electrónicos de cada uno de ellos. Se advierte que la invitación a la audiencia de conciliación virtual se realizará por correo electrónico, y por tanto deben ser verídicos. Si no cuenta con ellos, adelante la solicitud de conciliación presencial en la Sedes de Conciliación del Personería de Bogotá D.C. que se encuentra publicadas en la página web de la Entidad.</p>
-                <br><br>
+                <br>
                 <div class="agregar">
                 <div class="row">
                     <div class="col-md-3">
@@ -1057,7 +1057,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
          
                 <div class="btn btn-outline-secondary" onclick="run(4, 3);" style="width: 120px"><svg style="height: 25px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 101 101" id="left"><path  d="M50.5 16.4c-18.8 0-34.1 15.3-34.1 34.1s15.3 34.1 34.1 34.1 34.1-15.3 34.1-34.1-15.3-34.1-34.1-34.1zm0 63.4c-16.1 0-29.3-13.1-29.3-29.3s13.1-29.3 29.3-29.3 29.3 13.1 29.3 29.3-13.2 29.3-29.3 29.3z"></path><path d="M57.1 33.1c-.9-.9-2.5-.9-3.4 0L38.2 48.6c-.5.5-.7 1.1-.7 1.7s.3 1.2.7 1.7l15.5 15.5c.5.5 1.1.7 1.7.7s1.2-.2 1.7-.7c.9-.9.9-2.5 0-3.4L43.3 50.3l13.8-13.8c1-.9 1-2.4 0-3.4z"></path></svg> Anterior </div> 
                 <br>
-                <hr>
+                
                 {!! htmlFormSnippet() !!}
                 <br>
                 <div class="row justify-content-md-center">
@@ -1633,56 +1633,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
     }
   
     $(document).ready(function () {
-//change selectboxes to selectize mode to be searchable
-// $('#nacionalidad').select2({
-//     theme: "bootstrap-5",
 
-//     width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
-//     placeholder: $( this ).data( 'placeholder' ),
-//       });
-//       $('b[role="presentation"]').hide();
-
-//     $('#nacionalidad')
-//     .parent('div')
-//     .children('span')
-//     .children('span')
-//     .children('span')
-//     .css('height', ' calc(4.1rem)');
-//     $('#nacionalidad')
-//     .parent('div')
-//     .children('span')
-//     .children('span')
-//     .children('span')
-//     .css('font-size', ' .875rem');
-
-//     $('#nacionalidad')
-//     .parent('div')
-//     .children('span')
-//     .children('span')
-//     .children('span')
-//     .children('span')
-//     .css('margin-top', '20px');
-//     $('#nacionalidad')
-//     .parent('div')
-//     .children('span')
-//     .children('span')
-//     .children('span')
-//     .children('span')
-//     .css('margin-left', '-20px');
-//     $('#nacionalidad')
-//     .parent('div')
-//     .children('span')
-//     .children('span')
-//     .children('span')
-//     .children('span')
-//     .children('span')
-
-//     .css('border', '20px');
-    
-//     $('#nacionalidad')
-//     .parent('div')
-//     .find('label')
-//     .css('z-index', '1');
 
 
     $('#nacionalidad').selectize({
@@ -2003,7 +1954,7 @@ $('#add_btn').on('click',function(){
      }else
         if (isValidEmail(emailConU)) {
                     $('.invalid-feedback.emailConU').hide();
-              
+                    $("#emailConvo").css("background", "transparent");
                     $("#nomConvoc").val('');
                     $("#apeConvoca").val('');
                     $("#emailConvo").val('');

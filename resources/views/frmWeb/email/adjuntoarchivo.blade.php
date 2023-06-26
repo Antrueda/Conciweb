@@ -233,21 +233,30 @@
 </div>
 <div class='saludo'>
     <p>Cordial saludo <strong>{{$nombrecompleto}}</strong></p>
+    @if (isset($data['emailApoderado']) && !empty($data['emailApoderado'])) 
     <p>
-        La Personería de Bogotá, D.C., le informa que se utilizó esta dirección de correo electrónico, se ingresaron datos personales a su nombre el día {{$fechaRegistro}}. Esos datos son inmodificables. 
+        La Personería de Bogotá, D.C., le informa que el día {{$data['fechaRegistro']}}, usted finalizó con el proceso de Solicitud de Conciliación Web, por lo cual,  a los correos registrados {{$data['email']}} y {{$data['emailApoderado']}}. se enviarán las correspondientes notificaciones,  posterior a la revisión a la solicitud No. {{$data['numSolicitud']}} 
     </p>
+    @else
+    <p>
+        La Personería de Bogotá, D.C., le informa que el día {{$data['fechaRegistro']}}, usted finalizó con el proceso de Solicitud de Conciliación Web, por lo cual,  al correo registrado {{$data['email']}}. se enviarán las correspondientes notificaciones,  posterior a la revisión a la solicitud No. {{$data['numSolicitud']}} 
+    </p>
+
+   @endif
+
     <p>
         Lo anterior, significa que a su nombre se accedió al Módulo de Solicitud de Conciliación via web de la Personería de Bogotá, D.C. en donde adjunto los documentos solicitados para continuar con el proceso 
     </p>
-    <div class='datosBasicos'>
+    {{-- <div class='datosBasicos'>
         <p>
             Por lo cual sera notificado por medio de <strong>ESTE CORREO ELECTRÓNICO</strong>: <span style="font-size: 20px;font-weight: bold; color:red;">{{$email}}</span> , cuando se haya revisado su solicitud
             
         </p>
-    </div>
+    </div> --}}
 </div>
 
 <div class='noRespuesta'>El presente mensaje es EXCLUSIVAMENTE informativo, y no deber&aacute; ser respondido.</div>
 </body>
 
 </html>
+La personería de Bogotá D.C., informa que el día XXXX a las XXX,  usted finalizó con el proceso de Solicitud de Conciliación Web, por lo cual,  al correo registrado (o correos si es que se marcó con apoderado) como nylopez@personeriabogtoa.gov.co  y xxxxx (si aplica) se enviarán las correspondientes notificaciones,  posterior a la revisión a la solicitud No. xxxxx. “
