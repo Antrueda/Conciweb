@@ -21,8 +21,8 @@
         }
 
         .btn-perso{
-             background-color: #003e65;
-                border-color:#003e65;
+             background-color: #0d6efd;
+                border-color:#0d6efd;
                 color: white;
                 border-radius: 5px;
                 font-family: 'Public Sans', sans-serif;
@@ -274,7 +274,8 @@
         <center>
        
        <br>
-       <a class="btn-perso"  type="button" href="https://conciwebv2.personeriabogota.gov.co/search">Adjuntar Documentos</a>
+       {{-- <a class="btn-perso"  type="button" href="https://conciwebv2.personeriabogota.gov.co/search">Adjuntar Documentos</a> --}}
+       <a class="btn-perso"  type="button" href="https://conciweb2-dev.personeriabogota.gov.co/search">Adjuntar Documentos</a>
      
    
         <div></div>

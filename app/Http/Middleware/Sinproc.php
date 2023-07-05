@@ -12,7 +12,7 @@ use App\Models\User;
 class Sinproc
 {
  
-    //ZzyLEkNW4SNcW7yMBZucqXcQbi31vOY9usUR7zXIys9dVAOqA469kYECbW8faoX
+    //Wnp5TEVrTlc0U05jVzcreU1CWnVjcVhjUWJpMzF2T1k5dXNVUjd6WEl5czlkVkFPcUE0NjlrWUVDYlc4ZmFvWA==
     public function handle(Request $request, Closure $next, ...$guards)
     {
 
@@ -21,10 +21,10 @@ class Sinproc
         }
         $key = base64_decode($_GET['key']);
         $acceso = $this->data($key);
-       // dd($acceso);
+        //dd($acceso);
         if (count($acceso) == 5) {
-            $user = User::where('consec', $acceso[0])
-                ->where('cedula', $acceso[1])
+            $user = User::where('consec', $acceso[1])
+                ->where('cedula', $acceso[0])
                 ->where('tipo', 'FU')
                 ->where('estado', 'A')
                 ->first();

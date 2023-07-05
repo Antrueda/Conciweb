@@ -12,7 +12,7 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-1"> </div>
-                            <div class="col-md-6 text-center"><h5><b style="text-justify"><br>SOLICITUD DE CONCILIACIONES WEB</b></h5></div>
+                            <div class="col-md-6 text-center"><h5><b style="text-justify;color:#0171BD"><br>SOLICITUD DE CONCILIACIONES WEB</b></h5></div>
                             <div class="col-md-1"> </div>
                             <div class="col-md-4 text-right"><img src="{{URL::asset('imagen/Propuesta logo Conciweb-2.png')}}" class="rounded mx-auto d-block" style="width: 100%;
                                 height: auto;"></div>
@@ -28,7 +28,7 @@
                     <center>
                   
                         <label>
-                            <input type="checkbox" class="form-check-input" id="customCheck1" style="margin-top: 0;"><span><b> ACEPTAR</b>  </span>
+                            <input type="checkbox" class="form-check-input" id="customCheck1" style="margin-top: 0; "><span class="px-2"><b style="color:#0171BD"> ACEPTAR</b>  </span>
                 
                          </label>
                     </center>

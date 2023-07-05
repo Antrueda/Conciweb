@@ -12,30 +12,31 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-1"> </div>
-                            <div class="col-md-6 text-center"><h5><b style="text-justify">AUTORIZACIÓN PARA EL TRATAMIENTO DE DATOS PERSONALES</b></h5></div>
+                            <div class="col-md-6 text-center"><h5><b style="text-justify;color:#0171BD"><br>AUTORIZACIÓN PARA EL TRATAMIENTO DE DATOS PERSONALES</b></h5></div>
                             <div class="col-md-1"> </div>
                             <div class="col-md-4 text-right"><img src="{{URL::asset('imagen/Propuesta logo Conciweb-2.png')}}" class="rounded mx-auto d-block" style="width: 100%;
                                 height: auto;"></div>
                         </div>
                     </div>
-                    <div class="card-body text-justify">
+                    <div class="card-body  text-justify">
                         <div class="card-text  text-justify">
-                            {!!$data['mensaje']->texto!!}
-                        </div>
-                            <div class="card-footer">
-                                <center>
-                              
-                                    <label>
-                                        <input type="checkbox" class="form-check-input" id="customCheck1" style="margin-top: 0;"><span><b> ACEPTAR TRATAMIENTO DE DATOS</b>  </span>
-                            
-                                     </label>
-                                </center>
-                            </div>
+                        {!!$data['mensaje']->texto!!}
+                    </div>
+                    
+                </div>
+                <div class="card-footer">
+                    <center>
                   
-             
+                        <label>
+                            <input type="checkbox" class="form-check-input" id="customCheck1" style="margin-top: 0;color:#0171BD"><span class="px-2"><b style="color:#0171BD"> ACEPTAR TRATAMIENTO DE DATOS</b>  </span>
+                
+                         </label>
+                    </center>
+                </div>
                 </div>
             </div>
         </div>
+        <br>
     </div>
 </div>
 

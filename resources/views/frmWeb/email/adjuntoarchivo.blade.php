@@ -233,13 +233,13 @@
 </div>
 <div class='saludo'>
     <p>Cordial saludo <strong>{{$nombrecompleto}}</strong></p>
-    @if (isset($data['emailApoderado']) && !empty($data['emailApoderado'])) 
+    @if (isset($emailApoderado) && !empty($emailApoderado)) 
     <p>
-        La Personería de Bogotá, D.C., le informa que el día {{$data['fechaRegistro']}}, usted finalizó con el proceso de Solicitud de Conciliación Web, por lo cual,  a los correos registrados {{$data['email']}} y {{$data['emailApoderado']}}. se enviarán las correspondientes notificaciones,  posterior a la revisión a la solicitud No. {{$data['numSolicitud']}} 
+        La Personería de Bogotá, D.C., le informa que el día {{$fechaRegistro}}, usted finalizó con el proceso de Solicitud de Conciliación Web, por lo cual,  a los correos registrados <b> {{$email}} </b> y <b> {{$emailApoderado}} </b>. se enviarán las correspondientes notificaciones,  posterior a la revisión a la solicitud No. {{$numSolicitud}} 
     </p>
     @else
     <p>
-        La Personería de Bogotá, D.C., le informa que el día {{$data['fechaRegistro']}}, usted finalizó con el proceso de Solicitud de Conciliación Web, por lo cual,  al correo registrado {{$data['email']}}. se enviarán las correspondientes notificaciones,  posterior a la revisión a la solicitud No. {{$data['numSolicitud']}} 
+        La Personería de Bogotá, D.C., le informa que el día {{$fechaRegistro}}, usted finalizó con el proceso de Solicitud de Conciliación Web, por lo cual,  al correo registrado <b> {{$email}} </b>. se enviarán las correspondientes notificaciones,  posterior a la revisión a la solicitud <b>No. {{$numSolicitud}}</b> . 
     </p>
 
    @endif
@@ -259,4 +259,3 @@
 </body>
 
 </html>
-La personería de Bogotá D.C., informa que el día XXXX a las XXX,  usted finalizó con el proceso de Solicitud de Conciliación Web, por lo cual,  al correo registrado (o correos si es que se marcó con apoderado) como nylopez@personeriabogtoa.gov.co  y xxxxx (si aplica) se enviarán las correspondientes notificaciones,  posterior a la revisión a la solicitud No. xxxxx. “

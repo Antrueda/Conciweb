@@ -23,20 +23,39 @@
         }
    .texto{
     display: flex;
+}     
 
-    
-   }     
+
    .archivo{
     display: flex;
     align-items: center;
     justify-content: center;
     
-    
    }  
   .col-md-9 {
-    border-right: 2px solid #4596CD;
+    border-right: 2px solid #0171BD;
 }
 
+      .trash {
+      
+       
+        padding-right: 0px;
+    padding-left: 14.5px;
+    padding-bottom: 10px;
+    }
+    .trash .img-top {
+        display: none;
+
+
+        z-index: 5;
+    }
+    .trash:hover .img-top {
+        display: inline-block;
+    }
+    .trash:hover .img-bot {
+        display: none;
+    }
+   
 </style>
 {{-- 
 <form name="adjuntarfomr" enctype="multipart/form-data" id="adjuntarfomr"> --}}
@@ -61,7 +80,7 @@
   </div>
 @endif --}}
   
-  <div>
+
   <div class="card" style="padding-top: 3px; padding-bottom: 3px;">
     <div class="card-header">
         <center>
@@ -69,40 +88,43 @@
     </center>
     </div>
     <div class="container">
-    {{-- <div class="row align-items-start">
-      <div class="col" style="border: 2px">
-        <b>Solicitante: <br> </b> {{$nombrecompleto}}
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-3">
+      <b style="color:#0171BD">Número de Documento</b></label>
+        <p style="text-transform: uppercase">{{$dato->id_usuario_reg}}</p>
       </div>
-  
-        <div class="col">
-          <b>Fecha de Solicitud: <br> </b> {{$dato->fec_solicitud_tramite}}
-        </div>
+      <div class="col-md-3">
+      <b style="color:#0171BD">Solicitante</b></label>
+        <p style="text-transform: uppercase"> {{$nombrecompleto}}</p>
+      </div>
+      <div class="col-md-3">
+      <b style="color:#0171BD">Fecha de Solicitud</b></label>
+        <p style="text-transform: uppercase"> {{explode(' ',$dato->fec_solicitud_tramite)[0]}}</p>
+      </div>
+      <div class="col-md-3">
+      <b style="color:#0171BD">Asuntos</b></label>
+        <p style="text-transform: uppercase"> {{$dato->asuntos->nombre}}</p>
+      </div>
+      <div class="col-md-6">
+      <b style="color:#0171BD">Sub Asunto</b></label>
+        <p style="text-transform: uppercase"> {{$dato->subasuntos->nombre}}</p>
+      </div>
+      <div class="col-md-3">
+      <b style="color:#0171BD">Cuantía</b></label>
+        <p style="text-transform: uppercase"> {{$numero}}</p>
+      </div>
+    </div>
 
-          <div class="col">
-            <b>Asunto: <br> </b> {{$dato->asuntos->nombre}}
-          </div>
-          <div class="col">
-            <b>Sub Asunto: <br> </b> {{$dato->subasuntos->nombre}}
-          </div>
-          <div class="col">
-            <b>Cuantia: <br> </b> {{$dato->cuantia}}
-          </div>
-        </div>
-        <div class="row align-items-start">
-          <div class="col-12">
-            <b>Resumen de la pretensión o conflicto: <br> </b> {{$dato->detalle}}
-          </div>
-      </div> --}}
-      <div class="table-responsive">
-        <table class="table">
+        {{-- <table class="table">
           <thead>
             <tr style=" text-align: center;">
-              <th scope="col" style="color:#4596CD">Numero de Documento</th>
-              <th scope="col" style="color:#4596CD">Solicitante</th>
-              <th scope="col" style="color:#4596CD">Fecha de Solicitud</th>
-              <th scope="col" style="color:#4596CD">Asunto</th>
-              <th scope="col" style="color:#4596CD">Sub Asunto</th>
-              <th scope="col" style="color:#4596CD">Cuantia</th>
+              <th scope="col" style="color:#0171BD">Numero de Documento</th>
+              <th scope="col" style="color:#0171BD">Solicitante</th>
+              <th scope="col" style="color:#0171BD">Fecha de Solicitud</th>
+              <th scope="col" style="color:#0171BD">Asunto</th>
+              <th scope="col" style="color:#0171BD">Sub Asunto</th>
+              <th scope="col" style="color:#0171BD">Cuantia</th>
             </tr>
           </thead>
           <tbody>
@@ -115,8 +137,9 @@
               <td>{{$numero}}</td>
             </tr>
           </tbody>
-        </table>
-      </div>
+        </table> --}}
+    </div>
+
 
 
 {{--       
@@ -128,11 +151,13 @@
       <li class="list-group-item"><b>Sub Asunto:</b><br> {{$dato->subasuntos->nombre}}</li>
       <li class="list-group-item"><b>Cuantia:</b> <br> {{$dato->cuantia}}</li>
     </ul> --}}
+    <hr style="color:#0171BD">
       <ul class="list-group list-group-flush">
-      <li class="list-group-item"><b style="color:#4596CD">Resumen de la pretensión o conflicto:</b><p> {{$dato->detalle}}</p></li>
+      <li class="list-group-item"><b style="color:#0171BD">Resumen de la pretensión o conflicto:</b><p> {{$dato->detalle}}</p></li>
     </ul>
   </div>
 </div>
+<br>
 
 {{-- <div class="card">
   <div class="card-body"> --}}
@@ -194,19 +219,19 @@
 </div> --}}
 {{-- </div>
 </div> --}}
-<div class="card" style="text-justify;">
+<div class="card" style="text-justify;" >
 
-    <div class="card-body">
+    <div class="card-body" style="padding-right:12px;">
       <div class="row">
         <div class="col-md-11">
-          <H6 style="color:#4596CD">Documentos necesarios para la solicitud</H6>
+          <b style="color:#0171BD">Documentos necesarios para la solicitud</b>
         </div>
       <div class="col-md-9">
       <p>
-        Señor(a) solicitante,
+        Señor(a) solicitante, tengan en cuenta la siguientes indicaciones:
   
         <br>
-      <p><strong>Tenga en cuenta la siguientes indicaciones:</strong></p>
+      <p><strong></strong></p>
               <ul >
                 <li >TODOS los soportes que anexe, debe adjuntarlos en formato PDF y en tamaño oficio.</li>
                 <li >El tamaño/peso de cada archivo adjunto NO pude superar DIEZ (10) megas; de lo contrario la solicitud no se podrá registrar.</li>
@@ -217,7 +242,7 @@
             </p>
           </div>
        
-            <div class="col-md-3" style=" text-align: center; margin-top:100px">
+            <div class="col-md-3" style=" text-align: center; margin-top:60px">
  
 
               <a href="/downloadFileWord"><img src="{{URL::asset('imagen/icono-descarga-doc.png')}}" alt="Esta es una descripcion alternativa de la imagen para cuando no se pueda mostrar" /> </a><br>
@@ -232,18 +257,19 @@
 
 </div>
 </div>
-
+<br>
 <div class="card">
 
   <div class="card-body"> 
-    <h6 style="color:#4596CD">Cargue los siguientes Documentos</h1> 
+    
+      <b style="color:#0171BD">Cargue los siguientes Documentos</b>
     <div class="table-responsive">
-      <table class="table table-striped">
+      <table class="table table-striped" style="--bs-table-striped-bg:#F5F9FC">
         <thead>
           <tr style=" text-align: center;">
             <th scope="col"></th>
             <th scope="col"></th>
-            <th scope="col"></th>
+            
           </tr>
         </thead>
         <tbody>
@@ -256,12 +282,22 @@
       @foreach ($data['detalleAbc'] as $info)
       <tr style=" text-align: left;" class="input-file">
        
-              <td style="text-justify;width:50%" >{!! $info->descripcion->nombre !!} *</td>
+              <td style="text-justify;width:50%;vertical-align: middle;" >{!! $info->descripcion->nombre !!} *</td>
              <div style="display:none">
                 <input type="text" class="form-control" name="descripcion[]" id="descripcion"/> 
               </div>
-            <td style="text-justify"><input type="file" class="form-control input-file" name="document1[]" id="document1" aria-label="Upload" required accept=".pdf"/></td>
-            <td style="text-justify"><button class="btn btn-danger btn-reset" id="limpia" type="button"> <i class="fas fa-trash"></i></button></td>
+            <td style="text-justify;width:40%;padding-left: 40px;padding-top: 25px;" >
+              <div class="input-group mb-3"><input type="file" class="form-control input-file" name="document1[]" id="document1" aria-label="Upload" required accept=".pdf"/>
+                <button class="btn btn-outline-danger btn-reset trash" id="limpia" type="button"> 
+                  
+                   
+                  <img src="{{URL::asset('imagen/trash-red.png')}}" class="img-bot" /> 
+                  <img src="{{URL::asset('imagen/trash-white.png')}}" class="img-top" alt="Card Front">
+             
+                
+                
+                </button></div></td>
+
           
           </tr>
          
@@ -273,10 +309,20 @@
 
       @endforeach
       <tr style=" text-align: left;" class="input-file">
-        <td style="text-justify" class="input-file">Documentos que complementen su solicitud</td>
+        <td style="text-justify;width:50%;vertical-align: middle;" class="input-file">Documentos que complementen su solicitud</td>
     
-      <td style="text-justify"><input type="file" class="form-control" name="document1[]" id="document1" aria-label="Upload" required accept=".pdf"/></td>
-      <td style="text-justify"><button class="btn btn-danger btn-reset" id="limpia" type="button"> <i class="fas fa-trash"></i></button></td>
+        <td style="text-justify;width:40%;padding-left: 40px;padding-top: 25px;" >
+        <div class="input-group mb-3">
+        <input type="file" class="form-control" name="document1[]" id="document1" aria-label="Upload" accept=".pdf"/><button class="btn btn-outline-danger btn-reset trash" id="limpia" type="button" > 
+  
+     
+        <img src="{{URL::asset('imagen/trash-red.png')}}" class="img-bot"/> 
+        <img src="{{URL::asset('imagen/trash-white.png')}}" class="img-top" alt="Card Front">
+   
+
+      </button></div></td>
+      
+      
     
    </tr>
         
@@ -289,12 +335,20 @@
     @if($tiposolicitud==1)
         
     <tr style=" text-align: left;" class="input-file">
-            <td style="text-justify" class="input-file">Poder especial para conciliar dirigido al centro de conciliación de la personería de Bogota D.C. *</td>
+            <td style="text-justify;width:50%;vertical-align: middle;" class="input-file">Poder especial para conciliar dirigido al centro de conciliación de la personería de Bogota D.C. *</td>
             <div style="display:none">
               <input type="text" class="form-control" name="descripcion[]" id="descripcion" value="Poder especial para conciliar dirigido al centro de conciliación de la personería de Bogota D.C"/> 
             </div>
-          <td style="text-justify"><input type="file" class="form-control" name="document1[]" id="document1" aria-label="Upload" required accept=".pdf"/></td>
-          <td style="text-justify"><button class="btn btn-danger btn-reset" id="limpia" type="button"> <i class="fas fa-trash"></i></button></td>
+            <td style="text-justify;width:40%;padding-left: 40px;padding-top: 25px;" >
+              <div class="input-group mb-3">
+              <input type="file" class="form-control" name="document1[]" id="document1" aria-label="Upload" required accept=".pdf"/><button class="btn btn-outline-danger btn-reset trash" id="limpia" type="button" > 
+        
+           
+              <img src="{{URL::asset('imagen/trash-red.png')}}" class="img-bot"/> 
+              <img src="{{URL::asset('imagen/trash-white.png')}}" class="img-top" alt="Card Front">
+         
+      
+            </button></div></td>
         
       </tr>
 
@@ -313,8 +367,8 @@
 
 
 <div class="row">
-  <div class="col-md-4" style="padding-left: 10%;margin-top:10px;margin-left:30%">
-    <button type="button" class="btn btn-outline-success btn-block btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal"> <span class="fas fa-upload"> </span> Registrar Adjuntos</button>
+  <div class="col-md-4" style="padding-left: 15%;margin-top:10px;margin-left:30%">
+    <button type="button" class="btn btn-outline-success btn-block btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">  Registrar Adjuntos  <span class="fas fa-upload"> </span></button>
   </div>
 </div>
 
@@ -350,7 +404,7 @@
 @section('AddScriptFooter')
 
 <script>
- $(".btn-danger").click(function() {
+ $(".btn-outline-danger").click(function() {
 
   $(this).parents(".input-file").find('input').val('');
 

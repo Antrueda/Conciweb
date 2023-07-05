@@ -1125,11 +1125,11 @@ class Webcontroller extends Controller
     //Descargar archivo word
     public function descargaWord()
     {
-        $file = public_path() . "/05FR40Solicitud_de_ConciliacinV6.DOCX";
+        $file = public_path() . "/05FR40Solicitud_de_ConciliacinV6.docx";
         $headers = array(
             'Content-Type: application/word',
         );
-        return Response::download($file, '05FR40Solicitud_de_ConciliacinV6.DOCX', $headers);
+        return Response::download($file, '05FR40Solicitud_de_ConciliacinV6.docx', $headers);
     }
 
 
@@ -1161,11 +1161,11 @@ class Webcontroller extends Controller
                 $output .= '</div>';
             } else {
              
-                $output .= '<br><p class="alert alert-success"><i class="fa-regular fa-circle-check fa-2xl"></i>' . '<span style="padding:8px;"> El proceso de adjuntar documentos ha finalizado' . '</span></p>';
+                $output .= '<br><p class="alert alert-success"><i class="fa-regular fa-circle-check fa-2xl"></i>' . '<span style="padding:8px;font-size: 1.2rem;"> El proceso de adjuntar documentos ha finalizado' . '</span></p>';
             }
             return $output;
         }else{
-            $output .= '<br><p class="alert alert-warning"> <i class="fa-solid fa-triangle-exclamation fa-2xl"></i>' . '<span style="padding:8px;">  No se encuentra información' . ' </span>   </p>';
+            $output .= '<br><p class="alert alert-warning"> <i class="fa-solid fa-triangle-exclamation fa-2xl"></i>' . '<span style="padding:8px;font-size: 1.2rem;">  No se encuentra información' . ' </span>   </p>';
             return $output;
         }
     }
@@ -1182,7 +1182,7 @@ class Webcontroller extends Controller
         //dd( $tiposolicitud);
         $nombrecompleto = $dato->primernombre . ' ' . $dato->segundonombre . ' ' . $dato->primerapellido  . ' ' . $dato->segundoapellido;
         //ddd($dato);
-        $numero=number_format($dato->cuantia,0);
+        $numero=number_format($dato->cuantia,0,'.','.');
         $detalleAbc = Subdescripcion::where('subasu_id', $dato->subasunto)
             ->where('sis_esta_id', 1)
             ->orderBy('id')
@@ -1197,7 +1197,10 @@ class Webcontroller extends Controller
     }
 
 
-    
+ //distacia label
+ //sub asuntos   
+ //centrar tablas
+ //separar icono
 
  //Modal de desestimiento   
     public function Desistir($id)
@@ -1304,7 +1307,7 @@ class Webcontroller extends Controller
      
 //        ddd($solicitud);
 
-        $fecha = Soportecon::where('NUM_SOLICITUD', $id)->first()->CREATED_AT;
+        $fecha = Soportecon::where('NUM_SOLICITUD', $id)->first()->created_at;
         $nombrecompleto = $dato->primernombre . ' ' . $dato->segundonombre . ' ' . $dato->primerapellido  . ' ' . $dato->segundoapellido;
         //ddd($dato);
         $detalleAbc = Subdescripcion::where('subasu_id', $dato->subasunto)

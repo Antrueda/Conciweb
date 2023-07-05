@@ -294,7 +294,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
         <center>
         <div class="col-md-6">
             
-            <h3 class="mt-2">SOLICITUD DE CONCILIACIÓN</h3>
+            <h3 class="mt-2" style="text-justify;color:#0171BD">SOLICITUD DE CONCILIACIÓN</h3>
         </div>
     </center>
         <div class="col-md-1"> </div>
@@ -353,7 +353,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
             <b>DATOS DEL SOLICITANTE</b>
         </center>
         </div>
-        <div class="card-body" style="margin-bottom: 40px;">
+        <div class="card-body" style="margin-bottom: 10px;">
             <div class="row">
                 <div class="col-md-3">
                     <div class="form-floating">
@@ -501,7 +501,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
     
                 <div class="form-floating mb-3">
   
-                {{ Form::text('rangoedad', null, ['class' => $errors->first('rangoedad') ? 'form-control form-control-sm is-invalid validate' : 'form-control form-control-sm validate','style'="text-transform: uppercase",'id'=>'rangoedad'] ) }}
+                {{ Form::text('rangoedad', null, ['class' => $errors->first('rangoedad') ? 'form-control form-control-sm is-invalid validate' : 'form-control form-control-sm validate','style'=>"text-transform: uppercase",'id'=>'rangoedad'] ) }}
         
                 <label for="rangoedad">12. Rango de Edad</label>
               </div>
@@ -631,11 +631,11 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
        
                
             </div>
-            <br>
+            
             <!-- FIN TIPO SOLICITUD -->
   
             </div>
-            <div class="row justify-content-md-center">
+            <div class="row justify-content-md-center" style="padding-top: 3px">
                 <div id="apode_id" class="col-2">
                 <a class="btn btn-success" onclick="run(1, 2);" style="width: 120px"> Siguiente  <i class="far fa-check-circle"></i> </a>
                 
@@ -657,7 +657,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
             <b>DATOS DEL APODERADO</b>
         </center>
         </div>
-        <div class="card-body" style="margin-bottom: 40px; height" >
+        <div class="card-body" style="margin-bottom: 10px;" >
             <div class="row">
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
@@ -803,7 +803,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                 <b>DATOS DEL CONVOCADO/S</b>
             </center>
             </div>
-            <div class="card-body" style="margin-bottom: 40px; height">
+            <div class="card-body" style="margin-bottom: 10px; height">
                 <p class="text-justify">Si es un numero plural de convocados indique los correos electrónicos de cada uno de ellos. Se advierte que la invitación a la audiencia de conciliación virtual se realizará por correo electrónico, y por tanto deben ser verídicos. Si no cuenta con ellos, adelante la solicitud de conciliación presencial en la Sedes de Conciliación del Personería de Bogotá D.C. que se encuentra publicadas en la página web de la Entidad.</p>
                 <br>
                 <div class="agregar">
@@ -914,9 +914,9 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                 <b>DATOS DE LA AUDIENCIA</b>
             </center>
             </div>
-            <div class="card-body" style="margin-bottom: 40px; height">
+            <div class="card-body" style="margin-bottom: 10px; height">
 
-                <div id="tipoAudienciaSeleccion" style="display: none">
+                {{-- <div id="tipoAudienciaSeleccion" style="display: none">
 
                     <div class="alert alert-success" role="alert">
                      
@@ -961,7 +961,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                         </div>
                         <!-- FIN SEDES -->
                     </div>
-                </div>
+                </div> --}}
 
 
                 <!-- INICIO DATOS AUDIENCIA -->
@@ -1033,7 +1033,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                 </div>
                 <!-- FIN ABC ASUNTO -->
             </div>
-            <div class="row">
+            <div class="card">
                 <div class="col-md-3"></div>
                 {{-- <div class="col-md-3">
                     <div class="alert alert-success text-center" role="alert">
@@ -1052,12 +1052,16 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                     </div>
                 </div> --}}
 
-              
+     
+      
                 <center>
-         
+
+              
+
+
                 <div class="btn btn-outline-secondary" onclick="run(4, 3);" style="width: 120px"><svg style="height: 25px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 101 101" id="left"><path  d="M50.5 16.4c-18.8 0-34.1 15.3-34.1 34.1s15.3 34.1 34.1 34.1 34.1-15.3 34.1-34.1-15.3-34.1-34.1-34.1zm0 63.4c-16.1 0-29.3-13.1-29.3-29.3s13.1-29.3 29.3-29.3 29.3 13.1 29.3 29.3-13.2 29.3-29.3 29.3z"></path><path d="M57.1 33.1c-.9-.9-2.5-.9-3.4 0L38.2 48.6c-.5.5-.7 1.1-.7 1.7s.3 1.2.7 1.7l15.5 15.5c.5.5 1.1.7 1.7.7s1.2-.2 1.7-.7c.9-.9.9-2.5 0-3.4L43.3 50.3l13.8-13.8c1-.9 1-2.4 0-3.4z"></path></svg> Anterior </div> 
                 <br>
-                
+                <br>
                 {!! htmlFormSnippet() !!}
                 <br>
                 <div class="row justify-content-md-center">
@@ -1096,7 +1100,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                     <div class="col-md-4"></div>
                 </div> --}}
                 </center>
-       
+ 
                 <div class="col-md-2"></div>
         
             </div>
@@ -1943,9 +1947,9 @@ $('#add_btn').on('click',function(){
 
     var html='';
      html+=' <tr>';
-     html+='<td><input type="text" class="form-control form-control-sm" name="nomConvocante[]" id="nomConvocante" value='+nomConvocante+' style="display:none;" >'+nomConvocante+'</td>';
-     html+='<td><input type="text" class="form-control form-control-sm" name="apeConvocante[]" id="apeConvocante" value='+apeConvocante+' style="display:none;" >'+apeConvocante+'</td>';
-     html+='<td><input type="email" class="form-control form-control-sm" name="emailConvocante[]" id="emailConU" value='+emailConU+' style="display:none;" >'+emailConU+'</td>';
+     html+='<td style="text-transform: uppercase"><input type="text" class="form-control form-control-sm" name="nomConvocante[]" id="nomConvocante" value='+nomConvocante+' style="display:none;" >'+nomConvocante+'</td>';
+     html+='<td style="text-transform: uppercase"><input type="text" class="form-control form-control-sm" name="apeConvocante[]" id="apeConvocante" value='+apeConvocante+' style="display:none;" >'+apeConvocante+'</td>';
+     html+='<td style="text-transform: lowercase"><input type="email" class="form-control form-control-sm" name="emailConvocante[]" id="emailConU" value='+emailConU+' style="display:none;" >'+emailConU+'</td>';
      html+='<td> <button type="button" id="deletebtn" class="btn btn btn-outline-danger deletebtn">Eliminar <i class="far fa-times-circle"></i></button> </td>';
      html+='</tr>';
 

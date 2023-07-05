@@ -25,7 +25,7 @@ class DocumentsController extends Controller
         return response()->json($documentos);
     }
 
-
+//Metodo post
     public function getSoporte(Request $request){
 
 
@@ -51,7 +51,7 @@ class DocumentsController extends Controller
         }
     }
 
-
+//Primer test
     public function getDocuments(Request $request){
 
         $validator = Validator::make($request->all(), [
@@ -79,6 +79,7 @@ class DocumentsController extends Controller
     }
 
 
+    //API Funcional
     public function getDocumentos(){
 
         //
@@ -88,14 +89,13 @@ class DocumentsController extends Controller
         // Retrieve the validated input...
           $tramite = Soportecon::where('num_solicitud', $acceso[3])->get();
           $dato = Tramiteusuario::where('num_solicitud', $acceso[3])->where('vigencia',$acceso[4])->first();
-          //ddd($dato->subasunto);
-          //ddd($dato->subasuntos);
+
   
           $tiposolicitud= $dato->tiposolicitud;
           //dd( $tiposolicitud);
           $nombrecompleto = $dato->primernombre . ' ' . $dato->segundonombre . ' ' . $dato->primerapellido  . ' ' . $dato->segundoapellido;
           //ddd($dato);
-          $numero=number_format($dato->cuantia,0);
+          $numero=number_format($dato->cuantia,0,'.','.');
           $detalleAbc = Subdescripcion::where('subasu_id', $dato->subasunto)
               ->where('sis_esta_id', 1)
               ->orderBy('id')
@@ -117,15 +117,16 @@ class DocumentsController extends Controller
         }
     }
 
-        public function descargar($id)
-        {
-            $archivo = Soportecon::where('id', $id)->first();
 
-            // Lógica adicional si es necesario (por ejemplo, validar permisos, comprobar existencia de archivo, etc.)
+        // public function descargar($id)
+        // {
+        //     $archivo = Soportecon::where('id', $id)->first();
 
-            return response()->download(Storage::path($archivo->rutafinalfile));
-        }
+        //     // Lógica adicional si es necesario (por ejemplo, validar permisos, comprobar existencia de archivo, etc.)
 
+        //     return response()->download(Storage::path($archivo->rutafinalfile));
+        // }
+    //Descargue de documento
         public function download($id)
         {
             $documento = Soportecon::findOrFail($id);
@@ -133,20 +134,20 @@ class DocumentsController extends Controller
             return Storage::download($documento->rutafinalfile);
         }
     
-        public function show($id)
-        {
-            $client = new Client([
-                'base_uri' => 'http://concil',
-            ]);
+        // public function show($id)
+        // {
+        //     $client = new Client([
+        //         'base_uri' => 'http://concil',
+        //     ]);
     
-            $headers['Authorization'] = '3ctQPJC3OHuKj9GzmhRx7pqV6lD3I310';
+        //     $headers['Authorization'] = '3ctQPJC3OHuKj9GzmhRx7pqV6lD3I310';
     
     
-            $response = $client->request('GET', '/api/documentos/17/download', ['form_params' => [], 'headers' => $headers]);
+        //     $response = $client->request('GET', '/api/documentos/17/download', ['form_params' => [], 'headers' => $headers]);
             
-            return $response;
+        //     return $response;
           
-        }
+        // }
 
         //return response()->json($tramite);
 
