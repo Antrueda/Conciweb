@@ -15,14 +15,14 @@
             margin-top: 1rem;
             padding: 0.7rem;
             text-align: center;
-            width: 88%;
+            width: 700px;
             margin-left: auto;
             margin-right: auto;
         }
 
         .btn-perso{
-             background-color: #0d6efd;
-                border-color:#0d6efd;
+             background-color: #198754;
+                border-color:#198754;
                 color: white;
                 border-radius: 5px;
                 font-family: 'Public Sans', sans-serif;
@@ -113,7 +113,7 @@
     <!-- end css -->
 </head>
 <div class="cabecera">
-    {{-- <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnAAAACrCAMAAADRq1FUAAAA5FBMVEVMaXEdcLcdcLc1qOAdcLcd
+    <img style="height: 25%;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnAAAACrCAMAAADRq1FUAAAA5FBMVEVMaXEdcLcdcLc1qOAdcLcd
     cLcdcLcdcLcdcLc1qOAdcLcdcLcdcLcdcLftHCQdcLcdcLftHCQdcLcdcLftHCQdcLcdcLcdcLcd
     cLcdcLcdcLcdcLcdcLc1qOAdcLcdcLc1qOAdcLc1qOA1qOA1qOA1qOA1qOA1qOA1qOAdcLc1qOA1
     qOAdcLftHCQdcLc1qODtHCTtHCTtHCTtHCTtHCTtHCTtHCTtHCTtHCTtHCTtHCTtHCTtHCTtHCTt
@@ -236,13 +236,13 @@
     oDJy/PnlU/Ubi9x9e8h8L4lLlR/RWszs6WW+zQvPK8ZD1eu9WM4VWlHoGmG6Lc2wCJDBsGHkR2Td
     a3t0OWwtZfsG15cQYfyuUCuxtvvj9nn9eRDGb4+R6bbV84ZfBiPHGLeEzLQSi8GIAFz9x3ECo37o
     l8mY7wlkMOpA+7I1qWDlH4PBYDAYDAaDwWAwGAwGg8FgMBgMBoPBYDAYDAaDwWAwGAwGg8FgMBgM
-    BoMRjyRJ/h+GoUfSgT6GhQAAAABJRU5ErkJggg==" alt="img" /> --}}
+    BoMRjyRJ/h+GoUfSgT6GhQAAAABJRU5ErkJggg==" alt="img" />
 
-    <img  src="{{asset('imagen/PropuestalogoConciweb1.png')}}" alt="ConciwebLogo">
+    <img height="" src="{{asset('imagen/PropuestalogoConciweb1.png')}}" alt="ConciwebLogo">
     
 </div>
 <div class='saludo'>
-    <p>Cordial saludo <strong>{{$nombrecompleto}}</strong></p>
+    <p>Cordial saludo <strong style="color:#0171BD">{{$nombrecompleto}}</strong></p>
     <p>
         La Personería de Bogotá D.C., informa que el día {{$fechaRegistro}} se inició el proceso de registro de una Solicitud de Conciliación a través de nuestro sistema de información CONCIWEB.   
     </p>
@@ -265,9 +265,9 @@
     <div class='datosBasicos'>
         <ul>
 
-            <li style="text-justify">Correo electrónico registrado:<span style="font-size: 20px;font-weight: bold; color:red;"> {{$email}}</span></li> 
-            <li style="text-justify">Pin o Contraseña:<span style="font-size: 20px;font-weight: bold; color:red;"> {{$llaveingreso}}</span></li> 
-            <li style="text-justify">Numero de solicitud:<span style="font-size: 20px;font-weight: bold; color:red;"> {{$numSolicitud}}</span></li> 
+            <li style="text-justify">Correo electrónico registrado:<span style="font-size: 20px;font-weight: bold; color:#0171BD;"> {{$email}}</span></li> 
+            <li style="text-justify">Pin o Contraseña:<span style="font-size: 20px;font-weight: bold; color:#0171BD;"> {{$llaveingreso}}</span></li> 
+            <li style="text-justify">Numero de solicitud:<span style="font-size: 20px;font-weight: bold; color:#0171BD;"> {{$numSolicitud}}</span></li> 
   
           </ul>  
        

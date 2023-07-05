@@ -914,7 +914,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                 <b>DATOS DE LA AUDIENCIA</b>
             </center>
             </div>
-            <div class="card-body" style="margin-bottom: 10px; height">
+            <div class="card-body" style="margin-bottom: -12px; height">
 
                 {{-- <div id="tipoAudienciaSeleccion" style="display: none">
 
@@ -1033,7 +1033,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                 </div>
                 <!-- FIN ABC ASUNTO -->
             </div>
-            <div class="card">
+            <div class="row">
                 <div class="col-md-3"></div>
                 {{-- <div class="col-md-3">
                     <div class="alert alert-success text-center" role="alert">

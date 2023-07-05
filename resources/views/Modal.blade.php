@@ -128,24 +128,24 @@
     </head>
     <body>
     
-    <br>
-
+ 
+<center>
     <div class="container" style="background-color: white">
-        <br>
+    
 
         <div>
          
                 <div class="col-12">
                     <section class="content-body">
-                        <br>
+               
                             @yield('content')
-                        <br>
+                     
                     </section>
                 </div>
 
         </div>
     </div>
-
+  </center>
     </body>
 
 

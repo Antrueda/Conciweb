@@ -262,7 +262,10 @@
 
   <div class="card-body"> 
     
-      <b style="color:#0171BD">Cargue los siguientes Documentos</b>
+      <b style="color:#0171BD;margin-bottom: 2px">Cargue los siguientes Documentos</b>
+      <div class="alert alert-warning text-justify" role="alert" style="margin-bottom: -21px" ><i class="fa-solid fa-triangle-exclamation fa-2xl"></i>
+       <span class="px-2"> Importante, los campos marcados con asterisco son obligatorios</span>
+      </div>
     <div class="table-responsive">
       <table class="table table-striped" style="--bs-table-striped-bg:#F5F9FC">
         <thead>

@@ -882,7 +882,7 @@ input[type=number] {
                 </div>
                 <!-- FIN ABC ASUNTO -->
             </div>
-            <div class="row">
+         
                 <div class="col-md-3"></div>
                 {{-- <div class="col-md-3">
                     <div class="alert alert-success text-center" role="alert">
@@ -948,7 +948,7 @@ input[type=number] {
        
                 <div class="col-md-2"></div>
                 <br>
-            </div>
+ 
         </div>
 
        
