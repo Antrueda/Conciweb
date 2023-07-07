@@ -1366,7 +1366,7 @@ class Webcontroller extends Controller
            
         } catch (\Exception $e) {
             DB::rollback();
-            return '|0| 0.0) Problema al anexar el soporte en el sistema' . $e->getMessage();
+            return '|0| 0.2) Problema al actualizar el numero asignado por el sistem' . $e->getMessage();
         }
         $solicitud = ModelsTramiteusuario::where('num_solicitud', $id)->update([
             'estadodoc' => 'adjunto'

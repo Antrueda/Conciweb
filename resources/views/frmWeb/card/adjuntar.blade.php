@@ -502,7 +502,7 @@ $(document).ready(function() {
                 }
             },
             error: (err) => {
-                var msg = "<center><p><i class='fas fa-times fa-3x'></i></p></center>" + msg;
+                var msg = "<center><p><i class='fas fa-times fa-3x'></i></p></center> Problema al adjuntar archivos, tamaño maximo del servidor excedido" ;
                 llamarNotyTime('error', msg, 'topRight', 3000);
                 $("#submits").show();
             }
