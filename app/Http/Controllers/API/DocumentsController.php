@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Convocante;
+use App\Models\Parametro;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
@@ -89,12 +91,20 @@ class DocumentsController extends Controller
         // Retrieve the validated input...
           $tramite = Soportecon::where('num_solicitud', $acceso[3])->get();
           $dato = Tramiteusuario::where('num_solicitud', $acceso[3])->where('vigencia',$acceso[4])->first();
-
-  
+          $fecha = Tramiteusuario::where('num_solicitud', $acceso[3])->first()->fec_solicitud_tramite;
+          $newDate = date("d-m-Y", strtotime($fecha));  
+          $tipodedocumento=Parametro::where('id', $dato->tipodocumento)->first()->nombre;
+          $tipodedocapoderado=Parametro::where('id', $dato->tipodocapoderado)->first()->nombre;
           $tiposolicitud= $dato->tiposolicitud;
           //dd( $tiposolicitud);
           $nombrecompleto = $dato->primernombre . ' ' . $dato->segundonombre . ' ' . $dato->primerapellido  . ' ' . $dato->segundoapellido;
+          $apoderado = $dato->primernombreapoderado . ' ' . $dato->segundonombreapoderado . ' ' . $dato->primerapellidoapoderado  . ' ' . $dato->segundoapellidoapoderado;
           //ddd($dato);
+
+          $convocates = Convocante::where('num_solicitud', $acceso[3])
+          ->orderBy('id')
+          ->get();
+            //dd($convocates);
           $numero=number_format($dato->cuantia,0,'.','.');
           $detalleAbc = Subdescripcion::where('subasu_id', $dato->subasunto)
               ->where('sis_esta_id', 1)
@@ -104,17 +114,24 @@ class DocumentsController extends Controller
           //$conteo= count($detalleAbc)-1;
   
           $data = array(
-              "detalleAbc" => $detalleAbc
+              "detalleAbc" => $detalleAbc,
+              "convocates" => $convocates
           );
 
         if($tramite != null){
-            return view('archivos', compact('tramite','dato', 'data', 'nombrecompleto','tiposolicitud','numero'));
+            return view('archivos', compact('tramite','dato', 'data', 'nombrecompleto','tiposolicitud','numero','newDate','tipodedocumento','tipodedocapoderado','apoderado'));
             //return response()->json($tramite);
         } else{
             return response([
                 'message' => 'sinproc existe pero NO TIENE ADJUNTO SDP',
             ], 404);
         }
+    }
+
+    public function sinpermisos()
+    {
+        
+        return view('administracion.sinpermisos');
     }
 
 

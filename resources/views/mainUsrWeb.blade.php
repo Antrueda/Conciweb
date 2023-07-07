@@ -26,6 +26,8 @@
          <script src="https://kit.fontawesome.com/eb61c99899.js" crossorigin="anonymous"></script>
          <script src="https://unpkg.com/@popperjs/core@2"></script>
          <script src="{{ asset('/vendors/ckeditor/ckeditor.js') }}"></script>
+         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/styles/choices.min.css"/>
+         <script src="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/scripts/choices.min.js"></script>
          
         <link rel="stylesheet" href="{{ asset ('css/main.css') }}">
         <link rel="stylesheet" type="text/css" 

@@ -23,6 +23,7 @@ use App\Mail\Conci;
 use App\Models\ASubasunto;
 use App\Models\Asunto;
 use App\Models\ConciReferente;
+use App\Models\Convocante;
 use App\Models\Estadoform;
 use App\Models\Parametro;
 use App\Models\Salario;
@@ -50,6 +51,7 @@ use App\Models\Sistema\SisMunicipio;
 use App\Models\Sistema\SisPai;
 use App\Models\Tramite;
 use App\Traits\Combos\CombosTrait;
+use DateTimeImmutable;
 
 class Webcontroller extends Controller
 {
@@ -67,6 +69,7 @@ class Webcontroller extends Controller
 
             $salario = Salario::find(1)->first();
             $Maxhoy = Carbon::today()->isoFormat('YYYY-MM-DD');
+            $minhoy = Carbon::today()->subYears(100)->isoFormat('YYYY-MM-DD');;
             $localidadList = SisLocalidad::combo();
             $listaSedes = SisLocalidad::combo();
             $listaAsuntos = Asunto::combo(true, false);
@@ -110,6 +113,7 @@ class Webcontroller extends Controller
                 "departamentos" => $departamentos,
                 "municipios" => $municipios,
                 "Maxhoy" => $Maxhoy,
+                "minhoy" => $minhoy,
                  "sexocombo" => $sexocombo,
                  "generocombo" => $generocombo,
                  "orientacioncombo" => $orientacioncombo,
@@ -700,7 +704,7 @@ class Webcontroller extends Controller
                     'NUM_SOLICITUD' => $numSolicitud, 'ID_TRAMITE' => $idTramite, 'NUM_PASO' => 0,
                     'FEC_RESPUESTA' => DB::raw("sysdate"),
                     'TEX_RESPUESTA' => DB::raw("'" . $msg . "'"), 'ID_USU_ADM_CONTESTA' => $consecResponsable,
-                    'ID_USU_ADM' => $consecResponsable, 'ESTADO_TRAMITE' => DB::raw("'Remitido'"),
+                    'ID_USU_ADM' => $numeroDocumento, 'ESTADO_TRAMITE' => DB::raw("'Remitido'"),
                     'CONSECUTIVO' => $consecutivo, 'VIGENCIA' => $vigencia,
                     'ID_DEPENDENCIA_REG' => $depAsignada, 'ID_DEPENDENCIA_ASIG' => $depAsignada
                 ]
@@ -1137,7 +1141,7 @@ class Webcontroller extends Controller
     public function autosearch(Request $request)
     {
         if ($request->ajax()) {
-            //$data = ModelsTramiteusuario::where('num_solicitud', $request->num_solicitud)->where('CODE', $request->codigo)->where('estadodoc',)->get();
+           // $data = ModelsTramiteusuario::where('num_solicitud', $request->num_solicitud)->where('CODE', $request->codigo)->where('estadodoc',)->first();
             $data = ModelsTramiteusuario::where('num_solicitud', $request->num_solicitud)->where('CODE', $request->codigo)->first();
             
 
@@ -1161,11 +1165,11 @@ class Webcontroller extends Controller
                 $output .= '</div>';
             } else {
              
-                $output .= '<br><p class="alert alert-success"><i class="fa-regular fa-circle-check fa-2xl"></i>' . '<span style="padding:8px;font-size: 1.2rem;"> El proceso de adjuntar documentos ha finalizado' . '</span></p>';
+                $output .= '<br><p style="width:90%;margin:auto;" class="alert alert-success"><i class="fa-regular fa-circle-check fa-2xl"></i>' . '<span style="padding:8px;font-size: 1.2rem;"> El proceso de adjuntar documentos ha finalizado' . '</span></p>';
             }
             return $output;
         }else{
-            $output .= '<br><p class="alert alert-warning"> <i class="fa-solid fa-triangle-exclamation fa-2xl"></i>' . '<span style="padding:8px;font-size: 1.2rem;">  No se encuentra información' . ' </span>   </p>';
+            $output .= '<br><p style="width:90%;margin:auto;" class="alert alert-warning"> <i class="fa-solid fa-triangle-exclamation fa-2xl"></i>' . '<span style="padding:8px;font-size: 1.2rem;">  No se encuentra información' . ' </span>   </p>';
             return $output;
         }
     }
@@ -1177,23 +1181,36 @@ class Webcontroller extends Controller
         $dato = ModelsTramiteusuario::where('num_solicitud', $id)->first();
         //ddd($dato->subasunto);
         //ddd($dato->subasuntos);
-
+        $tipodedocumento=Parametro::where('id', $dato->tipodocumento)->first()->nombre;
         $tiposolicitud= $dato->tiposolicitud;
         //dd( $tiposolicitud);
         $nombrecompleto = $dato->primernombre . ' ' . $dato->segundonombre . ' ' . $dato->primerapellido  . ' ' . $dato->segundoapellido;
-        //ddd($dato);
+        $fecha = $dato->fec_solicitud_tramite;
+        $newDate = date("d-m-Y", strtotime($fecha));  
+        $tipodedocumento=Parametro::where('id', $dato->tipodocumento)->first()->nombre;
+        $tipodedocapoderado=Parametro::where('id', $dato->tipodocapoderado)->first()->nombre;
+        $tiposolicitud= $dato->tiposolicitud;
+        //dd( $tiposolicitud);
+        $nombrecompleto = $dato->primernombre . ' ' . $dato->segundonombre . ' ' . $dato->primerapellido  . ' ' . $dato->segundoapellido;
+        $apoderado = $dato->primernombreapoderado . ' ' . $dato->segundonombreapoderado . ' ' . $dato->primerapellidoapoderado  . ' ' . $dato->segundoapellidoapoderado;
+
         $numero=number_format($dato->cuantia,0,'.','.');
         $detalleAbc = Subdescripcion::where('subasu_id', $dato->subasunto)
             ->where('sis_esta_id', 1)
             ->orderBy('id')
             ->get();
+        $convocates = Convocante::where('num_solicitud', $id)
+            ->orderBy('id')
+            ->get();
+            
         //INFORMACION RETORNADA EN LA VISTA
         //$conteo= count($detalleAbc)-1;
 
         $data = array(
-            "detalleAbc" => $detalleAbc
+            "detalleAbc" => $detalleAbc,
+            "convocates" => $convocates
         );
-        return view('frmWeb.card.adjuntar', compact('dato', 'data', 'nombrecompleto','tiposolicitud','numero'));
+        return view('frmWeb.card.adjuntar', compact('dato', 'data', 'nombrecompleto','tiposolicitud','numero','newDate','tipodedocumento','apoderado','tipodedocapoderado'));
     }
 
 
@@ -1206,8 +1223,8 @@ class Webcontroller extends Controller
     public function Desistir($id)
     {
         $dato = ModelsTramiteusuario::where('num_solicitud', $id)->first();
-
-        return view('frmWeb.card.desistimiento', compact('dato'));
+        $newDate = date("d-m-Y", strtotime($dato->fec_solicitud_tramite));  
+        return view('frmWeb.card.desistimiento', compact('dato','id','newDate'));
     }
 
 
@@ -1215,11 +1232,61 @@ class Webcontroller extends Controller
     public function Cambioestado(Request $request, $id)
     {
         $detalle = $request->input("desistir");
-        $modelo = ModelsTramiteusuario::where('num_solicitud', $id)->update(['ESTADO_TRAMITE' => $detalle]);
+        
+        $dato = ModelsTramiteusuario::where('num_solicitud', $id)->first();
+        $fecha = $dato->fec_solicitud_tramite;
+        $newDate = date("d-m-Y", strtotime($fecha));  
+        $nombrecompleto = $dato->primernombre . ' ' . $dato->segundonombre . ' ' . $dato->primerapellido  . ' ' . $dato->segundoapellido;
+        $modelo = ModelsTramiteusuario::where('num_solicitud', $id)->update(['estado_tramite' => $detalle,'estadodoc'=>'Cancelado']);
         if ($detalle == 'Cancelado') {
-            return redirect('https://www.personeriabogota.gov.co/');
+
+  
+            
+            //ddd($dato);
+            $detalleAbc = Subdescripcion::where('subasu_id', $dato->subasunto)
+                ->where('sis_esta_id', 1)
+                ->orderBy('id')
+                ->get();
+    
+        
+    
+            
+            $conteo= count($detalleAbc)-1;
+            try {
+                $subject = 'Solicitud conciliaciones Web  - Personería de Bogotá D.C.';
+                $data = array(
+                    'email' => $dato->email,
+                    'asuntos' => $dato->asuntos->nombre,
+                    'nombrecompleto' => $nombrecompleto,
+                    'subject' => $subject,
+                    'numSolicitud' => $id,
+                    'emailApoderado' => $dato->emailapoderado,
+                    'fechaRegistro' => $newDate,
+                );
+    
+                Mail::send('frmWeb.email.desistir', $data, function ($message) use ($data) {
+                    $message->from('master@personeriabogota.gov.co', 'Solicitud conciliaciones Web - Personería de Bogotá D.C.');
+                    $message->to($data['email']);
+                    if (isset($data['emailApoderado']) && !empty($data['emailApoderado'])) {
+                        $message->cc($data['emailApoderado']);
+                    }
+                    $message->bcc('jaruedag@personeriabogota.gov.co');
+                    $message->bcc('jamumi14@gmail.com');
+                   // $message->attach('FORMATO_SOLICITUD_DE_CONCILIACION_V4');
+                    // $message->bcc('ljmeza@personeriabogota.gov.co');
+                    // $message->bcc('nylopez@personeriabogota.gov.co');
+                    // $message->bcc('asarmiento@personeriabogota.gov.co');
+                    $message->subject($data['subject']);
+                });
+            } catch (\Exception $e) {
+                return '|0| 3.0) Problema al enviar el correo de confirmacion: </br>' . $e->getMessage();
+            }
+
+
+            //return redirect('https://www.personeriabogota.gov.co/');
+            return '|1|Confirmo el desistimiento de la solicitud de conciliación vía web no '.$id.' registrada el día '.$newDate;
         } else {
-            return redirect()->route('search');
+            return '|0| 3.0) test: </br>';
         }
     }
 
@@ -1264,7 +1331,7 @@ class Webcontroller extends Controller
             
             $descripcion[] = 'Documentos que complementen su solicitud';
             if($dato->tiposolicitud==1){
-                $descripcion[] = 'Poder especial para conciliar dirigido al centro de conciliación de la personería de Bogota D.C. *';
+                $descripcion[] = 'Poder especial para conciliar dirigido al centro de conciliación de la personería de Bogota D.C.';
             }
            
 
@@ -1307,7 +1374,10 @@ class Webcontroller extends Controller
      
 //        ddd($solicitud);
 
-        $fecha = Soportecon::where('NUM_SOLICITUD', $id)->first()->created_at;
+     
+        $dato->fec_solicitud_tramite;
+        $fecha = $dato->fec_solicitud_tramite;
+        $newDate = date("d-m-Y", strtotime($fecha));  
         $nombrecompleto = $dato->primernombre . ' ' . $dato->segundonombre . ' ' . $dato->primerapellido  . ' ' . $dato->segundoapellido;
         //ddd($dato);
         $detalleAbc = Subdescripcion::where('subasu_id', $dato->subasunto)
@@ -1328,7 +1398,7 @@ class Webcontroller extends Controller
                 'subject' => $subject,
                 'numSolicitud' => $id,
                 'emailApoderado' => $dato->emailapoderado,
-                'fechaRegistro' => explode(' ',$fecha)[0],
+                'fechaRegistro' =>$newDate,
             );
 
             Mail::send('frmWeb.email.adjuntoarchivo', $data, function ($message) use ($data) {
@@ -1348,7 +1418,7 @@ class Webcontroller extends Controller
         } catch (\Exception $e) {
             return '|0| 3.0) Problema al enviar el correo de confirmacion: </br>' . $e->getMessage();
         }
-        return redirect('https://www.personeriabogota.gov.co/');
+        return  '|1|Se ha realizado el registro de documentos de la solicitud de conciliación vía web no '.$id.' registrada el día '.$newDate;
         //return '|0| 3.0) Test: </br>' ;
         DB::commit();
      

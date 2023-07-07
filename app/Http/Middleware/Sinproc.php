@@ -17,7 +17,7 @@ class Sinproc
     {
 
         if (!isset($_GET['key'])) {
-            abort(Response::HTTP_UNAUTHORIZED);
+            return redirect()->route('sinpermisos');
         }
         $key = base64_decode($_GET['key']);
         $acceso = $this->data($key);
@@ -29,7 +29,7 @@ class Sinproc
                 ->where('estado', 'A')
                 ->first();
         } else {
-            abort(Response::HTTP_UNAUTHORIZED);
+              return redirect()->route('sinpermisos');
         }
  
         //dd($user->roles);
@@ -38,7 +38,7 @@ class Sinproc
             return $next($request);
         } else {
             // validation not successful, send back to form
-            abort(Response::HTTP_UNAUTHORIZED);
+            return redirect()->route('sinpermisos');
         }
     }
 

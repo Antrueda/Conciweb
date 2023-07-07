@@ -294,7 +294,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
         <center>
         <div class="col-md-6">
             
-            <h3 class="mt-2" style="text-justify;color:#0171BD">SOLICITUD DE CONCILIACIÓN</h3>
+            <p class="mt-2" style="text-justify;color:#0171BD;font-weight:800;">SOLICITUD DE CONCILIACIÓN</p>
         </div>
     </center>
         <div class="col-md-1"> </div>
@@ -356,20 +356,18 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
         <div class="card-body" style="margin-bottom: 10px;">
             <div class="row">
                 <div class="col-md-3">
-                    <div class="form-floating">
+                    <div class="form-floating mb-3">
          
-                    {{ Form::select('tipoDocumento', $data['listaTipoDoc'], null, ['class' => $errors->first('tipoDocumento') ? 'form-select form-select-sm is-invalid' : 'form-select form-select-sm validate[required]'.'required','id'=>'tipoDocumento','aria-label'=>"tipoDocumento",'required']) }}
-                    @if($errors->has('tipoDocumento'))
-                        <div class="invalid-feedback d-block">
-                            {{ $errors->first('tipoDocumento') }}
-                        </div>
-                    @endif
+                    {{ Form::select('tipoDocumento', $data['listaTipoDoc'], null, ['class' => 'form-control form-control-sm validate','name'=>'tipoDocumento','id'=>'tipoDocumento','aria-label'=>"tipoDocumento",'required']) }}
+                    <div class="invalid-feedback tipoDocumento">
+                        Campo obligatorio.
+                      </div>
                     <label for="tipoDocumento">1. Tipo Documento *</label>
                     </div>
                 </div>
                 <div class="col-md-3">
                 <div class="form-floating mb-3">
-                    <input type="number" class="form-control form-control-sm validate" id="numeroDocumento" name="numeroDocumento" autocomplete="off" onkeypress = "return soloNumeros(event);" required placeholder="0" minlength="4" maxlength="10" pattern="[0-9]+" >
+                    <input type="number" class="form-control form-control-sm validate" id="numeroDocumento" onkeyup="this.value=this.value.toUpperCase();" name="numeroDocumento" autocomplete="off" onkeypress = "return soloNumeros(event);" required placeholder="0" minlength="4" maxlength="10" pattern="[0-9]+" >
                     <label for="numeroDocumento">2. No. de documento *</label>
                     <div class="invalid-feedback numeroDocumento">
                         Campo obligatorio.
@@ -383,7 +381,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
      
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
-                    <input type="text" class="form-control form-control-sm validate" minlength="3" name="primerNombre" id="primerNombre" autocomplete="off" placeholder="0" required style="text-transform: uppercase">
+                    <input type="text" class="form-control form-control-sm validate" minlength="3" name="primerNombre"  onkeyup="this.value=this.value.toUpperCase();" id="primerNombre" autocomplete="off" placeholder="0" required style="text-transform: uppercase">
                         <label for="primerNombre">3. Primer Nombre *</label>
                         <div class="invalid-feedback primerNombre">
                             Campo obligatorio.
@@ -393,13 +391,13 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
 
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm" name="segundoNombre" id="segundoNombre" autocomplete="off" placeholder="0" style="text-transform: uppercase" >
+                        <input type="text" class="form-control form-control-sm" name="segundoNombre" id="segundoNombre" onkeyup="this.value=this.value.toUpperCase();" autocomplete="off" placeholder="0" style="text-transform: uppercase" >
                         <label for="segundoNombre">4. Segundo Nombre</label>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm validate" minlength="3" name="primerApellido" id="primerApellido" autocomplete="off" placeholder="0" required style="text-transform: uppercase">
+                        <input type="text" class="form-control form-control-sm validate" minlength="3" name="primerApellido" onkeyup="this.value=this.value.toUpperCase();" id="primerApellido" autocomplete="off" placeholder="0" required style="text-transform: uppercase">
                         <label for="primerApellido">5. Primer Apellido*</label>
                         <div class="invalid-feedback primerApellido">
                             Campo obligatorio.
@@ -408,7 +406,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                 </div>
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm" name="segundoApellido" id="segundoApellido" autocomplete="off" placeholder="0" style="text-transform: uppercase">
+                        <input type="text" class="form-control form-control-sm" name="segundoApellido" id="segundoApellido" onkeyup="this.value=this.value.toUpperCase();" autocomplete="off" placeholder="0" style="text-transform: uppercase">
                         <label for="segundoApellido">6. Segundo Apellido</label>
                     </div>
                 </div>
@@ -431,7 +429,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                 </div>
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm validate" name="direccion" id="direccion" autocomplete="off" placeholder="0" required style="text-transform: uppercase">
+                        <input type="text" class="form-control form-control-sm validate" name="direccion" id="direccion" autocomplete="off" onkeyup="this.value=this.value.toUpperCase();" placeholder="0" required style="text-transform: uppercase">
                         <label for="direccion">9. Dirección *</label>
                         <div class="invalid-feedback direccion">
                             Campo obligatorio.
@@ -443,12 +441,9 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                     <div class="form-floating mb-3">
       
                     {{ Form::select('localidad', $data['listaLocalidades'], null, ['class' => $errors->first('localidad') ? 'form-control form-control-sm is-invalid validate' : 'form-control form-control-sm validate','id'=>'localidad','required', 'onchange' => 'doc1(this.value)']) }}
-                    @if($errors->has('localidad'))
-                        <div class="invalid-feedback d-block">
-                            {{ $errors->first('localidad') }}
-                            Campo obligatorio.
-                        </div>
-                    @endif
+                    <div class="invalid-feedback localidad">
+                        Campo obligatorio.
+                      </div>
                     <label for="localidad"> 10. Localidad *</label>
                   </div>
                 </div>
@@ -486,13 +481,10 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
     
                 <div class="form-floating mb-3">
   
-                {{ Form::date('fechanacimiento', null, ['class' => $errors->first('fechanacimiento') ? 'form-control form-control-sm is-invalid validate' : 'form-control form-control-sm validate','id'=>'fechanacimiento','required', 'max'=>$data['Maxhoy']]) }}
-                @if($errors->has('fechanacimiento'))
-                    <div class="invalid-feedback d-block">
-                        {{ $errors->first('fechanacimiento') }}
-                        Campo obligatorio.
-                    </div>
-                @endif
+                {{ Form::date('fechanacimiento', null, ['class' => $errors->first('fechanacimiento') ? 'form-control form-control-sm is-invalid validate' : 'form-control form-control-sm validate','id'=>'fechanacimiento','name'=>'fechanacimiento', 'onkeydown'=>"return false", 'required', 'max'=>$data['Maxhoy'], 'min'=>$data['minhoy']]) }}
+                <div class="invalid-feedback fechanacimiento">
+                    Campo obligatorio.
+                  </div>
                 <label for="fechanacimiento"> 11. Fecha de Nacimiento *</label>
               </div>
             </div>
@@ -502,7 +494,9 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                 <div class="form-floating mb-3">
   
                 {{ Form::text('rangoedad', null, ['class' => $errors->first('rangoedad') ? 'form-control form-control-sm is-invalid validate' : 'form-control form-control-sm validate','style'=>"text-transform: uppercase",'id'=>'rangoedad'] ) }}
-        
+                <div class="invalid-feedback rangoedad">
+                    Campo obligatorio.
+                  </div>
                 <label for="rangoedad">12. Rango de Edad</label>
               </div>
             </div>
@@ -510,13 +504,10 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
     
                 <div class="form-floating mb-3">
   
-                {{ Form::select('escolaridad', $data['escolaridad'], null, ['class' => $errors->first('escolaridad') ? 'form-control form-control-sm is-invalid validate' : 'form-control form-control-sm validate','id'=>'escolaridad','required']) }}
-                @if($errors->has('escolaridad'))
-                    <div class="invalid-feedback d-block">
-                        {{ $errors->first('escolaridad') }}
-                        Campo obligatorio.
-                    </div>
-                @endif
+                {{ Form::select('escolaridad', $data['escolaridad'], null, ['class' => $errors->first('escolaridad') ? 'form-control form-control-sm is-invalid validate' : 'form-control form-control-sm validate','name'=>'escolaridad','id'=>'escolaridad','required']) }}
+                <div class="invalid-feedback escolaridad">
+                    Campo obligatorio.
+                  </div>
                 <label for="escolaridad"> 13. Nivel de Escolaridad *</label>
               </div>
             </div>
@@ -524,28 +515,24 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
     
                 <div class="form-floating mb-3">
   
-                {{ Form::select('nacionalidad', $data['nacionalidad'], null, ['class' => $errors->first('nacionalidad') ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm','placeholder'=>'Seleccione','id'=>'nacionalidad','required',]) }}
-                
-                @if($errors->has('nacionalidad'))
-                    <div class="invalid-feedback d-block">
-                        {{ $errors->first('nacionalidad') }}
-                        Campo obligatorio.
-                    </div>
-                @endif
+                {{ Form::select('nacionalidad', $data['nacionalidad'], null, ['class' => 'form-control form-control-sm selectize','placeholder'=>'Seleccione','name'=>'nacionalidad','id'=>'nacionalidad','required',]) }}
+                <div class="invalid-feedback nacionalidad">
+                    Campo obligatorio.
+                  </div>
+              
                 <label for="nacionalidad"> 14. Nacionalidad *</label>
               </div>
             </div>
+
+            
             <div class="col-md-3">
     
                 <div class="form-floating mb-3">
   
-                {{ Form::select('sexo', $data['sexocombo'], null, ['class' => $errors->first('sexo') ? 'form-control form-control-sm is-invalid validate' : 'form-control form-control-sm validate','id'=>'sexo','required', ]) }}
-                @if($errors->has('sexo'))
-                    <div class="invalid-feedback sexo">
-                        {{ $errors->first('sexo') }}
-                        Campo obligatorio.
-                    </div>
-                @endif
+                {{ Form::select('sexo', $data['sexocombo'], null, ['class' => 'form-control form-control-sm validate','name'=>'sexo','id'=>'sexo','required', ]) }}
+                <div class="invalid-feedback sexo">
+                    Campo obligatorio.
+                  </div>
                 <label for="sexo"> 15. Sexo *</label>
               </div>
             </div>
@@ -553,12 +540,10 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
     
                 <div class="form-floating mb-3">
   
-                {{ Form::select('genero', $data['generocombo'], null, ['class' => $errors->first('localidad') ? 'form-control form-control-sm is-invalid validate' : 'form-control form-control-sm validate','id'=>'localidad','required', ]) }}
-                @if($errors->has('genero'))
-                    <div class="invalid-feedback genero">
-                        {{ $errors->first('genero') }}
-                    </div>
-                @endif
+                {{ Form::select('genero', $data['generocombo'], null, ['class' => 'form-control form-control-sm validate','name'=>'genero','id'=>'genero','required', ]) }}
+                <div class="invalid-feedback genero">
+                    Campo obligatorio.
+                  </div>
                 <label for="genero"> 16. Identidad de Genero *</label>
               </div>
             </div>
@@ -567,13 +552,10 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
     
                 <div class="form-floating mb-3">
   
-                {{ Form::select('orientacion', $data['orientacioncombo'], null, ['class' => $errors->first('orientacion') ? 'form-control form-control-sm is-invalid validate' : 'form-control form-control-sm validate','id'=>'orientacion','required',]) }}
-                @if($errors->has('orientacion'))
-                    <div class="invalid-feedback orientacion">
-                        {{ $errors->first('orientacion') }}
-                        Campo obligatorio.
-                    </div>
-                @endif
+                {{ Form::select('orientacion', $data['orientacioncombo'], null, ['class' => 'form-control form-control-sm validate','name'=>'orientacion','id'=>'orientacion','required',]) }}
+                <div class="invalid-feedback orientacion">
+                    Campo obligatorio.
+                  </div>
                 <label for="localidad"> 17. Orientación Sexual *</label>
               </div>
             </div>
@@ -581,13 +563,10 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
     
                 <div class="form-floating">
                     
-                {{ Form::select('grupoafectado', $data['grupoafectado'], null, ['class' => $errors->first('grupoafectado') ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm','id'=>'grupoafectado','required',]) }}
-                @if($errors->has('grupoafectado'))
-                    <div class="invalid-feedback grupoafectado">
-                        {{ $errors->first('grupoafectado') }}
-                        Campo obligatorio.
-                    </div>
-                @endif
+                {{ Form::select('grupoafectado', $data['grupoafectado'], null, ['class' => 'form-control form-control-sm selectize','name'=>'grupoafectado','id'=>'grupoafectado','required',]) }}
+                <div class="invalid-feedback grupoafectado">
+                    Campo obligatorio.
+                  </div>
                 <label for="localidad"> 18. Grupo Afectado *</label>
               </div>
             </div>
@@ -661,7 +640,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
             <div class="row">
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
-                        {{ Form::select('tipoDocApoderado', $data['listaTipoDoc'], null, ['class' => $errors->first('tipoDocApoderado') ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm']) }}
+                        {{ Form::select('tipoDocApoderado', $data['listaTipoDoc'], null, ['class' => 'form-control form-control-sm validate']) }}
                     @if($errors->has('tipoDocApoderado'))
                         <div class="invalid-feedback d-block">
                             {{ $errors->first('tipoDocApoderado') }}
@@ -686,7 +665,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
 
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm validate" name="primerNombreApoderado" id="primerNombreApoderado" autocomplete="off" placeholder="0" style="text-transform: uppercase">
+                        <input type="text" class="form-control form-control-sm validate" onkeyup="this.value=this.value.toUpperCase();" name="primerNombreApoderado" id="primerNombreApoderado" onkeyup="this.value=this.value.toUpperCase();" autocomplete="off" placeholder="0" style="text-transform: uppercase">
                         <label for="primerNombreApoderado"> 20.3. Primer Nombre *</label>
                         <div class="invalid-feedback primerNombreApoderado">
                             Campo obligatorio.
@@ -696,14 +675,14 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                 </div>
                 <div class="col-md-3">
                   <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm" name="segundoNombreApoderado" id="segundoNombreApoderado" autocomplete="off" placeholder="0" style="text-transform: uppercase">
+                        <input type="text" class="form-control form-control-sm" onkeyup="this.value=this.value.toUpperCase();" name="segundoNombreApoderado" id="segundoNombreApoderado" autocomplete="off" placeholder="0" style="text-transform: uppercase">
                         <label for="segundoNombreApoderado"> 20.4. Segundo Nombre</label>
                     </label>
                 </div>
             </div>
                 <div class="col-md-3">
                   <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm validate" name="primerApellidoApoderado" id="primerApellidoApoderado" autocomplete="off" placeholder="0" style="text-transform: uppercase">
+                        <input type="text" class="form-control form-control-sm validate" onkeyup="this.value=this.value.toUpperCase();" name="primerApellidoApoderado" id="primerApellidoApoderado" autocomplete="off" placeholder="0" style="text-transform: uppercase">
                         <label for="primerApellidoApoderado"> 20.5. Primer Apellido *</label>
                         <div class="invalid-feedback primerApellidoApoderado">
                             Campo obligatorio.
@@ -713,7 +692,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                 </div>
                 <div class="col-md-3">
                   <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm" name="segundoApellidoApoderado" id="segundoApellidoApoderado" autocomplete="off" placeholder="0" style="text-transform: uppercase">
+                        <input type="text" class="form-control form-control-sm" onkeyup="this.value=this.value.toUpperCase();" name="segundoApellidoApoderado" id="segundoApellidoApoderado" autocomplete="off" placeholder="0" style="text-transform: uppercase">
                         <label for="segundoApellidoApoderado"> 20.6. Segundo Apellido</label>
                         
                     </div>
@@ -722,7 +701,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
         
                 <div class="col-md-3">
                   <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm validate" name="tarjetaProfesional" id="tarjetaProfesional" autocomplete="off" placeholder="0" style="text-transform: uppercase">
+                        <input type="text" class="form-control form-control-sm validate"  name="tarjetaProfesional" id="tarjetaProfesional" autocomplete="off" placeholder="0" style="text-transform: uppercase">
                         <label for="tarjetaProfesional"> 20.7. No. tarjeta Profesional *</label>
                         <div class="invalid-feedback tarjetaProfesional">
                             Campo obligatorio.
@@ -732,7 +711,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                 </div>
                 <div class="col-md-3">
                   <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm" name="direccionApoderado" id="direccionApoderado" autocomplete="off" placeholder="0" style="text-transform: uppercase">
+                        <input type="text" class="form-control form-control-sm" onkeyup="this.value=this.value.toUpperCase();" name="direccionApoderado" id="direccionApoderado" autocomplete="off" placeholder="0" style="text-transform: uppercase">
                         <label for="direccionApoderado"> 20.8. Dirección *</label>
                         <div class="invalid-feedback direccionApoderado">
                             Campo obligatorio.
@@ -742,7 +721,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                 </div>
                 <div class="col-md-3">
                   <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm validate" name="primerTelefonoApoderado" id="primerTelefonoApoderado" autocomplete="off" placeholder="0" onkeypress = "return soloNumeros(event);">
+                        <input type="text" class="form-control form-control-sm validate" name="primerTelefonoApoderado" id="primerTelefonoApoderado" autocomplete="off" placeholder="0"  minlength="10" max="10" onkeypress = "return soloNumeros(event);">
                         <label for="primerTelefonoApoderado"> 20.9. Teléfono Celular *</label>
                         <div class="invalid-feedback primerTelefonoApoderado">
                             Campo obligatorio.
@@ -751,7 +730,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                 </div>
                 <div class="col-md-3">
                   <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm validate[required minSize[7], maxSize[10]]" name="segundoTelefonoApoderado" id="segundoTelefonoApoderado" autocomplete="off" placeholder="0" onkeypress = "return soloNumeros(event);">
+                        <input type="text" class="form-control form-control-sm validate[required minSize[7], maxSize[10]]" name="segundoTelefonoApoderado"  minlength="10" max="10" id="segundoTelefonoApoderado" autocomplete="off" placeholder="0" onkeypress = "return soloNumeros(event);">
                         <label for="segundoTelefonoApoderado"> 20.10. Teléfono fijo</label>
            
                     </div>
@@ -761,7 +740,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                 <div class="col-md-6">
                   <div class="form-floating mb-3">
                         <input type="text" class="form-control form-control-sm validate[required, custom[email]]" name="emailApoderado" id="emailApoderado" autocomplete="off" placeholder="0">
-                        <label for="emailApoderado"> 20.10. Correo electronico*</label>
+                        <label for="emailApoderado"> 20.11. Correo electronico*</label>
                         <div class="invalid-feedback emailApoderado">
                             Campo obligatorio.
                           </div>
@@ -810,7 +789,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                 <div class="row">
                     <div class="col-md-3">
                         <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm" name="nomConvoc" id="nomConvoc" autocomplete="off" placeholder="0" minlength="3" >
+                        <input type="text" class="form-control form-control-sm" onkeyup="this.value=this.value.toUpperCase();"  style="text-transform: uppercase" name="nomConvoc" id="nomConvoc" autocomplete="off" placeholder="0" minlength="3" >
                             <label for="nomConvoc">Nombres convocado</label>
                             <div class="invalid-feedback nomConvoc">
                                 Campo obligatorio.
@@ -819,7 +798,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                     </div>
                     <div class="col-md-3">
                         <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm" name="apeConvoca" id="apeConvoca" autocomplete="off" placeholder="0" minlength="3" >
+                        <input type="text" class="form-control form-control-sm" onkeyup="this.value=this.value.toUpperCase();" style="text-transform: uppercase" name="apeConvoca" id="apeConvoca" autocomplete="off" placeholder="0" minlength="3" >
                             <label for="apeConvocante">Apellidos convocado</label>
                             <div class="invalid-feedback apeConvocante">
                                 Campo obligatorio.
@@ -994,7 +973,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-floating mb-3">
-                                <textarea class="form-control form-control-sm validate[required, maxSize[1000]]" name="detalle" id="detalle" placeholder="Resumen" oninput="auto_grow(this)" maxlength="1000"  cols='30' rows='20' style="text-transform: uppercase"></textarea>
+                                <textarea class="form-control form-control-sm validate[required, maxSize[1000]]" onkeyup="this.value=this.value.toUpperCase();" name="detalle" id="detalle" placeholder="Resumen" oninput="auto_grow(this)" maxlength="1000"  cols='30' rows='20' style="text-transform: uppercase"></textarea>
                                 <label for="detalle"> 22. Resumen de la pretensión o conflicto (Máximo 1000 caracteres)*</label>
                                 <span id="chars"></span>
                                 </div>
@@ -1174,7 +1153,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
     });
     //Error en comparacion de email
     function errorEmailIgual() {
-        var msg = "Los correos electrónicos del solicitante en el campo 11 y 11.1 no son iguales. Por favor verifíquelos.  ";
+        var msg = "Los correos electrónicos del solicitante en el campo 19 y 19.1 no son iguales. Por favor verifíquelos.  ";
         var msg = "<center><p><i class='fas fa-times-circle fa-3x'></i></p></center>" + msg;
         llamarNotyTime('error', msg, 'center', 3000);
     }
@@ -1192,6 +1171,12 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
     }
     function correonovalido() {
         var msg = "Formato de correo no valido.";
+        var msg = "<center><p><i class='fas fa-times-circle fa-3x'></i></p></center>" + msg;
+        llamarNotyTime('error', msg, 'center', 3000);
+    }
+
+    function rangofecha() {
+        var msg = "Rango de fecha no valido.";
         var msg = "<center><p><i class='fas fa-times-circle fa-3x'></i></p></center>" + msg;
         llamarNotyTime('error', msg, 'center', 3000);
     }
@@ -1221,7 +1206,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
     }
     //Error en comparacion de email Apoderado
     function errorEmailIgualApod() {
-        var msg = "Los correos electrónicos del apoderado en el campo 11.11 y 11.12 no son iguales Por favor verifíquelos.  ";
+        var msg = "Los correos electrónicos del apoderado en el campo 20.11 y 20.12 no son iguales Por favor verifíquelos.  ";
         var msg = "<center><p><i class='fas fa-times-circle fa-3x'></i></p></center>" + msg;
         llamarNotyTime('error', msg, 'center', 3000);
     }
@@ -1556,15 +1541,15 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             beforeSend: function() {
-                new Noty({
-                    text: '<div class="d-flex justify-content-center"><div class="spinner-border" role="status"><span class="sr-only">Cargando...</span></div></div>',
-                    //type: 'info',
-                    layout: 'center',
-                    theme: 'bootstrap-v4',
-                    killer: true,
-                    progressBar: true,
-                    timeout: 300,
-                }).show();
+                // new Noty({
+                //     text: '<div class="d-flex justify-content-center"><div class="spinner-border" role="status"><span class="sr-only">Cargando...</span></div></div>',
+                //     //type: 'info',
+                //     layout: 'center',
+                //     theme: 'bootstrap-v4',
+                //     killer: true,
+                //     progressBar: true,
+                //     timeout: 300,
+                // }).show();
             },
             success: function(opciones) {
                 $('#subAsunto')
@@ -1640,21 +1625,31 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
 
 
 
-    $('#nacionalidad').selectize({
-    searchField: 'text',
-    valueField: 'id',
-    plugins: ["auto_position"],
-      });
+     $('#nacionalidad').selectize({
     
-
+       });
+    
+    //   $('#nacionalidad').selectize({
+    // searchField: 'text',
+    // valueField: 'id',
+    // onChange        : eventHandler('onChange'),
+    // plugins: ["auto_position"],
+    //   });
 
       $('#grupoafectado').selectize({
     searchField: 'text',
     valueField: 'id',
     plugins: ["auto_position"],
       });
+      
+      
 })  ;
-
+        var eventHandler = function(name) {
+        return function() {
+            console.log(name, arguments);
+            $('#log').append('<div><span class="name">' + name + '</span></div>');
+        };
+        };
 
     (function($) {
             $.fn.extend( {
@@ -1768,6 +1763,8 @@ function run(hideTab, showTab){
           var currentTab = 0;
           x = $('#tab-'+hideTab);
           y = $(x).find(".form-control.form-control-sm.validate");
+          z = $(x).find(".selectize");
+          var empty_fields=[];
 
             if (hideTab==1){
                 if ($("#email").val() !== $("#emailCon").val()||$("#email").val() ==='') {
@@ -1775,10 +1772,50 @@ function run(hideTab, showTab){
                     return;
                 }
 
-                if ($("#tipoDocumento").val()==='') {
-                    TipoDocumento();
-                    return;
-                }
+
+                // $('.selectize').find('input').on('blur', function(){
+                //     var selected_customer = $(this).val();
+                //     console.log(selected_customer);
+                //     if(selected_customer === ''){
+                //         alert(selected_customer);
+                //         return;
+                //     }
+                //     });
+
+                // $(".selectize").each(function() {
+                //         // var select = $(this).selectize(
+                //         //     //your options
+                //         // );
+                //         // console.log(select);
+                //         // var selectize = select[0].selectize;
+                //         // console.log(selectize.getValue);
+                //         var nombre= `${this.id}`;
+                //         var valor=  $(this).val();
+                //         nombre= nombre.replace('[]','')
+                //         console.log(nombre);
+                //          console.log(valor);
+                //         if(valor===""){
+                //             $(this).css("background", "#ffdddd");
+                //             $(".invalid-feedback."+nombre).show();
+                //             camposfaltantes();
+                //             return;
+                //         }else{
+                //             $(this).css("background", "transparent");
+                //             $(".invalid-feedback."+nombre).hide();
+                            
+                //         }
+                    
+                //     });
+
+            
+          
+                 
+
+
+                // if ($("#tipoDocumento").val()==='') {
+                //     TipoDocumento();
+                //     return;
+                // }
                 if ($("#tipoSolicitud").val()===' ') {
                     TipoSolicitud();
                     return;
@@ -1790,14 +1827,11 @@ function run(hideTab, showTab){
                     return;
                 }
 
-                if ($("#tipoDocumento").val()==='') {
+                if ($("#tipoDocApoderado").val()==='') {
                     TipoDocumento();
                     return;
                 }
-                if ($("#tipoSolicitud").val()===' ') {
-                    TipoSolicitud();
-                    return;
-                }
+      
                 
 
         }
@@ -1843,9 +1877,11 @@ function run(hideTab, showTab){
                     if (y[i].value == ""||$(y[i]).val().length < y[i].minLength){
                         var nombre= y[i].name;
                         $(y[i]).css("background", "#ffdddd");
+                        console.log(y[i]);
+                        console.log(nombre);
                         console.log(y[i].value);
                         nombre= nombre.replace('[]','')
-        
+                 
                         $('.invalid-feedback.'+nombre).show();
                         return false;
                     }else{
@@ -1858,27 +1894,69 @@ function run(hideTab, showTab){
                         $('.invalid-feedback.'+nombre).hide();
                     }          
                   }
+   
+                  for (i = 0; i < z.length; i++){
+                    console.log(hideTab);
+                    var nombre= z[i].id;
+                    if (z[i].value == ""||$(z[i]).val().length < z[i].minLength){
+                 
+                        $(z[i]).css("background", "#ffdddd");
+                        console.log(z[i]);
+                        console.log(nombre);
+                        console.log(z[i].value);
+                        nombre= nombre.replace('[]','')
+                 
+                        $('.invalid-feedback.'+nombre).show();
+                        return false;
+                    }else{
+                        console.log(z[i].name);
+                        var nombre= z[i].name;
+            
+                       
+                
+                        $(z[i]).css("background", "transparent");
+                        $('.invalid-feedback.'+nombre).hide();
+                    }          
+                  }
 
              //}
-                
-                y.each(function() {
-                //console.log(`${index}: ${this.id} ${value}`);
-                var nombre= `${this.id}`;
-                var valor=  $(this).val();
-                nombre= nombre.replace('[]','')
-                console.log(nombre);
-                console.log(valor);
-                if(valor===""){
-                    $(this).css("background", "#ffdddd");
-                    $(".invalid-feedback."+nombre).show();
-                    camposfaltantes();
-                    return;
-                }else{
-                    $(this).css("background", "transparent");
-                    $(".invalid-feedback."+nombre).hide();
+            //      y.each(function() {
+            //     //console.log(`${index}: ${this.id} ${value}`);
+            //     var nombre= `${this.id}`;
+            //     var valor=  $(this).val();
+            //     nombre= nombre.replace('[]','')
+            //      console.log(nombre);
+            //      console.log(valor);
+            //     if(valor===""){
+            //         $(this).css("background", "#ffdddd");
+            //         $(".invalid-feedback."+nombre).show();
+            //         camposfaltantes();
+            //         return false;
+            //     }else{
+            //         $(this).css("background", "transparent");
+            //         $(".invalid-feedback."+nombre).hide();
                     
-                }
-               });
+            //     }
+            //    });
+            //     y.each(function() {
+            //     //console.log(`${index}: ${this.id} ${value}`);
+            //     var nombre= `${this.id}`;
+            //     var valor=  $(this).val();
+            //     nombre= nombre.replace('[]','')
+            //      console.log(nombre);
+            //     // console.log(valor);
+            //     if(valor===""){
+            //         $(this).css("background", "#ffdddd");
+            //         $(".invalid-feedback."+nombre).show();
+            //         camposfaltantes();
+            //         return;
+            //     }else{
+            //         $(this).css("background", "transparent");
+            //         $(".invalid-feedback."+nombre).hide();
+                    
+            //     }
+            //    });
+               
 
 
 
@@ -2018,8 +2096,12 @@ $('#add_btn').on('click',function(){
                 $('#rangoedad').val('Adultez (27- 59 años)');
             }else
 
-            if(edad>=60){
+            if(edad>=60&&edad<100){
                 $('#rangoedad').val('Persona Mayor (60 años o mas) envejecimiento y vejez');
+            }else
+            if(edad>=100){
+                $('#rangoedad').val('Rango de edad no valida');
+                rangofecha();
             }
                         
             

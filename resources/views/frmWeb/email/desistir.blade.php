@@ -15,26 +15,16 @@
             margin-top: 1rem;
             padding: 0.7rem;
             text-align: center;
-            width: 700px;
+            width: 88%;
             margin-left: auto;
             margin-right: auto;
         }
 
         .btn-perso{
-             background-color: #198754;
-                border-color:#198754;
+             background-color: #003e65;
+                border-color:#003e65;
                 color: white;
-                border-radius: 5px;
-                line-height:15px;
-                font-family: Arial; 
-                font-weight: regular;
-                font-size: .875rem;
-                padding: 8px 30px;
             }
-
- 
-
-
         .saludo {
             background-color: #fafafa;
             margin-bottom: 1rem;
@@ -49,18 +39,12 @@
             font-weight: regular;
         }
 
-        .p {
-            line-height:150%;
-
-        }
-
         .datosBasicos {
             text-align: justify;
             width: 92%;
             margin-left: auto;
             margin-right: auto;
             font-size: 100%;
-            line-height:20px;
             font-family: Arial; 
             font-weight: regular;
         }
@@ -76,9 +60,7 @@
             background-color: #8CC63F;
             color: #FFFFFF;
             border-radius: 20px;
-            line-height:15px;
-            font-family: Arial; 
-            font-weight: regular;
+            font-family: 'Public Sans', sans-serif;
         }
 
         .linkModulo:hover {
@@ -108,9 +90,7 @@
             color: #0071BC;
             font-style: oblique;
             font-weight: bold;
-            line-height:15px;
-            font-family: Arial; 
-            font-weight: regular;
+            font-family: 'Public Sans', sans-serif;
         }
 
         .cabecera img {
@@ -128,7 +108,7 @@
     <!-- end css -->
 </head>
 <div class="cabecera">
-    <img style="height: 25%;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnAAAACrCAMAAADRq1FUAAAA5FBMVEVMaXEdcLcdcLc1qOAdcLcd
+    {{-- <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnAAAACrCAMAAADRq1FUAAAA5FBMVEVMaXEdcLcdcLc1qOAdcLcd
     cLcdcLcdcLcdcLc1qOAdcLcdcLcdcLcdcLftHCQdcLcdcLftHCQdcLcdcLftHCQdcLcdcLcdcLcd
     cLcdcLcdcLcdcLcdcLc1qOAdcLcdcLc1qOAdcLc1qOA1qOA1qOA1qOA1qOA1qOA1qOAdcLc1qOA1
     qOAdcLftHCQdcLc1qODtHCTtHCTtHCTtHCTtHCTtHCTtHCTtHCTtHCTtHCTtHCTtHCTtHCTtHCTt
@@ -251,59 +231,34 @@
     oDJy/PnlU/Ubi9x9e8h8L4lLlR/RWszs6WW+zQvPK8ZD1eu9WM4VWlHoGmG6Lc2wCJDBsGHkR2Td
     a3t0OWwtZfsG15cQYfyuUCuxtvvj9nn9eRDGb4+R6bbV84ZfBiPHGLeEzLQSi8GIAFz9x3ECo37o
     l8mY7wlkMOpA+7I1qWDlH4PBYDAYDAaDwWAwGAwGg8FgMBgMBoPBYDAYDAaDwWAwGAwGg8FgMBgM
-    BoMRjyRJ/h+GoUfSgT6GhQAAAABJRU5ErkJggg==" alt="img" />
-
-    {{-- <img height="" src="{{asset('imagen/PropuestalogoConciweb1.png')}}" alt="ConciwebLogo"> --}}
-    
+    BoMRjyRJ/h+GoUfSgT6GhQAAAABJRU5ErkJggg==" alt="img" /> --}}
+    <img  src="{{asset('imagen/PropuestalogoConciweb1.png')}}" alt="ConciwebLogo">
 </div>
 <div class='saludo'>
-    <p>Cordial saludo<b><strong class="px-2" style="text-transform: uppercase;color:#0171BD">{{$nombrecompleto}}</strong></b></p>
+    <p>Cordial saludo <b><strong style="text-transform: uppercase;color:#0171BD">{{$nombrecompleto}}</strong></b></p>
+    @if (isset($emailApoderado) && !empty($emailApoderado)) 
     <p>
-        La Personería de Bogotá D.C., informa que el día {{$fechaRegistro}} se inició el proceso de registro de una Solicitud de Conciliación a través de nuestro sistema de información CONCIWEB.   
+        La Personería de Bogotá, D.C., le informa que el día {{$fechaRegistro}}, usted desistió del proceso de Solicitud de Conciliación Web No. <b>{{$numSolicitud}} </b> . 
     </p>
+    @else
     <p>
-        Su cuenta de correo electrónico ha sido autorizada para recibir la información necesaria para continuar con su requerimiento, 
-        por ello para el trámite solicitado debe  <strong>ADJUNTAR LOS SIGUIENTES DOCUMENTOS:</strong>
+        La Personería de Bogotá, D.C., le informa que el día {{$fechaRegistro}}, usted desistió del proceso de Solicitud de Conciliación Web No. <b>{{$numSolicitud}} </b> . 
     </p>
-    
-    <div class="row">
-        <ul>
-            @foreach ($asuntos as $info)
-            <li style="text-justify">{!! $info->descripcion->nombre !!}</li> 
-            @endforeach
-            @if($tiposolicitud==1)
-            <li style="text-justify">Poder especial para conciliar dirigido al centro de conciliación de la personería de Bogota D.C. *</li> 
-            @endif
-          </ul>  
-    </div>
-    <p> Para finalizar, debe tener presente los siguientes datos y dar clic en el botón adjuntar documentos: </p>
-    <div class='datosBasicos'>
-        <ul>
 
-            <li style="text-justify">Correo electrónico registrado:<b style="font-size: 20px;font-weight: bold; color:#0171BD;"> {{$email}}</b></li> 
-            <li style="text-justify">Pin o Contraseña:<b style="font-size: 20px;font-weight: bold; color:#0171BD;"> {{$llaveingreso}}</b></li> 
-            <li style="text-justify">Numero de solicitud:<b style="font-size: 20px;font-weight: bold; color:#0171BD;"> {{$numSolicitud}}</b></li> 
-  
-          </ul>  
-       
-        <center>
-       
-       <br>
-       {{-- <a class="btn-perso"  type="button" href="https://conciwebv2.personeriabogota.gov.co/search">Adjuntar Documentos</a> --}}
-       <a class="btn-perso"  type="button" href="https://conciweb2-dev.personeriabogota.gov.co/search">Adjuntar Documentos <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19 24.36"><defs><style>.cls-1{fill:#fff;}</style></defs><g id="Layer_2" data-name="Layer 2"><path class="cls-1" d="M2.91,23.78A2.26,2.26,0,0,1,.45,21.33V3.07A2.28,2.28,0,0,1,2.92.59h9.81a2.47,2.47,0,0,1,2.06.94C15.85,2.81,16.91,4.08,18,5.31A2.59,2.59,0,0,1,18.55,7q0,4.59,0,9.19v5.12a2.26,2.26,0,0,1-2.42,2.44H2.91ZM3,1.69c-1,0-1.39.42-1.39,1.4V21.35a1.15,1.15,0,0,0,1.25,1.32H16.18a1.15,1.15,0,0,0,1.26-1.27v-4c0-3.23,0-6.58,0-9.87a.82.82,0,0,0-.19-.6.76.76,0,0,0-.53-.17h-.08l-1,0-1.1,0A2.17,2.17,0,0,1,12.4,5a9.14,9.14,0,0,1-.06-1.82c0-.25,0-.5,0-.76,0-.47-.21-.69-.69-.69H3Zm13,4h.24l.66,0L13.46,1.65v.83c0,.24,0,.47,0,.69,0,.51,0,1,0,1.48a1,1,0,0,0,.82,1,4.31,4.31,0,0,0,.83.06h.81ZM9.5,8.23a.6.6,0,0,1,.4.19c1.13,1.11,2.27,2.25,3.38,3.39a.52.52,0,0,1,0,.79.54.54,0,0,1-.37.16.62.62,0,0,1-.43-.2c-.43-.42-.85-.85-1.27-1.28l-.79-.8-.21.25a.75.75,0,0,0-.16.59.15.15,0,0,1,0,.07c0,1.92,0,3.85,0,5.77,0,.45-.19.58-.39.65a.45.45,0,0,1-.2,0A.57.57,0,0,1,9,17.21V10.13L7.84,11.25c-.44.44-.86.87-1.29,1.28a.66.66,0,0,1-.47.23.51.51,0,0,1-.38-.18.54.54,0,0,1,0-.77L9.1,8.42A.62.62,0,0,1,9.5,8.23Z"/></g></svg></a>
-     
-   
-        <div></div>
-     </center>
-    </div>
-    <br>
-    <br>
-    <div class='noRespuesta'>El presente mensaje es EXCLUSIVAMENTE informativo, y no deber&aacute; ser respondido.
-    <p> <strong> IMPORTANTE.</strong> Si usted desconoce el trámite que mediante el presente correo la Personería de Bogotá D.C., le está dando a conocer, le solicitamos reportarlo al correo <strong> conciliaciones@personeriabogota.gov.co</strong> 
-        para adelantar el procedimiento correspondiente y proceder a la eliminación de sus datos del sistema <strong> CONCIWEB.</strong> </p>
-    </div>
+   @endif
+
+    {{-- <p>
+        Lo anterior, significa que a su nombre se accedió al Módulo de Solicitud de Conciliación via web de la Personería de Bogotá, D.C. en donde adjunto los documentos solicitados para continuar con el proceso 
+    </p> --}}
+    {{-- <div class='datosBasicos'>
+        <p>
+            Por lo cual sera notificado por medio de <strong>ESTE CORREO ELECTRÓNICO</strong>: <span style="font-size: 20px;font-weight: bold; color:red;">{{$email}}</span> , cuando se haya revisado su solicitud
+            
+        </p>
+    </div> --}}
 </div>
 
+<div class='noRespuesta'>El presente mensaje es EXCLUSIVAMENTE informativo, y no deber&aacute; ser respondido.</div>
 </body>
 
 </html>

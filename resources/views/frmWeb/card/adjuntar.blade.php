@@ -57,11 +57,10 @@
     }
    
 </style>
-{{-- 
-<form name="adjuntarfomr" enctype="multipart/form-data" id="adjuntarfomr"> --}}
+
 
   {{-- {!! Form::open(['route' => ['test',$dato->num_solicitud],'class' => 'form-horizontal','id'=>"adjuntarfomr",'name'=>"adjuntarfomr",'enctype'=>"multipart/form-data"]) !!} --}}
-  {!! Form::open(['route' => ['cargararchivos',$dato->num_solicitud],'class' => 'form-horizontal', 'enctype'=>"multipart/form-data" ]) !!}
+  {!! Form::open(['route' => ['cargararchivos',$dato->num_solicitud],'class' => 'form-horizontal', 'enctype'=>"multipart/form-data", 'id'=>"adjuntarfomr",'name'=>"adjuntarfomr" ]) !!}
 
   @csrf
   {{-- @if ($msg = Session::get('success'))
@@ -91,6 +90,10 @@
   <div class="card-body">
     <div class="row">
       <div class="col-md-3">
+        <b  style="color:#0171BD">Tipo de Documento</b></label>
+        <p style="text-transform: uppercase">{{$tipodedocumento}}</p>
+      </div>
+      <div class="col-md-3">
       <b style="color:#0171BD">Número de Documento</b></label>
         <p style="text-transform: uppercase">{{$dato->id_usuario_reg}}</p>
       </div>
@@ -99,8 +102,8 @@
         <p style="text-transform: uppercase"> {{$nombrecompleto}}</p>
       </div>
       <div class="col-md-3">
-      <b style="color:#0171BD">Fecha de Solicitud</b></label>
-        <p style="text-transform: uppercase"> {{explode(' ',$dato->fec_solicitud_tramite)[0]}}</p>
+        <b  style="color:#0171BD">Fecha de Solicitud</b> <b  style="color:#0171BD;font-size:80%">(dd-mm-yyyy)</b></label>
+        <p style="text-transform: uppercase"> {{$newDate}}</p>
       </div>
       <div class="col-md-3">
       <b style="color:#0171BD">Asuntos</b></label>
@@ -116,109 +119,89 @@
       </div>
     </div>
 
-        {{-- <table class="table">
-          <thead>
-            <tr style=" text-align: center;">
-              <th scope="col" style="color:#0171BD">Numero de Documento</th>
-              <th scope="col" style="color:#0171BD">Solicitante</th>
-              <th scope="col" style="color:#0171BD">Fecha de Solicitud</th>
-              <th scope="col" style="color:#0171BD">Asunto</th>
-              <th scope="col" style="color:#0171BD">Sub Asunto</th>
-              <th scope="col" style="color:#0171BD">Cuantia</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr style=" text-align: center;">
-              <td>{{$dato->id_usuario_reg}}</td>
-              <td style="text-transform: uppercase"> {{$nombrecompleto}}</td>
-              <td>{{explode(' ',$dato->fec_solicitud_tramite)[0]}}</td>
-              <td>{{$dato->asuntos->nombre}}</td>
-              <td>{{$dato->subasuntos->nombre}}</td>
-              <td>{{$numero}}</td>
-            </tr>
-          </tbody>
-        </table> --}}
+       
     </div>
 
 
 
-{{--       
-    <ul class="list-group list-group-horizontal">
-      
-      <li class="list-group-item"><b>Solicitante: <br> </b> {{$nombrecompleto}} </li>
-      <li class="list-group-item"><b>Fecha de Solicitud:</b><br> {{$dato->fec_solicitud_tramite}} </li>
-      <li class="list-group-item"><b>Asunto:</b> <br>{{$dato->asuntos->nombre}} </li>
-      <li class="list-group-item"><b>Sub Asunto:</b><br> {{$dato->subasuntos->nombre}}</li>
-      <li class="list-group-item"><b>Cuantia:</b> <br> {{$dato->cuantia}}</li>
-    </ul> --}}
+
     <hr style="color:#0171BD">
       <ul class="list-group list-group-flush">
-      <li class="list-group-item"><b style="color:#0171BD">Resumen de la pretensión o conflicto:</b><p> {{$dato->detalle}}</p></li>
+      <li class="list-group-item"><b style="color:#0171BD">Resumen de la pretensión o conflicto:</b><p style="text-transform: uppercase"> {{$dato->detalle}}</p></li>
     </ul>
   </div>
 </div>
+
+@if($tiposolicitud==1)
+<div class="card" style="padding-top: 3px; padding-bottom: 3px;">
+  <div class="card-header">
+      <center>
+      <b>DATOS DEL APODERADO</b>
+  </center>
+  </div>
+  <div class="container">
+<div class="card-body">
+  <div class="row">
+    <div class="col-md-3">
+      <b  style="color:#0171BD">Tipo de Documento</b></label>
+      <p style="text-transform: uppercase">{{$tipodedocumento}}</p>
+    </div>
+    <div class="col-md-3">
+      <b  style="color:#0171BD">Número de Documento</b></label>
+      <p style="text-transform: uppercase">{{$dato->id_usuario_reg}}</p>
+    </div>
+    <div class="col-md-3">
+     <b  style="color:#0171BD">Nombre Apoderado</b></label>
+      <p style="text-transform: uppercase"> {{$apoderado}}</p>
+    </div>
+
+
+
+  </div>
+
+
+  </div>
+</div>
+</div>
+@endif
+<div class="card" style="padding-top: 3px; padding-bottom: 3px;">
+  <div class="card-header">
+      <center>
+      <b>DATOS DE CONVOCADOS</b>
+  </center>
+  </div>
+  <div class="container">
+<div class="card-body">
+  <div class="row">
+    <div class="row">
+      @foreach ($data['convocates'] as $info)
+      <div class="col-md-3">
+        <b  style="color:#0171BD">Nombre Completo</b></label>
+        <p style="text-transform: uppercase">{!! $info->nomconvocante . ' ' . $info->apeconvocante !!}</p>
+      </div>
+        <div class="col-md-3">
+          <b  style="color:#0171BD">Correo</b></label>
+        <p style="text-transform: uppercase">{!! $info->emailconvocante  !!}</p>
+          </div>
+     
+      @endforeach 
+
+
+
+  </div>
+
+
+  </div>
+  
+</div>
+
+
+
+</div>
+</div>
 <br>
 
-{{-- <div class="card">
-  <div class="card-body"> --}}
-   
 
-{{-- <div class="row">
-  <div class="col-md-12">
-    <div class="" role="alert">
-      <small class="text-justify">
-
-        <div class="row">
-          <div class="col-md-11">
-            <b>Documentos necesarios para la solicitud</b>
-          </div>
-          <div class="col-md-1">
-          </div>
-        </div>
-        <hr>
-        <p>
-          Señor(a) solicitante,
-        
-          <br>
-          <div class="row row-cols-4">
-   
-            <div class="col-md-10">
-              <p><strong>Tenga en cuenta:</strong></p>
-              <ul >
-                <li >TODOS los soportes que anexe, debe adjuntarlos en formato PDF y en tamaño oficio.</li>
-                <li >El tamaño/peso de cada archivo adjunto NO pude superar DIEZ (10) megas; de lo contrario la solicitud no se podrá registrar.</li>
-                <li >El sistema CONCIWEB después de recibir la información registrada por usted, enviará una notificación al correo electrónico; 
-                  es importante resaltar que si responde dicha notificación, lo que usted indique, solicite o aclare no será tenido en cuenta en la gestión de su solicitud de conciliación.</li>
-                  <li >Es <strong>OBLIGATORIO</strong> diligenciar el formato 05-FR-40, el cual se encuentra a continuación.</li>
-              </ul>
-            </div>
-         
-            <div class="col-md-2">
-            
-                  <a href="/downloadFileWord"><i class="fas fa-file-word fa-4x"></i></a><br>
-                  <a href="/downloadFileWord">Descargar Formato 05-FR-40</a>
-       
-         
-          </div> </div>
-        
-         
-          <!--/*<p>
-            Tenga en cuenta que:<br>
-			  * TODOS los soportes descritos debe adjuntarlos en un (1) solo archivo, en formato PDF y en tamaño oficio.<br>
-			  * <strong>El tamaño/peso del archivo adjunto NO pude superar cinco (5) megas; de lo contrario la solicitud no se podrá registrar.</strong>
-			 
-          </p>*/-->
-
-
-		  
-        </p>
-    
-      </small>
-    </div>
-  </div>
-</div> --}}
-{{-- </div>
-</div> --}}
 <div class="card" style="text-justify;" >
 
     <div class="card-body" style="padding-right:12px;">
@@ -263,8 +246,8 @@
   <div class="card-body"> 
     
       <b style="color:#0171BD;margin-bottom: 2px">Cargue los siguientes Documentos</b>
-      <div class="alert alert-warning text-justify" role="alert" style="margin-bottom: -21px" ><i class="fa-solid fa-triangle-exclamation fa-2xl"></i>
-       <span class="px-2"> Importante, los campos marcados con asterisco son obligatorios</span>
+      <div class="alert alert-warning text-justify" role="alert" style="margin-bottom: -10px;margin-top: 10px;" >
+       <i class="fa-solid fa-triangle-exclamation fa-2xl"> </i><span class="px-2"><b>IMPORTANTE</b>, los campos marcados con asterisco (<b style="color: red;font-size:18px">*</b>) son obligatorios</span>
       </div>
     <div class="table-responsive">
       <table class="table table-striped" style="--bs-table-striped-bg:#F5F9FC">
@@ -285,7 +268,7 @@
       @foreach ($data['detalleAbc'] as $info)
       <tr style=" text-align: left;" class="input-file">
        
-              <td style="text-justify;width:50%;vertical-align: middle;" >{!! $info->descripcion->nombre !!} *</td>
+              <td style="text-justify;width:50%;vertical-align: middle;" >{!! $info->descripcion->nombre !!} <b style="color: red;font-size:18px">*</b></td>
              <div style="display:none">
                 <input type="text" class="form-control" name="descripcion[]" id="descripcion"/> 
               </div>
@@ -311,23 +294,7 @@
 
 
       @endforeach
-      <tr style=" text-align: left;" class="input-file">
-        <td style="text-justify;width:50%;vertical-align: middle;" class="input-file">Documentos que complementen su solicitud</td>
-    
-        <td style="text-justify;width:40%;padding-left: 40px;padding-top: 25px;" >
-        <div class="input-group mb-3">
-        <input type="file" class="form-control" name="document1[]" id="document1" aria-label="Upload" accept=".pdf"/><button class="btn btn-outline-danger btn-reset trash" id="limpia" type="button" > 
-  
-     
-        <img src="{{URL::asset('imagen/trash-red.png')}}" class="img-bot"/> 
-        <img src="{{URL::asset('imagen/trash-white.png')}}" class="img-top" alt="Card Front">
-   
-
-      </button></div></td>
       
-      
-    
-   </tr>
         
    
        
@@ -338,7 +305,7 @@
     @if($tiposolicitud==1)
         
     <tr style=" text-align: left;" class="input-file">
-            <td style="text-justify;width:50%;vertical-align: middle;" class="input-file">Poder especial para conciliar dirigido al centro de conciliación de la personería de Bogota D.C. *</td>
+            <td style="text-justify;width:50%;vertical-align: middle;" class="input-file">Poder especial para conciliar dirigido al centro de conciliación de la personería de Bogota D.C. <b style="color: red;font-size:18px">*</b></td>
             <div style="display:none">
               <input type="text" class="form-control" name="descripcion[]" id="descripcion" value="Poder especial para conciliar dirigido al centro de conciliación de la personería de Bogota D.C"/> 
             </div>
@@ -359,7 +326,24 @@
      
 
         @endif
-
+        <br>
+        <tr style=" text-align: left;" class="input-file">
+          <td style="text-justify;width:50%;vertical-align: middle;" class="input-file">Documentos que complementen su solicitud</td>
+      
+          <td style="text-justify;width:40%;padding-left: 40px;padding-top: 25px;" >
+          <div class="input-group mb-3">
+          <input type="file" class="form-control" name="document1[]" id="document1" aria-label="Upload" accept=".pdf"/><button class="btn btn-outline-danger btn-reset trash" id="limpia" type="button" > 
+    
+       
+          <img src="{{URL::asset('imagen/trash-red.png')}}" class="img-bot"/> 
+          <img src="{{URL::asset('imagen/trash-white.png')}}" class="img-top" alt="Card Front">
+     
+  
+        </button></div></td>
+        
+        
+      
+     </tr>
       </tbody>
     </table>
   </div>
@@ -412,7 +396,7 @@
   $(this).parents(".input-file").find('input').val('');
 
 
-    toastr.warning("Se ha limpiado el documento");
+    toastr.error("Se ha limpiado el documento");
     });
 
 $("input").change(function() {
@@ -441,28 +425,39 @@ $("input").change(function() {
 
 
 $(document).ready(function() {
-$("#submits").click(function() {
+// $("#submits").click(function() {
 
 
-  var msg='<center><div class="spinner-border" role="status"> <span class="sr-only">Cargando...</span></div><br>Procesando la solicitud</center>';
-    new Noty({
-        text: msg,
-        type: 'info',
-        layout: 'center',
-        theme: 'bootstrap-v4',
-        killer: true,
-        progressBar: true,
-        timeout: 2000
-    }).show();
+//   var msg='<center><div class="spinner-border" role="status"> <span class="sr-only">Cargando...</span></div><br>Procesando la solicitud</center>';
+//     new Noty({
+//         text: msg,
+//         type: 'info',
+//         layout: 'center',
+//         theme: 'bootstrap-v4',
+//         killer: true,
+//         progressBar: true,
+//         timeout: 2000
+//     }).show();
        
-  // registroDatos()
-      });
-  });
+//    registroDatos()
+//       });
+//   });
 
+  $("#adjuntarfomr").validationEngine('attach', {
+            onValidationComplete: function(form, status) {
+
+                if (status === true) {
+                    registroDatos();
+                } else {
+                    llamarNotyFaltanDatosFrm();
+                    return;
+                }
+            }
+        });
 
 
   function registroDatos() {
-        var formData = new FormData(document.getElementById("adjuntarfomr"));a
+        var formData = new FormData(document.getElementById("adjuntarfomr"));
         formData.append("dato", "valor");
         $.ajax({
             type: "POST",
@@ -474,6 +469,11 @@ $("#submits").click(function() {
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
+            beforeSend: function() {
+                llamarNotyCarga();
+                $("#btnRegistro").hide();
+                $('#btnRegistro').prop('disabled', false);
+            },
             success: function(r) {
                 var datUsr = r.split("|");
                 var valor = datUsr[1];
@@ -481,9 +481,9 @@ $("#submits").click(function() {
                 if (valor == 0) {
                     var msg = "<center><p><i class='fas fa-times fa-3x'></i></p></center>" + msg;
                     llamarNotyTime('error', msg, 'topRight', 3000);
-                    $("#btnRegistro").show();
+                    $("#submits").show();
                 } else {
-                    $("#btnRegistro").hide();
+                    $("#submits").hide();
                     var msg = "<center><p><i class='fas fa-check-circle fa-3x'></i></p></center>" + msg;
                     new Noty({
                         text: msg,
@@ -493,23 +493,23 @@ $("#submits").click(function() {
                         killer: true,
                         progressBar: true,
                         timeout: 5000,
-                        // callbacks: {
-                        //     afterClose: function() {
-                        //         window.location.href = "https://www.personeriabogota.gov.co/";
-                        //     },
-                        // }
+                        callbacks: {
+                            afterClose: function() {
+                                window.location.href = "https://www.personeriabogota.gov.co/";
+                            },
+                        }
                     }).show();
                 }
             },
             error: (err) => {
                 var msg = "<center><p><i class='fas fa-times fa-3x'></i></p></center>" + msg;
                 llamarNotyTime('error', msg, 'topRight', 3000);
-                $("#btnRegistro").show();
+                $("#submits").show();
             }
         });
     }
-
-
+  
+});
       // ('#imageFile').on("change", function(){
       //       var test=$('.input[type=file]').val().toString().split('.').pop(); // Obtengo la extensión
       //       alert(test) ;

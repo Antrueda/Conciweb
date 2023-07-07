@@ -52,7 +52,7 @@ class Tramiteusuario extends Model
       'sis_departam_id',
       'sis_municipio_id',
       'id_usuario_adm',
-            'fechanacimiento',
+      'fechanacimiento',
       'escolaridad',
       'sexo',
       'genero',

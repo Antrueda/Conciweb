@@ -8,7 +8,7 @@
 @endsection
 
 @section('content')
-{!! Form::open(['route' => ['cambioestado',$dato->num_solicitud],'class' => 'form-horizontal']) !!}
+{!! Form::open(['route' => ['cambioestado',$dato->num_solicitud],'class' => 'form-horizontal','name' => 'desistimiento','id' => 'desistimiento']) !!}
 
 <div class="row">
   <div class="col-md-12">
@@ -17,42 +17,54 @@
         <div class="card-body">
         <div class="row">
           <div class="col-md-11">
-            <b>¿Desea realizar el desistimiento de la solicitud de concilación?</b>
-          </div>
-          <div class="col-md-1">
-          </div>
-        </div>
-        <hr>
-        <div class="row">
-            <div class="col-md-12">
-        
-              <select class="form-control form-control-sm custom-select" name="desistir" id="desistir" required>
-                <option value=" ">- Seleccione una opcion -</option>
-                <option value="Cancelado">Si</option>
-                <option value="Remitido">No</option>
-            </select>
       
           </div>
+ 
         </div>
+       
+        <div class="row justify-content-md" >
+            <div class="col-md-12">
+              <p>Confirmo el <b>desistimiento</b> de la solicitud de conciliación vía web No {{$dato->num_solicitud}} registrada el día {{$newDate}}. </p>
+            </div>
+            <div class="col-md-3">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="checks"                >
+              <label style="padding-top: 5px;" class="form-check-label" for="checks">Acepto</label>
+              <div style="display: none">
+                <input type="text" class="form-control form-control-sm validate"  name="desistir" id="desistir" autocomplete="off" placeholder="0" required value="Remitido">
+              </div>
+            </div>
+          </div>
+          </div>
+    
+          
+            
+      
+          
+      
+        
             <br>
-            <div class="row">
+            <div class="row" id="divobserva">
               <div class="col-md-12">
                   <div class="form-floating mb-3">
-                      <textarea class="form-control form-control-sm validate[required, maxSize[1000]]" name="observaciones" id="observaciones" placeholder="Resumen" required></textarea>
+                      <textarea class="form-control form-control-sm validate[required, maxSize[1000]]" name="observaciones" id="observaciones" placeholder="Resumen"  maxlength="1000"  style="height: 124px;" required></textarea>
                       <label for="detalle"> Observaciones*</label>
                       <span id="chars"> </span>
                       </div>
    
               </div>
           </div>
-          <center>
-            <div class="row">
-              <div style="align-content: center;">
-                {{ Form::submit('Actualizar', ['class' => 'btn btn-outline-success' ]) }}
-              </div>
 
+            <div class="modal-footer" style="justify-content: center;">
+          
+          
+              <button type="" class="btn btn-success" id="btnRegistro"  > Si, confirmo desistimiento   <i class="far fa-check-circle"></i></button>
+   
+              {{-- <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal"> No, confirmo el desistimiento.     <i class="far fa-times-circle"></i></button> --}}
+       
             </div>
-          </center>
+          </div>
+      
       </div>
       </small>
     </div>
@@ -60,9 +72,18 @@
 </div>
 
 {!! Form::close() !!}
-<br>
-@endsection
 
+@endsection
+{{-- <div class="form-check">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="checks"                >
+                  <label class="form-check-label" for="checks">Acepto</label>
+                  
+                  <div style="display: none">
+                  <input type="text" class="form-control form-control-sm validate"  name="desistir" id="desistir" autocomplete="off" placeholder="0" required value="Remitido">
+                </div>
+           
+                </div> --}}
 @section('AddScriptFooter')
 <script>
 
@@ -86,4 +107,91 @@
         })(jQuery);
         var elem = $("#chars");
         $("#observaciones").limiter(1000, elem);
+        $("#divobserva").hide();
+
+        $("#desistimiento").validationEngine('attach', {
+            onValidationComplete: function(form, status) {
+
+                if (status === true) {
+                    registroDatos();
+                } else {
+                    llamarNotyFaltanDatosFrm();
+                    return;
+                }
+            }
+        });
+    
+      
+
+      function registroDatos() {
+        var formData = new FormData(document.getElementById("desistimiento"));
+        formData.append("dato", "valor");
+        $.ajax({
+            type: "POST",
+            url: "Cambioestado/{{$id}}",
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            beforeSend: function() {
+                llamarNotyCarga();
+                $("#btnRegistro").hide();
+                $('#btnRegistro').prop('disabled', false);
+            },
+            success: function(r) {
+                var datUsr = r.split("|");
+                var valor = datUsr[1];
+                var msg = datUsr[2];
+                if (valor == 0) {
+                    var msg = "<center><p><i class='fas fa-times fa-3x'></i></p></center>" + msg;
+                    llamarNotyTime('error', msg, 'topRight', 3000);
+                    $("#btnRegistro").show();
+                    $('#btnRegistro').prop('disabled', false);
+                } else {
+                    $("#btnRegistro").show();
+                    $('#btnRegistro').prop('disabled', false);
+                    var msg = "<center><p><i class='fas fa-check-circle fa-3x'></i></p></center>" + msg;
+                    new Noty({
+                        text: msg,
+                        type: 'success',
+                        layout: 'center',
+                        theme: 'bootstrap-v4',
+                        killer: true,
+                        progressBar: true,
+                        timeout: 10000,
+                        callbacks: {
+                            afterClose: function() {
+                                window.location.href = "https://www.personeriabogota.gov.co/";
+                            },
+                        }
+                    }).show();
+                }
+            },
+            error: (err) => {
+                var msg = "<center><p><i class='fas fa-times fa-3x'></i></p></center>" + msg;
+                llamarNotyTime('error', msg, 'topRight', 3000);
+                $("#btnRegistro").show();
+                $('#btnRegistro').prop('disabled', false);
+            }
+        });
+    }
+
+
+
+        $("#checks").change(function() {
+        if ($("#checks").is(':checked')) {
+            $("#desistir").val('Cancelado');
+            $("#divobserva").slideDown();
+        } else {
+            $("#desistir").val('Remitido');
+            $("#divobserva").slideUp();
+        }
+          });
+        function auto_grow(element) {
+          element.style.height = "8px";
+          element.style.height = (element.scrollHeight)+"px";
+      }
 </script>

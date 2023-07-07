@@ -34,7 +34,9 @@
             width: 85%;
             margin-left: auto;
             margin-right: auto;
-            font-family: 'Public Sans', sans-serif;
+            line-height:20px;
+            font-family: Arial; 
+            font-weight: regular;
         }
 
         .datosBasicos {
@@ -43,7 +45,8 @@
             margin-left: auto;
             margin-right: auto;
             font-size: 100%;
-            font-family: 'Public Sans', sans-serif;
+            font-family: Arial; 
+            font-weight: regular;
         }
 
         .linkModulo {
@@ -232,21 +235,19 @@
     <img  src="{{asset('imagen/PropuestalogoConciweb1.png')}}" alt="ConciwebLogo">
 </div>
 <div class='saludo'>
-    <p>Cordial saludo <strong>{{$nombrecompleto}}</strong></p>
+    <p>Cordial saludo <b><strong style="text-transform: uppercase;color:#0171BD">{{$nombrecompleto}}</strong></b></p>
     @if (isset($emailApoderado) && !empty($emailApoderado)) 
     <p>
-        La Personería de Bogotá, D.C., le informa que el día {{$fechaRegistro}}, usted finalizó con el proceso de Solicitud de Conciliación Web, por lo cual,  a los correos registrados <b> {{$email}} </b> y <b> {{$emailApoderado}} </b>. se enviarán las correspondientes notificaciones,  posterior a la revisión a la solicitud No. {{$numSolicitud}} 
+        La Personería de Bogotá, D.C., le informa que el día {{$fechaRegistro}}, usted finalizó con el proceso de Solicitud de Conciliación Web, por lo cual,  a los correos registrados <b> {{$email}} </b> y <b> {{$emailApoderado}} </b>, se enviarán las correspondientes notificaciones,  posterior a la revisión a la solicitud No. <b style="text-transform: uppercase;color:#0171BD"> {{$numSolicitud}} </b> 
     </p>
     @else
     <p>
-        La Personería de Bogotá, D.C., le informa que el día {{$fechaRegistro}}, usted finalizó con el proceso de Solicitud de Conciliación Web, por lo cual,  al correo registrado <b> {{$email}} </b>. se enviarán las correspondientes notificaciones,  posterior a la revisión a la solicitud <b>No. {{$numSolicitud}}</b> . 
+        La Personería de Bogotá, D.C., le informa que el día {{$fechaRegistro}}, usted finalizó con el proceso de Solicitud de Conciliación Web, por lo cual,  al correo registrado <b> {{$email}} </b>, se enviarán las correspondientes notificaciones,  posterior a la revisión a la solicitud <b style="text-transform: uppercase;color:#0171BD"> No. {{$numSolicitud}}</b> . 
     </p>
 
    @endif
 
-    <p>
-        Lo anterior, significa que a su nombre se accedió al Módulo de Solicitud de Conciliación via web de la Personería de Bogotá, D.C. en donde adjunto los documentos solicitados para continuar con el proceso 
-    </p>
+
     {{-- <div class='datosBasicos'>
         <p>
             Por lo cual sera notificado por medio de <strong>ESTE CORREO ELECTRÓNICO</strong>: <span style="font-size: 20px;font-weight: bold; color:red;">{{$email}}</span> , cuando se haya revisado su solicitud

@@ -19,6 +19,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::get('documentos/{id}', [DocumentsController::class, 'show'])->name('documentos.show');
 
+Route::get('sinpermisos', [DocumentsController::class, 'sinpermisos'])->name('sinpermisos');
 
 Route::get('documentos/{id}/download', [DocumentsController::class, 'download'])->name('documentos.download');
 Route::middleware(['Sinproc'])->group(function () {
