@@ -8,6 +8,10 @@
 @endsection
 
 @section('content')
+<link rel="stylesheet" href="{{URL::asset('css/validationEngine.jquery.css')}}" />
+<script src="{{URL::asset('js/jquery.validationEngine.js')}}"></script>
+<script src="{{URL::asset('js/jquery.validationEngine-es.js')}}"></script>
+
 {!! Form::open(['route' => ['cambioestado',$dato->num_solicitud],'class' => 'form-horizontal','name' => 'desistimiento','id' => 'desistimiento']) !!}
 
 <div class="row">
@@ -24,11 +28,11 @@
        
         <div class="row justify-content-md" >
             <div class="col-md-12">
-              <p>Confirmo el <b>desistimiento</b> de la solicitud de conciliación vía web No {{$dato->num_solicitud}} registrada el día {{$newDate}}. </p>
+              <p>Confirmo el <b>desistimiento</b> de la solicitud de conciliación vía web No <b>{{$dato->num_solicitud}} </b>   registrada </p> <p> el día {{$newDate}}.</p>
             </div>
             <div class="col-md-3">
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="checks"                >
+              <input class="form-check-input" type="checkbox" id="checks" style="margin-left: 30px;"  >
               <label style="padding-top: 5px;" class="form-check-label" for="checks">Acepto</label>
               <div style="display: none">
                 <input type="text" class="form-control form-control-sm validate"  name="desistir" id="desistir" autocomplete="off" placeholder="0" required value="Remitido">
@@ -57,9 +61,9 @@
 
             <div class="modal-footer" style="justify-content: center;">
           
-          
+              <div class="row" id="botondiv">
               <button type="" class="btn btn-success" id="btnRegistro"  > Si, confirmo desistimiento   <i class="far fa-check-circle"></i></button>
-   
+            </div>
               {{-- <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal"> No, confirmo el desistimiento.     <i class="far fa-times-circle"></i></button> --}}
        
             </div>
@@ -108,6 +112,7 @@
         var elem = $("#chars");
         $("#observaciones").limiter(1000, elem);
         $("#divobserva").hide();
+        $("#botondiv").hide();
 
         $("#desistimiento").validationEngine('attach', {
             onValidationComplete: function(form, status) {
@@ -185,13 +190,13 @@
         if ($("#checks").is(':checked')) {
             $("#desistir").val('Cancelado');
             $("#divobserva").slideDown();
+            $("#botondiv").slideDown();
+            
         } else {
             $("#desistir").val('Remitido');
             $("#divobserva").slideUp();
+            $("#botondiv").slideUp();
         }
           });
-        function auto_grow(element) {
-          element.style.height = "8px";
-          element.style.height = (element.scrollHeight)+"px";
-      }
+
 </script>

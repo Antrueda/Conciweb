@@ -94,8 +94,13 @@ class DocumentsController extends Controller
           $fecha = Tramiteusuario::where('num_solicitud', $acceso[3])->first()->fec_solicitud_tramite;
           $newDate = date("d-m-Y", strtotime($fecha));  
           $tipodedocumento=Parametro::where('id', $dato->tipodocumento)->first()->nombre;
-          $tipodedocapoderado=Parametro::where('id', $dato->tipodocapoderado)->first()->nombre;
+                 
           $tiposolicitud= $dato->tiposolicitud;
+          $tipodedocapoderado='';
+          if($tiposolicitud==1){
+              $tipodedocapoderado=Parametro::where('id', $dato->tipodocapoderado)->first()->nombre;
+          }
+   
           //dd( $tiposolicitud);
           $nombrecompleto = $dato->primernombre . ' ' . $dato->segundonombre . ' ' . $dato->primerapellido  . ' ' . $dato->segundoapellido;
           $apoderado = $dato->primernombreapoderado . ' ' . $dato->segundonombreapoderado . ' ' . $dato->primerapellidoapoderado  . ' ' . $dato->segundoapellidoapoderado;

@@ -721,9 +721,9 @@ class Webcontroller extends Controller
                     'NUM_SOLICITUD' => $numSolicitud, 'ID_TRAMITE' => $idTramite, 'NUM_PASO' => 0,
                     'FEC_RESPUESTA' => DB::raw("sysdate"),
                     'TEX_RESPUESTA' => DB::raw("'" . $msg . "'"), 'ID_USU_ADM_CONTESTA' => $consecResponsable,
-                    'ID_USU_ADM' => $consecResponsable, 'ESTADO_TRAMITE' => DB::raw("'Remitido'"),
+                    'ID_USU_ADM' => $numeroDocumento, 'ESTADO_TRAMITE' => DB::raw("'Remitido'"),
                     'CONSECUTIVO' => $consecutivo, 'VIGENCIA' => $vigencia,
-                    'ID_DEPENDENCIA_REG' => $depAsignada, 'ID_DEPENDENCIA_ASIG' => $depAsignada
+                    'ID_DEPENDENCIA_REG' => 9999, 'ID_DEPENDENCIA_ASIG' => $depAsignada
                 ]
             ]);
         } catch (\Exception $e) {
@@ -884,13 +884,13 @@ class Webcontroller extends Controller
         if ($contadorUsuarioSol == 1) {
             //4.2.1) Actualizar dependencai
             try {
-                DB::table('USUARIO_ROL')
-                    ->where('CEDULA', DB::raw("'" . $numeroDocumento . "'"))
-                    ->update([
-                        'DEPEND_CODIGO' => $depeUsuario,
-                        'ESTADO' =>  DB::raw("'" . $estadoUsr . "'"),
-                        'TIPO' =>   DB::raw("'" . $tipoUsr . "'"),
-                    ]);
+                // DB::table('USUARIO_ROL')
+                //     ->where('CEDULA', DB::raw("'" . $numeroDocumento . "'"))
+                //     ->update([
+                //         'DEPEND_CODIGO' => $depeUsuario,
+                //         'ESTADO' =>  DB::raw("'" . $estadoUsr . "'"),
+                //         'TIPO' =>   DB::raw("'" . $tipoUsr . "'"),
+                //     ]);
             } catch (\Exception $e) {
                 DB::rollback();
                 return '|0| 4.2.1 Problema al actualizar el estado del solicitante [USR_ROL] <br>' . $e->getMessage();
@@ -1188,8 +1188,13 @@ class Webcontroller extends Controller
         $fecha = $dato->fec_solicitud_tramite;
         $newDate = date("d-m-Y", strtotime($fecha));  
         $tipodedocumento=Parametro::where('id', $dato->tipodocumento)->first()->nombre;
-        $tipodedocapoderado=Parametro::where('id', $dato->tipodocapoderado)->first()->nombre;
         $tiposolicitud= $dato->tiposolicitud;
+        $tipodedocapoderado='';
+        if($tiposolicitud==1){
+            $tipodedocapoderado=Parametro::where('id', $dato->tipodocapoderado)->first()->nombre;
+        }
+        
+
         //dd( $tiposolicitud);
         $nombrecompleto = $dato->primernombre . ' ' . $dato->segundonombre . ' ' . $dato->primerapellido  . ' ' . $dato->segundoapellido;
         $apoderado = $dato->primernombreapoderado . ' ' . $dato->segundonombreapoderado . ' ' . $dato->primerapellidoapoderado  . ' ' . $dato->segundoapellidoapoderado;
@@ -1261,7 +1266,8 @@ class Webcontroller extends Controller
                     'subject' => $subject,
                     'numSolicitud' => $id,
                     'emailApoderado' => $dato->emailapoderado,
-                    'fechaRegistro' => $newDate,
+                    'fechaRegistro' => explode(' ',$fecha)[0],
+                    'newDate' => $newDate,
                 );
     
                 Mail::send('frmWeb.email.desistir', $data, function ($message) use ($data) {
@@ -1284,7 +1290,7 @@ class Webcontroller extends Controller
 
 
             //return redirect('https://www.personeriabogota.gov.co/');
-            return '|1|Confirmo el desistimiento de la solicitud de conciliación vía web no '.$id.' registrada el día '.$newDate;
+            return '|1|Confirmo el desistimiento de la solicitud de conciliación vía web no '.$id.' registrada el día '.explode(' ',$fecha)[0];
         } else {
             return '|0| 3.0) test: </br>';
         }
@@ -1418,10 +1424,12 @@ class Webcontroller extends Controller
         } catch (\Exception $e) {
             return '|0| 3.0) Problema al enviar el correo de confirmacion: </br>' . $e->getMessage();
         }
-        return  '|1|Se ha realizado el registro de documentos de la solicitud de conciliación vía web no '.$id.' registrada el día '.$newDate;
+        //return  '|1|Se ha realizado el registro de documentos de la solicitud de conciliación vía web no '.$id.' registrada el día '.$newDate;
+        return '|1|Con él envió de los soportes se da por finalizado el Registro de la Solicitud de Conciliación WEB No. '.$id.' del '.$newDate.'. 
+        La información relacionada y sus anexos serán revisados por los funcionarios al interior de la Personería de Bogotá, quienes próximamente lo contactarán por medio de los correos electrónicos registrados';
         //return '|0| 3.0) Test: </br>' ;
         DB::commit();
-     
+        
 
 
 

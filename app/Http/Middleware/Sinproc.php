@@ -19,6 +19,16 @@ class Sinproc
         if (!isset($_GET['key'])) {
             return redirect()->route('sinpermisos');
         }
+
+        $key = urldecode($_GET['key']);
+        $key = str_replace(" ", "+", $key);
+        $keyIgual = rtrim($key, "=");
+
+        if ($key != $keyIgual) {
+            return redirect()->route('sinpermisos');
+        }
+
+
         $key = base64_decode($_GET['key']);
         $acceso = $this->data($key);
         //dd($acceso);
@@ -41,6 +51,10 @@ class Sinproc
             return redirect()->route('sinpermisos');
         }
     }
+
+
+
+    
 
 
     public function data($key)

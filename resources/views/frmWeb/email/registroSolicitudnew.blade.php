@@ -257,7 +257,7 @@
     
 </div>
 <div class='saludo'>
-    <p>Cordial saludo<b><strong class="px-2" style="text-transform: uppercase;color:#0171BD">{{$nombrecompleto}}</strong></b></p>
+    <p>Cordial saludo<b><strong class="px-2" style="text-transform: uppercase;color:#0171BD" class="px-2">{{$nombrecompleto}}</strong></b></p>
     <p>
         La Personería de Bogotá D.C., informa que el día {{$fechaRegistro}} se inició el proceso de registro de una Solicitud de Conciliación a través de nuestro sistema de información CONCIWEB.   
     </p>
@@ -290,8 +290,12 @@
        
        <br>
        {{-- <a class="btn-perso"  type="button" href="https://conciwebv2.personeriabogota.gov.co/search">Adjuntar Documentos</a> --}}
-       <a class="btn-perso"  type="button" href="https://conciweb2-dev.personeriabogota.gov.co/search">Adjuntar Documentos <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19 24.36"><defs><style>.cls-1{fill:#fff;}</style></defs><g id="Layer_2" data-name="Layer 2"><path class="cls-1" d="M2.91,23.78A2.26,2.26,0,0,1,.45,21.33V3.07A2.28,2.28,0,0,1,2.92.59h9.81a2.47,2.47,0,0,1,2.06.94C15.85,2.81,16.91,4.08,18,5.31A2.59,2.59,0,0,1,18.55,7q0,4.59,0,9.19v5.12a2.26,2.26,0,0,1-2.42,2.44H2.91ZM3,1.69c-1,0-1.39.42-1.39,1.4V21.35a1.15,1.15,0,0,0,1.25,1.32H16.18a1.15,1.15,0,0,0,1.26-1.27v-4c0-3.23,0-6.58,0-9.87a.82.82,0,0,0-.19-.6.76.76,0,0,0-.53-.17h-.08l-1,0-1.1,0A2.17,2.17,0,0,1,12.4,5a9.14,9.14,0,0,1-.06-1.82c0-.25,0-.5,0-.76,0-.47-.21-.69-.69-.69H3Zm13,4h.24l.66,0L13.46,1.65v.83c0,.24,0,.47,0,.69,0,.51,0,1,0,1.48a1,1,0,0,0,.82,1,4.31,4.31,0,0,0,.83.06h.81ZM9.5,8.23a.6.6,0,0,1,.4.19c1.13,1.11,2.27,2.25,3.38,3.39a.52.52,0,0,1,0,.79.54.54,0,0,1-.37.16.62.62,0,0,1-.43-.2c-.43-.42-.85-.85-1.27-1.28l-.79-.8-.21.25a.75.75,0,0,0-.16.59.15.15,0,0,1,0,.07c0,1.92,0,3.85,0,5.77,0,.45-.19.58-.39.65a.45.45,0,0,1-.2,0A.57.57,0,0,1,9,17.21V10.13L7.84,11.25c-.44.44-.86.87-1.29,1.28a.66.66,0,0,1-.47.23.51.51,0,0,1-.38-.18.54.54,0,0,1,0-.77L9.1,8.42A.62.62,0,0,1,9.5,8.23Z"/></g></svg></a>
-     
+       <div>
+       <a class="btn-perso" style="vertical-align: bottom;" type="button" href="https://conciweb2-dev.personeriabogota.gov.co/search">Adjuntar Documentos <img style="    vertical-align: middle;
+        padding-top: 2px;
+        padding-bottom: -23px;
+        padding-bottom: 4px;" width="25" height="25" src="https://img.icons8.com/windows/32/FFFFFF/file-upload.png" alt="file-upload"/></a>
+    </div>
    
         <div></div>
      </center>
