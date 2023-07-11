@@ -28,7 +28,7 @@
        
         <div class="row justify-content-md" >
             <div class="col-md-12">
-              <p>Confirmo el <b>desistimiento</b> de la solicitud de conciliación vía web No <b>{{$dato->num_solicitud}} </b>   registrada </p> <p> el día {{$newDate}}.</p>
+              <p>Confirmo el <b style="text-transform: uppercase">desistimiento</b> de la solicitud de conciliación vía web No. <b>{{$dato->num_solicitud}} </b>   registrada </p> <p> el día {{$newDate}}.</p>
             </div>
             <div class="col-md-3">
             <div class="form-check">

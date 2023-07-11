@@ -232,7 +232,7 @@
     a3t0OWwtZfsG15cQYfyuUCuxtvvj9nn9eRDGb4+R6bbV84ZfBiPHGLeEzLQSi8GIAFz9x3ECo37o
     l8mY7wlkMOpA+7I1qWDlH4PBYDAYDAaDwWAwGAwGg8FgMBgMBoPBYDAYDAaDwWAwGAwGg8FgMBgM
     BoMRjyRJ/h+GoUfSgT6GhQAAAABJRU5ErkJggg==" alt="img" /> --}}
-    <img  src="{{asset('imagen/PropuestalogoConciweb1.png')}}" alt="ConciwebLogo">
+    <img  style="height: 25%;" src="{{asset('imagen/PropuestalogoConciweb1.png')}}" alt="ConciwebLogo">
 </div>
 <div class='saludo'>
     <p>Cordial saludo <b><strong style="text-transform: uppercase;color:#0171BD" class="px-2">{{$nombrecompleto}}</strong></b></p>

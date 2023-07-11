@@ -25,6 +25,10 @@
     display: flex;
 }     
 
+.scroll {
+    max-height: 300px;
+    overflow-y: auto;
+}
 
    .archivo{
     display: flex;
@@ -131,16 +135,25 @@
     </ul>
   </div>
 </div>
-
+<br>
 @if($tiposolicitud==1)
 <div class="card" style="padding-top: 3px; padding-bottom: 3px;">
-  <div class="card-header">
-      <center>
-      <b>DATOS DEL APODERADO</b>
-  </center>
+    <div class="card-header" style="text-align-last: center;">
+    <div class="row justify-content-md-center">
+   
+ 
+
+      <div class="form-check form-switch form-check-reverse" >
+        <input class="form-check-input" type="checkbox" role="switch" id="apoderado" style="
+        margin-right: 1px
+        padding-top: 1px;">
+        <label class="form-check-label" style="padding-left: 35px;" for="apoderado">     <b>DATOS DEL APODERADO </b></label>
+      </div>
+    </div>
+
   </div>
-  <div class="container">
-<div class="card-body">
+  <div class="container" >
+<div class="card-body" id="divapoderado">
   <div class="row">
     <div class="col-md-3">
       <b  style="color:#0171BD">Tipo de Documento</b></label>
@@ -148,12 +161,32 @@
     </div>
     <div class="col-md-3">
       <b  style="color:#0171BD">Número de Documento</b></label>
-      <p style="text-transform: uppercase">{{$dato->id_usuario_reg}}</p>
+      <p style="text-transform: uppercase">{{$dato->numdocapoderado}}</p>
     </div>
     <div class="col-md-3">
      <b  style="color:#0171BD">Nombre Apoderado</b></label>
       <p style="text-transform: uppercase"> {{$apoderado}}</p>
     </div>
+    <div class="col-md-3">
+      <b  style="color:#0171BD">No. Tarjeta Profesional</b></label>
+       <p style="text-transform: uppercase"> {{$dato->tarjetaprofesional}}</p>
+     </div>
+     <div class="col-md-3">
+      <b  style="color:#0171BD">Dirección</b></label>
+       <p style="text-transform: uppercase"> {{$dato->direccionapoderado}}</p>
+     </div>
+     <div class="col-md-3">
+      <b  style="color:#0171BD">Teléfono Celular</b></label>
+       <p style="text-transform: uppercase"> {{$dato->primertelefonoapoderado}}</p>
+     </div>
+     <div class="col-md-3">
+      <b  style="color:#0171BD">Teléfono Fijo</b></label>
+       <p style="text-transform: uppercase"> {{$dato->segundotelefonoapoderado}}</p>
+     </div>
+     <div class="col-md-3">
+      <b  style="color:#0171BD">Correo Electrónico</b></label>
+       <p style="text-transform: uppercase"> {{$dato->emailapoderado}}</p>
+     </div>
 
 
 
@@ -163,17 +196,29 @@
   </div>
 </div>
 </div>
+<br>
 @endif
+
 <div class="card" style="padding-top: 3px; padding-bottom: 3px;">
-  <div class="card-header">
-      <center>
-      <b>DATOS DE CONVOCADOS</b>
-  </center>
+  <div class="card-header" style="text-align-last: center;">
+    <div class="row justify-content-md-center">
+   
+ 
+
+      <div class="form-check form-switch form-check-reverse" >
+        <input class="form-check-input" type="checkbox" role="switch" id="convocado" style="
+        margin-right: 1px
+        padding-top: 1px;">
+        <label class="form-check-label" style="padding-left: 35px;" for="convocado">     <b>DATOS DE CONVOCADOS </b></label>
+      </div>
+    </div>
+
   </div>
+
   <div class="container">
-<div class="card-body">
+    <div class="card-body scroll" id="divconvocado">
   <div class="row">
-    <div class="row">
+
       @foreach ($data['convocates'] as $info)
       <div class="col-md-3">
         <b  style="color:#0171BD">Nombre Completo</b></label>
@@ -181,14 +226,14 @@
       </div>
         <div class="col-md-3">
           <b  style="color:#0171BD">Correo</b></label>
-        <p style="text-transform: uppercase">{!! $info->emailconvocante  !!}</p>
+        <p style="text-transform: lowercase">{!! $info->emailconvocante  !!}</p>
           </div>
      
       @endforeach 
 
 
 
-  </div>
+
 
 
   </div>
@@ -399,7 +444,7 @@
     toastr.error("Se ha limpiado el documento");
     });
 
-$("input").change(function() {
+$(".input-file").change(function() {
     console.log(this.files[0].size);
     if(this.files[0].size>10289594){
     toastr.error("El tamaño permitido es de 10MB");
@@ -492,7 +537,7 @@ $(document).ready(function() {
                         theme: 'bootstrap-v4',
                         killer: true,
                         progressBar: true,
-                        timeout: 5000,
+                        timeout: 10000,
                         callbacks: {
                             afterClose: function() {
                                 window.location.href = "https://www.personeriabogota.gov.co/";
@@ -510,6 +555,27 @@ $(document).ready(function() {
     }
   
 });
+
+$("#divapoderado").hide();
+        $("#apoderado").change(function() {
+        if ($("#apoderado").is(':checked')) {
+            $("#divapoderado").slideDown();
+            
+        } else {
+            $("#divapoderado").slideUp();
+        }
+          });
+
+          $("#divconvocado").hide();
+        $("#convocado").change(function() {
+        if ($("#convocado").is(':checked')) {
+            $("#divconvocado").slideDown();
+            
+        } else {
+            $("#divconvocado").slideUp();
+        }
+          });
+
       // ('#imageFile').on("change", function(){
       //       var test=$('.input[type=file]').val().toString().split('.').pop(); // Obtengo la extensión
       //       alert(test) ;

@@ -257,7 +257,7 @@
     
 </div>
 <div class='saludo'>
-    <p>Cordial saludo<b><strong class="px-2" style="text-transform: uppercase;color:#0171BD" class="px-2">{{$nombrecompleto}}</strong></b></p>
+    <p>Cordial saludo <b><strong class="px-2" style="text-transform: uppercase;color:#0171BD" class="px-2">{{$nombrecompleto}}</strong></b></p>
     <p>
         La Personería de Bogotá D.C., informa que el día {{$fechaRegistro}} se inició el proceso de registro de una Solicitud de Conciliación a través de nuestro sistema de información CONCIWEB.   
     </p>

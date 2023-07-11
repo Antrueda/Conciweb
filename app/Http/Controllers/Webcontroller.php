@@ -51,7 +51,9 @@ use App\Models\Sistema\SisMunicipio;
 use App\Models\Sistema\SisPai;
 use App\Models\Tramite;
 use App\Traits\Combos\CombosTrait;
+use DateTime;
 use DateTimeImmutable;
+use DateTimeZone;
 
 class Webcontroller extends Controller
 {
@@ -383,7 +385,7 @@ class Webcontroller extends Controller
     {
 
         $tramiteid=Tramite::select('id_tramite')->where('nom_tramite', 'CONCILIACIONES WEB V2')->first();
-        
+            //America/Bogota
         //Datos requeridos por sistema
         $carbonDate = Carbon::now();
         $vigencia = Carbon::today()->isoFormat('YYYY');
@@ -1163,9 +1165,11 @@ class Webcontroller extends Controller
                     ';
               
                 $output .= '</div>';
-            } else {
+            } else if($data->estadodoc=='adjunto') {
              
                 $output .= '<br><p style="width:90%;margin:auto;" class="alert alert-success"><i class="fa-regular fa-circle-check fa-2xl"></i>' . '<span style="padding:8px;font-size: 1.2rem;"> El proceso de adjuntar documentos ha finalizado' . '</span></p>';
+            }else if($data->estadodoc=='Cancelado') {
+                $output .= '<br><p style="width:90%;margin:auto;" class="alert alert-warning"><i class="fa-solid fa-triangle-exclamation fa-2xl"></i>' . '<span style="padding:8px;font-size: 1.2rem;"> Se realizo desistimiento a la Solicitud de Conciliación ' . '</span></p>';
             }
             return $output;
         }else{
@@ -1178,7 +1182,12 @@ class Webcontroller extends Controller
  
     public function adjuntararchivos($id)
     {
+
+
         $dato = ModelsTramiteusuario::where('num_solicitud', $id)->first();
+        if($dato->estadodoc==''){
+
+        
         //ddd($dato->subasunto);
         //ddd($dato->subasuntos);
         $tipodedocumento=Parametro::where('id', $dato->tipodocumento)->first()->nombre;
@@ -1216,6 +1225,9 @@ class Webcontroller extends Controller
             "convocates" => $convocates
         );
         return view('frmWeb.card.adjuntar', compact('dato', 'data', 'nombrecompleto','tiposolicitud','numero','newDate','tipodedocumento','apoderado','tipodedocapoderado'));
+    }else{
+        return view('frmWeb.autosearch');
+    }
     }
 
 
@@ -1290,7 +1302,7 @@ class Webcontroller extends Controller
 
 
             //return redirect('https://www.personeriabogota.gov.co/');
-            return '|1|Confirmo el desistimiento de la solicitud de conciliación vía web no '.$id.' registrada el día '.explode(' ',$fecha)[0];
+            return '|1|Se confirma el Desistimiento a la Solicitud de Conciliación vía WEB No '.$id.' registrada el día '.explode(' ',$fecha)[0];
         } else {
             return '|0| 3.0) test: </br>';
         }
@@ -1386,12 +1398,17 @@ class Webcontroller extends Controller
         $newDate = date("d-m-Y", strtotime($fecha));  
         $nombrecompleto = $dato->primernombre . ' ' . $dato->segundonombre . ' ' . $dato->primerapellido  . ' ' . $dato->segundoapellido;
         //ddd($dato);
+        $fechaRegistro = new DateTime(Carbon::now());
+        //$fechaRegistro = $fechaRegistro->format("d/m/Y h:m:s");
+        $fechaRegistro = $fechaRegistro->setTimezone(new DateTimeZone('America/Bogota'));
+        $fechaRegistro = $fechaRegistro->format("d/m/Y h:m:s");
+        //$newDate = date("d-m-Y", strtotime($fechaRegistro));  
         $detalleAbc = Subdescripcion::where('subasu_id', $dato->subasunto)
             ->where('sis_esta_id', 1)
             ->orderBy('id')
             ->get();
 
-    
+        
 
         
         $conteo= count($detalleAbc)-1;
@@ -1404,7 +1421,7 @@ class Webcontroller extends Controller
                 'subject' => $subject,
                 'numSolicitud' => $id,
                 'emailApoderado' => $dato->emailapoderado,
-                'fechaRegistro' =>$newDate,
+                'fechaRegistro' =>$fechaRegistro,
             );
 
             Mail::send('frmWeb.email.adjuntoarchivo', $data, function ($message) use ($data) {
@@ -1415,16 +1432,12 @@ class Webcontroller extends Controller
                 }
                 $message->bcc('jaruedag@personeriabogota.gov.co');
                 $message->bcc('jamumi14@gmail.com');
-               // $message->attach('FORMATO_SOLICITUD_DE_CONCILIACION_V4');
-                // $message->bcc('ljmeza@personeriabogota.gov.co');
-                // $message->bcc('nylopez@personeriabogota.gov.co');
-                // $message->bcc('asarmiento@personeriabogota.gov.co');
                 $message->subject($data['subject']);
             });
         } catch (\Exception $e) {
             return '|0| 3.0) Problema al enviar el correo de confirmacion: </br>' . $e->getMessage();
         }
-        //return  '|1|Se ha realizado el registro de documentos de la solicitud de conciliación vía web no '.$id.' registrada el día '.$newDate;
+        
         return '|1|Con él envió de los soportes se da por finalizado el Registro de la Solicitud de Conciliación WEB No. '.$id.' del '.$newDate.'. 
         La información relacionada y sus anexos serán revisados por los funcionarios al interior de la Personería de Bogotá, quienes próximamente lo contactarán por medio de los correos electrónicos registrados';
         //return '|0| 3.0) Test: </br>' ;

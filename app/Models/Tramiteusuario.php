@@ -37,6 +37,7 @@ class Tramiteusuario extends Model
       'TARJETAPROFESIONAL',
       'PRIMERTELEFONOAPODERADO',
       'SEGUNDOTELEFONOAPODERADO',
+      'direccionapoderado',
       'EMAILAPODERADO',
       'TIPOAUDIENCIA',
       'SEDEPRINCIPAL',
