@@ -7,19 +7,15 @@ use Illuminate\Http\Request;
 use DB;
 use Mail;
 use Carbon\Carbon;
-use File;
 use Illuminate\Support\Facades\Storage;
 use Response;
-use Brian2694\Toastr\Toastr;
-use Livewire\Component;
-use Livewire\WithFileUploads;
+
 
 //MODELS
 use App\tramiteusuario;
 use App\tramiterespuesta;
 use App\binconsecutivo;
-use App\Http\Requests\AdjuntarRequest;
-use App\Mail\Conci;
+
 use App\Models\ASubasunto;
 use App\Models\Asunto;
 use App\Models\ConciReferente;
@@ -38,12 +34,7 @@ use App\Models\Tema;
 use App\Models\Texto;
 use App\Models\Tramiterespuesta as ModelsTramiterespuesta;
 use App\Models\Tramiteusuario as ModelsTramiteusuario;
-use App\Models\User;
 use App\tabrepartoweb;
-use Illuminate\Support\Str;
-use Illuminate\Mail\Mailer;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail as FacadesMail;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Sistema\SisLocalidad;
@@ -425,6 +416,7 @@ class Webcontroller extends Controller
         $primerTelefonoApoderado = $request->input("primerTelefonoApoderado");
         $segundoTelefonoApoderado = $request->input("segundoTelefonoApoderado");
         $emailApoderado = $request->input("emailApoderado");
+        $direccionapoderado = $request->input("direccionapoderado");
         //Datos de la audiencia
         $tipoAudiencia = $request->input("tipoAudiencia");
         $sedePrincipal = $request->input("sedePrincipal");
@@ -503,17 +495,19 @@ class Webcontroller extends Controller
             DB::rollback();
             return '|0| 0.2) Problema al actualizar el numero asignado por el sistema' . $e->getMessage();
         }
-        // $datosSolicitante = ConciReferente::select('consec','contador','depend_codigo')->where('estado', 1)
-        // ->orderBy('contador', 'asc')
-        // ->get();
+  
+
+        //Metodo para traer el valor minimo del contador de los usuarios referentes
 
         $Contadorminimo =ConciReferente::min('contador');
 
+
+        //Se toma en cuenta el valor minimo y se compara con los demas registros
         $datosminimos = ConciReferente::select('consec','contador','depend_codigo')->where('estado', 1)
         ->where('contador', $Contadorminimo)
         ->get();
 
-        //dd($datosminimos);
+        //En este metodo se hace un sorteo del listado en el array y luego toma el primero valor de forma aleatoria
 
         $Solicitanteminimo= $datosminimos->shuffle();
 
@@ -524,31 +518,8 @@ class Webcontroller extends Controller
             $depAsignada = $datosSolicitante->depend_codigo;
             $consecResponsable = $datosSolicitante->consec;
             $contador = $datosSolicitante->contador + 1;
-            
    
-                
-
-                   // //2.1) Extraer datos del funcionario asignado
-                // try {
-
-                //     $datosSolicitante = tabrepartoweb::select('TR.CONSEC', 'UR.depend_codigo', 'TR.contador')
-                //         ->join("USUARIO_ROL UR", "UR.CONSEC", "TR.CONSEC")
-                //         ->where('TR.ESTADO', 0)
-                //         ->orderBy('contador', 'asc')
-                //         ->first();
-        
-                //   //  $datosSolicitante = User::where('cedula', DB::raw("TO_CHAR(1010213817)"))->first();
-                //     $depAsignada = $datosSolicitante->depend_codigo;
-                //     $consecResponsable = $datosSolicitante->consec;
-                //     $contador = $datosSolicitante->contador + 1;
-                // } catch (\Exception $e) {
-                //     DB::rollback();
-                //     return '|0| 2.1) problema al extraer datos del funcionario asignado para el caso' . $e->getMessage();
-                // }
-
-
-
-        //1.a) Registrar informacion en tramiteusuario Local
+        //1.a) Registrar informacion en tramiteusuario prod
         try {
             $code = random_int(10000, 99999);
             ModelsTramiteusuario::insert(
@@ -580,6 +551,7 @@ class Webcontroller extends Controller
                     'tarjetaProfesional' => DB::raw("'$tarjetaProfesional'"),
                     'primerTelefonoApoderado' => DB::raw("'$primerTelefonoApoderado'"),
                     'segundoTelefonoApoderado' => DB::raw("'$segundoTelefonoApoderado'"),
+                    'direccionapoderado' => DB::raw("'$direccionapoderado'"),
                     'emailApoderado' => DB::raw("'$emailApoderado'"),
                     'tipoAudiencia' => $tipoAudiencia,
                     'sedePrincipal' => $sedePrincipal,
@@ -644,6 +616,7 @@ class Webcontroller extends Controller
                 'TEXTO16' => DB::raw("'$tarjetaProfesional'"),
                 'TEXTO17' => DB::raw("'$primerTelefonoApoderado'"),
                 'TEXTO18' => DB::raw("'$segundoTelefonoApoderado'"),
+                'TEXTO21' => DB::raw("'$direccionapoderado'"),
                 'TEXTO19' => DB::raw("'$emailApoderado'"),
                 'TEXTO24' => DB::raw("'$sexo'"),
                 'TEXTO22' => DB::raw("'$genero'"),
@@ -687,9 +660,72 @@ class Webcontroller extends Controller
         }
 
 
-        //2) Registrar datos en tramiterespuesta
+                //2) Registro del usuario en USUARIO_ROL
+                $depeUsuario = 389;
+                $estadoUsr = 'I';
+                $tipoUsr = 'US';
+                $nombresUsr = $primerNombre . ' ' . $segundoNombre;
+                $apellidosUsr = $primerApellido . ' ' . $segundoApellido;
+                $consec = '';
+              
+                //2.1) Extraer consecutivo
+                try {
+                    $user = DB::connection('oracleexterna')->table('USUARIO_ROL')->max('CONSEC');
+                    $consec = ($user) + 1;
+               
+                } catch (\Exception $e) {
+                    DB::rollback();
+                    return '|0| 4.1) Problema al extraer el consecutivo USR_ROL' . $e->getMessage();
+                }
+                //2.2) Preguntar si el usuario existe o no
+                try {
+                    $contadorUsuarioSol = DB::connection('oracleexterna')->table('USUARIO_ROL')
+                        ->where('CEDULA', DB::raw("'" . $numeroDocumento . "'"))
+                        ->count();
+                } catch (\Exception $e) {
+                    DB::rollback();
+                    return '|0| 4.2 Problema al indentificar el estodo del solicitante [USR_ROL] <br>' . $e->getMessage();
+                }
+                if ($contadorUsuarioSol == 1) {
+                    //2.2.1) Actualizar dependencai
+                    try {
+                        $usuarioreg = DB::table('USUARIO_ROL')
+                            ->where('CEDULA', DB::raw("'" . $numeroDocumento . "'"))
+                            ->first();
+                            $consec = ($usuarioreg->consec);
+                     
+                    } catch (\Exception $e) {
+                        DB::rollback();
+                        return '|0| 4.2.1 Problema al actualizar el estado del solicitante [USR_ROL] <br>' . $e->getMessage();
+                    }
+                }
+                
+                else {
+                    //2.2.2) Insertar datos
+                    try {
+                        DB::table('USUARIO_ROL')->insert([
+                            'CONSEC' => $consec,
+                            'NOMBRE' => DB::raw("'" . $nombresUsr . "'"),
+                            'APELLIDO' => DB::raw("'" . $apellidosUsr . "'"),
+                            'CEDULA' => DB::raw("'" . $numeroDocumento . "'"),
+                            'EMAIL' => DB::raw("'" . $email . "'"),
+                            'FECHA_CREACION' => DB::raw("sysdate"),
+                            'DIRECCION' => $direccion,
+                            'TELEFONO' => $primerTelefono,
+                            'ESTADO' => DB::raw("'" . $estadoUsr . "'"),
+                            'TIPO' => DB::raw("'" . $tipoUsr . "'"),
+                            'DEPEND_CODIGO' => DB::raw("'" . $depeUsuario . "'")
+                        ]);
+                    }
+                    catch (\Exception $e) {
+                        DB::rollback();
+                        return '|0| 4.2.2) Problema al insertar los datos referentes al al usuario solicitante. [USR_ROL]' . $e->getMessage();
+                    }
+                }
 
-        //2.0) Extraer consecutivo de tramiterespuesta
+        //3) Registrar datos en tramiterespuesta
+
+        //3.0) Extraer consecutivo de tramiterespuesta
         try {
             $user = tramiterespuesta::max('CONSECUTIVO');
             $consecutivo = ($user) + rand(1, 3);
@@ -698,15 +734,15 @@ class Webcontroller extends Controller
             return '|0| 2.0) Problema al extraer el consecutivo TR' . $e->getMessage();
         }
 
-
-        //2.2.a) INSERT DEL PASO 0
+ 
+        //3.0.a) INSERT DEL PASO 0 Prod
         try {
             ModelsTramiterespuesta::insert([
                 [
                     'NUM_SOLICITUD' => $numSolicitud, 'ID_TRAMITE' => $idTramite, 'NUM_PASO' => 0,
                     'FEC_RESPUESTA' => DB::raw("sysdate"),
-                    'TEX_RESPUESTA' => DB::raw("'" . $msg . "'"), 'ID_USU_ADM_CONTESTA' => $consecResponsable,
-                    'ID_USU_ADM' => $numeroDocumento, 'ESTADO_TRAMITE' => DB::raw("'Remitido'"),
+                    'TEX_RESPUESTA' => DB::raw("'" . $msg . "'"), 'ID_USU_ADM_CONTESTA' => $consec,
+                    'ID_USU_ADM' => $consecResponsable, 'ESTADO_TRAMITE' => DB::raw("'Remitido'"),
                     'CONSECUTIVO' => $consecutivo, 'VIGENCIA' => $vigencia,
                     'ID_DEPENDENCIA_REG' => $depAsignada, 'ID_DEPENDENCIA_ASIG' => $depAsignada
                 ]
@@ -716,14 +752,14 @@ class Webcontroller extends Controller
             return '|0| 2.2) Problema al Insertar la informacion al sistema TRAMITERESPUESTA ' . $e->getMessage();
         }
 
-        //2.2.b) INSERT DEL PASO 0
+        //3.0.b) INSERT DEL PASO Sinproc
         try {
             tramiterespuesta::insert([
                 [
                     'NUM_SOLICITUD' => $numSolicitud, 'ID_TRAMITE' => $idTramite, 'NUM_PASO' => 0,
                     'FEC_RESPUESTA' => DB::raw("sysdate"),
-                    'TEX_RESPUESTA' => DB::raw("'" . $msg . "'"), 'ID_USU_ADM_CONTESTA' => $consecResponsable,
-                    'ID_USU_ADM' => $numeroDocumento, 'ESTADO_TRAMITE' => DB::raw("'Remitido'"),
+                    'TEX_RESPUESTA' => DB::raw("'" . $msg . "'"), 'ID_USU_ADM_CONTESTA' => $numeroDocumento,
+                    'ID_USU_ADM' => $consecResponsable, 'ESTADO_TRAMITE' => DB::raw("'Remitido'"),
                     'CONSECUTIVO' => $consecutivo, 'VIGENCIA' => $vigencia,
                     'ID_DEPENDENCIA_REG' => 9999, 'ID_DEPENDENCIA_ASIG' => $depAsignada
                 ]
@@ -733,7 +769,7 @@ class Webcontroller extends Controller
             return '|0| 2.2) Problema al Insertar la informacion al sistema TRAMITERESPUESTA ' . $e->getMessage();
         }
 
-        //2.1.1) actualziar datos del funcionario asignado
+        //3.1.1) actualziar datos del funcionario asignado
         try {
             
             tabrepartoweb::where('CONSEC', $consecResponsable)
@@ -755,7 +791,7 @@ class Webcontroller extends Controller
                     DB::table('conci_convocantes')->insert([
                         'NUM_SOLICITUD' => $numSolicitud,
                         'nomConvocante' => DB::raw("'" . $quan . "'"),
-                        'apeConvocante' => DB::raw("'" . $apellidoConvocados[$i] . "'"),
+                        'apeconvocante' => DB::raw("'" . $apellidoConvocados[$i] . "'"),
                         'emailConvocante' => DB::raw("'" . $emailConvocados[$i] . "'"),
                     ]);
                 }
@@ -779,7 +815,7 @@ class Webcontroller extends Controller
             $i++;
         }
 
-        //3) Envio del email al usuario solicitante verificar si existe
+        //4) Envio del email al usuario solicitante verificar si existe
 
         try {
             $contadorRegistro = ModelsTramiteusuario::where('NUM_SOLICITUD', DB::raw("'" . $numSolicitud . "'"))
@@ -793,7 +829,7 @@ class Webcontroller extends Controller
         }
 
 
-        // 3.1 Se asegura que la variable tenga un valor en $emailapoderado
+        // 4.1 Se asegura que la variable tenga un valor en $emailapoderado
         $nombrecompleto = $primerNombre . ' ' . $segundoNombre . ' ' . $primerApellido  . ' ' . $segundoApellido;
         $dato = ModelsTramiteusuario::where('num_solicitud', $numSolicitud)->first();
   
@@ -845,10 +881,7 @@ class Webcontroller extends Controller
                         $message->bcc($enviar);
                     }
    
-                  //  $message->attach('/FORMATO_SOLICITUD_DE_CONCILIACION_V4');
-                    // $message->bcc('ljmeza@personeriabogota.gov.co');
-                    // $message->bcc('nylopez@personeriabogota.gov.co');
-                    // $message->bcc('asarmiento@personeriabogota.gov.co');
+                  
                     $message->subject($data['subject']);
                 });
             } catch (\Exception $e) {
@@ -859,75 +892,11 @@ class Webcontroller extends Controller
             return '|0| 3.0) No es posible enviar el correo electronico ya que no se registraron los datos en el sistema </br>';
         }
 
-        //4) Registro del usuario en USUARIO_ROL
-        $depeUsuario = 9999;
-        $estadoUsr = 'I';
-        $tipoUsr = 'US';
-        $nombresUsr = $primerNombre . ' ' . $segundoNombre;
-        $apellidosUsr = $primerApellido . ' ' . $segundoApellido;
-
-        //4.1) Extraer consecutivo
-        try {
-            $user = DB::connection('oracleexterna')->table('USUARIO_ROL')->max('CONSEC');
-            $consec = ($user) + 1;
-        } catch (\Exception $e) {
-            DB::rollback();
-            return '|0| 4.1) Problema al extraer el consecutivo USR_ROL' . $e->getMessage();
-        }
-        //4.2) Preguntar si el usuario existe o no
-        try {
-            $contadorUsuarioSol = DB::connection('oracleexterna')->table('USUARIO_ROL')
-                ->where('CEDULA', DB::raw("'" . $numeroDocumento . "'"))
-                ->count();
-        } catch (\Exception $e) {
-            DB::rollback();
-            return '|0| 4.2 Problema al indentificar el estodo del solicitante [USR_ROL] <br>' . $e->getMessage();
-        }
-        if ($contadorUsuarioSol == 1) {
-            //4.2.1) Actualizar dependencai
-            try {
-                // DB::table('USUARIO_ROL')
-                //     ->where('CEDULA', DB::raw("'" . $numeroDocumento . "'"))
-                //     ->update([
-                //         'DEPEND_CODIGO' => $depeUsuario,
-                //         'ESTADO' =>  DB::raw("'" . $estadoUsr . "'"),
-                //         'TIPO' =>   DB::raw("'" . $tipoUsr . "'"),
-                //     ]);
-            } catch (\Exception $e) {
-                DB::rollback();
-                return '|0| 4.2.1 Problema al actualizar el estado del solicitante [USR_ROL] <br>' . $e->getMessage();
-            }
-        }
-        else {
-            //4.2.2) Insertar datos
-            try {
-                DB::table('USUARIO_ROL')->insert([
-                    'CONSEC' => $consec,
-                    'NOMBRE' => DB::raw("'" . $nombresUsr . "'"),
-                    'APELLIDO' => DB::raw("'" . $apellidosUsr . "'"),
-                    'CEDULA' => DB::raw("'" . $numeroDocumento . "'"),
-                    'EMAIL' => DB::raw("'" . $email . "'"),
-                    'FECHA_CREACION' => DB::raw("sysdate"),
-                    'DIRECCION' => $direccion,
-                    'TELEFONO' => $primerTelefono,
-                    'ESTADO' => DB::raw("'" . $estadoUsr . "'"),
-                    'TIPO' => DB::raw("'" . $tipoUsr . "'"),
-                    'DEPEND_CODIGO' => DB::raw("'" . $depeUsuario . "'")
-                ]);
-            }
-            catch (\Exception $e) {
-                DB::rollback();
-                return '|0| 4.2.2) Problema al insertar los datos referentes al al usuario solicitante. [USR_ROL]' . $e->getMessage();
-            }
-        }
-
         DB::commit();
         //return '|1|El registro finalizo de forma correcta <br> su numero de solicitud es: <strong>' . $numSolicitud . '</strong> <br> Por favor verifique su correo electronico para mas información.';
         return '|1|Señor usuario, <br> Su número de solicitud es <strong>' . $numSolicitud . '.</strong> <br> Se informa que se ha enviado un mensaje a la dirección de correo 
         electrónico que proporcionó en la <strong>solicitud de conciliación</strong> en línea, el cual contiene las instrucciones para adjuntar los soportes correspondientes, teniendo en cuenta la temática que seleccionó y de esta forma finalizar este proceso..';
     }
-
- 
 
     // Retornar vista con información del funcionario a atualizar
     public function actualizarDato(Request $request)
@@ -1139,14 +1108,14 @@ class Webcontroller extends Controller
     }
 
 
-
+//Funcion de consulta de solicitud
     public function autosearch(Request $request)
     {
         if ($request->ajax()) {
-           // $data = ModelsTramiteusuario::where('num_solicitud', $request->num_solicitud)->where('CODE', $request->codigo)->where('estadodoc',)->first();
+           
             $data = ModelsTramiteusuario::where('num_solicitud', $request->num_solicitud)->where('CODE', $request->codigo)->first();
             
-
+            //se verifica el estado de documento
             $output = '';
             if ($data) {
                 if($data->estadodoc==''){
@@ -1165,9 +1134,11 @@ class Webcontroller extends Controller
                     ';
               
                 $output .= '</div>';
+                //Validacion de estado "adjunto", devuelve mensaje y no deja ingresar al formulario de adjuntos
             } else if($data->estadodoc=='adjunto') {
              
                 $output .= '<br><p style="width:90%;margin:auto;" class="alert alert-success"><i class="fa-regular fa-circle-check fa-2xl"></i>' . '<span style="padding:8px;font-size: 1.2rem;"> El proceso de adjuntar documentos ha finalizado' . '</span></p>';
+                //Validacion de estado "Cancelado", devuelve mensaje y no deja ingresar al formulario de adjuntos
             }else if($data->estadodoc=='Cancelado') {
                 $output .= '<br><p style="width:90%;margin:auto;" class="alert alert-warning"><i class="fa-solid fa-triangle-exclamation fa-2xl"></i>' . '<span style="padding:8px;font-size: 1.2rem;"> Se realizo desistimiento a la Solicitud de Conciliación ' . '</span></p>';
             }
@@ -1179,20 +1150,14 @@ class Webcontroller extends Controller
     }
         return view('frmWeb.autosearch');
     }
- 
+ //Metodo para la vista del formulario adjunts
     public function adjuntararchivos($id)
     {
 
-
+        //Cargo de los datos de solicitud
         $dato = ModelsTramiteusuario::where('num_solicitud', $id)->first();
-        if($dato->estadodoc==''){
-
-        
-        //ddd($dato->subasunto);
-        //ddd($dato->subasuntos);
         $tipodedocumento=Parametro::where('id', $dato->tipodocumento)->first()->nombre;
         $tiposolicitud= $dato->tiposolicitud;
-        //dd( $tiposolicitud);
         $nombrecompleto = $dato->primernombre . ' ' . $dato->segundonombre . ' ' . $dato->primerapellido  . ' ' . $dato->segundoapellido;
         $fecha = $dato->fec_solicitud_tramite;
         $newDate = date("d-m-Y", strtotime($fecha));  
@@ -1202,9 +1167,6 @@ class Webcontroller extends Controller
         if($tiposolicitud==1){
             $tipodedocapoderado=Parametro::where('id', $dato->tipodocapoderado)->first()->nombre;
         }
-        
-
-        //dd( $tiposolicitud);
         $nombrecompleto = $dato->primernombre . ' ' . $dato->segundonombre . ' ' . $dato->primerapellido  . ' ' . $dato->segundoapellido;
         $apoderado = $dato->primernombreapoderado . ' ' . $dato->segundonombreapoderado . ' ' . $dato->primerapellidoapoderado  . ' ' . $dato->segundoapellidoapoderado;
 
@@ -1225,16 +1187,11 @@ class Webcontroller extends Controller
             "convocates" => $convocates
         );
         return view('frmWeb.card.adjuntar', compact('dato', 'data', 'nombrecompleto','tiposolicitud','numero','newDate','tipodedocumento','apoderado','tipodedocapoderado'));
-    }else{
-        return view('frmWeb.autosearch');
-    }
+
     }
 
 
- //distacia label
- //sub asuntos   
- //centrar tablas
- //separar icono
+
 
  //Modal de desestimiento   
     public function Desistir($id)
@@ -1259,7 +1216,7 @@ class Webcontroller extends Controller
 
   
             
-            //ddd($dato);
+            
             $detalleAbc = Subdescripcion::where('subasu_id', $dato->subasunto)
                 ->where('sis_esta_id', 1)
                 ->orderBy('id')
@@ -1267,7 +1224,7 @@ class Webcontroller extends Controller
     
         
     
-            
+            //Correo de confirmación de desistimiento
             $conteo= count($detalleAbc)-1;
             try {
                 $subject = 'Solicitud conciliaciones Web  - Personería de Bogotá D.C.';
@@ -1302,13 +1259,11 @@ class Webcontroller extends Controller
 
 
             //return redirect('https://www.personeriabogota.gov.co/');
-            return '|1|Se confirma el Desistimiento a la Solicitud de Conciliación vía WEB No '.$id.' registrada el día '.explode(' ',$fecha)[0];
+            return '|1|Se confirma el Desistimiento a la Solicitud de Conciliación vía WEB No. <b> '.$id.'</b> registrada el día '.explode(' ',$fecha)[0];
         } else {
             return '|0| 3.0) test: </br>';
         }
     }
-
-
 
 
 //Funcion de carga de documentos
@@ -1353,28 +1308,27 @@ class Webcontroller extends Controller
             }
            
 
-
+            //Validacion de datos recibidos por request
         if ($validator->fails()) {
             $messages = $validator->messages();
      
             return Redirect::back()->withErrors($validator);
         }
 
-
+        //Carga de adjuntos
         try {
             $files = [];
-          
             foreach ($request->file("document1") as $key => $file) {
  
                // $rutaFinalFile = Storage::put($id, $file);
           
       
                 $files[]['name'] = $descripcion[$key];
-                //id + @ nombreoriginal
+                //estructura de nombre de archivo id -- nombreoriginal
                 $nombreOriginalFile = $file->getClientOriginalName();
                 $filePath = $file->storeAs('Documentos/'.$id, $nombreOriginalFile);
                 $rutaFinalFile =$file->getRealPath();
-                echo $rutaFinalFile;
+                //echo $rutaFinalFile;
                 
                 $ddd = Soportecon::create(['NUM_SOLICITUD' => $id, 'descripcion' => $descripcion[$key], 'rutaFinalFile' => $filePath, 'nombreOriginalFile' =>$id.'--'. $nombreOriginalFile]);
   
@@ -1390,19 +1344,19 @@ class Webcontroller extends Controller
             'estadodoc' => 'adjunto'
          ]);
      
-//        ddd($solicitud);
+
 
      
         $dato->fec_solicitud_tramite;
         $fecha = $dato->fec_solicitud_tramite;
         $newDate = date("d-m-Y", strtotime($fecha));  
         $nombrecompleto = $dato->primernombre . ' ' . $dato->segundonombre . ' ' . $dato->primerapellido  . ' ' . $dato->segundoapellido;
-        //ddd($dato);
+        
         $fechaRegistro = new DateTime(Carbon::now());
-        //$fechaRegistro = $fechaRegistro->format("d/m/Y h:m:s");
+        
         $fechaRegistro = $fechaRegistro->setTimezone(new DateTimeZone('America/Bogota'));
         $fechaRegistro = $fechaRegistro->format("d/m/Y h:m:s");
-        //$newDate = date("d-m-Y", strtotime($fechaRegistro));  
+        
         $detalleAbc = Subdescripcion::where('subasu_id', $dato->subasunto)
             ->where('sis_esta_id', 1)
             ->orderBy('id')
@@ -1410,7 +1364,7 @@ class Webcontroller extends Controller
 
         
 
-        
+        //Envio de correo confirmando la subida de los datos adjuntos
         $conteo= count($detalleAbc)-1;
         try {
             $subject = 'Solicitud conciliaciones Web  - Personería de Bogotá D.C.';
@@ -1437,18 +1391,16 @@ class Webcontroller extends Controller
         } catch (\Exception $e) {
             return '|0| 3.0) Problema al enviar el correo de confirmacion: </br>' . $e->getMessage();
         }
-        
-        return '|1|Con él envió de los soportes se da por finalizado el Registro de la Solicitud de Conciliación WEB No. '.$id.' del '.$newDate.'. 
+        //Mensaje de comprobacion de registro de los datos adjuntos
+        return '|1|Con él envió de los soportes se da por finalizado el Registro de la Solicitud de Conciliación WEB No. <b> '.$id.'</b> del '.$newDate.'. 
         La información relacionada y sus anexos serán revisados por los funcionarios al interior de la Personería de Bogotá, quienes próximamente lo contactarán por medio de los correos electrónicos registrados';
-        //return '|0| 3.0) Test: </br>' ;
+        
         DB::commit();
         
 
 
-
         
     }
-
 
 
 

@@ -294,7 +294,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
         <center>
         <div class="col-md-6">
             
-            <p class="mt-2" style="text-justify;color:#0171BD;font-weight:800;">SOLICITUD DE CONCILIACIÓN</p>
+            <p class="mt-2" style="text-justify;color:#0171BD;font-weight:800;font-size:1.35rem">SOLICITUD DE CONCILIACIÓN</p>
         </div>
     </center>
         <div class="col-md-1"> </div>
@@ -2022,11 +2022,11 @@ $('#add_btn').on('click',function(){
     var nomConvocante= $("#nomConvoc").val() ;
     var apeConvocante= $("#apeConvoca").val();
     var emailConU= $("#emailConvo").val();
-
+    
     var html='';
      html+=' <tr>';
-     html+='<td style="text-transform: uppercase"><input type="text" class="form-control form-control-sm" name="nomConvocante[]" id="nomConvocante" value='+nomConvocante+' style="display:none;" >'+nomConvocante+'</td>';
-     html+='<td style="text-transform: uppercase"><input type="text" class="form-control form-control-sm" name="apeConvocante[]" id="apeConvocante" value='+apeConvocante+' style="display:none;" >'+apeConvocante+'</td>';
+     html+='<td style="text-transform: uppercase"><input type="text" class="form-control form-control-sm" name="nomConvocante[]" id="nomConvocante" value="'+nomConvocante+'" style="display:none;" >'+nomConvocante+'</td>';
+     html+='<td style="text-transform: uppercase"><input type="text" class="form-control form-control-sm" name="apeConvocante[]" id="apeConvocante" value="'+apeConvocante+'" style="display:none;" >'+apeConvocante+'</td>';
      html+='<td style="text-transform: lowercase"><input type="email" class="form-control form-control-sm" name="emailConvocante[]" id="emailConU" value='+emailConU+' style="display:none;" >'+emailConU+'</td>';
      html+='<td> <button type="button" id="deletebtn" class="btn btn btn-outline-danger deletebtn">Eliminar <i class="far fa-times-circle"></i></button> </td>';
      html+='</tr>';

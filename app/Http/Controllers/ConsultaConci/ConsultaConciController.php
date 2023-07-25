@@ -58,24 +58,6 @@ class ConsultaConciController extends Controller
     }
 
 
-    // public function create()
-    // {
-    //     $this->opciones['pestania'] = $this->getPestanias($this->opciones);
-    //     return $this->view(
-    //         $this->getBotones(['crear', [], 1, 'GUARDAR TEXTO', 'btn btn-sm btn-primary']),
-    //         ['modeloxx' => '', 'accionxx' => ['crear', 'formulario']]
-    //     );
-    // }
-    // public function store(TextoCrearRequest $request)
-    // {
-        
-    //     return $this->setTexto([
-    //         'requestx' => $request,
-    //         'modeloxx' => '',
-    //         'infoxxxx' =>       'Texto creado con éxito',
-    //         'routxxxx' => $this->opciones['routxxxx'] . '.editar'
-    //     ]);
-    // }
 
     public function agregar($modeloxx)
     {

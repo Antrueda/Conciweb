@@ -29,7 +29,7 @@ class Sinproc
         }
 
 
-        $key = base64_decode($_GET['key']);
+        $key = urldecode($_GET['key']);
         $acceso = $this->data($key);
         //dd($acceso);
         if (count($acceso) == 5) {

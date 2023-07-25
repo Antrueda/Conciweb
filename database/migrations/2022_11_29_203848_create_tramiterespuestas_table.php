@@ -21,8 +21,8 @@ return new class extends Migration
             $table->Integer('NUM_PASO',4)->nullable();
             $table->date('FEC_RESPUESTA')->nullable();
             $table->string('TEX_RESPUESTA')->nullable();
-            $table->Integer('ID_USU_ADM_CONTESTA')->nullable();
-            $table->Integer('ID_USU_ADM')->nullable();
+            $table->Integer('ID_USU_ADM_CONTESTA',20)->nullable();
+            $table->Integer('ID_USU_ADM',20)->nullable();
             $table->string('ESTADO_TRAMITE')->nullable();
             $table->Integer('NUM_PASO_ANTERIOR',4)->nullable();
             $table->string('VIGENCIA')->nullable();

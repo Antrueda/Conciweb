@@ -92,35 +92,35 @@
   <div class="container" >
 <div class="card-body" id="divapoderado">
   <div class="row"  >
-    <div class="col-md-3">
+    <div class="col-md-4 mt-2">
       <b  style="color:#0171BD">Tipo de Documento</b></label>
-      <p style="text-transform: uppercase">{{$tipodedocumento}}</p>
+      <p style="text-transform: uppercase">{{$tipodedocapoderado}}</p>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-4 mt-2">
       <b  style="color:#0171BD">Número de Documento</b></label>
       <p style="text-transform: uppercase">{{$dato->numdocapoderado}}</p>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-4 mt-2">
      <b  style="color:#0171BD">Nombre Apoderado</b></label>
       <p style="text-transform: uppercase"> {{$apoderado}}</p>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-4 mt-2">
       <b  style="color:#0171BD">No. Tarjeta Profesional</b></label>
        <p style="text-transform: uppercase"> {{$dato->tarjetaprofesional}}</p>
      </div>
-     <div class="col-md-3">
+     <div class="col-md-4 mt-2">
       <b  style="color:#0171BD">Dirección</b></label>
        <p style="text-transform: uppercase"> {{$dato->direccionapoderado}}</p>
      </div>
-     <div class="col-md-3">
+     <div class="col-md-4 mt-2">
       <b  style="color:#0171BD">Teléfono Celular</b></label>
        <p style="text-transform: uppercase"> {{$dato->primertelefonoapoderado}}</p>
      </div>
-     <div class="col-md-3">
+     <div class="col-md-4 mt-2">
       <b  style="color:#0171BD">Teléfono Fijo</b></label>
        <p style="text-transform: uppercase"> {{$dato->segundotelefonoapoderado}}</p>
      </div>
-     <div class="col-md-3">
+     <div class="col-md-4 mt-2">
       <b  style="color:#0171BD">Correo Electrónico</b></label>
        <p style="text-transform: uppercase"> {{$dato->emailapoderado}}</p>
      </div>
@@ -138,9 +138,6 @@
 <div class="card" style="padding-top: 3px; padding-bottom: 3px;">
   <div class="card-header" style="text-align-last: center;">
     <div class="row justify-content-md-center">
-   
- 
-
       <div class="form-check form-switch form-check-reverse" >
         <input class="form-check-input" type="checkbox" role="switch" id="convocado" style="
         margin-right: 1px
@@ -154,17 +151,19 @@
   <div class="container">
     <div class="card-body scroll" id="divconvocado">
 
-    <div class="row">
+    <div class="row" style="margin-right: 12px;
+    margin-left: 23px;" >
       @foreach ($data['convocates'] as $info)
       
-      <div class="col-md-3" style="background-color: aliceblue;">
-        <b  style="color:#0171BD">Nombre Completo</b></label>
-        <p style="text-transform: uppercase">{!! $info->nomconvocante . ' ' . $info->apeconvocante !!}</p>
+      
+      <div class="col-md-6 mt-2 pt-10" style="
+          border: 1px solid #F0F8FF;
+          border-radius: 7px / 7px;
+          padding: 8px 30px;
+          text-align: justify;" >
+        <b  style="color:#0171BD">Nombre Convocado (Correo Electrónico)</b></label>
+        <p style="text-transform: uppercase">{!! $info->nomconvocante . ' ' . $info->apeconvocante !!} <span style="text-transform: lowercase"> ({!! $info->emailconvocante  !!}) </span></p>
       </div>
-        <div class="col-md-3" style="background: linear-gradient(90deg, #F0F8FF 90%, #FFFFFF 10%);">
-          <b  style="color:#0171BD">Correo</b></label>
-        <p style="text-transform: lowercase">{!! $info->emailconvocante  !!}</p>
-          </div>
  
       @endforeach 
   </div>
@@ -176,88 +175,10 @@
 </div>
 </div>
 
-{{-- <div class="card" style="padding-top: 3px; padding-bottom: 3px;">
-  <div class="card-header">
-      <center>
-      <b>DATOS DE CONVOCADOS</b>
-  </center>
-  </div>
-  <div class="container">
-<div class="card-body scroll">
-
-  <div class="card-group">
-    <div class="row">
-    <div class="card col-3">
-  
-      <div class="card-body">
-        <b  style="color:#0171BD">Nombre Completo</b></label>
-        <p style="text-transform: uppercase">test</p>
-        <b  style="color:#0171BD">Correo</b></label>
-        <p style="text-transform: uppercase">test</p>
-      </div>
-    </div>
-    <div class="card col-3">
-  
-      <div class="card-body">
-        <b  style="color:#0171BD">Nombre Completo</b></label>
-        <p style="text-transform: uppercase">test</p>
-        <b  style="color:#0171BD">Correo</b></label>
-        <p style="text-transform: uppercase">test</p>
-      </div>
-    </div>
-    <div class="card col-3">
-      <div class="card-body">
-        <b  style="color:#0171BD">Nombre Completo</b></label>
-        <p style="text-transform: uppercase">test</p>
-        <b  style="color:#0171BD">Correo</b></label>
-        <p style="text-transform: uppercase">test</p>
-      </div>
-    </div>
-    <div class="card col-3">
-  
-      <div class="card-body">
-        <b  style="color:#0171BD">Nombre Completo</b></label>
-        <p style="text-transform: uppercase">test</p>
-        <b  style="color:#0171BD">Correo</b></label>
-        <p style="text-transform: uppercase">test</p>
-      </div>
-    </div>
-    <div class="card col-3">
-  
-      <div class="card-body">
-        <b  style="color:#0171BD">Nombre Completo</b></label>
-        <p style="text-transform: uppercase">test</p>
-        <b  style="color:#0171BD">Correo</b></label>
-        <p style="text-transform: uppercase">test</p>
-      </div>
-    </div>
-    <div class="card">
-  
-      <div class="card-body">
-        <b  style="color:#0171BD">Nombre Completo</b></label>
-        <p style="text-transform: uppercase">test</p>
-        <b  style="color:#0171BD">Correo</b></label>
-        <p style="text-transform: uppercase">test</p>
-      </div>
-    </div>
-    <div class="card">
-  
-      <div class="card-body">
-        <b  style="color:#0171BD">Nombre Completo</b></label>
-        <p style="text-transform: uppercase">test</p>
-        <b  style="color:#0171BD">Correo</b></label>
-        <p style="text-transform: uppercase">test</p>
-      </div>
-    </div>
-  </div>
-  
-</div>
 
 
 
-</div>
-</div>
-</div> --}}
+
 <br>
 
 {{-- <center>
@@ -291,7 +212,7 @@
            
                   <td style="text-justify;width:80%;vertical-align: middle;" >{!! $archivo->descripcion !!}</td>
                 <td style="text-justify;width:40%;padding-left: 40px;padding-top: 25px;"><a href="{{ route('documentos.download', $archivo->id) }}"class="btn btn-success mb-3">
-               <span class="px-2"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-filetype-pdf" viewBox="0 0 16 16">
+               <span class="px-2"> <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-filetype-pdf me-1" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M14 4.5V14a2 2 0 0 1-2 2h-1v-1h1a1 1 0 0 0 1-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5L14 4.5ZM1.6 11.85H0v3.999h.791v-1.342h.803c.287 0 .531-.057.732-.173.203-.117.358-.275.463-.474a1.42 1.42 0 0 0 .161-.677c0-.25-.053-.476-.158-.677a1.176 1.176 0 0 0-.46-.477c-.2-.12-.443-.179-.732-.179Zm.545 1.333a.795.795 0 0 1-.085.38.574.574 0 0 1-.238.241.794.794 0 0 1-.375.082H.788V12.48h.66c.218 0 .389.06.512.181.123.122.185.296.185.522Zm1.217-1.333v3.999h1.46c.401 0 .734-.08.998-.237a1.45 1.45 0 0 0 .595-.689c.13-.3.196-.662.196-1.084 0-.42-.065-.778-.196-1.075a1.426 1.426 0 0 0-.589-.68c-.264-.156-.599-.234-1.005-.234H3.362Zm.791.645h.563c.248 0 .45.05.609.152a.89.89 0 0 1 .354.454c.079.201.118.452.118.753a2.3 2.3 0 0 1-.068.592 1.14 1.14 0 0 1-.196.422.8.8 0 0 1-.334.252 1.298 1.298 0 0 1-.483.082h-.563v-2.707Zm3.743 1.763v1.591h-.79V11.85h2.548v.653H7.896v1.117h1.606v.638H7.896Z"/>
                   </svg> Descargar</span>  </a></td>
                 

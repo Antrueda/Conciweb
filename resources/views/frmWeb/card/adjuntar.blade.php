@@ -95,7 +95,7 @@
     <div class="row">
       <div class="col-md-3">
         <b  style="color:#0171BD">Tipo de Documento</b></label>
-        <p style="text-transform: uppercase">{{$tipodedocumento}}</p>
+        <p style="text-transform: uppercase">{{$tipodedocapoderado}}</p>
       </div>
       <div class="col-md-3">
       <b style="color:#0171BD">Número de Documento</b></label>
@@ -202,9 +202,6 @@
 <div class="card" style="padding-top: 3px; padding-bottom: 3px;">
   <div class="card-header" style="text-align-last: center;">
     <div class="row justify-content-md-center">
-   
- 
-
       <div class="form-check form-switch form-check-reverse" >
         <input class="form-check-input" type="checkbox" role="switch" id="convocado" style="
         margin-right: 1px
@@ -217,25 +214,22 @@
 
   <div class="container">
     <div class="card-body scroll" id="divconvocado">
-  <div class="row">
 
+    <div class="row" style="margin-right: 12px;
+    margin-left: 23px;" >
       @foreach ($data['convocates'] as $info)
-      <div class="col-md-3">
-        <b  style="color:#0171BD">Nombre Completo</b></label>
-        <p style="text-transform: uppercase">{!! $info->nomconvocante . ' ' . $info->apeconvocante !!}</p>
+      
+      
+      <div class="col-md-6 mt-2 pt-10" style="
+          border: 1px solid #F0F8FF;
+          border-radius: 7px / 7px;
+          padding: 8px 30px;
+          text-align: justify;" >
+        <b  style="color:#0171BD">Nombre Convocado (Correo Electrónico)</b></label>
+        <p style="text-transform: uppercase">{!! $info->nomconvocante . ' ' . $info->apeconvocante !!} <span style="text-transform: lowercase"> ({!! $info->emailconvocante  !!}) </span></p>
       </div>
-        <div class="col-md-3">
-          <b  style="color:#0171BD">Correo</b></label>
-        <p style="text-transform: lowercase">{!! $info->emailconvocante  !!}</p>
-          </div>
-     
+ 
       @endforeach 
-
-
-
-
-
-
   </div>
   
 </div>
@@ -537,7 +531,7 @@ $(document).ready(function() {
                         theme: 'bootstrap-v4',
                         killer: true,
                         progressBar: true,
-                        timeout: 10000,
+                        timeout: 15000,
                         callbacks: {
                             afterClose: function() {
                                 window.location.href = "https://www.personeriabogota.gov.co/";

@@ -44,7 +44,7 @@ class TextoAdminController extends Controller
         return view($this->opciones['rutacarp'] . 'pestanias', ['todoxxxx' => $this->getTablas($this->opciones)]);
     }
 
-
+    //Metodo de formulario crear texto
     public function create()
     {
         $this->opciones['pestania'] = $this->getPestanias($this->opciones);
@@ -53,6 +53,7 @@ class TextoAdminController extends Controller
             ['modeloxx' => '', 'accionxx' => ['crear', 'formulario']]
         );
     }
+    //Metodo de crear Texto
     public function store(TextoCrearRequest $request)
     {
         

@@ -41,7 +41,7 @@ class DocumentsController extends Controller
             ], 400);
         }
  
-        // Retrieve the validated input...
+        // api post...
         $validated = $validator->validated();
         $tramite = Soportecon::where('id', $validated['id'])->firstOrFail();
         if($tramite->rutafinalfile != null){
@@ -53,7 +53,7 @@ class DocumentsController extends Controller
         }
     }
 
-//Primer test
+//Primer test de documentos
     public function getDocuments(Request $request){
 
         $validator = Validator::make($request->all(), [
@@ -81,14 +81,13 @@ class DocumentsController extends Controller
     }
 
 
-    //API Funcional
+    //API Funcional, cargue de datos de la solicitud e ingreso por un token(key)
     public function getDocumentos(){
 
-        //
-        $key = base64_decode($_GET['key']);
+        $key = urldecode($_GET['key']);
         $acceso = $this->data($key);
-        //dd($acceso);
-        // Retrieve the validated input...
+        
+        // trae la información del documento...
           $tramite = Soportecon::where('num_solicitud', $acceso[3])->get();
           $dato = Tramiteusuario::where('num_solicitud', $acceso[3])->where('vigencia',$acceso[4])->first();
           $fecha = Tramiteusuario::where('num_solicitud', $acceso[3])->first()->fec_solicitud_tramite;
@@ -100,16 +99,12 @@ class DocumentsController extends Controller
           if($tiposolicitud==1){
               $tipodedocapoderado=Parametro::where('id', $dato->tipodocapoderado)->first()->nombre;
           }
-   
-          //dd( $tiposolicitud);
-          $nombrecompleto = $dato->primernombre . ' ' . $dato->segundonombre . ' ' . $dato->primerapellido  . ' ' . $dato->segundoapellido;
+        $nombrecompleto = $dato->primernombre . ' ' . $dato->segundonombre . ' ' . $dato->primerapellido  . ' ' . $dato->segundoapellido;
           $apoderado = $dato->primernombreapoderado . ' ' . $dato->segundonombreapoderado . ' ' . $dato->primerapellidoapoderado  . ' ' . $dato->segundoapellidoapoderado;
-          //ddd($dato);
 
           $convocates = Convocante::where('num_solicitud', $acceso[3])
           ->orderBy('id')
           ->get();
-            //dd($convocates);
           $numero=number_format($dato->cuantia,0,'.','.');
           $detalleAbc = Subdescripcion::where('subasu_id', $dato->subasunto)
               ->where('sis_esta_id', 1)

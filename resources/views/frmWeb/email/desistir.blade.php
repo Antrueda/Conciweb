@@ -238,12 +238,12 @@
     <p>Cordial saludo <b><strong style="text-transform: uppercase;color:#0171BD" class="px-2">{{$nombrecompleto}}</strong></b></p>
     @if (isset($emailApoderado) && !empty($emailApoderado)) 
     <p>
-        La Personería de Bogotá D.C., le informa que el día {{$newDate}} se recibió la solicitud de <b>DESISTIMIENTO</b> para la Conciliación WEB No. <b>{{$numSolicitud}} </b> registrada por usted el día {{$fechaRegistro}} , por lo anterior su solicitud ha sido cancelada”.
+        La Personería de Bogotá D.C., le informa que el día {{$newDate}} se recibió la solicitud de <b>DESISTIMIENTO</b> para la Conciliación WEB No. <b>{{$numSolicitud}} </b> registrada por usted el día {{$newDate}} , por lo anterior su solicitud ha sido cancelada”.
 
     </p>
     @else
     <p>
-        La Personería de Bogotá D.C., le informa que el día {{$newDate}} se recibió la solicitud de <b>DESISTIMIENTO</b> para la Conciliación WEB No. <b>{{$numSolicitud}} </b> registrada por usted el día {{$fechaRegistro}} , por lo anterior su solicitud ha sido cancelada”.
+        La Personería de Bogotá D.C., le informa que el día {{$newDate}} se recibió la solicitud de <b>DESISTIMIENTO</b> para la Conciliación WEB No. <b>{{$numSolicitud}} </b> registrada por usted el día {{$newDate}} , por lo anterior su solicitud ha sido cancelada”.
     </p>
 
    @endif
