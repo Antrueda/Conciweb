@@ -15,7 +15,7 @@
             margin-top: 1rem;
             padding: 0.7rem;
             text-align: center;
-            width: 88%;
+            width: 700px;
             margin-left: auto;
             margin-right: auto;
         }

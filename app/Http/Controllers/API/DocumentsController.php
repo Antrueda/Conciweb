@@ -85,10 +85,12 @@ class DocumentsController extends Controller
     public function getDocumentos(){
 
         $key = urldecode($_GET['key']);
+        $key = str_replace(" ", "+", $key);
         $acceso = $this->data($key);
-        
+        //dd($acceso);
         // trae la información del documento...
           $tramite = Soportecon::where('num_solicitud', $acceso[3])->get();
+          
           $dato = Tramiteusuario::where('num_solicitud', $acceso[3])->where('vigencia',$acceso[4])->first();
           $fecha = Tramiteusuario::where('num_solicitud', $acceso[3])->first()->fec_solicitud_tramite;
           $newDate = date("d-m-Y", strtotime($fecha));  
@@ -117,14 +119,12 @@ class DocumentsController extends Controller
               "detalleAbc" => $detalleAbc,
               "convocates" => $convocates
           );
-
-        if($tramite != null){
+      
+        if(!$tramite->isEmpty()){
             return view('archivos', compact('tramite','dato', 'data', 'nombrecompleto','tiposolicitud','numero','newDate','tipodedocumento','tipodedocapoderado','apoderado'));
-            //return response()->json($tramite);
+         
         } else{
-            return response([
-                'message' => 'sinproc existe pero NO TIENE ADJUNTO SDP',
-            ], 404);
+            return view('administracion.incompleto',compact('tramite','dato', 'data', 'nombrecompleto','tiposolicitud','numero','newDate','tipodedocumento','tipodedocapoderado','apoderado'));
         }
     }
 
@@ -132,6 +132,12 @@ class DocumentsController extends Controller
     {
         
         return view('administracion.sinpermisos');
+    }
+
+    public function incompleto()
+    {
+
+        return view('administracion.incompleto');
     }
 
 

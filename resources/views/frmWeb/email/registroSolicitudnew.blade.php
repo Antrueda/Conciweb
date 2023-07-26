@@ -128,7 +128,7 @@
     <!-- end css -->
 </head>
 <div class="cabecera">
-    <img style="height: 25%;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnAAAACrCAMAAADRq1FUAAAA5FBMVEVMaXEdcLcdcLc1qOAdcLcd
+    {{-- <img style="height: 25%;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnAAAACrCAMAAADRq1FUAAAA5FBMVEVMaXEdcLcdcLc1qOAdcLcd
     cLcdcLcdcLcdcLc1qOAdcLcdcLcdcLcdcLftHCQdcLcdcLftHCQdcLcdcLftHCQdcLcdcLcdcLcd
     cLcdcLcdcLcdcLcdcLc1qOAdcLcdcLc1qOAdcLc1qOA1qOA1qOA1qOA1qOA1qOA1qOAdcLc1qOA1
     qOAdcLftHCQdcLc1qODtHCTtHCTtHCTtHCTtHCTtHCTtHCTtHCTtHCTtHCTtHCTtHCTtHCTtHCTt
@@ -251,9 +251,9 @@
     oDJy/PnlU/Ubi9x9e8h8L4lLlR/RWszs6WW+zQvPK8ZD1eu9WM4VWlHoGmG6Lc2wCJDBsGHkR2Td
     a3t0OWwtZfsG15cQYfyuUCuxtvvj9nn9eRDGb4+R6bbV84ZfBiPHGLeEzLQSi8GIAFz9x3ECo37o
     l8mY7wlkMOpA+7I1qWDlH4PBYDAYDAaDwWAwGAwGg8FgMBgMBoPBYDAYDAaDwWAwGAwGg8FgMBgM
-    BoMRjyRJ/h+GoUfSgT6GhQAAAABJRU5ErkJggg==" alt="img" />
+    BoMRjyRJ/h+GoUfSgT6GhQAAAABJRU5ErkJggg==" alt="img" /> --}}
 
-    {{-- <img height="" src="{{asset('imagen/PropuestalogoConciweb1.png')}}" alt="ConciwebLogo"> --}}
+    <img  style="height: 25%;" src="{{asset('imagen/PropuestalogoConciweb1.png')}}" alt="ConciwebLogo">
     
 </div>
 <div class='saludo'>
@@ -291,10 +291,14 @@
        <br>
        {{-- <a class="btn-perso"  type="button" href="https://conciwebv2.personeriabogota.gov.co/search">Adjuntar Documentos</a> --}}
        <div>
-       <a class="btn-perso" style="vertical-align: bottom;" type="button" href="https://conciweb2-dev.personeriabogota.gov.co/search">Adjuntar Documentos <img style="    vertical-align: middle;
+       {{-- <a class="btn-perso" style="vertical-align: bottom;" type="button" href="https://conciweb2-dev.personeriabogota.gov.co/search">Adjuntar Documentos <img style="    vertical-align: middle;
         padding-top: 2px;
         padding-bottom: -23px;
-        padding-bottom: 4px;" width="25" height="25" src="https://img.icons8.com/windows/32/FFFFFF/file-upload.png" alt="file-upload"/></a>
+        padding-bottom: 4px;" width="25" height="25" src="https://img.icons8.com/windows/32/FFFFFF/file-upload.png" alt="file-upload"/></a> --}}
+               <a class="btn-perso" style="vertical-align: bottom;" type="button" href="https://conciwebv2.personeriabogota.gov.co/search">Adjuntar Documentos <img style="    vertical-align: middle;
+                padding-top: 2px;
+                padding-bottom: -23px;
+                padding-bottom: 4px;" width="25" height="25" src="https://img.icons8.com/windows/32/FFFFFF/file-upload.png" alt="file-upload"/></a>
     </div>
    
         <div></div>

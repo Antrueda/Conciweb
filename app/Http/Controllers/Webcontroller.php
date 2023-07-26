@@ -375,7 +375,7 @@ class Webcontroller extends Controller
     public function registroConciliacionWeb(Request $request)
     {
 
-        $tramiteid=Tramite::select('id_tramite')->where('nom_tramite', 'CONCILIACIONES WEB V2')->first();
+        $tramiteid=Tramite::select('id_tramite')->where('id_tramite', 335)->first();
             //America/Bogota
         //Datos requeridos por sistema
         $carbonDate = Carbon::now();
@@ -453,33 +453,35 @@ class Webcontroller extends Controller
         ->first();
         //0.0) Preguntar si se registro un caso 
         //echo($subAsuntoold);
+        // try {
+        //     $contadorSolicitudes = tramiteusuario::where('ID_USUARIO_REG', DB::raw("'" . $numeroDocumento . "'"))
+        //         ->where('ESTADO_TRAMITE', DB::raw("'Remitido'"))
+        //         ->where('TEXTO01', DB::raw("'" . $primerNombre . "'"))
+        //         ->where('TEXTO02', DB::raw("'" . $segundoNombre . "'"))
+        //         ->where('TEXTO03', DB::raw("'" . $primerApellido . "'"))
+        //         ->where('TEXTO04', DB::raw("'" . $segundoApellido . "'"))
+        //         ->where('TEXTO05', DB::raw("'" . $primerTelefono . "'"))
+        //         ->where('NUMERO05', DB::raw("'" . $asuntoold->nombre . "'"))
+        //         ->where('NUMERO06', DB::raw("'" . $subAsuntoold->nombre . "'"))
+        //         ->where('TEXTO21', DB::raw("'" . $detalle . "'"))
+        //         ->count();
+        // } catch (\Exception $e) {
+        //     DB::rollback();
+        //     return '|0| 0.0 Problema al indentificaRRr la cantidad de solicitudes realizada [TRAM_USU] <br>' . $e->getMessage();
+        // }
+
+        // if ($contadorSolicitudes >= 1) {
+        //     DB::commit();
+        //     return '|1|El registro finalizo de forma correcta <br> Por favor verifique su correo electronico para mas información.';
+        // }
+
+
         try {
-            $contadorSolicitudes = tramiteusuario::where('ID_USUARIO_REG', DB::raw("'" . $numeroDocumento . "'"))
-                ->where('ESTADO_TRAMITE', DB::raw("'Remitido'"))
-                ->where('TEXTO01', DB::raw("'" . $primerNombre . "'"))
-                ->where('TEXTO02', DB::raw("'" . $segundoNombre . "'"))
-                ->where('TEXTO03', DB::raw("'" . $primerApellido . "'"))
-                ->where('TEXTO04', DB::raw("'" . $segundoApellido . "'"))
-                ->where('TEXTO05', DB::raw("'" . $primerTelefono . "'"))
-                ->where('NUMERO05', DB::raw("'" . $asuntoold->nombre . "'"))
-                ->where('NUMERO06', DB::raw("'" . $subAsuntoold->nombre . "'"))
-                ->where('TEXTO21', DB::raw("'" . $detalle . "'"))
-                ->count();
-        } catch (\Exception $e) {
-            DB::rollback();
-            return '|0| 0.0 Problema al indentificaRRr la cantidad de solicitudes realizada [TRAM_USU] <br>' . $e->getMessage();
-        }
 
-        if ($contadorSolicitudes >= 1) {
-            DB::commit();
-            return '|1|El registro finalizo de forma correcta <br> Por favor verifique su correo electronico para mas información.';
-        }
-
-
-        try {
-
-            $user = binconsecutivo::orderBy('secuencial', 'DESC')->first();
+            $user = binconsecutivo::where('vigencia', $vigencia)->orderBy('secuencial', 'DESC')->first();
+          
             $numSolicitud = $user->secuencial + 1;
+            
         } catch (\Exception $e) {
             DB::rollback();
             return '|0| 0.1) Problema al extraer el numero de solicitud asignado por el sistema' . $e->getMessage();
@@ -514,12 +516,12 @@ class Webcontroller extends Controller
         $datosSolicitante= $Solicitanteminimo->first();
             
             
-        //  $datosSolicitante = User::where('cedula', DB::raw("TO_CHAR(1010213817)"))->first();
+ 
             $depAsignada = $datosSolicitante->depend_codigo;
             $consecResponsable = $datosSolicitante->consec;
             $contador = $datosSolicitante->contador + 1;
    
-        //1.a) Registrar informacion en tramiteusuario prod
+        //1.a) Registrar informacion en tramiteusuario Local
         try {
             $code = random_int(10000, 99999);
             ModelsTramiteusuario::insert(
@@ -562,7 +564,6 @@ class Webcontroller extends Controller
                     'detalle' => DB::raw("'$detalle'"),
                     'cuantia' => $cuantia,
                     'code' => DB::raw("'$code'"),
-
                     'fechanacimiento' => $fechanacimiento,
                     'rangoedad' => $rangoedad,
                     'escolaridad' => $escolaridad,
@@ -571,9 +572,7 @@ class Webcontroller extends Controller
                     'genero' => DB::raw("'$genero'"),
                     'orientacion' => DB::raw("'$orientacion'"),
                     'grupoafectado' => DB::raw("'$grupoafectado'"),
-
-                   
-                ]
+                    ]
             );
         } catch (\Exception $e) {
             DB::rollback();
@@ -581,7 +580,7 @@ class Webcontroller extends Controller
         }
         //1.b) Registrar informacion en tramiteusuario SINPROC
         try {
-            // 335  id tramite
+           
             $nombre= $primerNombre . ' ' . $segundoNombre ;
             $apellido=$primerApellido . ' ' . $segundoApellido ;
 
@@ -749,7 +748,7 @@ class Webcontroller extends Controller
             ]);
         } catch (\Exception $e) {
             DB::rollback();
-            return '|0| 2.2) Problema al Insertar la informacion al sistema TRAMITERESPUESTA ' . $e->getMessage();
+            return '|0| 2.2) Problema al Insertar la informacion al sistema TRAMITERESPUESTA  ' . $e->getMessage();
         }
 
         //3.0.b) INSERT DEL PASO Sinproc
@@ -766,7 +765,7 @@ class Webcontroller extends Controller
             ]);
         } catch (\Exception $e) {
             DB::rollback();
-            return '|0| 2.2) Problema al Insertar la informacion al sistema TRAMITERESPUESTA ' . $e->getMessage();
+            return '|0| 2.2) Problema al Insertar la informacion al sistema TRAMITERESPUESTA SINPROC ' . $e->getMessage();
         }
 
         //3.1.1) actualziar datos del funcionario asignado
@@ -875,8 +874,8 @@ class Webcontroller extends Controller
                     if (isset($data['emailApoderado']) && !empty($data['emailApoderado'])) {
                         $message->cc($data['emailApoderado']);
                     }
-                    $message->bcc('jaruedag@personeriabogota.gov.co');
-                    $message->bcc('jamumi14@gmail.com');
+                    // $message->bcc('jaruedag@personeriabogota.gov.co');
+                    // $message->bcc('jamumi14@gmail.com');
                     foreach ($data['correosactivos'] as $key => $enviar) {
                         $message->bcc($enviar);
                     }
@@ -1245,8 +1244,8 @@ class Webcontroller extends Controller
                     if (isset($data['emailApoderado']) && !empty($data['emailApoderado'])) {
                         $message->cc($data['emailApoderado']);
                     }
-                    $message->bcc('jaruedag@personeriabogota.gov.co');
-                    $message->bcc('jamumi14@gmail.com');
+                    // $message->bcc('jaruedag@personeriabogota.gov.co');
+                    // $message->bcc('jamumi14@gmail.com');
                    // $message->attach('FORMATO_SOLICITUD_DE_CONCILIACION_V4');
                     // $message->bcc('ljmeza@personeriabogota.gov.co');
                     // $message->bcc('nylopez@personeriabogota.gov.co');
@@ -1384,8 +1383,8 @@ class Webcontroller extends Controller
                 if (isset($data['emailApoderado']) && !empty($data['emailApoderado'])) {
                     $message->cc($data['emailApoderado']);
                 }
-                $message->bcc('jaruedag@personeriabogota.gov.co');
-                $message->bcc('jamumi14@gmail.com');
+                // $message->bcc('jaruedag@personeriabogota.gov.co');
+                // $message->bcc('jamumi14@gmail.com');
                 $message->subject($data['subject']);
             });
         } catch (\Exception $e) {

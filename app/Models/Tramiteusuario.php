@@ -60,9 +60,8 @@ class Tramiteusuario extends Model
       'orientacion',
       'nacionalidad',
       'grupoafectado',
-      
-        'rangoedad',
-        'sis_esta_id',
+      'rangoedad',
+      'sis_esta_id',
       ];
 
       public function asuntos()

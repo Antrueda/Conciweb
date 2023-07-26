@@ -38,7 +38,7 @@ use Illuminate\Support\Facades\Mail as FacadesMail;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 
-class Webcontroller extends Controller
+class WebLocalcontroller extends Controller
 {
     //Ventana de inicio
 

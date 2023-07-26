@@ -26,12 +26,12 @@ class AuthController extends Controller
         if (!isset($_GET['key'])) {
             return redirect('/validation/103');
         }
-
+        
         $key = base64_decode($_GET['key']);
-
+ 
         //enviamos key a data funcion encargada de desencryptar la semilla
         $acceso = $this->data($key);
-
+        //dd($acceso);
         if (count($acceso) == 3) {
             $user = User::where('consec', $acceso[0])
                 ->where('cedula', $acceso[1])

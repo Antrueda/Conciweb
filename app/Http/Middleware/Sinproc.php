@@ -30,6 +30,7 @@ class Sinproc
 
 
         $key = urldecode($_GET['key']);
+        $key = str_replace(" ", "+", $key);
         $acceso = $this->data($key);
         //dd($acceso);
         if (count($acceso) == 5) {
