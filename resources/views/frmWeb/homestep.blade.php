@@ -730,7 +730,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                 </div>
                 <div class="col-md-3">
                   <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm validate[required minSize[7], maxSize[10]]" name="segundoTelefonoApoderado"  minlength="10" max="10" id="segundoTelefonoApoderado" autocomplete="off" placeholder="0" onkeypress = "return soloNumeros(event);">
+                        <input type="text" class="form-control form-control-sm validate" name="segundoTelefonoApoderado"  minlength="5" maxlength="10" id="segundoTelefonoApoderado" autocomplete="off" placeholder="0" onkeypress = "return soloNumeros(event);">
                         <label for="segundoTelefonoApoderado"> 20.10. Teléfono fijo</label>
            
                     </div>

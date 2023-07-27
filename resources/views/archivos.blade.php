@@ -15,7 +15,7 @@
 <div class="card" style="padding-top: 3px; padding-bottom: 3px;">
   <div class="card-header">
       <center>
-      <b>DATOS DE LA SOLICITUD</b>
+        <b> SOLICITUD DE CONCILIACIÓN No. {{$dato->num_solicitud}}  DE {{$dato->vigencia}}</b> 
   </center>
   </div>
   <div class="container">
@@ -190,7 +190,8 @@
     <div class="card">
 
       <div class="card-body"> 
-        <b style="color:#0171BD">Documentos anexados a la solicitud</b>
+        <b style="color:#0171BD">Documentos anexados a la solicitud</b> <b  style="color:#0171BD">No. {{$dato->num_solicitud}} </b> de <b  style="color:#0171BD">{{$dato->vigencia}}</b>
+      </center>
         <div class="table-responsive">
           <table class="table table-striped" style="--bs-table-striped-bg:#F5F9FC">
             <thead>

@@ -87,7 +87,7 @@ class DocumentsController extends Controller
         $key = urldecode($_GET['key']);
         $key = str_replace(" ", "+", $key);
         $acceso = $this->data($key);
-        //dd($acceso);
+       
         // trae la información del documento...
           $tramite = Soportecon::where('num_solicitud', $acceso[3])->get();
           
