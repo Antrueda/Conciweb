@@ -21,7 +21,7 @@ trait DataTablesTrait
         $dataxxxx['tablasxx'] = [
             [
                 'titunuev' => 'NUEVO ASIGNACIÓN',
-                'titulist' => 'LISTA DE ASUNTO',
+                'titulist' => 'LISTA DE ASIGNACIÓN DE ADJUNTOS',
                 'archdttb' => $dataxxxx['rutacarp'] . 'Acomponentes.Adatatable.index',
                 'vercrear' => true,
                 'urlxxxxx' => route($dataxxxx['routxxxx'] . '.listaxxx', []),
@@ -34,19 +34,21 @@ trait DataTablesTrait
                 ],
                 'cabecera' => [
                     [
-                        ['td' => 'ACCIONES', 'widthxxx' => 10, 'rowspanx' => 1, 'colspanx' => 1],
+                        ['td' => 'ACCIONES', 'widthxxx' => 0, 'rowspanx' => 1, 'colspanx' => 1],
                         ['td' => 'ID', 'widthxxx' => 0, 'rowspanx' => 1, 'colspanx' => 1],
                         ['td' => 'SUBASUNTO', 'widthxxx' => 0, 'rowspanx' => 1, 'colspanx' => 1],
-                        ['td' => 'DESCRIPCIÓN', 'widthxxx' => 0, 'rowspanx' => 1, 'colspanx' => 1],
+                        ['td' => 'ADJUNTO', 'widthxxx' => 0, 'rowspanx' => 1, 'colspanx' => 1],
+                        ['td' => 'OBLIGATORIO', 'widthxxx' => 0, 'rowspanx' => 1, 'colspanx' => 1],
                         ['td' => 'ESTADO', 'widthxxx' => 0, 'rowspanx' => 1, 'colspanx' => 1],
                     ]
                 ],
                 'columnsx' => [
                     ['data' => 'botonexx', 'name' => 'botonexx'],
-                    ['data' => 'id', 'name' => 'subdescripcions.id'],
+                    ['data' => 'id', 'name' => 'conci_subdescripcions.id'],
                     ['data' => 'sub', 'name' => 'sub.nombre as sub'],
                     ['data' => 'descri', 'name' => 'descri.nombre as descri'],
-                    ['data' => 's_estado', 'name' => 'sis_estas.s_estado'],
+                    ['data' => 'obligar', 'name' => 'obligar'],
+                    ['data' => 's_estado', 'name' => 'conci_sis_estas.s_estado'],
                 ],
                 'tablaxxx' => 'datatable',
                 'permisox' => $dataxxxx['permisox'],

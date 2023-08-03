@@ -301,127 +301,10 @@ trait DatatableTrait
             ->toJson();
     }
 
-    public  function getDtSalidas($queryxxx, $requestx)
-    {
-        return datatables()
-            ->of($queryxxx)
-            ->addColumn(
-                'botonexx',
-                function ($queryxxx) use ($requestx) {
-                    /**
-                     * validaciones para los permisos
-                     */
-                    $requestx->puedever = auth()->user()->can($requestx->routexxx[0] . '-leer');
-                    $requestx->pueditar = auth()->user()->can($requestx->routexxx[0] . '-editar');
-                    $requestx->puedinac = auth()->user()->can($requestx->routexxx[0] . '-borrar');
-
-                    return  view($requestx->botonesx, [
-                        'queryxxx' => $queryxxx,
-                        'requestx' => $requestx,
-                    ]);
-                }
-            )
-            ->addColumn(
-                's_estado',
-                function ($queryxxx) use ($requestx) {
-                    return  view($requestx->estadoxx, [
-                        'queryxxx' => $queryxxx,
-                        'requestx' => $requestx,
-                    ]);
-                }
-
-            )
-
-            ->addColumn(
-                'razonesx',
-                function ($queryxxx) use ($requestx) {
-                    return  view($requestx->razonesx, [
-                        'queryxxx' => $queryxxx,
-                        'requestx' => $requestx,
-                    ]);
-                }
-
-            )
-            ->addColumn(
-                'responsx',
-                function ($queryxxx) use ($requestx) {
-                    return  view($requestx->responsx, [
-                        'queryxxx' => $queryxxx,
-                        'requestx' => $requestx,
-                    ]);
-                }
-
-            )
-            ->addColumn(
-                'telefono',
-                function ($queryxxx) use ($requestx) {
-                    return  view($requestx->telefono, [
-                        'queryxxx' => $queryxxx,
-                        'requestx' => $requestx,
-                    ]);
-                }
-
-            )
-            ->addColumn(
-                'edadxxxx',
-                function ($queryxxx) use ($requestx) {
-                    return  view($requestx->edadxxxx, [
-                        'queryxxx' => $queryxxx,
-                        'requestx' => $requestx,
-                    ]);
-                }
-
-            )
-            ->rawColumns(['botonexx', 's_estado'])
-            ->toJson();
-    }
+    
 
 
-    public  function getDtSalidasIndividuales($queryxxx, $requestx)
-    {
-        return datatables()
-            ->of($queryxxx)
-            ->addColumn(
-                'botonexx',
-                function ($queryxxx) use ($requestx) {
-                    /**
-                     * validaciones para los permisos
-                     */
-                    $requestx->puedever = auth()->user()->can($requestx->routexxx[0] . '-leer');
-                    $requestx->pueditar = auth()->user()->can($requestx->routexxx[0] . '-editar');
-                    $requestx->puedinac = auth()->user()->can($requestx->routexxx[0] . '-borrar');
-
-                    return  view($requestx->botonesx, [
-                        'queryxxx' => $queryxxx,
-                        'requestx' => $requestx,
-                    ]);
-                }
-            )
-            ->addColumn(
-                's_estado',
-                function ($queryxxx) use ($requestx) {
-                    return  view($requestx->estadoxx, [
-                        'queryxxx' => $queryxxx,
-                        'requestx' => $requestx,
-                    ]);
-                }
-
-            )
-
-            ->addColumn(
-                'razonesx',
-                function ($queryxxx) use ($requestx) {
-                    return  view($requestx->razonesx, [
-                        'queryxxx' => $queryxxx,
-                        'requestx' => $requestx,
-                    ]);
-                }
-
-            )
-
-            ->rawColumns(['botonexx', 's_estado'])
-            ->toJson();
-    }
+    
 
 
     //**revisar estos */
@@ -454,6 +337,46 @@ trait DatatableTrait
 
             )
             ->rawColumns(['botonexx', 'estado'])
+            ->toJson();
+    }
+
+    public  function getDtAdjunto($queryxxx, $requestx)
+    {
+        return datatables()
+            ->of($queryxxx)
+            ->addColumn(
+                'botonexx',
+                function ($queryxxx) use ($requestx) {
+                    /**
+                     * validaciones para los permisos
+                     */
+
+                    return  view($requestx->botonesx, [
+                        'queryxxx' => $queryxxx,
+                        'requestx' => $requestx,
+                    ]);
+                }
+            )
+            ->addColumn(
+                'estado',
+                function ($queryxxx) use ($requestx) {
+                    return  view($requestx->estadoxx, [
+                        'queryxxx' => $queryxxx,
+                        'requestx' => $requestx,
+                    ]);
+                }
+            )
+            ->addColumn(
+                'obligar',
+                function ($queryxxx) use ($requestx) {
+                    return  view($requestx->obligar, [
+                        'queryxxx' => $queryxxx,
+                        'requestx' => $requestx,
+                    ]);
+                }
+
+            )
+            ->rawColumns(['botonexx', 'estado','obligar'])
             ->toJson();
     }
 
@@ -539,169 +462,7 @@ trait DatatableTrait
             ->rawColumns(['botonexx', 's_estado'])
             ->toJson();
     }
-    public  function getDtUpi($queryxxx, $requestx)
-    {
-        return datatables()
-            ->of($queryxxx)
-            ->addColumn(
-                'botonexx',
-                function ($queryxxx) use ($requestx) {
-                    /**
-                     * validaciones para los permisos
-                     */
-
-                    return  view($requestx->botonesx, [
-                        'queryxxx' => $queryxxx,
-                        'requestx' => $requestx,
-                    ]);
-                }
-            )
-            ->addColumn(
-                's_estado',
-                function ($queryxxx) use ($requestx) {
-                    return  view($requestx->estadoxx, [
-                        'queryxxx' => $queryxxx,
-                        'requestx' => $requestx,
-                    ]);
-                }
-
-            )
-            ->addColumn(
-                'upiservicio',
-                function ($queryxxx) use ($requestx) {
-                    return  view($requestx->upiservicio, [
-                        'queryxxx' => $queryxxx,
-                        'requestx' => $requestx,
-                    ]);
-                }
-
-            )
-            ->rawColumns(['botonexx', 's_estado'])
-            ->toJson();
-    }
-
-
-
-
-
-
-    public  function getDtSalidaz($queryxxx, $requestx)
-    {
-        return datatables()
-            ->of($queryxxx)
-            ->addColumn(
-                'botonexx',
-                function ($queryxxx) use ($requestx) {
-                    /**
-                     * validaciones para los permisos
-                     */
-                    $requestx->puedever = auth()->user()->can($requestx->routexxx[0] . '-leer');
-                    $requestx->pueditar = auth()->user()->can($requestx->routexxx[0] . '-editar');
-                    $requestx->puedinac = auth()->user()->can($requestx->routexxx[0] . '-borrar');
-
-                    return  view($requestx->botonesx, [
-                        'queryxxx' => $queryxxx,
-                        'requestx' => $requestx,
-                    ]);
-                }
-            )
-            ->addColumn(
-                's_estado',
-                function ($queryxxx) use ($requestx) {
-                    return  view($requestx->estadoxx, [
-                        'queryxxx' => $queryxxx,
-                        'requestx' => $requestx,
-                    ]);
-                }
-
-            )
-
-            ->addColumn(
-                'contado',
-                function ($queryxxx) use ($requestx) {
-                    return  view($requestx->contado, [
-                        'queryxxx' => $queryxxx,
-                        'requestx' => $requestx,
-                    ]);
-                }
-
-            )
-            ->addColumn(
-                'razonesg',
-                function ($queryxxx) use ($requestx) {
-                    return  view($requestx->razonesg, [
-                        'queryxxx' => $queryxxx,
-                        'requestx' => $requestx,
-                    ]);
-                }
-
-            )
-
-
-            ->rawColumns(['botonexx', 's_estado'])
-            ->toJson();
-    }
-
-    public  function getDtTaller($queryxxx, $requestx)
-    {
-        return datatables()
-            ->of($queryxxx)
-            ->addColumn(
-                'botonexx',
-                function ($queryxxx) use ($requestx) {
-                    /**
-                     * validaciones para los permisos
-                     */
-                    $requestx->puedever = auth()->user()->can($requestx->routexxx[0] . '-leer');
-                    $requestx->pueditar = auth()->user()->can($requestx->routexxx[0] . '-editar');
-                    $requestx->puedinac = auth()->user()->can($requestx->routexxx[0] . '-borrar');
-
-                    return  view($requestx->botonesx, [
-                        'queryxxx' => $queryxxx,
-                        'requestx' => $requestx,
-                    ]);
-                }
-            )
-            ->addColumn(
-                's_estado',
-                function ($queryxxx) use ($requestx) {
-                    return  view($requestx->estadoxx, [
-                        'queryxxx' => $queryxxx,
-                        'requestx' => $requestx,
-                    ]);
-                }
-
-            )
-
-            ->addColumn(
-                'contado',
-                function ($queryxxx) use ($requestx) {
-                    return  view($requestx->contado, [
-                        'queryxxx' => $queryxxx,
-                        'requestx' => $requestx,
-                    ]);
-                }
-
-            )
-            ->addColumn(
-                'responsx',
-                function ($queryxxx) use ($requestx) {
-                    return  view($requestx->responsx, [
-                        'queryxxx' => $queryxxx,
-                        'requestx' => $requestx,
-                    ]);
-                }
-
-            )
-
-
-            ->rawColumns(['botonexx', 's_estado'])
-            ->toJson();
-    }
-
-
-
-
+   
     public  function getDtGeneral($queryxxx, $requestx)
     {
         return datatables()

@@ -14,7 +14,9 @@ use App\Models\Subdescripcion;
 Use App\Models\Tramite;
 use App\Models\Tramiterespuesta;
 use App\Models\Tramiteusuario;
+use Dompdf\Dompdf;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\View;
 
 class DocumentsController extends Controller
 {
@@ -54,30 +56,113 @@ class DocumentsController extends Controller
     }
 
 //Primer test de documentos
-    public function getDocuments(Request $request){
+    public function getDocuments($id){
 
-        $validator = Validator::make($request->all(), [
-            'num_solicitud' => 'required|numeric|exists:conci_soportecons,num_solicitud',
-        ]);
- 
-        if ($validator->fails()) {
-            return response([
-                'message' => 'El SINPROC ingresado no existe',
-            ], 400);
-        }
- 
-        // Retrieve the validated input...
-        $validated = $validator->validated();
-        $tramite = Soportecon::where('num_solicitud', $validated['num_solicitud'])->get();
+      // trae la información del documento...
+          $tramite = Soportecon::where('num_solicitud', $id)->get();
+          
+          $dato = Tramiteusuario::where('num_solicitud', $id)->where('vigencia',2023)->first();
+          $fecha = Tramiteusuario::where('num_solicitud', $id)->first()->fec_solicitud_tramite;
+          $newDate = date("d-m-Y", strtotime($fecha));  
+          $tipodedocumento=Parametro::where('id', $dato->tipodocumento)->first()->nombre;
+                 
+          $tiposolicitud= $dato->tiposolicitud;
+          $tipodedocapoderado='';
+          if($tiposolicitud==1){
+              $tipodedocapoderado=Parametro::where('id', $dato->tipodocapoderado)->first()->nombre;
+          }
+        $nombrecompleto = $dato->primernombre . ' ' . $dato->segundonombre . ' ' . $dato->primerapellido  . ' ' . $dato->segundoapellido;
+          $apoderado = $dato->primernombreapoderado . ' ' . $dato->segundonombreapoderado . ' ' . $dato->primerapellidoapoderado  . ' ' . $dato->segundoapellidoapoderado;
 
-        if($tramite != null){
-            //return view('archivos', compact('tramite'));
-            return response()->json($tramite);
+          $convocates = Convocante::where('num_solicitud', $id)
+          ->orderBy('id')
+          ->get();
+          $numero=number_format($dato->cuantia,0,'.','.');
+          $detalleAbc = Subdescripcion::where('subasu_id', $dato->subasunto)
+              ->where('sis_esta_id', 1)
+              ->orderBy('id')
+              ->get();
+          //INFORMACION RETORNADA EN LA VISTA
+          //$conteo= count($detalleAbc)-1;
+  
+          $data = array(
+              "detalleAbc" => $detalleAbc,
+              "convocates" => $convocates
+          );
+      
+        if(!$tramite->isEmpty()){
+            return view('archivos', compact('tramite','dato', 'data', 'nombrecompleto','tiposolicitud','numero','newDate','tipodedocumento','tipodedocapoderado','apoderado'));
+         
         } else{
-            return response([
-                'message' => 'sinproc existe pero NO TIENE ADJUNTO SDP',
-            ], 404);
+            return view('administracion.incompleto',compact('tramite','dato', 'data', 'nombrecompleto','tiposolicitud','numero','newDate','tipodedocumento','tipodedocapoderado','apoderado'));
         }
+    }
+
+
+    public function imprimir($id)
+    {
+        //traer informacion de administracion formato pdf certifivados
+        $tramite = Soportecon::where('num_solicitud', $id)->get();
+        $dato = Tramiteusuario::where('num_solicitud', $id)->where('vigencia',2023)->first();
+        $fecha = Tramiteusuario::where('num_solicitud', $id)->first()->fec_solicitud_tramite;
+        $newDate = date("d-m-Y", strtotime($fecha));  
+        $tipodedocumento=Parametro::where('id', $dato->tipodocumento)->first()->nombre;
+               
+        $tiposolicitud= $dato->tiposolicitud;
+        $tipodedocapoderado='';
+        if($tiposolicitud==1){
+            $tipodedocapoderado=Parametro::where('id', $dato->tipodocapoderado)->first()->nombre;
+        }
+      $nombrecompleto = $dato->primernombre . ' ' . $dato->segundonombre . ' ' . $dato->primerapellido  . ' ' . $dato->segundoapellido;
+        $apoderado = $dato->primernombreapoderado . ' ' . $dato->segundonombreapoderado . ' ' . $dato->primerapellidoapoderado  . ' ' . $dato->segundoapellidoapoderado;
+
+        $convocates = Convocante::where('num_solicitud', $id)
+        ->orderBy('id')
+        ->get();
+        $numero=number_format($dato->cuantia,0,'.','.');
+        $detalleAbc = Subdescripcion::where('subasu_id', $dato->subasunto)
+            ->where('sis_esta_id', 1)
+            ->orderBy('id')
+            ->get();
+        //INFORMACION RETORNADA EN LA VISTA
+        //$conteo= count($detalleAbc)-1;
+
+        $data = array(
+            "detalleAbc" => $detalleAbc,
+            "convocates" => $convocates,
+            "nombrecompleto" => $nombrecompleto,
+            "apoderado" => $apoderado,
+            "tiposolicitud" => $tiposolicitud,
+            "tipodedocumento" => $tipodedocumento,
+            "dato" => $dato,
+            "newDate" => $newDate,
+            "numero" => $numero,
+            "tramite" => $tramite,
+            "tipodedocapoderado" => $tipodedocapoderado,
+        );
+        // dd($data);
+
+        $context = stream_context_create(array(
+            'ssl' => [
+                'verify_peer' => FALSE,
+                'verify_peer_name' => FALSE,
+                'allow_self_signed' => TRUE
+            ]
+        ));
+
+        $pdf = new Dompdf();
+        $pdf->setHttpContext($context);
+        $options = $pdf->getOptions();
+        $options->setIsRemoteEnabled(true);
+        $pdf->setOptions($options);
+
+        $pdf->loadHtml(View::make('ordinario', ['data' => $data])->render());
+        $pdf->setPaper('A4', 'portrait');
+        $pdf->render();
+
+        return response()->streamDownload(function () use ($pdf) {
+            echo $pdf->output();
+        }, 'archivo.pdf');
     }
 
 

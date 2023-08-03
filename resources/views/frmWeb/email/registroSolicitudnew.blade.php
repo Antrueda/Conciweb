@@ -263,7 +263,7 @@
     </p>
     <p>
         Su cuenta de correo electrónico ha sido autorizada para recibir la información necesaria para continuar con su requerimiento, 
-        por ello para el trámite solicitado debe  <strong>ADJUNTAR LOS SIGUIENTES DOCUMENTOS:</strong>
+        por ello para el trámite solicitado debe  <strong>ADJUNTAR LOS SIGUIENTES DOCUMENTOS EN EL TERMINO MAXIMO DE CINCO (5) DIAS HÁBILES:</strong>
     </p>
     
     <div class="row">
@@ -276,6 +276,8 @@
             @endif
           </ul>  
     </div>
+<p><span><b>***IMPORTANTE: Si no se envían los documentos en este término, se entenderá que el solicitante ha perdido el interés en la solicitud y, en consecuencia, se tendrá por no presentada y se procederá a su archivo.  (Artículo 53, Ley 2220 de 2022)*** </b></span></p>
+    
     <p> Para finalizar, debe tener presente los siguientes datos y dar clic en el botón adjuntar documentos: </p>
     <div class='datosBasicos'>
         <ul>

@@ -47,7 +47,11 @@
     </div>
     <div class="col-md-3">
       <b style="color:#0171BD" >Cuantía</b>
-      <p style="text-transform: uppercase"> {{$numero}}</p>
+      <p style="text-transform: uppercase">$ {{$numero}}</p>
+    </div>
+    <div class="col-md-3">
+      <b style="color:#0171BD" >Correo Electrónico</b>
+      <p style="text-transform: uppercase">{{$dato->email}}</p>
     </div>
   </div>
 
@@ -190,7 +194,7 @@
     <div class="card">
 
       <div class="card-body"> 
-        <b style="color:#0171BD">Documentos anexados a la solicitud</b> <b  style="color:#0171BD">No. {{$dato->num_solicitud}} </b> de <b  style="color:#0171BD">{{$dato->vigencia}}</b>
+        <b style="color:#0171BD">Documentos anexados a la solicitud No. {{$dato->num_solicitud}} de {{$dato->vigencia}}</b>
       </center>
         <div class="table-responsive">
           <table class="table table-striped" style="--bs-table-striped-bg:#F5F9FC">
@@ -268,6 +272,9 @@
   <a href="{{ route('logout', $archivo->id) }}"class="btn btn-outline-danger mb-3">
     
      Cerrar</a>
+     <a href="{{ route('imprimir', $archivo->num_solicitud) }}"class="btn btn-outline-danger mb-3">
+    
+      Imprimir</a>
     </center>
 
 <script>

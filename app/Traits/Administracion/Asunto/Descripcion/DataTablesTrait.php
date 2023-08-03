@@ -36,7 +36,7 @@ trait DataTablesTrait
                     [
                         ['td' => 'ACCIONES', 'widthxxx' => 10, 'rowspanx' => 1, 'colspanx' => 1],
                         ['td' => 'ID', 'widthxxx' => 0, 'rowspanx' => 1, 'colspanx' => 1],
-                        ['td' => 'DESCRIPCIÓN', 'widthxxx' => 0, 'rowspanx' => 1, 'colspanx' => 1],
+                        ['td' => 'ADJUNTO', 'widthxxx' => 0, 'rowspanx' => 1, 'colspanx' => 1],
                         ['td' => 'ESTADO', 'widthxxx' => 0, 'rowspanx' => 1, 'colspanx' => 1],
                     ]
                 ],
@@ -44,7 +44,7 @@ trait DataTablesTrait
                     ['data' => 'botonexx', 'name' => 'botonexx'],
                     ['data' => 'id', 'name' => 'descripcionas.id'],
                     ['data' => 'nombre', 'name' => 'descripcionas.nombre'],
-                    ['data' => 's_estado', 'name' => 'sis_estas.s_estado'],
+                    ['data' => 's_estado', 'name' => 'conci_sis_estas.s_estado'],
                 ],
                 'tablaxxx' => 'datatable',
                 'permisox' => $dataxxxx['permisox'],

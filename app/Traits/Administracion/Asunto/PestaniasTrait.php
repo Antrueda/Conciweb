@@ -64,7 +64,7 @@ trait PestaniasTrait
         $pestania['descripcion'] = [
             'routexxx' => '',
             'activexx' => '',
-            'tituloxx' => 'DESCRIPCIÓN',
+            'tituloxx' => 'ADJUNTO',
             'tablaxxx' => 'sis_pais',
             'datablex' => [],
             'cananyxx' => $this->getCanany($dataxxxx),
@@ -72,7 +72,7 @@ trait PestaniasTrait
         $pestania['asignadescri'] = [
             'routexxx' => '',
             'activexx' => '',
-            'tituloxx' => 'ASIGNAR DESCRIPCIÓN',
+            'tituloxx' => 'ASIGNAR ADJUNTO',
             'tablaxxx' => 'sis_pais',
             'datablex' => [],
             'cananyxx' => $this->getCanany($dataxxxx),

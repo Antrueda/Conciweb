@@ -44,7 +44,7 @@ trait DataTablesTrait
                     ['data' => 'botonexx', 'name' => 'botonexx'],
                     ['data' => 'id', 'name' => 'sub_asuntos.id'],
                     ['data' => 'nombre', 'name' => 'sub_asuntos.nombre'],
-                    ['data' => 's_estado', 'name' => 'sis_estas.s_estado'],
+                    ['data' => 's_estado', 'name' => 'conci_sis_estas.s_estado'],
                 ],
                 'tablaxxx' => 'datatable',
                 'permisox' => $dataxxxx['permisox'],

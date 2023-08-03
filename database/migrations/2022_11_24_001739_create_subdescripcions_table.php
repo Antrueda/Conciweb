@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreign('descri_id')->references('id')->on('conci_descripcionas');
             $table->foreign('subasu_id')->references('id')->on('conci_sub_asuntos');
             $table->bigInteger('sis_esta_id')->unsigned()->default(1);
+            $table->bigInteger('obligatorio')->unsigned()->default(1);
             $table->foreign('sis_esta_id')->references('id')->on('conci_sis_estas');
             $table->timestamps();
         });

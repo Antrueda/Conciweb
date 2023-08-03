@@ -7,9 +7,11 @@
       {!! Form::model($todoxxxx['modeloxx'],[route($todoxxxx["routxxxx"].'.editar',
       $todoxxxx["parametr"]),'method'=>'PUT','id'=>"formulario"
       ,'enctype'=>"multipart/form-data"]) !!}
-        @include($todoxxxx["botonesx"])
+        
         @include($todoxxxx["formular"])
+        <br>
         @include($todoxxxx["botonesx"])
+        <br>
       {!! Form::close() !!}
     </div>
   </div>

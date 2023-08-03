@@ -13,6 +13,7 @@ class Subdescripcion extends Model
     protected $fillable = [
         'descri_id',
         'subasu_id',
+        'obligatorio',
         'sis_esta_id'
       ];
 

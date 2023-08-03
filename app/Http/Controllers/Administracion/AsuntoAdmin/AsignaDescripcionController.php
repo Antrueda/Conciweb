@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Administracion\AsuntoAdmin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AsuntoAdmin\AsignaAsuntoRequest;
+use App\Http\Requests\AsuntoAdmin\AsignaDescripcionRequest;
 use App\Http\Requests\AsuntoAdmin\SubAsuntoRequest;
 use App\Models\ASubasunto;
+use App\Models\Subdescripcion;
 use App\Traits\Administracion\Asunto\AsignaDescripcion\CrudTrait;
 use App\Traits\Administracion\Asunto\AsignaDescripcion\DataTablesTrait;
 use App\Traits\Administracion\Asunto\AsignaDescripcion\ParametrizarTrait;
@@ -46,14 +48,14 @@ class AsignaDescripcionController extends Controller
     {
         $this->opciones['pestania'] = $this->getPestanias($this->opciones);
         return $this->view(
-            $this->getBotones(['crear', [], 1, 'GUARDAR', 'btn btn-sm btn-primary']),
+            $this->getBotones(['crear', [], 1, 'GUARDAR', 'btn btn-sm btn-success']),
             ['modeloxx' => '', 'accionxx' => ['crear', 'formulario']]
         );
     }
-    public function store(AsignaAsuntoRequest $request)
+    public function store(AsignaDescripcionRequest $request)
     {
         
-        return $this->setSubAsunto([
+        return $this->setSubDescripcion([
             'requestx' => $request,
             'modeloxx' => '',
             'infoxxxx' => 'Asunto creado con éxito',
@@ -62,13 +64,13 @@ class AsignaDescripcionController extends Controller
     }
 
 
-    public function show(ASubasunto $modeloxx)
+    public function show(Subdescripcion $modeloxx)
     {
         
          $this->opciones['pestania'] = $this->getPestanias($this->opciones);
-         $this->getBotones(['leer', [$this->opciones['routxxxx'], [$modeloxx->id]], 2, 'VOLVER A SUBASUNTO', 'btn btn-sm btn-primary']);
-         $this->getBotones(['editar', [], 1, 'EDITAR', 'btn btn-sm btn-primary']);
-        $do=$this->getBotones(['crear', [$this->opciones['routxxxx'], [$modeloxx->id]], 2, 'CREAR SUBASUNTO', 'btn btn-sm btn-primary']);
+         $this->getBotones(['leer', [$this->opciones['routxxxx'], [$modeloxx->id]], 2, 'VOLVER A SUBASUNTO', 'btn btn-sm btn-success']);
+         $this->getBotones(['editar', [], 1, 'EDITAR', 'btn btn-sm btn-success']);
+        $do=$this->getBotones(['crear', [$this->opciones['routxxxx'], [$modeloxx->id]], 2, 'CREAR SUBASUNTO', 'btn btn-sm btn-success']);
 
         return $this->view($do,
             ['modeloxx' => $modeloxx, 'accionxx' => ['ver', 'formulario'],'padrexxx'=>'']
@@ -76,21 +78,21 @@ class AsignaDescripcionController extends Controller
     }
 
 
-    public function edit(ASubasunto $modeloxx)
+    public function edit(Subdescripcion $modeloxx)
     {
         $this->opciones['pestania'] = $this->getPestanias($this->opciones);
-        $this->getBotones(['leer', [$this->opciones['routxxxx'], [$modeloxx->sis_nnaj]], 2, 'VOLVER A SUBASUNTO', 'btn btn-sm btn-primary']);
-        $this->getBotones(['editar', [], 1, 'EDITAR', 'btn btn-sm btn-primary']);
-        return $this->view($this->getBotones(['crear', [$this->opciones['routxxxx'], [$modeloxx->sis_nnaj]], 2, 'CREAR NUEVO SUBASUNTO', 'btn btn-sm btn-primary'])
+        $this->getBotones(['leer', [$this->opciones['routxxxx'], [$modeloxx->sis_nnaj]], 2, 'VOLVER A SUBASUNTO', 'btn btn-sm btn-success']);
+        $this->getBotones(['editar', [], 1, 'EDITAR', 'btn btn-sm btn-success']);
+        return $this->view($this->getBotones(['crear', [$this->opciones['routxxxx'], [$modeloxx->sis_nnaj]], 2, 'CREAR NUEVO SUBASUNTO', 'btn btn-sm btn-success'])
             ,
             ['modeloxx' => $modeloxx, 'accionxx' => ['editar', 'formulario'],'padrexxx'=>$modeloxx->sis_nnaj]
         );
     }
 
 
-    public function update(AsignaAsuntoRequest $request,  ASubasunto $modeloxx)
+    public function update(AsignaDescripcionRequest $request,  Subdescripcion $modeloxx)
     {
-        return $this->setSubAsunto([
+        return $this->setSubDescripcion([
             'requestx' => $request,
             'modeloxx' => $modeloxx,
             'infoxxxx' => 'Subasunto editado con éxito',
@@ -98,37 +100,37 @@ class AsignaDescripcionController extends Controller
         ]);
     }
 
-    public function inactivate(ASubasunto $modeloxx)
+    public function inactivate(Subdescripcion $modeloxx)
     {
         $this->opciones['pestania'] = $this->getPestanias($this->opciones);
         return $this->view(
-            $this->getBotones(['borrar', [], 1, 'INACTIVAR', 'btn btn-sm btn-primary'])            ,
+            $this->getBotones(['borrar', [], 1, 'INACTIVAR', 'btn btn-sm btn-success'])            ,
             ['modeloxx' => $modeloxx, 'accionxx' => ['destroy', 'destroy'],'padrexxx'=>$modeloxx->sis_nnaj]
         );
     }
 
 
-    public function destroy(Request $request, ASubasunto $modeloxx)
+    public function destroy(Request $request, Subdescripcion $modeloxx)
     {
 
-        $modeloxx->update(['sis_esta_id' => 2, 'user_edita_id' => Auth::user()->id]);
+        $modeloxx->update(['sis_esta_id' => 2, ]);
         return redirect()
             ->route($this->opciones['permisox'], [$modeloxx->sis_nnaj_id])
             ->with('info', 'Subasunto inactivado correctamente');
     }
 
-    public function activate(ASubasunto $modeloxx)
+    public function activate(Subdescripcion $modeloxx)
     {
         $this->opciones['pestania'] = $this->getPestanias($this->opciones);
         return $this->view(
-            $this->getBotones(['activarx', [], 1, 'ACTIVAR', 'btn btn-sm btn-primary'])            ,
+            $this->getBotones(['activarx', [], 1, 'ACTIVAR', 'btn btn-sm btn-success'])            ,
             ['modeloxx' => $modeloxx, 'accionxx' => ['activar', 'activar'],'padrexxx'=>$modeloxx->sis_nnaj]
         );
 
     }
-    public function activar(Request $request, ASubasunto $modeloxx)
+    public function activar(Request $request, Subdescripcion $modeloxx)
     {
-        $modeloxx->update(['sis_esta_id' => 1, 'user_edita_id' => Auth::user()->id]);
+        $modeloxx->update(['sis_esta_id' => 1,]);
         return redirect()
             ->route($this->opciones['permisox'], [$modeloxx->sis_nnaj_id])
             ->with('info', 'Subasunto activado correctamente');

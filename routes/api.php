@@ -18,8 +18,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::get('documentos/{id}', [DocumentsController::class, 'show'])->name('documentos.show');
-
+Route::get('/getDocuments/{id}', [DocumentsController::class, 'getDocuments' ]);
 Route::get('sinpermisos', [DocumentsController::class, 'sinpermisos'])->name('sinpermisos');
+Route::get('/imprimir/{id}', [DocumentsController::class, 'imprimir'])->name('imprimir');
 Route::get('incompleto', [DocumentsController::class, 'incompleto'])->name('incompleto');
 
 Route::get('documentos/{id}/download', [DocumentsController::class, 'download'])->name('documentos.download');

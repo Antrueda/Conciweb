@@ -119,7 +119,11 @@
       </div>
       <div class="col-md-3">
       <b style="color:#0171BD">Cuantía</b></label>
-        <p style="text-transform: uppercase"> {{$numero}}</p>
+        <p style="text-transform: uppercase">$ {{$numero}}</p>
+      </div>
+      <div class="col-md-3">
+        <b style="color:#0171BD" >Correo Electrónico</b>
+        <p style="text-transform: uppercase">{{$dato->email}}</p>
       </div>
     </div>
 
@@ -306,7 +310,7 @@
 
       @foreach ($data['detalleAbc'] as $info)
       <tr style=" text-align: left;" class="input-file">
-       
+              @if($info->obligatorio==1)
               <td style="text-justify;width:50%;vertical-align: middle;" >{!! $info->descripcion->nombre !!} <b style="color: red;font-size:18px">*</b></td>
              <div style="display:none">
                 <input type="text" class="form-control" name="descripcion[]" id="descripcion"/> 
@@ -323,7 +327,23 @@
                 
                 </button></div></td>
 
+          @else
+          <td style="text-justify;width:50%;vertical-align: middle;" >{!! $info->descripcion->nombre !!} <b style="color: red;font-size:18px"></b></td>
+          <div style="display:none">
+             <input type="text" class="form-control" name="descripcion[]" id="descripcion"/> 
+           </div>
+         <td style="text-justify;width:40%;padding-left: 40px;padding-top: 25px;" >
+           <div class="input-group mb-3"><input type="file" class="form-control input-file" name="document1[]" id="document1" aria-label="Upload"  accept=".pdf"/>
+             <button class="btn btn-outline-danger btn-reset trash" id="limpia" type="button"> 
+               
+                
+               <img src="{{URL::asset('imagen/trash-red.png')}}" class="img-bot" /> 
+               <img src="{{URL::asset('imagen/trash-white.png')}}" class="img-top" alt="Card Front">
           
+             
+             
+             </button></div></td>
+             @endif
           </tr>
          
       
@@ -413,7 +433,7 @@
       <div class="modal-footer">
 
         <button type="submit" class="btn btn-outline-success" id="submits"><span class="fas fa-upload"> </span> Si</button>
-        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal"><i class="fas fa-times"></i> No</button>
+        <button type="button" class="btn btn-outline-danger" id="" data-bs-dismiss="modal"><i class="fas fa-times"></i> No</button>
  
       </div>
     </div>
@@ -430,7 +450,7 @@
 @section('AddScriptFooter')
 
 <script>
- $(".btn-outline-danger").click(function() {
+ $(".btn-reset").click(function() {
 
   $(this).parents(".input-file").find('input').val('');
 
@@ -512,6 +532,7 @@ $(document).ready(function() {
                 llamarNotyCarga();
                 $("#btnRegistro").hide();
                 $('#btnRegistro').prop('disabled', false);
+                $('#exampleModal').modal('hide');
             },
             success: function(r) {
                 var datUsr = r.split("|");
@@ -521,8 +542,10 @@ $(document).ready(function() {
                     var msg = "<center><p><i class='fas fa-times fa-3x'></i></p></center>" + msg;
                     llamarNotyTime('error', msg, 'topRight', 3000);
                     $("#submits").show();
+                    $('#exampleModal').modal('hide');
                 } else {
                     $("#submits").hide();
+                    $('#exampleModal').modal('hide');
                     var msg = "<center><p><i class='fas fa-check-circle fa-3x'></i></p></center>" + msg;
                     new Noty({
                         text: msg,

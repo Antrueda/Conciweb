@@ -416,7 +416,7 @@ class Webcontroller extends Controller
         $primerTelefonoApoderado = $request->input("primerTelefonoApoderado");
         $segundoTelefonoApoderado = $request->input("segundoTelefonoApoderado");
         $emailApoderado = $request->input("emailApoderado");
-        $direccionapoderado = $request->input("direccionapoderado");
+        $direccionapoderado = $request->input("direccionApoderado");
         //Datos de la audiencia
         $tipoAudiencia = $request->input("tipoAudiencia");
         $sedePrincipal = $request->input("sedePrincipal");
@@ -669,9 +669,9 @@ class Webcontroller extends Controller
               
                 //2.1) Extraer consecutivo
                 try {
-                    $user = DB::connection('oracleexterna')->table('USUARIO_ROL')->max('CONSEC');
+                    $user = DB::connection('oracleexterna')->table('USUARIO_ROL')->max('consec');
                     $consec = ($user) + 1;
-               
+          
                 } catch (\Exception $e) {
                     DB::rollback();
                     return '|0| 4.1) Problema al extraer el consecutivo USR_ROL' . $e->getMessage();
@@ -679,20 +679,22 @@ class Webcontroller extends Controller
                 //2.2) Preguntar si el usuario existe o no
                 try {
                     $contadorUsuarioSol = DB::connection('oracleexterna')->table('USUARIO_ROL')
-                        ->where('CEDULA', DB::raw("'" . $numeroDocumento . "'"))
+                        ->where('cedula', DB::raw("'" . $numeroDocumento . "'"))
                         ->count();
+                  
                 } catch (\Exception $e) {
                     DB::rollback();
                     return '|0| 4.2 Problema al indentificar el estodo del solicitante [USR_ROL] <br>' . $e->getMessage();
                 }
-                if ($contadorUsuarioSol == 1) {
+                if ($contadorUsuarioSol >= 1) {
                     //2.2.1) Actualizar dependencai
+                    
                     try {
                         $usuarioreg = DB::table('USUARIO_ROL')
-                            ->where('CEDULA', DB::raw("'" . $numeroDocumento . "'"))
+                            ->where('cedula', DB::raw("'" . $numeroDocumento . "'"))
                             ->first();
                             $consec = ($usuarioreg->consec);
-                     
+                       
                     } catch (\Exception $e) {
                         DB::rollback();
                         return '|0| 4.2.1 Problema al actualizar el estado del solicitante [USR_ROL] <br>' . $e->getMessage();
@@ -701,6 +703,7 @@ class Webcontroller extends Controller
                 
                 else {
                     //2.2.2) Insertar datos
+                    
                     try {
                         DB::table('USUARIO_ROL')->insert([
                             'CONSEC' => $consec,

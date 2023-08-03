@@ -48,8 +48,8 @@ class UsuarioController extends Controller
     {
         $this->pestanix[1]['dataxxxx'] = [true, $modeloxx->id];
         $this->opciones['pestania'] = $this->getPestanias($this->opciones);
-        $this->getBotones(['leer', [$this->opciones['routxxxx'], [$modeloxx]], 2, 'VOLVER A USUARIOS', 'btn btn-sm btn-primary']);
-        return $this->view($this->getBotones(['crear', [$this->opciones['routxxxx'], [$modeloxx]], 2, 'CREAR NUEVO TEXTO', 'btn btn-sm btn-primary'])
+        $this->getBotones(['leer', [$this->opciones['routxxxx'], [$modeloxx]], 2, 'VOLVER A USUARIOS', 'btn btn-sm btn-success']);
+        return $this->view($this->getBotones(['crear', [$this->opciones['routxxxx'], [$modeloxx]], 2, 'CREAR NUEVO TEXTO', 'btn btn-sm btn-success'])
             ,
             ['modeloxx' => $modeloxx, 'accionxx' => ['editar', 'formulario'],'padrexxx'=>$modeloxx]
         );

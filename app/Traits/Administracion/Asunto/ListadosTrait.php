@@ -142,12 +142,14 @@ trait ListadosTrait
              $request->botonesx = $this->opciones['rutacarp'] .
                  $this->opciones['carpetax'] . '.Botones.botonesapi';
              $request->estadoxx = 'layouts.components.botones.estadosx';
+             $request->obligar = 'layouts.components.botones.obligar';
              $dataxxxx = Subdescripcion::select(
                  [
                      'conci_subdescripcions.id',
                      'descri.nombre as descri',
                      'sub.nombre as sub',
                      'conci_subdescripcions.sis_esta_id',
+                     'conci_subdescripcions.obligatorio',
                      'conci_sis_estas.s_estado'
                  ]
              )
@@ -157,7 +159,7 @@ trait ListadosTrait
                  ->join('conci_sis_estas', 'conci_subdescripcions.sis_esta_id', '=', 'conci_sis_estas.id');
                  
  
-             return $this->getDt($dataxxxx, $request);
+             return $this->getDtAdjunto($dataxxxx, $request);
              }
       }
 

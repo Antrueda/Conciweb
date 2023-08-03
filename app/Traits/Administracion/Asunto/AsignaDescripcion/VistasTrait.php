@@ -3,6 +3,7 @@
 namespace App\Traits\Administracion\Asunto\AsignaDescripcion;
 
 use App\Models\Asunto;
+use App\Models\Descripciona;
 use App\Models\Indicadores\Administ\Area;
 use App\Models\Sistema\SisEsta;
 use App\Models\SubAsunto;
@@ -18,7 +19,6 @@ trait VistasTrait
     {
         
         $opciones['estadoxx'] = SisEsta::combo(['cabecera' => true, 'esajaxxx' => false]);
-        $opciones['tipotext'] = Tema::combo(2, true, false);
         
         $opciones['rutarchi'] = $opciones['rutacarp'] . 'Acomponentes.Acrud.' . $dataxxxx['accionxx'][0];
         $opciones['formular'] = $opciones['rutacarp'] . $opciones['carpetax'] . '.Formulario.' . $dataxxxx['accionxx'][1];
@@ -31,8 +31,9 @@ trait VistasTrait
     {
 
         $opciones = $this->getVista($opciones, $dataxxxx);
-        $opciones['asuntoxx'] = Asunto::combo( true, false);
+        $opciones['descripc'] = Descripciona::combo( true, false);
         $opciones['subasunt'] = SubAsunto::combo( true, false);
+        $opciones['obligato'] = [0=>'No',1=>'Si'];
         // indica si se esta actualizando o viendo
         if ($dataxxxx['modeloxx'] != '') {
             $opciones['modeloxx'] = $dataxxxx['modeloxx'];

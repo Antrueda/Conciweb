@@ -595,10 +595,10 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                 <div class="col-md-6">
                     
                     <div class="form-floating mb-3">
-                        <select class="form-select form-select-sm validate[required]" name="tipoSolicitud" id="tipoSolicitud" onchange = 'doc(this.value)' required>
+                        <select class="form-select form-select-sm validate" name="tipoSolicitud" id="tipoSolicitud" onchange = 'doc(this.value)' required>
                             <option value=" ">- Seleccione una opcion -</option>
-                            <option value="0">DIRECTA</option>
-                            <option value="1">APODERADO</option>
+                            <option value="0" title="Cuando se actúa a título propio, sin intermediación de un abogado">DIRECTO POR EL INTERESADO</option>
+                            <option value="1" title="Cuando se actúa a través de PODER ESPECIAL otorgado únicamente a un abogado; a menos que se cuente con un PODER GENERAL OTORGADO MEDIANTE ESCRITURA PUBLICA">MEDIANTE APODERADO</option>
                         </select>
                         <label for="tipoSolicitud"> 20. Tipo de Solicitud *</label>
                         <div class="invalid-feedback">Example invalid select feedback</div>
@@ -730,7 +730,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                 </div>
                 <div class="col-md-3">
                   <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm validate" name="segundoTelefonoApoderado"  minlength="5" maxlength="10" id="segundoTelefonoApoderado" autocomplete="off" placeholder="0" onkeypress = "return soloNumeros(event);">
+                        <input type="text" class="form-control form-control-sm" name="segundoTelefonoApoderado"  minlength="5" maxlength="10" id="segundoTelefonoApoderado" autocomplete="off" placeholder="0" onkeypress = "return soloNumeros(event);">
                         <label for="segundoTelefonoApoderado"> 20.10. Teléfono fijo</label>
            
                     </div>
@@ -1387,8 +1387,8 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
             },
             beforeSend: function() {
                 llamarNotyCarga();
-                $("#btnRegistro").hide();
                 $('#btnRegistro').prop('disabled', true);
+                $('#exampleModal').modal("hide");
             },
             success: function(r) {
                 var datUsr = r.split("|");
@@ -1398,10 +1398,11 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                     var msg = "<center><p><i class='fas fa-times fa-3x'></i></p></center>" + msg;
                     llamarNotyTime('error', msg, 'topRight', 3000);
                     $("#btnRegistro").show();
+                    
                     $('#btnRegistro').prop('disabled', false);
                 } else {
-                    $("#btnRegistro").hide();
                     $('#btnRegistro').prop('disabled', true);
+                    $('#exampleModal').modal("hide");
                     var msg = "<center><p><i class='fas fa-check-circle fa-3x'></i></p></center>" + msg;
                     new Noty({
                         text: msg,

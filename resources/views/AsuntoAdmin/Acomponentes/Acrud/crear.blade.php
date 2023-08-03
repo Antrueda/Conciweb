@@ -7,7 +7,7 @@
     <form method = "POST" id="formulario" action= "{{route($todoxxxx['routxxxx'].'.crear', $todoxxxx['parametr'])}}"
     enctype="multipart/form-data">
       @csrf
-        @include($todoxxxx["botonesx"])
+        
         @include($todoxxxx["formular"])
         @include($todoxxxx["botonesx"])
     {!!Form::close()!!}

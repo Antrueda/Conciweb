@@ -46,7 +46,7 @@ class AsignaAsuntoController extends Controller
     {
         $this->opciones['pestania'] = $this->getPestanias($this->opciones);
         return $this->view(
-            $this->getBotones(['crear', [], 1, 'GUARDAR', 'btn btn-sm btn-primary']),
+            $this->getBotones(['crear', [], 1, 'GUARDAR', 'btn btn-sm btn-success']),
             ['modeloxx' => '', 'accionxx' => ['crear', 'formulario']]
         );
     }
@@ -66,9 +66,9 @@ class AsignaAsuntoController extends Controller
     {
         
          $this->opciones['pestania'] = $this->getPestanias($this->opciones);
-         $this->getBotones(['leer', [$this->opciones['routxxxx'], [$modeloxx->id]], 2, 'VOLVER A SUBASUNTO', 'btn btn-sm btn-primary']);
-         $this->getBotones(['editar', [], 1, 'EDITAR', 'btn btn-sm btn-primary']);
-        $do=$this->getBotones(['crear', [$this->opciones['routxxxx'], [$modeloxx->id]], 2, 'CREAR SUBASUNTO', 'btn btn-sm btn-primary']);
+         $this->getBotones(['leer', [$this->opciones['routxxxx'], [$modeloxx->id]], 2, 'VOLVER A SUBASUNTO', 'btn btn-sm btn-success']);
+         $this->getBotones(['editar', [], 1, 'EDITAR', 'btn btn-sm btn-success']);
+        $do=$this->getBotones(['crear', [$this->opciones['routxxxx'], [$modeloxx->id]], 2, 'CREAR SUBASUNTO', 'btn btn-sm btn-success']);
 
         return $this->view($do,
             ['modeloxx' => $modeloxx, 'accionxx' => ['ver', 'formulario'],'padrexxx'=>'']
@@ -79,9 +79,9 @@ class AsignaAsuntoController extends Controller
     public function edit(ASubasunto $modeloxx)
     {
         $this->opciones['pestania'] = $this->getPestanias($this->opciones);
-        $this->getBotones(['leer', [$this->opciones['routxxxx'], [$modeloxx->sis_nnaj]], 2, 'VOLVER A SUBASUNTO', 'btn btn-sm btn-primary']);
-        $this->getBotones(['editar', [], 1, 'EDITAR', 'btn btn-sm btn-primary']);
-        return $this->view($this->getBotones(['crear', [$this->opciones['routxxxx'], [$modeloxx->sis_nnaj]], 2, 'CREAR NUEVO SUBASUNTO', 'btn btn-sm btn-primary'])
+        $this->getBotones(['leer', [$this->opciones['routxxxx'], [$modeloxx->sis_nnaj]], 2, 'VOLVER A SUBASUNTO', 'btn btn-sm btn-success']);
+        $this->getBotones(['editar', [], 1, 'EDITAR', 'btn btn-sm btn-success']);
+        return $this->view($this->getBotones(['crear', [$this->opciones['routxxxx'], [$modeloxx->sis_nnaj]], 2, 'CREAR NUEVO SUBASUNTO', 'btn btn-sm btn-success'])
             ,
             ['modeloxx' => $modeloxx, 'accionxx' => ['editar', 'formulario'],'padrexxx'=>$modeloxx->sis_nnaj]
         );
@@ -102,7 +102,7 @@ class AsignaAsuntoController extends Controller
     {
         $this->opciones['pestania'] = $this->getPestanias($this->opciones);
         return $this->view(
-            $this->getBotones(['borrar', [], 1, 'INACTIVAR', 'btn btn-sm btn-primary'])            ,
+            $this->getBotones(['borrar', [], 1, 'INACTIVAR', 'btn btn-sm btn-success'])            ,
             ['modeloxx' => $modeloxx, 'accionxx' => ['destroy', 'destroy'],'padrexxx'=>$modeloxx->sis_nnaj]
         );
     }
@@ -121,7 +121,7 @@ class AsignaAsuntoController extends Controller
     {
         $this->opciones['pestania'] = $this->getPestanias($this->opciones);
         return $this->view(
-            $this->getBotones(['activarx', [], 1, 'ACTIVAR', 'btn btn-sm btn-primary'])            ,
+            $this->getBotones(['activarx', [], 1, 'ACTIVAR', 'btn btn-sm btn-success'])            ,
             ['modeloxx' => $modeloxx, 'accionxx' => ['activar', 'activar'],'padrexxx'=>$modeloxx->sis_nnaj]
         );
 

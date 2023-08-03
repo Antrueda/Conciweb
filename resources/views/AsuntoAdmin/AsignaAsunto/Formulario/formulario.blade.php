@@ -21,9 +21,8 @@
         </div>
     
         <div class="form-group col-md-3">
-            {{ Form::label('sis_esta_id', 'Estado', ['class' => 'control-label']) }}
-            {{ Form::select('sis_esta_id', $todoxxxx['estadoxx'], null, ['class' => $errors->first('sis_esta_id') ?
-        'form-control select2 form-control-sm is-invalid cargos' : 'form-control select2 form-control-sm cargos',
+            {{ Form::label('sis_esta_id', 'Estado', ['class' => 'control-label col-form-label-sm']) }}
+            {{ Form::select('sis_esta_id', $todoxxxx['estadoxx'], null, ['class' => $errors->first('sis_esta_id') ? 'form-control select2 form-control is-invalid cargos' : 'form-control select2 form-control cargos',
         'data-placeholder' => 'Seleccione un estado']) }}
             @if($errors->has('sis_esta_id'))
             <div class="invalid-feedback d-block">
@@ -34,3 +33,4 @@
     </div>
     
     </div>
+    <br>

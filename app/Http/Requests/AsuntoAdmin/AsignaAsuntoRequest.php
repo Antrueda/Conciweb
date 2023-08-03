@@ -12,7 +12,8 @@ class AsignaAsuntoRequest extends FormRequest
     public function __construct()
     {
         $this->_mensaje = [
-            'nombre' => 'Ingrese el Nombre',
+            'asunto_id' => 'Seleccione el asunto',
+            'subasu_id' => 'Seleccione el sub asunto',
             'sis_esta_id.required'=> 'Seleccione el estado',
         ];
         $this->_reglasx = [
