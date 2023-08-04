@@ -1,6 +1,6 @@
 @extends('../mainUsrWeb')
 
-@section('title','DATOS DEL DE CIUDADANO')
+@section('title','CONCIWEB')
 
 @section('AddScritpHeader')
 
@@ -313,21 +313,19 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
     <div class="steps-form">
         <div class="steps-row setup-panel">
           <div class="steps-step">
-            <a href="#step-1" type="button" class="btn btn-step btn-circle" id = "step-1"><span id="text-1">1</span><i id="stepi-1" class="fas fa-check" style="display:none;"></i></a>
+            <a href="#step-1" type="button" data-bs-toggle="tooltip" data-bs-title="DATOS DEL SOLICITANTE"  class="btn btn-step btn-circle" id = "step-1"><span id="text-1">1</span><i id="stepi-1" class="fas fa-check" style="display:none;"></i></a>
         
-            
-
           </div>
           <div class="steps-step">
-            <a href="#step-2" type="button" class="btn btn-light btn-circle" id = "step-2" disabled="disabled"><span id="text-2">2</span><i id="stepi-2" class="fas fa-check" style="display:none;"></i></a>
+            <a href="#step-2" type="button" data-bs-toggle="tooltip" data-bs-title="DATOS DEL APODERADO" class="btn btn-light btn-circle" id = "step-2" disabled="disabled"><span id="text-2">2</span><i id="stepi-2" class="fas fa-check" style="display:none;"></i></a>
   
           </div>
           <div class="steps-step">
-            <a href="#step-3" type="button" class="btn btn-light btn-circle"  id = "step-3" disabled="disabled"><span id="text-3">3</span><i id="stepi-3" class="fas fa-check" style="display:none;"></i></a>
+            <a href="#step-3" type="button" data-bs-toggle="tooltip" data-bs-title="DATOS DE CONVOCADOS" class="btn btn-light btn-circle"  id = "step-3" disabled="disabled"><span id="text-3">3</span><i id="stepi-3" class="fas fa-check" style="display:none;"></i></a>
        
           </div>
           <div class="steps-step">
-            <a href="#step-4" type="button" class="btn btn-light btn-circle" id = "step-4" disabled="disabled"><span id="text-4">4</span><i id="stepi-4" class="fas fa-check" style="display:none;"></i></a>
+            <a href="#step-4" type="button" data-bs-toggle="tooltip" data-bs-title="DATOS DE CONCILIACIÓN" class="btn btn-light btn-circle" id = "step-4" disabled="disabled"><span id="text-4">4</span><i id="stepi-4" class="fas fa-check" style="display:none;"></i></a>
          
           </div>
         </div>
@@ -355,6 +353,35 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
         </div>
         <div class="card-body" style="margin-bottom: 10px;">
             <div class="row">
+                
+            <!-- INICIO TIPO DE SOLICITUD -->
+            <div class="col-md-9">
+                <div class="alert alert-warning text-justify" role="alert" style="--bs-success-text-emphasis: #083822;">
+                                       
+                  
+                    <ul>
+                    <li><b>DIRECTO POR EL SOLICITANTE:</b> Cuando se actúa a título propio, sin intermediación de un abogado</li>
+                    <li><b>MEDIANTE APODERADO:</b> Cuando se actúa a través de PODER ESPECIAL otorgado únicamente a un abogado; a menos que se cuente con un PODER GENERAL OTORGADO MEDIANTE ESCRITURA PUBLICA</li>
+                </ul>
+            </div>
+   
+                </div> 
+            <div class="col-md-3">
+                    
+                <div class="form-floating mb-3">
+                    <select class="form-select form-select-sm validate" name="tipoSolicitud" id="tipoSolicitud" onchange = 'doc(this.value)' required title="
+                    DIRECTO POR EL SOLICITANTE: Cuando se actúa a título propio, sin intermediación de un abogado. 
+MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado únicamente a un abogado; a menos que se cuente con un PODER GENERAL OTORGADO MEDIANTE ESCRITURA PUBLICA
+                    ">
+                        <option value=" ">- Seleccione una opcion -</option>
+                        <option value="0" title="Cuando se actúa a título propio, sin intermediación de un abogado">DIRECTO POR EL SOLICITANTE</option>
+                        <option value="1" title="Cuando se actúa a través de PODER ESPECIAL otorgado únicamente a un abogado; a menos que se cuente con un PODER GENERAL OTORGADO MEDIANTE ESCRITURA PUBLICA">MEDIANTE APODERADO</option>
+                    </select>
+                    <label for="tipoSolicitud"> 20. Tipo de Solicitud * <i class="far fa-question-circle fa-xs"></i></label>
+                    <div class="invalid-feedback">Example invalid select feedback</div>
+                    </div>
+                </div> 
+
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
          
@@ -493,7 +520,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
     
                 <div class="form-floating mb-3">
   
-                {{ Form::text('rangoedad', null, ['class' => $errors->first('rangoedad') ? 'form-control form-control-sm is-invalid validate' : 'form-control form-control-sm validate','style'=>"text-transform: uppercase",'id'=>'rangoedad'] ) }}
+                {{ Form::text('rangoedad', null, ['class' => $errors->first('rangoedad') ? 'form-control form-control-sm is-invalid validate' : 'form-control form-control-sm validate','style'=>"text-transform: uppercase",'id'=>'rangoedad','readonly'] ) }}
                 <div class="invalid-feedback rangoedad">
                     Campo obligatorio.
                   </div>
@@ -590,21 +617,6 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
 
            
 
-            <!-- INICIO TIPO DE SOLICITUD -->
-        
-                <div class="col-md-6">
-                    
-                    <div class="form-floating mb-3">
-                        <select class="form-select form-select-sm validate" name="tipoSolicitud" id="tipoSolicitud" onchange = 'doc(this.value)' required>
-                            <option value=" ">- Seleccione una opcion -</option>
-                            <option value="0" title="Cuando se actúa a título propio, sin intermediación de un abogado">DIRECTO POR EL INTERESADO</option>
-                            <option value="1" title="Cuando se actúa a través de PODER ESPECIAL otorgado únicamente a un abogado; a menos que se cuente con un PODER GENERAL OTORGADO MEDIANTE ESCRITURA PUBLICA">MEDIANTE APODERADO</option>
-                        </select>
-                        <label for="tipoSolicitud"> 20. Tipo de Solicitud *</label>
-                        <div class="invalid-feedback">Example invalid select feedback</div>
-                        </div>
-                    </div> 
- 
      
           
        
@@ -616,12 +628,12 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
             </div>
             <div class="row justify-content-md-center" style="padding-top: 3px">
                 <div id="apode_id" class="col-2">
-                <a class="btn btn-success" onclick="run(1, 2);" style="width: 120px"> Siguiente  <i class="far fa-check-circle"></i> </a>
+                <a class="btn btn-success" onclick="run(1, 2);" style="width: 120px" > Siguiente  <i class="far fa-check-circle"></i> </a>
                 
                  </div>
                  <div id="dire_id" class="col-2" >
                     
-                <a class="btn btn-success" onclick="run(1, 3);" style="width: 120px" > Siguiente  <i class="far fa-check-circle"></i> </a>
+                <a class="btn btn-success" onclick="run(1, 3);" style="width: 120px"  > Siguiente  <i class="far fa-check-circle"></i> </a>
              </div>
             </div>
             <br>
@@ -790,7 +802,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                     <div class="col-md-3">
                         <div class="form-floating mb-3">
                         <input type="text" class="form-control form-control-sm" onkeyup="this.value=this.value.toUpperCase();"  style="text-transform: uppercase" name="nomConvoc" id="nomConvoc" autocomplete="off" placeholder="0" minlength="3" >
-                            <label for="nomConvoc">Nombres convocado</label>
+                            <label for="nomConvoc">Nombre(s) convocado</label>
                             <div class="invalid-feedback nomConvoc">
                                 Campo obligatorio.
                               </div>
@@ -799,7 +811,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                     <div class="col-md-3">
                         <div class="form-floating mb-3">
                         <input type="text" class="form-control form-control-sm" onkeyup="this.value=this.value.toUpperCase();" style="text-transform: uppercase" name="apeConvoca" id="apeConvoca" autocomplete="off" placeholder="0" minlength="3" >
-                            <label for="apeConvocante">Apellidos convocado</label>
+                            <label for="apeConvocante">Apellido(s) convocado</label>
                             <div class="invalid-feedback apeConvocante">
                                 Campo obligatorio.
                               </div>
@@ -809,7 +821,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                         <div class="form-floating mb-6">
                         
                             <input type="email" class="form-control form-control-sm" name="emailConvo" id="emailConvo" autocomplete="off" placeholder="0" >
-                            <label for="email"> Correo electronico</label>
+                            <label for="email"> Correo electrónico</label>
                             <div class="invalid-feedback emailConU">
                                 Campo obligatorio.
                               </div>
@@ -2183,7 +2195,7 @@ function soloNumeros(e) {
 //       tableEl.addEventListener("click", onDeleteRow);
 
 function auto_grow(element) {
-    element.style.height = "8px";
+    element.style.height = "20px";
     element.style.height = (element.scrollHeight)+"px";
 }
 document.getElementById("dire_id").hidden=true;
@@ -2240,6 +2252,8 @@ function doc1(valor){
 </script>
 
 <script type="text/javascript">
+const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
     $('#reload').click(function () {
         $.ajax({
             type: 'GET',

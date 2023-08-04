@@ -238,11 +238,11 @@
     <p>Cordial saludo <b><strong style="text-transform: uppercase;color:#0171BD" class="px-2">{{$nombrecompleto}}</strong></b></p>
     @if (isset($emailApoderado) && !empty($emailApoderado)) 
     <p>
-        La Personería de Bogotá, D.C., le informa que el día {{$fechaRegistro}}, usted finalizó con el proceso de Solicitud de Conciliación Web, por lo cual,  a los correos registrados <b> {{$email}} </b> y <b> {{$emailApoderado}} </b>, se enviarán las correspondientes notificaciones,  posterior a la revisión a la solicitud No. <b style="text-transform: uppercase;color:#0171BD"> {{$numSolicitud}} </b> 
+        La Personería de Bogotá, D.C., le informa que el día {{$fechaRegistro}}, usted finalizó con el proceso de Solicitud de Conciliación Web, por lo cual,  a los correos registrados <b> {{$email}} </b> y <b> {{$emailApoderado}} </b>, se enviarán las correspondientes notificaciones,  posterior a la revisión de la solicitud No. <b style="text-transform: uppercase;color:#0171BD"> {{$numSolicitud}} </b> 
     </p>
     @else
     <p>
-        La Personería de Bogotá, D.C., le informa que el día {{$fechaRegistro}}, usted finalizó con el proceso de Solicitud de Conciliación Web, por lo cual,  al correo registrado <b> {{$email}} </b>, se enviarán las correspondientes notificaciones,  posterior a la revisión a la solicitud <b style="text-transform: uppercase;color:#0171BD"> No. {{$numSolicitud}}</b> . 
+        La Personería de Bogotá, D.C., le informa que el día {{$fechaRegistro}}, usted finalizó con el proceso de Solicitud de Conciliación Web, por lo cual,  al correo registrado <b> {{$email}} </b>, se enviarán las correspondientes notificaciones,  posterior a la revisión de la solicitud <b style="text-transform: uppercase;color:#0171BD"> No. {{$numSolicitud}}</b> . 
     </p>
 
    @endif
