@@ -307,8 +307,8 @@
         <ul>
 
             <li style="text-justify">Correo electrónico registrado:<b style="font-size: 20px;font-weight: bold; color:#0171BD;"> {{$email}}</b></li> 
-            <li style="text-justify">Pin o Contraseña:<b style="font-size: 20px;font-weight: bold; color:#0171BD;"> {{$llaveingreso}}</b></li> 
-            <li style="text-justify">Numero de solicitud:<b style="font-size: 20px;font-weight: bold; color:#0171BD;"> {{$numSolicitud}}</b></li> 
+            <li style="text-justify">Pin:<b style="font-size: 20px;font-weight: bold; color:#0171BD;"> {{$llaveingreso}}</b></li> 
+            <li style="text-justify">Número de solicitud:<b style="font-size: 20px;font-weight: bold; color:#0171BD;"> {{$numSolicitud}}</b></li> 
   
           </ul>  
        

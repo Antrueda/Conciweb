@@ -95,7 +95,7 @@
     <div class="row">
       <div class="col-md-3">
         <b  style="color:#0171BD">Tipo de Documento</b></label>
-        <p style="text-transform: uppercase">{{$tipodedocapoderado}}</p>
+        <p style="text-transform: uppercase">{{$tipodedocumento}}</p>
       </div>
       <div class="col-md-3">
       <b style="color:#0171BD">Número de Documento</b></label>
@@ -161,7 +161,7 @@
   <div class="row">
     <div class="col-md-3">
       <b  style="color:#0171BD">Tipo de Documento</b></label>
-      <p style="text-transform: uppercase">{{$tipodedocumento}}</p>
+      <p style="text-transform: uppercase">{{$tipodedocapoderado}}</p>
     </div>
     <div class="col-md-3">
       <b  style="color:#0171BD">Número de Documento</b></label>

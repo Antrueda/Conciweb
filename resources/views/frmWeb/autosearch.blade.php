@@ -16,7 +16,7 @@
             <div class="col-md-10 offset-1">
                 <div class="card">
                     <div class="card-header">
-                        <h5>Por favor ingrese el Número de solicitud y el Código correspondiente</h5>
+                        <h5>Por favor ingrese el Número de solicitud y el Pin correspondiente</h5>
                     </div>
                     <div class="card-body">
                         <div class="row justify-content-md-center">
@@ -34,7 +34,7 @@
                                       <div class="form-floating mb-3">
                                    
                                     <input type="text" name="codigo" id="codigo" class="form-control" autocomplete="off" placeholder="0">
-                                    <label for="codigo">Pin o Contraseña</label>
+                                    <label for="codigo">Pin</label>
                                     </div>
                                 </div>
                                 <div class="col-sm-1" style="padding: 6px;margin-top:7px;width:60px;height:60px">

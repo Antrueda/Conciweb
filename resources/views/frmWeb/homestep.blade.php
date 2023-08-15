@@ -772,7 +772,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
         <br>
         <div class="row justify-content-md-center">
             <div class="alert alert-warning text-justify" role="alert" style=";">
-                Recuerde que debe adjuntar el PODER ESPECIAL PARA CONCILIAR, el cual debe estar DIRIGIDO AL CENTRO DE CONCILIACION DE LA PERSONERIA DE BOGOTA D.C. y firmado por poderdante (s) y apoderado (s) o el PODER GENERAL OTORGADO MEDIANTE ESCRITURA PUBLICA, según sea el caso
+                Recuerde que debe adjuntar el PODER ESPECIAL PARA CONCILIAR, el cual debe estar <b>DIRIGIDO AL CENTRO DE CONCILIACIÓN DE LA PERSONERÍA DE BOGOTÁ D.C.</b>. y firmado por poderdante (s) y apoderado (s) o el PODER GENERAL OTORGADO MEDIANTE ESCRITURA PUBLICA, según sea el caso
             </div>
         </div>
     </div>
@@ -860,9 +860,9 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                 <table class="table table-striped">
                     <thead>
                       <tr>
-                        <th>NOMBRES CONVOCADO</th>
-                        <th>APELLIDOS CONVOCADO</th>
-                        <th>EMAIL</th>
+                        <th>NOMBRE(S) CONVOCADO</th>
+                        <th>APELLIDO(S) CONVOCADO</th>
+                        <th>CORREO ELECTRÓNICO</th>
                         <th></th>
                       </tr>
                     </thead>

@@ -1140,7 +1140,7 @@ class Webcontroller extends Controller
                 //Validacion de estado "adjunto", devuelve mensaje y no deja ingresar al formulario de adjuntos
             } else if($data->estadodoc=='adjunto') {
              
-                $output .= '<br><p style="width:90%;margin:auto;" class="alert alert-success"><i class="fa-regular fa-circle-check fa-2xl"></i>' . '<span style="padding:8px;font-size: 1.2rem;"> El proceso de adjuntar documentos ha finalizado el día '.date("d-m-Y", strtotime($data->updated_at)) . '</span></p>';
+                $output .= '<br><p style="width:90%;margin:auto;" class="alert alert-success"><i class="fa-regular fa-circle-check fa-2xl"></i>' . '<span style="padding:8px;font-size: 1.2rem;"> El proceso de adjuntar documentos finalizó el día '.date("d-m-Y", strtotime($data->updated_at)) . '</span></p>';
                 //Validacion de estado "Cancelado", devuelve mensaje y no deja ingresar al formulario de adjuntos
             }else if($data->estadodoc=='Cancelado') {
                 $output .= '<br><p style="width:90%;margin:auto;" class="alert alert-warning"><i class="fa-solid fa-triangle-exclamation fa-2xl"></i>' . '<span style="padding:8px;font-size: 1.2rem;"> Se realizo desistimiento a la Solicitud de Conciliación ' . '</span></p>';
@@ -1164,7 +1164,7 @@ class Webcontroller extends Controller
         $nombrecompleto = $dato->primernombre . ' ' . $dato->segundonombre . ' ' . $dato->primerapellido  . ' ' . $dato->segundoapellido;
         $fecha = $dato->fec_solicitud_tramite;
         $newDate = date("d-m-Y", strtotime($fecha));  
-        $tipodedocumento=Parametro::where('id', $dato->tipodocumento)->first()->nombre;
+        
         $tiposolicitud= $dato->tiposolicitud;
         $tipodedocapoderado='';
         if($tiposolicitud==1){
@@ -1398,7 +1398,7 @@ class Webcontroller extends Controller
         }
         //Mensaje de comprobacion de registro de los datos adjuntos
         return '|1|Con él envió de los soportes se da por finalizado el Registro de la Solicitud de Conciliación WEB No. <b> '.$id.'</b> del '.$newDate.'. 
-        La información relacionada y sus anexos serán revisados por los funcionarios al interior de la Personería de Bogotá, quienes próximamente lo contactarán por medio de los correos electrónicos registrados';
+        La información relacionada y sus anexos serán revisados por los funcionarios al interior de la Personería de Bogotá D.C., quienes próximamente lo contactarán por medio de los correos electrónicos registrados';
         
         DB::commit();
         

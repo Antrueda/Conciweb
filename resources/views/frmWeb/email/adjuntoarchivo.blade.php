@@ -235,7 +235,8 @@
     <img  style="height: 25%;" src="{{asset('imagen/logoConciweb.png')}}" alt="ConciwebLogo">
 </div>
 <div class='saludo'>
-    <p>Cordial saludo </p><br>
+    <p>Cordial saludo </p>
+    <br>
         <b><strong style="text-transform: uppercase;color:#0171BD" class="px-2">{{$nombrecompleto}}</strong></b>
     <br>
     @if (isset($emailApoderado) && !empty($emailApoderado)) 
