@@ -232,11 +232,15 @@
     a3t0OWwtZfsG15cQYfyuUCuxtvvj9nn9eRDGb4+R6bbV84ZfBiPHGLeEzLQSi8GIAFz9x3ECo37o
     l8mY7wlkMOpA+7I1qWDlH4PBYDAYDAaDwWAwGAwGg8FgMBgMBoPBYDAYDAaDwWAwGAwGg8FgMBgM
     BoMRjyRJ/h+GoUfSgT6GhQAAAABJRU5ErkJggg==" alt="img" /> --}}
-    <img  style="height: 25%;" src="{{asset('imagen/PropuestalogoConciweb1.png')}}" alt="ConciwebLogo">
+    <img  style="height: 25%;" src="{{asset('imagen/logoConciweb.png')}}" alt="ConciwebLogo">
 </div>
 <div class='saludo'>
-    <p>Cordial saludo <b><strong style="text-transform: uppercase;color:#0171BD" class="px-2">{{$nombrecompleto}}</strong></b></p>
-    @if (isset($emailApoderado) && !empty($emailApoderado)) 
+    <p>Cordial saludo </p><br>
+    <b><strong style="text-transform: uppercase;color:#0171BD" class="px-2">{{$nombrecompleto}}</strong></b>
+        <br>
+        @if (isset($emailApoderado) && !empty($emailApoderado)) 
+        <b><strong style="text-transform: uppercase;color:#0171BD" class="px-2">{{$apoderado}}</strong></b>
+        <br>
     <p>
         La Personería de Bogotá D.C., le informa que el día {{$newDate}} se recibió la solicitud de <b>DESISTIMIENTO</b> para la Conciliación WEB No. <b>{{$numSolicitud}} </b> registrada por usted el día {{$newDate}} , por lo anterior su solicitud ha sido cancelada”.
 

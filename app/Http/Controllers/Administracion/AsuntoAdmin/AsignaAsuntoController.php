@@ -53,7 +53,7 @@ class AsignaAsuntoController extends Controller
     public function store(AsignaAsuntoRequest $request)
     {
         
-        return $this->setSubAsunto([
+        return $this->setASubAsunto([
             'requestx' => $request,
             'modeloxx' => '',
             'infoxxxx' => 'Asunto creado con éxito',
@@ -90,7 +90,7 @@ class AsignaAsuntoController extends Controller
 
     public function update(AsignaAsuntoRequest $request,  ASubasunto $modeloxx)
     {
-        return $this->setSubAsunto([
+        return $this->setASubAsunto([
             'requestx' => $request,
             'modeloxx' => $modeloxx,
             'infoxxxx' => 'Subasunto editado con éxito',

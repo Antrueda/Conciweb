@@ -20,8 +20,8 @@ trait DataTablesTrait
 
         $dataxxxx['tablasxx'] = [
             [
-                'titunuev' => 'NUEVA DESCRIPCIÓN',
-                'titulist' => 'LISTA DE DESCRIPCIONES',
+                'titunuev' => 'NUEVA ADJUNTOS',
+                'titulist' => 'LISTA DE ADJUNTOS',
                 'archdttb' => $dataxxxx['rutacarp'] . 'Acomponentes.Adatatable.index',
                 'vercrear' => true,
                 'urlxxxxx' => route($dataxxxx['routxxxx'] . '.listaxxx', []),
@@ -34,7 +34,7 @@ trait DataTablesTrait
                 ],
                 'cabecera' => [
                     [
-                        ['td' => 'ACCIONES', 'widthxxx' => 10, 'rowspanx' => 1, 'colspanx' => 1],
+                        ['td' => 'ACCIONES', 'widthxxx' => 0, 'rowspanx' => 1, 'colspanx' => 1],
                         ['td' => 'ID', 'widthxxx' => 0, 'rowspanx' => 1, 'colspanx' => 1],
                         ['td' => 'ADJUNTO', 'widthxxx' => 0, 'rowspanx' => 1, 'colspanx' => 1],
                         ['td' => 'ESTADO', 'widthxxx' => 0, 'rowspanx' => 1, 'colspanx' => 1],
@@ -42,11 +42,11 @@ trait DataTablesTrait
                 ],
                 'columnsx' => [
                     ['data' => 'botonexx', 'name' => 'botonexx'],
-                    ['data' => 'id', 'name' => 'descripcionas.id'],
-                    ['data' => 'nombre', 'name' => 'descripcionas.nombre'],
+                    ['data' => 'id', 'name' => 'conci_descripcionas.id'],
+                    ['data' => 'nombre', 'name' => 'conci_descripcionas.nombre'],
                     ['data' => 's_estado', 'name' => 'conci_sis_estas.s_estado'],
                 ],
-                'tablaxxx' => 'datatable',
+                'tablaxxx' => 'adjuntos',
                 'permisox' => $dataxxxx['permisox'],
                 'routxxxx' => $dataxxxx['routxxxx'],
                 'parametr' => [],

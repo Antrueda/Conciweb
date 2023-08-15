@@ -1,6 +1,6 @@
 @extends('../mainUsrWeb')
 
-@section('title','CONSULTAR SOLICITUD')
+@section('title','CONCIWEB')
 
 @section('AddScritpHeader')
 

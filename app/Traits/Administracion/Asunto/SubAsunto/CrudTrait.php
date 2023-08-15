@@ -4,6 +4,7 @@ namespace App\Traits\Administracion\Asunto\SubAsunto;
 
 
 use App\Models\Asunto;
+use App\Models\SubAsunto;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -18,15 +19,14 @@ trait CrudTrait
      * @param array $dataxxxx
      * @return $usuariox
      */
-    public function setAsunto($dataxxxx)
+    public function setSubAsunto($dataxxxx)
     {
         $respuest = DB::transaction(function () use ($dataxxxx) {
-            $dataxxxx['requestx']->request->add(['user_edita_id' => Auth::user()->id]);
             if (isset($dataxxxx['modeloxx']->id)) {
                 $dataxxxx['modeloxx']->update($dataxxxx['requestx']->all());
             } else {
-                $dataxxxx['requestx']->request->add(['user_crea_id' => Auth::user()->id]);
-                $dataxxxx['modeloxx'] = Asunto::create($dataxxxx['requestx']->all());
+                
+                $dataxxxx['modeloxx'] = SubAsunto::create($dataxxxx['requestx']->all());
             }
             return $dataxxxx['modeloxx'];
         }, 5);

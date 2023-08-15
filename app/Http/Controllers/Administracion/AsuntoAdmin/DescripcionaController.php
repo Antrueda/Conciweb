@@ -55,7 +55,7 @@ class DescripcionaController extends Controller
     public function store(AsuntoRequest $request)
     {
         
-        return $this->setAsunto([
+        return $this->setDescripcion([
             'requestx' => $request,
             'modeloxx' => '',
             'infoxxxx' => 'Asunto creado con éxito',
@@ -92,7 +92,7 @@ class DescripcionaController extends Controller
 
     public function update(AsuntoRequest $request,  Asunto $modeloxx)
     {
-        return $this->setAsunto([
+        return $this->setDescripcion([
             'requestx' => $request,
             'modeloxx' => $modeloxx,
             'infoxxxx' => 'Asunto editado con éxito',

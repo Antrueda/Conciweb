@@ -35,7 +35,7 @@ trait ParametrizarTrait
     {
         $this->opciones['vocalesx'] = ['Á', 'É', 'Í', 'Ó', 'Ú'];
         $this->opciones['pestpadr'] = 1; // darle prioridad a las pestañas
-        $this->opciones['tituhead'] = 'ADMINISTRACIÓN DE ASIGNAR DESCRIPCIÓN';
+        $this->opciones['tituhead'] = 'ADMINISTRACIÓN DE ASIGNAR ADJUNTOS';
         $this->opciones['routxxxx'] = $this->opciones['routxxxx'];
         $this->opciones['slotxxxx'] = $this->opciones['permisox'];
         $this->opciones['perfilxx'] = 'sinperfi';
@@ -49,7 +49,7 @@ trait ParametrizarTrait
         $this->opciones['formular'] = $this->opciones['rutacarp'] . $this->opciones['carpetax'] . '.formulario.formulario';
         /** ruta que arma el formulario */
         $this->opciones['rutarchi'] = $this->opciones['rutacarp'] . 'Acomponentes.Acrud.index';
-        $this->opciones['tituloxx'] = "ASIGNAR DESCRIPCIÓN";
+        $this->opciones['tituloxx'] = "ASIGNAR ADJUNTOS";
     }
 
     public function getBotones($dataxxxx)

@@ -34,7 +34,7 @@ trait DataTablesTrait
                 ],
                 'cabecera' => [
                     [
-                        ['td' => 'ACCIONES', 'widthxxx' => 10, 'rowspanx' => 1, 'colspanx' => 1],
+                        ['td' => 'ACCIONES', 'widthxxx' => 0, 'rowspanx' => 1, 'colspanx' => 1],
                         ['td' => 'ID', 'widthxxx' => 0, 'rowspanx' => 1, 'colspanx' => 1],
                         ['td' => 'ASUNTO', 'widthxxx' => 0, 'rowspanx' => 1, 'colspanx' => 1],
                         ['td' => 'ESTADO', 'widthxxx' => 0, 'rowspanx' => 1, 'colspanx' => 1],
@@ -42,8 +42,8 @@ trait DataTablesTrait
                 ],
                 'columnsx' => [
                     ['data' => 'botonexx', 'name' => 'botonexx'],
-                    ['data' => 'id', 'name' => 'asuntos.id'],
-                    ['data' => 'nombre', 'name' => 'asuntos.nombre'],
+                    ['data' => 'id', 'name' => 'conci_asuntos.id'],
+                    ['data' => 'nombre', 'name' => 'conci_asuntos.nombre'],
                     ['data' => 's_estado', 'name' => 'sis_estas.s_estado'],
                 ],
                 'tablaxxx' => 'datatable',

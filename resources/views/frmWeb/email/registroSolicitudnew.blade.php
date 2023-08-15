@@ -49,6 +49,20 @@
             font-weight: regular;
         }
 
+        .importante {
+            background-color: #fafafa;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            border: 1px solid #ccc;
+            text-align: justify;
+            width: 85%;
+            margin-left: auto;
+            margin-right: auto;
+            line-height:20px;
+            font-family: Arial; 
+            font-weight: regular;
+        }
+
         .p {
             line-height:150%;
 
@@ -253,11 +267,18 @@
     l8mY7wlkMOpA+7I1qWDlH4PBYDAYDAaDwWAwGAwGg8FgMBgMBoPBYDAYDAaDwWAwGAwGg8FgMBgM
     BoMRjyRJ/h+GoUfSgT6GhQAAAABJRU5ErkJggg==" alt="img" /> --}}
 
-    <img  style="height: 25%;" src="{{asset('imagen/PropuestalogoConciweb1.png')}}" alt="ConciwebLogo">
+    <img  style="height: 25%;" src="{{asset('imagen/logoConciweb.png')}}" alt="ConciwebLogo">
     
 </div>
 <div class='saludo'>
-    <p>Cordial saludo <b><strong class="px-2" style="text-transform: uppercase;color:#0171BD" class="px-2">{{$nombrecompleto}}</strong></b></p>
+    <p>Cordial saludo 
+        <br><b><strong class="px-2" style="text-transform: uppercase;color:#0171BD" class="px-2">{{$nombrecompleto}}</strong></b>
+        <br>
+        @if (isset($emailApoderado) && !empty($emailApoderado)) 
+        <b><strong style="text-transform: uppercase;color:#0171BD" class="px-2">{{$apoderado}}</strong></b>
+        <br>
+        @endif
+    </p>
     <p>
         La Personería de Bogotá D.C., informa que el día {{$fechaRegistro}} se inició el proceso de registro de una Solicitud de Conciliación a través de nuestro sistema de información CONCIWEB.   
     </p>
@@ -276,6 +297,9 @@
             @endif
           </ul>  
     </div>
+</div>
+<br>
+<div class="importante">
 <p><span><b>***IMPORTANTE: Si no se envían los documentos en este término, se entenderá que el solicitante ha perdido el interés en la solicitud y, en consecuencia, se tendrá por no presentada y se procederá a su archivo.  (Artículo 53, Ley 2220 de 2022)*** </b></span></p>
     
     <p> Para finalizar, debe tener presente los siguientes datos y dar clic en el botón adjuntar documentos: </p>

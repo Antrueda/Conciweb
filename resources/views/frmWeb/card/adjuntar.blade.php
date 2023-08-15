@@ -1,7 +1,7 @@
 
 @extends('../mainUsrWeb')
 
-@section('title','ADJUNTAR ARCHIVOS')
+@section('title','CONCIWEB')
 
 @section('AddScritpHeader')
 

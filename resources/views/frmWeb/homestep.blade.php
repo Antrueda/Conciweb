@@ -356,13 +356,12 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
                 
             <!-- INICIO TIPO DE SOLICITUD -->
             <div class="col-md-9">
-                <div class="alert alert-warning text-justify" role="alert" style="--bs-success-text-emphasis: #083822;">
+                <div class="alert alert-warning text-justify" role="alert" style=";">
                                        
                   
-                    <ul>
-                    <li><b>DIRECTO POR EL SOLICITANTE:</b> Cuando se actúa a título propio, sin intermediación de un abogado</li>
-                    <li><b>MEDIANTE APODERADO:</b> Cuando se actúa a través de PODER ESPECIAL otorgado únicamente a un abogado; a menos que se cuente con un PODER GENERAL OTORGADO MEDIANTE ESCRITURA PUBLICA</li>
-                </ul>
+                    
+                   <small> <b>DIRECTO POR EL SOLICITANTE:</b> Cuando se actúa a título propio, sin intermediación de un abogado <br>
+                    <b>MEDIANTE APODERADO:</b> Cuando se actúa a través de PODER ESPECIAL otorgado únicamente a un abogado; a menos que se cuente con un PODER GENERAL OTORGADO MEDIANTE ESCRITURA PUBLICA</small>
             </div>
    
                 </div> 
@@ -377,7 +376,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                         <option value="0" title="Cuando se actúa a título propio, sin intermediación de un abogado">DIRECTO POR EL SOLICITANTE</option>
                         <option value="1" title="Cuando se actúa a través de PODER ESPECIAL otorgado únicamente a un abogado; a menos que se cuente con un PODER GENERAL OTORGADO MEDIANTE ESCRITURA PUBLICA">MEDIANTE APODERADO</option>
                     </select>
-                    <label for="tipoSolicitud"> 20. Tipo de Solicitud * <i class="far fa-question-circle fa-xs"></i></label>
+                    <label for="tipoSolicitud"> Tipo de Solicitud * <i class="far fa-question-circle fa-xs"></i></label>
                     <div class="invalid-feedback">Example invalid select feedback</div>
                     </div>
                 </div> 
@@ -770,8 +769,14 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                 </div>
             </div>
         </div>
+        <br>
+        <div class="row justify-content-md-center">
+            <div class="alert alert-warning text-justify" role="alert" style=";">
+                Recuerde que debe adjuntar el PODER ESPECIAL PARA CONCILIAR, el cual debe estar DIRIGIDO AL CENTRO DE CONCILIACION DE LA PERSONERIA DE BOGOTA D.C. y firmado por poderdante (s) y apoderado (s) o el PODER GENERAL OTORGADO MEDIANTE ESCRITURA PUBLICA, según sea el caso
+            </div>
+        </div>
     </div>
-   
+
         <div class="row justify-content-md-center">
                 <div class="col-2">
                      <div class="btn btn-outline-secondary " onclick="run(2, 1);" style="width: 120px"><svg style="height: 25px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 101 101" id="left"><path  d="M50.5 16.4c-18.8 0-34.1 15.3-34.1 34.1s15.3 34.1 34.1 34.1 34.1-15.3 34.1-34.1-15.3-34.1-34.1-34.1zm0 63.4c-16.1 0-29.3-13.1-29.3-29.3s13.1-29.3 29.3-29.3 29.3 13.1 29.3 29.3-13.2 29.3-29.3 29.3z"></path><path d="M57.1 33.1c-.9-.9-2.5-.9-3.4 0L38.2 48.6c-.5.5-.7 1.1-.7 1.7s.3 1.2.7 1.7l15.5 15.5c.5.5 1.1.7 1.7.7s1.2-.2 1.7-.7c.9-.9.9-2.5 0-3.4L43.3 50.3l13.8-13.8c1-.9 1-2.4 0-3.4z"></path></svg> Anterior </div>

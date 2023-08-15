@@ -11,7 +11,7 @@
         </div>
     
         <div class="form-group col-md-3">
-            {{ Form::label('descri_id', 'Descripciíon de Adjunto:', ['class' => 'control-label col-form-label-sm']) }}
+            {{ Form::label('descri_id', 'Descripcíon de Adjunto:', ['class' => 'control-label col-form-label-sm']) }}
             {{ Form::select('descri_id', $todoxxxx['descripc'], null, ['class' => $errors->first('descri_id') ? 'form-control is-invalid select2' : 'form-control select2','id'=>'descri_id']) }}
             @if($errors->has('descri_id'))
             <div class="invalid-feedback d-block">

@@ -834,7 +834,7 @@ class Webcontroller extends Controller
         // 4.1 Se asegura que la variable tenga un valor en $emailapoderado
         $nombrecompleto = $primerNombre . ' ' . $segundoNombre . ' ' . $primerApellido  . ' ' . $segundoApellido;
         $dato = ModelsTramiteusuario::where('num_solicitud', $numSolicitud)->first();
-  
+        $apoderado = $dato->primernombreapoderado . ' ' . $dato->segundonombreapoderado . ' ' . $dato->primerapellidoapoderado  . ' ' . $dato->segundoapellidoapoderado;
         $asuntos = Subdescripcion::where('subasu_id', $dato->subasunto)
             ->where('sis_esta_id', 1)
             ->orderBy('id')
@@ -864,6 +864,7 @@ class Webcontroller extends Controller
                     'fechaRegistro' => explode(' ',$fechaRegistroA)[0],
                     'llaveingreso' => $code,
                     'emailApoderado' => $data['emailApoderado'],
+                    'apoderado' => $apoderado,
                     'correosactivos' => $correosactivos
                 );
 
@@ -1139,7 +1140,7 @@ class Webcontroller extends Controller
                 //Validacion de estado "adjunto", devuelve mensaje y no deja ingresar al formulario de adjuntos
             } else if($data->estadodoc=='adjunto') {
              
-                $output .= '<br><p style="width:90%;margin:auto;" class="alert alert-success"><i class="fa-regular fa-circle-check fa-2xl"></i>' . '<span style="padding:8px;font-size: 1.2rem;"> El proceso de adjuntar documentos ha finalizado' . '</span></p>';
+                $output .= '<br><p style="width:90%;margin:auto;" class="alert alert-success"><i class="fa-regular fa-circle-check fa-2xl"></i>' . '<span style="padding:8px;font-size: 1.2rem;"> El proceso de adjuntar documentos ha finalizado el día '.date("d-m-Y", strtotime($data->updated_at)) . '</span></p>';
                 //Validacion de estado "Cancelado", devuelve mensaje y no deja ingresar al formulario de adjuntos
             }else if($data->estadodoc=='Cancelado') {
                 $output .= '<br><p style="width:90%;margin:auto;" class="alert alert-warning"><i class="fa-solid fa-triangle-exclamation fa-2xl"></i>' . '<span style="padding:8px;font-size: 1.2rem;"> Se realizo desistimiento a la Solicitud de Conciliación ' . '</span></p>';
@@ -1217,7 +1218,7 @@ class Webcontroller extends Controller
         if ($detalle == 'Cancelado') {
 
   
-            
+            $apoderado = $dato->primernombreapoderado . ' ' . $dato->segundonombreapoderado . ' ' . $dato->primerapellidoapoderado  . ' ' . $dato->segundoapellidoapoderado;
             
             $detalleAbc = Subdescripcion::where('subasu_id', $dato->subasunto)
                 ->where('sis_esta_id', 1)
@@ -1237,6 +1238,7 @@ class Webcontroller extends Controller
                     'subject' => $subject,
                     'numSolicitud' => $id,
                     'emailApoderado' => $dato->emailapoderado,
+                    'apoderado' => $apoderado,
                     'fechaRegistro' => explode(' ',$fecha)[0],
                     'newDate' => $newDate,
                 );
@@ -1353,7 +1355,7 @@ class Webcontroller extends Controller
         $fecha = $dato->fec_solicitud_tramite;
         $newDate = date("d-m-Y", strtotime($fecha));  
         $nombrecompleto = $dato->primernombre . ' ' . $dato->segundonombre . ' ' . $dato->primerapellido  . ' ' . $dato->segundoapellido;
-        
+        $apoderado = $dato->primernombreapoderado . ' ' . $dato->segundonombreapoderado . ' ' . $dato->primerapellidoapoderado  . ' ' . $dato->segundoapellidoapoderado;
         $fechaRegistro = new DateTime(Carbon::now());
         
         $fechaRegistro = $fechaRegistro->setTimezone(new DateTimeZone('America/Bogota'));
@@ -1377,6 +1379,7 @@ class Webcontroller extends Controller
                 'subject' => $subject,
                 'numSolicitud' => $id,
                 'emailApoderado' => $dato->emailapoderado,
+                'apoderado' => $apoderado,
                 'fechaRegistro' =>$fechaRegistro,
             );
 
