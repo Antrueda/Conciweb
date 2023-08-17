@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Administracion;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\ConciDocumento;
 use App\Models\Estadoform;
 use App\Models\Sistema\SisEsta;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class DocumentoDescargaController extends Controller{
@@ -27,34 +29,43 @@ class DocumentoDescargaController extends Controller{
 
     public function store(Request $request){
         $this->validator($request->all())->validate();
-        Estadoform::create($request->all());
-        return redirect()->route('estadoform')->with('info', 'Registro creado con éxito');
+        $document = $request->file("document1");
+   
+        $nombreOriginalFile = $document->getClientOriginalName();
+
+        $rutaFinalFile = $document->storeAs('Soporte/',$nombreOriginalFile);
+        
+        
+        ConciDocumento::create(['descripcion' => $nombreOriginalFile, 'rutaFinalFile' => $rutaFinalFile, 'nombreOriginalFile' =>$nombreOriginalFile]);
+        return redirect()->route('admin');
     }
 
     public function show($id){
-        $dato = Estadoform::findOrFail($id);
+        $dato = ConciDocumento::findOrFail($id);
         return view('administracion.DocumentoDescarga.index', ['accion' => 'Ver'], compact('dato'));
     }
 
     public function edit($id){
-        $dato = Estadoform::findOrFail($id);
-        $estado = SisEsta::combo(['cabecera' => true, 'esajaxxx' => false]);
+        
+        $dato = ConciDocumento::findOrFail($id);
         return view('administracion.DocumentoDescarga.index', ['accion' => 'Editar'], compact('dato','estado'));
     }
 
     public function update(Request $request, $id){
         $this->validatorUpdate($request->all(), $id)->validate();
 
-        $dato = Estadoform::findOrFail($id);
+        
+      
+        $dato = ConciDocumento::findOrFail($id);
        $texto = $dato->texto;
   
         $dato->fill($request->all())->save();
         $texto->fill($request->all())->save();
-        return redirect()->route('estadoform.editar',$id)->with('info', 'Registro actualizado con éxito');
+        return redirect()->route('documentd.editar',$id)->with('info', 'Registro actualizado con éxito');
     }
 
     public function destroy($id){
-        $dato = Estadoform::findOrFail($id);
+        $dato = ConciDocumento::findOrFail($id);
         $dato->sis_esta_id = ($dato->sis_esta_id == 2) ? 1 : 2;
         $dato->save();
         $activado = $dato->sis_esta_id == 2 ? 'inactivado' : 'activado';
@@ -62,22 +73,22 @@ class DocumentoDescargaController extends Controller{
     }
 
     protected function datos(array $request){
-        return Estadoform::select('id', 'estado', 'sis_esta_id')
+        return ConciDocumento::select('id', 'nombreoriginalfile', 'rutafinalfile')
             ->when(request('buscar'), function($q, $buscar){
-                return $q->orWhere('estado', 'like', '%'.$buscar.'%')->orWhere('id','like','%'.$buscar.'%');
+                return $q->orWhere('nombreoriginalfile', 'like', '%'.$buscar.'%')->orWhere('id','like','%'.$buscar.'%');
             })
-            ->orderBy('nombre')->paginate(10);
+            ->orderBy('nombreoriginalfile')->paginate(10);
     }
 
     protected function validator(array $data){
         return Validator::make($data, [
-            'sis_esta_id' => 'required',
+            'document1' => 'required',
         ]);
     }
 
     protected function validatorUpdate(array $data, $id){
         return Validator::make($data, [
-            'sis_esta_id' => 'required',
+            'document1' => 'required',
         ]);
     }
 }

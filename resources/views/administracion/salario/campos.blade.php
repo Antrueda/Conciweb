@@ -33,13 +33,13 @@
 <div class="row">
 	@if($accion == 'Nuevo')
 		@can('permiso-crear')
-			{{ Form::submit('Guardar', ['class' => 'btn btn-primary']) }}
+			{{ Form::submit('Guardar', ['class' => 'btn btn-success']) }}
 		@endcan
 	@endif
 	@if($accion == 'Editar')
 		@can('permiso-editar')
 		<center>
-			{{ Form::submit('Modificar', ['class' => 'btn btn-primary', 'style'=>'width: 120px']) }}
+			{{ Form::submit('Modificar', ['class' => 'btn btn-success', 'style'=>'width: 120px']) }}
 		</center>
 		@endcan
 	@endif

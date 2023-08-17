@@ -1,18 +1,18 @@
 <div class="card card-outline card-secondary">
     <div class="card-header">
-        <h3 class="card-title">{{ $accion }} Estado del Formulario</h3>
+        
     </div>
     <div class="card-body">
         @if($accion == 'Nuevo')
-            {!! Form::open(['route' => 'estadoform.nuevo', 'class' => 'form-horizontal']) !!}
-                @include('administracion.EstadoFormulario.campos')
+            {!! Form::open(['route' => 'documentd.nuevo', 'class' => 'form-horizontal', 'enctype'=>"multipart/form-data"]) !!}
+                @include('administracion.DocumentoDescarga.campos')
             {!! Form::close() !!}
         @elseif ($accion == 'Editar')
-            {!! Form::model($dato, ['route' => ['estadoform.editar', $dato->id], 'method' => 'PUT']) !!}
-                @include('administracion.EstadoFormulario.campos')
+            {!! Form::model($dato, ['route' => ['documentd.editar', $dato->id], 'method' => 'PUT','enctype'=>"multipart/form-data"]) !!}
+                @include('administracion.DocumentoDescarga.campos')
             {!! Form::close() !!}
         @else
-             @include('administracion.estadoform.campos')
+             @include('administracion.DocumentoDescarga.campos')
         @endif
     </div>
 </div>

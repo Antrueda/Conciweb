@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <style>
         .contenedor {
             padding: 25px;
@@ -49,6 +50,7 @@
             font-family: Helvetica, sans-serif;
             color: #000000
         }
+        
 
         .caja_titulo {
             line-height: 0.16in;
@@ -103,6 +105,17 @@
             text-align: justify;
         }
 
+        .columns {
+            column-count: 3;
+            column-gap: 10px;
+        }
+        .item {
+            margin-bottom: 10px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+        }
+
         .texto-capitalizado::first-letter {
             text-transform: capitalize;
         }
@@ -110,11 +123,12 @@
 </head>
 
 <body>
-    
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
     <div class="contenedor">
         <header class="header">
             <a href="http://personeriabogota.gov.co/" class="column column__uno">
-                <img src="{{URL::asset('imagen/Propuesta logo Conciweb-2.png')}}" class="rounded mx-auto d-block"  style="width: 100%; height: auto;">
+                <img src="{{URL::asset('imagen/logoConciweb.png')}}" class="rounded mx-auto d-block"  style="width: 2.27in; height: auto;">
             </a>
             <div class="column column__dos">
                 <div>
@@ -123,15 +137,14 @@
                         ORDINARIO VÍA WEB
                     </span><br>
                     <span class="header_span"
-                        style="font-style:normal;font-weight:bold;font-size:10pt;font-family:Helvetica;color:#000000">No.
-                        10142941
+                        style="font-style:normal;font-weight:bold;font-size:10pt;font-family:Helvetica;color:#000000">
                     </span>
                 </div>
             </div>
         </header>
         <div class="caja_fecha">
             <span class="caja_fecha__span">
-                Bogotá D.C., 27 de Junio de 2023 - 10:47 am
+                Bogotá D.C., {{$data['fechaactual']}}
             </span>
         </div>
         <div class="caja_titulo">
@@ -140,34 +153,34 @@
             </span><br>
             <span class="caja_titulo__span">
                 LA PERSONERÍA DE BOGOTÁ, D.C.
+            </span><br><br>
+            <span class="caja_titulo__span">
+                DATOS DEL SOLICITANTE
             </span>
         </div>
-
-        <div class="caja_texto">
-            <div class="container">
-                <div class="card-body">
+        <div class="card-body" style="margin-bottom: 10px;" >
                   <div class="row">
                     <div class="col-md-3">
-                      <b  style="color:#0171BD">Tipo de Documento</b></label>
+                      <b  style="color:#0171BD">Tipo de Documento</b>
                       <p style="text-transform: uppercase">{{$data['tipodedocumento']}}</p>
                     </div>
                     <div class="col-md-3">
-                      <b  style="color:#0171BD">Número de Documento</b></label>
+                      <b  style="color:#0171BD">Número de Documento</b>
                       <p style="text-transform: uppercase">{{$data['dato']->id_usuario_reg}}</p>
                     </div>
                     <div class="col-md-3">
-                     <b  style="color:#0171BD">Solicitante</b></label>
+                     <b  style="color:#0171BD">Solicitante</b>
                       <p style="text-transform: uppercase"> {{$data['nombrecompleto']}}</p>
                     </div>
                     <div class="col-md-3">
-                     <b  style="color:#0171BD">Fecha de Solicitud</b> <b  style="color:#0171BD;font-size:80%">(dd-mm-yyyy)</b></label>
+                     <b  style="color:#0171BD">Fecha de Solicitud</b> <b  style="color:#0171BD;font-size:80%">(dd-mm-yyyy)</b>
                      <p style="text-transform: uppercase"> {{$data['newDate']}}</p>
                     </div>
                     <div class="col-md-3">
-                     <b  style="color:#0171BD">Asuntos</b></label>
+                     <b  style="color:#0171BD">Asuntos</b>
                       <p style="text-transform: uppercase"> {{$data['dato']->asuntos->nombre}}</p>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-3">
                     <b  style="color:#0171BD">Sub Asunto</b>
                       <p style="text-transform: uppercase"> {{$data['dato']->subasuntos->nombre}}</p>
                     </div>
@@ -180,9 +193,9 @@
                       <p style="text-transform: uppercase">{{$data['dato']->email}}</p>
                     </div>
                   </div>
-                
-                
-                  </div>
+        </div>  
+
+         
                 
                 
                 
@@ -191,61 +204,95 @@
                     <ul class="list-group list-group-flush">
                     <li class="list-group-item"><b style="color:#0171BD">Resumen de la pretensión o conflicto:</b><p> {{$data['dato']->detalle}}</p></li>
                   </ul>
-                </div>
-        </div>
-        <table class="table table-striped" cellspadding="5px" cellspacing="5px" border="1">
-            <thead>
-              <tr style=" text-align: center;">
-                <th scope="col">Tipo de Documento</th>
-                <td>{{$data['dato']->id_usuario_reg}}</td>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>{{$data['dato']->id_usuario_reg}}</td>
-                </tr>
-            </tbody>
-        </table>
  
+                  @if($data['tiposolicitud']==1)      
+                  <div class="caja_titulo">
+                      <span class="caja_titulo__span">
+                          DATOS DEL APODERADO
+                      </span><br>
+                  </div>
+          
+                  <div class="card-body" style="margin-bottom: 10px;" >
+                      <div class="row"  >
+                        <div class="col-md-4 mt-2">
+                          <b  style="color:#0171BD">Tipo de Documento</b></label>
+                          <p style="text-transform: uppercase">{{$data['tipodedocapoderado']}}</p>
+                        </div>
+                        <div class="col-md-4 mt-2">
+                          <b  style="color:#0171BD">Número de Documento</b></label>
+                          <p style="text-transform: uppercase">{{$data['dato']->numdocapoderado}}</p>
+                        </div>
+                        <div class="col-md-4 mt-2">
+                         <b  style="color:#0171BD">Nombre Apoderado</b></label>
+                          <p style="text-transform: uppercase"> {{$data['apoderado']}}</p>
+                        </div>
+                        <div class="col-md-4 mt-2">
+                          <b  style="color:#0171BD">No. Tarjeta Profesional</b></label>
+                           <p style="text-transform: uppercase"> {{$data['dato']->tarjetaprofesional}}</p>
+                         </div>
+                         <div class="col-md-4 mt-2">
+                          <b  style="color:#0171BD">Dirección</b></label>
+                           <p style="text-transform: uppercase"> {{$data['dato']->direccionapoderado}}</p>
+                         </div>
+                         <div class="col-md-4 mt-2">
+                          <b  style="color:#0171BD">Teléfono Celular</b></label>
+                           <p style="text-transform: uppercase"> {{$data['dato']->primertelefonoapoderado}}</p>
+                         </div>
+                         <div class="col-md-4 mt-2">
+                          <b  style="color:#0171BD">Teléfono Fijo</b></label>
+                           <p style="text-transform: uppercase"> {{$data['dato']->segundotelefonoapoderado}}</p>
+                         </div>
+                         <div class="col-md-4 mt-2">
+                          <b  style="color:#0171BD">Correo Electrónico</b></label>
+                           <p style="text-transform: uppercase"> {{$data['dato']->emailapoderado}}</p>
+                         </div>
+                    
+                    
+                    
+                      </div>
+                    
+                    
+                      </div>
+                 
+            @endif
+            <div class="caja_titulo">
+                <span class="caja_titulo__span">
+                    DATOS DE CONVOCADOS
+                </span><br>
+            </div>
+         
+
+                <div class="row"  >
+                  @foreach ($data['convocates'] as $info)
+                  
+                  
+                  <div class="col-md-3 mt-2 pt-10" style="
+               
+                      text-align: justify;" >
+                    <b  style="color:#0171BD">Nombre Convocado (Correo Electrónico)</b></label>
+                    <p style="text-transform: uppercase">{!! $info->nomconvocante . ' ' . $info->apeconvocante !!} <span style="text-transform: lowercase"> ({!! $info->emailconvocante  !!}) </span></p>
+                  </div>
+             
+                  @endforeach 
+              </div>
+      
+
         <div class="caja_certifica">
-            <span class="caja_titulo__span">{{$data['dato']->id_usuario_reg}}</span>
-        </div>
-        <div class="caja_certifica">
-            <span class="caja_titulo__span">{{count($data['detalleAbc']) > 0 ? 'REGISTRA LAS SIGUIENTES ANOTACIONES DE SANCIONES DISCIPLINARIAS' : 'NO REGISTRA SANCIONES NI INHABILIDADES VIGENTES'}}</span>
+            <span class="caja_titulo__span">REGISTRA LOS SIGUENTES DOCUMENTOS</span>
         </div>
         @foreach ($data['tramite'] as $archivos)
             <div class="caja_sancion">
-                <span style="text-justify;width:80%;vertical-align: middle;" >{!! $archivos->descripcion !!}</span>
+                <ul>
+                <li style="text-justify;width:80%;vertical-align: middle;" >{!! $archivos->descripcion !!}</li>
+            </ul>
             </div>
         @endforeach
-        <div class="caja_texto" style="margin-top: 5px">
-            <span style="font-style:normal;font-weight:normal;font-size:9pt;font-family:Helvetica;color:#000000">
-                {{$data['nombrecompleto']}}
-            </span>
-        </div>
 
-        <div class="caja_derecha">
-            <span style="font-style:normal;font-weight:bold;font-size:9pt;font-family:Helvetica;color:#000000">
-                ADVERTENCIAS:
-            </span>
-        </div>
-        <div class="caja_texto">
-            <span style="font-style:normal;font-weight:normal;font-size:9pt;font-family:Helvetica;color:#000000">
-                {!! nl2br($data['nombrecompleto'])!!}
-            </span>
-        </div>
 
-        <div class="caja_firma">
-            <img src="{{URL::asset('imagen/Propuesta logo Conciweb-2.png')}}" class="rounded mx-auto d-block"  style="width: 100%; height: auto;">
-            <div style="line-height:0.16in;">
-                <span style="font-style:normal;font-weight:bold;font-size:9pt;font-family:Helvetica;color:#000000">
-                    {{$data['nombrecompleto']}}
-                </span><br>
-                <span style="font-style:normal;font-weight:normal;font-size:9pt;font-family:Helvetica;color:#000000;text-transform: capitalize;">
-                    {{$data['nombrecompleto']}}
-                </span>
-            </div>
-        </div>
+
+
+
+
         <div class="caja_info" style="margin-top: 5px">
             <span
                 style="font-style:normal;font-weight:normal;font-size:7pt;font-family:Helvetica;color:#000000">Certificado

@@ -14,6 +14,7 @@ use App\Models\Subdescripcion;
 Use App\Models\Tramite;
 use App\Models\Tramiterespuesta;
 use App\Models\Tramiteusuario;
+use Carbon\Carbon;
 use Dompdf\Dompdf;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\View;
@@ -60,7 +61,7 @@ class DocumentsController extends Controller
 
       // trae la información del documento...
           $tramite = Soportecon::where('num_solicitud', $id)->get();
-          
+    
           $dato = Tramiteusuario::where('num_solicitud', $id)->where('vigencia',2023)->first();
           $fecha = Tramiteusuario::where('num_solicitud', $id)->first()->fec_solicitud_tramite;
           $newDate = date("d-m-Y", strtotime($fecha));  
@@ -107,7 +108,13 @@ class DocumentsController extends Controller
         $fecha = Tramiteusuario::where('num_solicitud', $id)->first()->fec_solicitud_tramite;
         $newDate = date("d-m-Y", strtotime($fecha));  
         $tipodedocumento=Parametro::where('id', $dato->tipodocumento)->first()->nombre;
-               
+        $fechaactual=Carbon::now();   
+      
+        $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+        $fecha = Carbon::parse($fechaactual);
+        
+        $mes = $meses[($fecha->format('n')) - 1];
+        $fechaactual= $fecha->format('d') . ' de ' . $mes . ' de ' . $fecha->format('Y').' - '. $fecha->format('h:m A');   
         $tiposolicitud= $dato->tiposolicitud;
         $tipodedocapoderado='';
         if($tiposolicitud==1){
@@ -138,6 +145,7 @@ class DocumentsController extends Controller
             "newDate" => $newDate,
             "numero" => $numero,
             "tramite" => $tramite,
+            "fechaactual" => $fechaactual,
             "tipodedocapoderado" => $tipodedocapoderado,
         );
         // dd($data);
@@ -172,6 +180,7 @@ class DocumentsController extends Controller
         $key = urldecode($_GET['key']);
         $key = str_replace(" ", "+", $key);
         $acceso = $this->data($key);
+    
        
         // trae la información del documento...
           $tramite = Soportecon::where('num_solicitud', $acceso[3])->get();

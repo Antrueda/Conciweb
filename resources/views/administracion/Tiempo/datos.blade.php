@@ -1,12 +1,12 @@
 <div class="card card-outline card-secondary">
     <div class="card-header">
         <h3 class="card-title">
-            Datos
-            @can('documentd-crear')
+            Formatos Subidos
+            
                 <a class="btn btn-sm btn-primary ml-2" title="Nuevo" href="{{ route('documentd.nuevo') }}">
                     Nuevo
                 </a>
-            @endcan
+            
         </h3>
     </div>
     <div class="card-body">
@@ -36,11 +36,11 @@
                        
                                         <td class='text-center'>
                                         
-                                                <a class="btn btn-sm btn-primary" title="Editar" href="{{ route('documentd.editar', $d->id) }}">
+                                                <a class="btn btn-sm btn-primary" title="Editar" href="{{ route('tiempod.editar', $d->id) }}">
                                                     Editar
                                                 </a>
                               
-                                                <a class="btn btn-sm btn-primary" title="Ver" href="{{ route('documentd.ver', $d->id) }}">
+                                                <a class="btn btn-sm btn-primary" title="Ver" href="{{ route('tiempod.ver', $d->id) }}">
                                                     Ver
                                                 </a>
                                  

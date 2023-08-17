@@ -6,8 +6,8 @@
 	<hr>
 </div>
 @if(!isset($accion))
-  	@include('administracion.DocumentoDescarga.datos')
+  	@include('administracion.Tiempo.datos')
 @else
-	@include('administracion.DocumentoDescarga.formulario')
+	@include('administracion.Tiempo.formulario')
 @endif
 @endsection

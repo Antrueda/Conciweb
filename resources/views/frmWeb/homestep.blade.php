@@ -627,12 +627,12 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
             </div>
             <div class="row justify-content-md-center" style="padding-top: 3px">
                 <div id="apode_id" class="col-2">
-                <a class="btn btn-success" onclick="run(1, 2);" style="width: 120px" > Siguiente  <i class="far fa-check-circle"></i> </a>
+                <div class="btn btn-success" onclick="run(1, 2);" style="width: 130px" > Siguiente  <i class="far fa-check-circle" style="padding: 1.7px;"></i> </div>
                 
                  </div>
                  <div id="dire_id" class="col-2" >
                     
-                <a class="btn btn-success" onclick="run(1, 3);" style="width: 120px"  > Siguiente  <i class="far fa-check-circle"></i> </a>
+                <div class="btn btn-success" onclick="run(1, 3);" style="width: 130px"  > Siguiente  <i class="far fa-check-circle" style="padding: 1.7px;"></i> </div>
              </div>
             </div>
             <br>
@@ -782,7 +782,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                      <div class="btn btn-outline-secondary " onclick="run(2, 1);" style="width: 120px"><svg style="height: 25px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 101 101" id="left"><path  d="M50.5 16.4c-18.8 0-34.1 15.3-34.1 34.1s15.3 34.1 34.1 34.1 34.1-15.3 34.1-34.1-15.3-34.1-34.1-34.1zm0 63.4c-16.1 0-29.3-13.1-29.3-29.3s13.1-29.3 29.3-29.3 29.3 13.1 29.3 29.3-13.2 29.3-29.3 29.3z"></path><path d="M57.1 33.1c-.9-.9-2.5-.9-3.4 0L38.2 48.6c-.5.5-.7 1.1-.7 1.7s.3 1.2.7 1.7l15.5 15.5c.5.5 1.1.7 1.7.7s1.2-.2 1.7-.7c.9-.9.9-2.5 0-3.4L43.3 50.3l13.8-13.8c1-.9 1-2.4 0-3.4z"></path></svg> Anterior </div>
                 </div>    
                 <div class="col-2">
-                     <div class="btn btn-success " onclick="run(2, 3);" style="width: 120px"> Siguiente  <i class="far fa-check-circle"></i> </div>
+                     <div class="btn btn-success " onclick="run(2, 3);" style="width: 120px"> Siguiente  <i class="far fa-check-circle" style="padding: 1.5px;"></i> </div>
                 </div>
         </div>
         <br>
@@ -883,7 +883,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                 <div class="col-2" id="full_div">
             <div class="btn btn-outline-secondary" onclick="run(3, 2);" style="width: 120px"><svg style="height: 25px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 101 101" id="left"><path  d="M50.5 16.4c-18.8 0-34.1 15.3-34.1 34.1s15.3 34.1 34.1 34.1 34.1-15.3 34.1-34.1-15.3-34.1-34.1-34.1zm0 63.4c-16.1 0-29.3-13.1-29.3-29.3s13.1-29.3 29.3-29.3 29.3 13.1 29.3 29.3-13.2 29.3-29.3 29.3z"></path><path d="M57.1 33.1c-.9-.9-2.5-.9-3.4 0L38.2 48.6c-.5.5-.7 1.1-.7 1.7s.3 1.2.7 1.7l15.5 15.5c.5.5 1.1.7 1.7.7s1.2-.2 1.7-.7c.9-.9.9-2.5 0-3.4L43.3 50.3l13.8-13.8c1-.9 1-2.4 0-3.4z"></path></svg> Anterior </div>
             </div>
-            <div class="btn btn-success" onclick="run(3, 4);" style="width: 120px"> Siguiente  <i class="far fa-check-circle"></i></div>
+            <div class="btn btn-success" onclick="run(3, 4);" style="width: 120px"> Siguiente  <i class="far fa-check-circle" style="padding: 1.5px;"></i></div>
         </div>
         </center>
         <br>

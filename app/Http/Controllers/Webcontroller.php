@@ -18,6 +18,7 @@ use App\binconsecutivo;
 
 use App\Models\ASubasunto;
 use App\Models\Asunto;
+use App\Models\ConciDocumento;
 use App\Models\ConciReferente;
 use App\Models\Convocante;
 use App\Models\Estadoform;
@@ -1103,11 +1104,10 @@ class Webcontroller extends Controller
     //Descargar archivo word
     public function descargaWord()
     {
-        $file = public_path() . "/05FR40Solicitud_de_ConciliacinV6.docx";
-        $headers = array(
-            'Content-Type: application/word',
-        );
-        return Response::download($file, '05FR40Solicitud_de_ConciliacinV6.docx', $headers);
+        $test=ConciDocumento::orderBy('id', 'DESC')->first();
+        
+       
+        return Storage::download($test->rutafinalfile);
     }
 
 
