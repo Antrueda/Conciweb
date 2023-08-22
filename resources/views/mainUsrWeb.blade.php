@@ -156,7 +156,10 @@
       <nav class="navbar navbar-light bg-white rounded-3 mb-3 shadow pb-3">
         <div class="container-fluid">
             <a class="navbar-brand col-12 col-md-3" href="https://www.personeriabogota.gov.co/" style="padding-left: 17px">
-              <img src="{{URL::asset('imagen/logoConciweb.png')}}" class="rounded mx-auto d-block"  style="width: 100%; height: auto;">
+              <div class="row">
+
+              </div>
+              <img src="{{URL::asset('imagen/logoConciweb1.png')}}" class="rounded mx-auto d-block"  style="width: 100%; height: auto;">
             </a>
      
             <a class="navbar-brand" href="#"></a>

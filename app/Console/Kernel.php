@@ -2,6 +2,8 @@
 
 namespace App\Console;
 
+use App\Models\ConciTiempo;
+use App\Models\Tramiteusuario;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -15,7 +17,19 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('desestimiento')->daily(); // Ejecutar diariamente
+
+    //     $diasParam = ConciTiempo::firstOrNew()->tiempo;
+
+    //     $schedule->call(function () use ($diasParam) {
+    //         Tramiteusuario::whereDate('created_at', '<=', now()->subWeekdays($diasParam))
+    //         ->where('estado_tramite', 'Remitido')
+    //         ->each(function ($registro) use ($diasParam) {
+    //             $registro->realizarCambioEstadoDespuesDeDias($diasParam);
+    //         });
+    // })->daily();
+
+    
     }
 
     /**
@@ -25,8 +39,8 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-        $this->load(__DIR__.'/Commands');
-
+        
+        \App\Console\Commands\Desestimiento::class;
         require base_path('routes/console.php');
     }
 }

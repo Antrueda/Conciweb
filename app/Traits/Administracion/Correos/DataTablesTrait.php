@@ -41,7 +41,7 @@ trait DataTablesTrait
                 ],
                 'columnsx' => [
                     ['data' => 'botonexx', 'name' => 'botonexx'],
-                    ['data' => 'id', 'name' => 'conci_correoinvs.id'],
+                    
                     ['data' => 'email', 'name' => 'conci_correoinvs.email'],
                     ['data' => 'created_at', 'name' => 'conci_correoinvs.created_at'],
                 ],

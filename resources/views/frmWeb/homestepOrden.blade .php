@@ -1555,7 +1555,216 @@ function doc(valor){
 }
 
 
+                // $('.selectize').find('input').on('blur', function(){
+                //     var selected_customer = $(this).val();
+                //     console.log(selected_customer);
+                //     if(selected_customer === ''){
+                //         alert(selected_customer);
+                //         return;
+                //     }
+                //     });
 
+                // $(".selectize").each(function() {
+                //         // var select = $(this).selectize(
+                //         //     //your options
+                //         // );
+                //         // console.log(select);
+                //         // var selectize = select[0].selectize;
+                //         // console.log(selectize.getValue);
+                //         var nombre= `${this.id}`;
+                //         var valor=  $(this).val();
+                //         nombre= nombre.replace('[]','')
+                //         console.log(nombre);
+                //          console.log(valor);
+                //         if(valor===""){
+                //             $(this).css("background", "#ffdddd");
+                //             $(".invalid-feedback."+nombre).show();
+                //             camposfaltantes();
+                //             return;
+                //         }else{
+                //             $(this).css("background", "transparent");
+                //             $(".invalid-feedback."+nombre).hide();
+                            
+                //         }
+                    
+                //     });
+
+            
+          
+                 
+
+
+                // if ($("#tipoDocumento").val()==='') {
+                //     TipoDocumento();
+                //     return;
+                // }
+
+                        //}
+            //      y.each(function() {
+            //     //console.log(`${index}: ${this.id} ${value}`);
+            //     var nombre= `${this.id}`;
+            //     var valor=  $(this).val();
+            //     nombre= nombre.replace('[]','')
+            //      console.log(nombre);
+            //      console.log(valor);
+            //     if(valor===""){
+            //         $(this).css("background", "#ffdddd");
+            //         $(".invalid-feedback."+nombre).show();
+            //         camposfaltantes();
+            //         return false;
+            //     }else{
+            //         $(this).css("background", "transparent");
+            //         $(".invalid-feedback."+nombre).hide();
+                    
+            //     }
+            //    });
+            //     y.each(function() {
+            //     //console.log(`${index}: ${this.id} ${value}`);
+            //     var nombre= `${this.id}`;
+            //     var valor=  $(this).val();
+            //     nombre= nombre.replace('[]','')
+            //      console.log(nombre);
+            //     // console.log(valor);
+            //     if(valor===""){
+            //         $(this).css("background", "#ffdddd");
+            //         $(".invalid-feedback."+nombre).show();
+            //         camposfaltantes();
+            //         return;
+            //     }else{
+            //         $(this).css("background", "transparent");
+            //         $(".invalid-feedback."+nombre).hide();
+                    
+            //     }
+            //    });
+               
+
+                         //}
+            //      y.each(function() {
+            //     //console.log(`${index}: ${this.id} ${value}`);
+            //     var nombre= `${this.id}`;
+            //     var valor=  $(this).val();
+            //     nombre= nombre.replace('[]','')
+            //      console.log(nombre);
+            //      console.log(valor);
+            //     if(valor===""){
+            //         $(this).css("background", "#ffdddd");
+            //         $(".invalid-feedback."+nombre).show();
+            //         camposfaltantes();
+            //         return false;
+            //     }else{
+            //         $(this).css("background", "transparent");
+            //         $(".invalid-feedback."+nombre).hide();
+                    
+            //     }
+            //    });
+            //     y.each(function() {
+            //     //console.log(`${index}: ${this.id} ${value}`);
+            //     var nombre= `${this.id}`;
+            //     var valor=  $(this).val();
+            //     nombre= nombre.replace('[]','')
+            //      console.log(nombre);
+            //     // console.log(valor);
+            //     if(valor===""){
+            //         $(this).css("background", "#ffdddd");
+            //         $(".invalid-feedback."+nombre).show();
+            //         camposfaltantes();
+            //         return;
+            //     }else{
+            //         $(this).css("background", "transparent");
+            //         $(".invalid-feedback."+nombre).hide();
+                    
+            //     }
+            //    });
+               
+
+        /*
+             if (hideTab==2){
+                //  if ($("#nomConvocante").val()=== "") {
+                //     var texto="Nombre";
+                //     campostab2(texto);
+                //      return;
+                //  }
+                //  if ($("#apeConvocante").val()=== "") {
+                //     var texto="Apellido";
+                //     campostab2(texto);
+                //      return;
+                //  }
+                //  if ($("#emailConU").val()=== "") {
+                //     var texto="Correo";
+                //     campostab2(texto);
+                //     return;
+                //  }else if (isValidEmail($("#emailConU").val())) {
+                //     $('.invalid-feedback.emailConU').hide();
+                //  }else{
+                //     $('.invalid-feedback.emailConU').show();
+                //     correonovalido();
+                //     return;
+                //  }
+                */
+
+        //    for (i = 0; i < y.length; i++){
+        //     if (y[i].value == ""||$(y[i]).val().length < y[i].minLength){
+        //         var nombre= y[i].name;
+        //         $(y[i]).css("background", "#ffdddd");
+   
+        //         nombre= nombre.replace('[]','')
+  
+        //         $('.invalid-feedback.'+nombre).show();
+        //         return false;
+        //     }else{
+        //         var nombre= y[i].name;
+     
+        //         nombre= nombre.replace('[]','')
+        
+        //         $(y[i]).css("background", "transparent");
+        //         $('.invalid-feedback.'+nombre).hide();
+        //     }          
+        //   }
+
+              /*
+             if (hideTab==2){
+                //  if ($("#nomConvocante").val()=== "") {
+                //     var texto="Nombre";
+                //     campostab2(texto);
+                //      return;
+                //  }
+                //  if ($("#apeConvocante").val()=== "") {
+                //     var texto="Apellido";
+                //     campostab2(texto);
+                //      return;
+                //  }
+                //  if ($("#emailConU").val()=== "") {
+                //     var texto="Correo";
+                //     campostab2(texto);
+                //     return;
+                //  }else if (isValidEmail($("#emailConU").val())) {
+                //     $('.invalid-feedback.emailConU').hide();
+                //  }else{
+                //     $('.invalid-feedback.emailConU').show();
+                //     correonovalido();
+                //     return;
+                //  }
+                */
+
+
+        //    for (i = 0; i < y.length; i++){
+        //     if (y[i].value == ""||$(y[i]).val().length < y[i].minLength){
+        //         var nombre= y[i].name;
+        //         $(y[i]).css("background", "#ffdddd");
+   
+        //         nombre= nombre.replace('[]','')
+  
+        //         $('.invalid-feedback.'+nombre).show();
+        //         return false;
+        //     }else{
+        //         var nombre= y[i].name;
+     
+        //         nombre= nombre.replace('[]','')
+        
+        //         $(y[i]).css("background", "transparent");
+        //         $('.invalid-feedback.'+nombre).hide();
+        //     }          
+        //   }
 
     window.onload=carga;
 

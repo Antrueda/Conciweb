@@ -18,6 +18,7 @@ use App\binconsecutivo;
 
 use App\Models\ASubasunto;
 use App\Models\Asunto;
+use App\Models\ConciCorreoinv;
 use App\Models\ConciDocumento;
 use App\Models\ConciReferente;
 use App\Models\Convocante;
@@ -889,11 +890,11 @@ class Webcontroller extends Controller
                     $message->subject($data['subject']);
                 });
             } catch (\Exception $e) {
-                return '|0| 3.0) Problema al enviar el correo de confirmacion: </br>' . $e->getMessage();
+                return '|0| 4.0) Problema al enviar el correo de confirmacion: </br>' . $e->getMessage();
             }
             DB::commit();
         } else {
-            return '|0| 3.0) No es posible enviar el correo electronico ya que no se registraron los datos en el sistema </br>';
+            return '|0| 4.0) No es posible enviar el correo electronico ya que no se registraron los datos en el sistema </br>';
         }
 
         DB::commit();
@@ -1342,7 +1343,7 @@ class Webcontroller extends Controller
            
         } catch (\Exception $e) {
             DB::rollback();
-            return '|0| 0.2) Problema al actualizar el numero asignado por el sistem' . $e->getMessage();
+            return '|0| 0.2) Problema al actualizar el numero asignado por el sistema' . $e->getMessage();
         }
         $solicitud = ModelsTramiteusuario::where('num_solicitud', $id)->update([
             'estadodoc' => 'adjunto'
@@ -1407,7 +1408,20 @@ class Webcontroller extends Controller
         
     }
 
+    public function validateEmail(Request $request)
+    {
+        $email = $request->input('email');
+        
+        $user = ConciCorreoinv::where('email', $email)->first();
 
+        if ($user) {
+            return response()->json(['exists' => true,
+                                    'valor' => true]);
+        }
+
+        return response()->json(['exists' => false,
+        'valor' => false]);
+    }
 
 
   

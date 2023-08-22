@@ -54,7 +54,18 @@
             <option value=0>No</option>
         </select> --}}
     </div>
+    
+  </div>  
+  <br>
+  <div class="row">
+      @foreach ($todoxxxx['rolesxxx'] as $rol)
+          <label>
+              <input type="checkbox" name="roles[]" value="{{ $rol->id }}" 
+                     {{ $todoxxxx['userrolx']->roles->contains($rol->id) ? 'checked' : '' }}>
+              {{ $rol->name }}
+          </label><br>
+      @endforeach
 
-</div>
+    </div>
 <br>
 

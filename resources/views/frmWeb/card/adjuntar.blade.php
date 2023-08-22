@@ -123,7 +123,7 @@
       </div>
       <div class="col-md-3">
         <b style="color:#0171BD" >Correo Electrónico</b>
-        <p style="text-transform: uppercase">{{$dato->email}}</p>
+        <p style="text-transform: lowercase">{{$dato->email}}</p>
       </div>
     </div>
 
@@ -189,7 +189,7 @@
      </div>
      <div class="col-md-3">
       <b  style="color:#0171BD">Correo Electrónico</b></label>
-       <p style="text-transform: uppercase"> {{$dato->emailapoderado}}</p>
+       <p style="text-transform: lowercase"> {{$dato->emailapoderado}}</p>
      </div>
 
 
@@ -228,9 +228,9 @@
           border: 1px solid #F0F8FF;
           border-radius: 7px / 7px;
           padding: 8px 30px;
-          text-align: justify;" >
+          text-align: left;" >
         <b  style="color:#0171BD">Nombre Convocado (Correo Electrónico)</b></label>
-        <p style="text-transform: uppercase">{!! $info->nomconvocante . ' ' . $info->apeconvocante !!} <span style="text-transform: lowercase"> ({!! $info->emailconvocante  !!}) </span></p>
+        <p style="text-transform: uppercase">{!! $info->nomconvocante . ' ' . $info->apeconvocante !!} <br> <span style="text-transform: lowercase"> ({!! $info->emailconvocante  !!}) </span></p>
       </div>
  
       @endforeach 
@@ -325,7 +325,13 @@
              
                 
                 
-                </button></div></td>
+                </button></div>
+                <div class="alert" id="archivoAlert{{ $loop->index }}" style="display: none; color: red;"></div>
+              </div>
+              <div class="invalid-feedback nomConvoc">
+                Campo obligatorio.
+              </div>
+              </td>
 
           @else
           <td style="text-justify;width:50%;vertical-align: middle;" >{!! $info->descripcion->nombre !!} <b style="color: red;font-size:18px"></b></td>
@@ -344,6 +350,7 @@
              
              </button></div></td>
              @endif
+             
           </tr>
          
       
@@ -385,7 +392,7 @@
      
 
         @endif
-        <br>
+        {{-- <br>
         <tr style=" text-align: left;" class="input-file">
           <td style="text-justify;width:50%;vertical-align: middle;" class="input-file">Documentos que complementen su solicitud</td>
       
@@ -402,7 +409,7 @@
         
         
       
-     </tr>
+     </tr> --}}
       </tbody>
     </table>
   </div>
@@ -414,7 +421,7 @@
 
 <div class="row">
   <div class="col-md-4" style="padding-left: 15%;margin-top:10px;margin-left:30%">
-    <button type="button" class="btn btn-outline-success btn-block btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">  Registrar Adjuntos  <span class="fas fa-upload"> </span></button>
+    <button type="button" class="btn btn-outline-success btn-block btn-sm" data-bs-toggle="modal" id="registro" data-bs-target="#exampleModal">  Registrar Adjuntos  <span class="fas fa-upload"> </span></button>
   </div>
 </div>
 
@@ -484,23 +491,31 @@ $(".input-file").change(function() {
 
 
 $(document).ready(function() {
-// $("#submits").click(function() {
+  $('#registro').click(function(event) {
+    var archivos = $('input[name^="document1"]');
 
+      archivos.each(function(index, input) {
+          var archivo = $(input).val();
+          var alertId = '#archivoAlert' + index;
 
-//   var msg='<center><div class="spinner-border" role="status"> <span class="sr-only">Cargando...</span></div><br>Procesando la solicitud</center>';
-//     new Noty({
-//         text: msg,
-//         type: 'info',
-//         layout: 'center',
-//         theme: 'bootstrap-v4',
-//         killer: true,
-//         progressBar: true,
-//         timeout: 2000
-//     }).show();
-       
-//    registroDatos()
-//       });
-//   });
+          if (archivo === '') {
+              $(alertId).text('Debes adjuntar este archivo.');
+              $(alertId).show();
+              event.preventDefault();
+          }else{
+            $(alertId).text('');
+              $(alertId).hide();
+              event.preventDefault();
+          }
+      });
+      });
+
+      // Ocultar las alertas al cambiar el contenido de los campos
+      $('input[name^="archivos"]').change(function() {
+      var index = $(this).index('input[name^="archivos"]');
+      var alertId = '#archivoAlert' + index;
+      $(alertId).hide();
+      });
 
   $("#adjuntarfomr").validationEngine('attach', {
             onValidationComplete: function(form, status) {

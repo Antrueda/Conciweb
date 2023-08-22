@@ -62,7 +62,8 @@ class AsignaFuncionarioController extends Controller
 
             $data = User::where('CEDULA', $request->cedula)->get();
 
-
+         
+            $roles =$data->roles()->sync($request->input('roles'));
             $output = '';
             if (count($data) > 0) {
                 $output = '<ul class="list-group" style="display: block; position: relative; z-index: 1">';
@@ -112,7 +113,6 @@ class AsignaFuncionarioController extends Controller
     public function modalagregar($id)
     {
         $dato = User::where('cedula', $id)->first();
-
         return view('AsignaUsuario.Asignar.Formulario.agregar', compact('dato'));
     }
 
@@ -121,6 +121,7 @@ class AsignaFuncionarioController extends Controller
     public function asignar(Request $request, $id)
     {
         $dato = User::where('cedula', $id)->first();
+        $roles =$dato->roles()->sync($request->input('roles'));
 
         $correo = $request->input("correo");
         $arrayxx =
@@ -164,6 +165,8 @@ class AsignaFuncionarioController extends Controller
 
         $correo = $request->input("correo");
         $estado = $request->input("estado");
+        $usuario=User::where('CEDULA', $modeloxx->ccfuncionario)->first();
+        $usuario->roles()->sync($request->input('roles'));
         $fechafin='';
         if($estado==0){
             $fechafin=Carbon::today()->isoFormat('YYYY-MM-DD');

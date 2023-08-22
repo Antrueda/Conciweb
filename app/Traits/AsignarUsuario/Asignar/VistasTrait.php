@@ -2,6 +2,7 @@
 
 namespace App\Traits\AsignarUsuario\Asignar;
 
+use App\Models\Role;
 use App\Models\Sistema\SisEsta;
 
 /**
@@ -12,7 +13,9 @@ trait VistasTrait
     public function getVista($opciones, $dataxxxx)
     {
         
-        $opciones['estadoxx'] = SisEsta::combo(['cabecera' => true, 'esajaxxx' => false]);      
+        $opciones['estadoxx'] = SisEsta::combo(['cabecera' => true, 'esajaxxx' => false]);   
+        $opciones['rolesxxx'] = Role::all();   
+        //dd($opciones['rolesxxx']);
         $opciones['rutarchi'] = $opciones['rutacarp'] . 'Acomponentes.Acrud.' . $dataxxxx['accionxx'][0];
         $opciones['formular'] = $opciones['rutacarp'] . $opciones['carpetax'] . '.Formulario.' . $dataxxxx['accionxx'][1];
         $opciones['ruarchjs'] = [
@@ -27,6 +30,8 @@ trait VistasTrait
 
         // indica si se esta actualizando o viendo
         if ($dataxxxx['modeloxx'] != '') {
+            
+            $opciones['modeloxx'] = $dataxxxx['modeloxx'];
             $opciones['modeloxx'] = $dataxxxx['modeloxx'];
             $opciones['modeloxx'] = $dataxxxx['modeloxx'];
             $opciones['parametr'] = [$dataxxxx['modeloxx']->id];

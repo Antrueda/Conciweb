@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Administracion;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AsuntoAdmin\AsuntoRequest;
+use App\Http\Requests\CorreoRequest;
 use App\Models\Asunto;
 use App\Models\ConciCorreoinv;
 use App\Traits\Administracion\Correos\CrudTrait;
@@ -29,7 +30,7 @@ class CorreosInvalidosController extends Controller
     public function __construct()
     {
         $this->opciones['permisox'] = 'asunto';
-        $this->opciones['routxxxx'] = 'asunto';
+        $this->opciones['routxxxx'] = 'correoinv';
         $this->getOpciones();
         $this->middleware($this->getMware());
     }
@@ -50,13 +51,13 @@ class CorreosInvalidosController extends Controller
             ['modeloxx' => '', 'accionxx' => ['crear', 'formulario']]
         );
     }
-    public function store(AsuntoRequest $request)
+    public function store(CorreoRequest $request)
     {
         
-        return $this->setAsunto([
+        return $this->setCorreos([
             'requestx' => $request,
             'modeloxx' => '',
-            'infoxxxx' => 'Correo creado con éxito',
+            'infoxxxx' => 'Correo agregado con éxito',
             'routxxxx' => $this->opciones['routxxxx'] . '.editar'
         ]);
     }
@@ -66,9 +67,9 @@ class CorreosInvalidosController extends Controller
     {
         
          $this->opciones['pestania'] = $this->getPestanias($this->opciones);
-         $this->getBotones(['leer', [$this->opciones['routxxxx'], [$modeloxx->id]], 2, 'VOLVER A ASUNTO', 'btn btn-sm btn-success']);
+         $this->getBotones(['leer', [$this->opciones['routxxxx'], [$modeloxx->id]], 2, 'VOLVER A CORREOS INVALIDOS', 'btn btn-sm btn-success']);
          $this->getBotones(['editar', [], 1, 'EDITAR', 'btn btn-sm btn-success']);
-        $do=$this->getBotones(['crear', [$this->opciones['routxxxx'], [$modeloxx->id]], 2, 'CREAR ASUNTO', 'btn btn-sm btn-success']);
+        $do=$this->getBotones(['crear', [$this->opciones['routxxxx'], [$modeloxx->id]], 2, 'CREAR CORREO', 'btn btn-sm btn-success']);
 
         return $this->view($do,
             ['modeloxx' => $modeloxx, 'accionxx' => ['ver', 'formulario'],'padrexxx'=>'']
@@ -79,21 +80,21 @@ class CorreosInvalidosController extends Controller
     public function edit(ConciCorreoinv $modeloxx)
     {
         $this->opciones['pestania'] = $this->getPestanias($this->opciones);
-        $this->getBotones(['leer', [$this->opciones['routxxxx'], [$modeloxx->sis_nnaj]], 2, 'VOLVER A ASUNTO', 'btn btn-sm btn-success']);
+        $this->getBotones(['leer', [$this->opciones['routxxxx'], [$modeloxx->sis_nnaj]], 2, 'VOLVER A CORREOS INVALIDOS', 'btn btn-sm btn-success']);
         $this->getBotones(['editar', [], 1, 'EDITAR', 'btn btn-sm btn-success']);
-        return $this->view($this->getBotones(['crear', [$this->opciones['routxxxx'], [$modeloxx->sis_nnaj]], 2, 'CREAR NUEVO ASUNTO', 'btn btn-sm btn-success'])
+        return $this->view($this->getBotones(['crear', [$this->opciones['routxxxx'], [$modeloxx->sis_nnaj]], 2, 'CREAR NUEVO CORREO', 'btn btn-sm btn-success'])
             ,
             ['modeloxx' => $modeloxx, 'accionxx' => ['editar', 'formulario'],'padrexxx'=>$modeloxx->sis_nnaj]
         );
     }
 
 
-    public function update(AsuntoRequest $request,  ConciCorreoinv $modeloxx)
+    public function update(CorreoRequest $request,  ConciCorreoinv $modeloxx)
     {
-        return $this->setAsunto([
+        return $this->setCorreos([
             'requestx' => $request,
             'modeloxx' => $modeloxx,
-            'infoxxxx' => 'Asunto editado con éxito',
+            'infoxxxx' => 'Correo editado con éxito',
             'routxxxx' => $this->opciones['routxxxx'] . '.editar'
         ]);
     }
@@ -114,7 +115,7 @@ class CorreosInvalidosController extends Controller
         $modeloxx->update(['sis_esta_id' => 2, 'user_edita_id' => Auth::user()->id]);
         return redirect()
             ->route($this->opciones['permisox'], [$modeloxx->sis_nnaj_id])
-            ->with('info', 'Asunto inactivado correctamente');
+            ->with('info', 'Correo inactivado correctamente');
     }
 
     public function activate(ConciCorreoinv $modeloxx)
@@ -131,6 +132,6 @@ class CorreosInvalidosController extends Controller
         $modeloxx->update(['sis_esta_id' => 1, 'user_edita_id' => Auth::user()->id]);
         return redirect()
             ->route($this->opciones['permisox'], [$modeloxx->sis_nnaj_id])
-            ->with('info', 'Asunto activado correctamente');
+            ->with('info', 'Correo activado correctamente');
     }
 }

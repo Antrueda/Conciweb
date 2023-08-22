@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use app\Models\Soportecon;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -48,7 +49,7 @@ class Tramiteusuario extends Model
       'DETALLE',
       'CUANTIA',
       'CODE',
-      'ESTADO_TRAMITE',
+      
       'estadodoc',
       'sis_departam_id',
       'sis_municipio_id',
@@ -78,4 +79,16 @@ class Tramiteusuario extends Model
       {
         return $this->hasMany(Soportecon::class, 'subasunto');
       }
+
+      public function realizarCambioDespuesDe5Dias($dias)
+      {
+        $fechaCreacion = Carbon::parse($this->created_at);
+
+        $fechaCambio = $fechaCreacion->addWeekdays($dias);
+
+        if (Carbon::now()->isSameDay($fechaCambio) || Carbon::now()->gt($fechaCambio)) {
+            $this->update(['estado_tramite' => 'Desistimiento']);
+        }
+  }
 }
+

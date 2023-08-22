@@ -81,6 +81,8 @@ Route::get('search', [Webcontroller::class, 'autosearch'])->name('search');
 Route::get('Adjuntar/{id}','App\Http\Controllers\Webcontroller@adjuntararchivos')->name('adjuntar');
 Route::get('Desistir/{id}','App\Http\Controllers\Webcontroller@Desistir')->name('desistir');
 Route::post('Test/{id}','App\Http\Controllers\Webcontroller@Test')->name('test');
+Route::post('/validar-correo', 'App\Http\Controllers\Webcontroller@validateEmail');
+
 Route::post('Cambioestado/{id}','App\Http\Controllers\Webcontroller@CambioEstado')->name('cambioestado');
 Route::get('getMunicipio','App\Http\Controllers\Webcontroller@getMunicipio')->name('municipio');
 Route::post('Adjunta/{id}','App\Http\Controllers\Webcontroller@CargaArchivos')->name('cargararchivos');
@@ -103,6 +105,7 @@ Route::get('/reload-captcha', [Webcontroller::class, 'reloadCaptcha']);
 require_once('Textos/web_moduloT.php');
 require_once('Asunto/web_modulo.php');
 require_once('Administracion/web_parametro.php');
+require_once('Administracion/web_correoinv.php');
 require_once('Administracion/web_salario.php');
 require_once('Administracion/web_estadoform.php');
 require_once('Administracion/web_documentod.php');

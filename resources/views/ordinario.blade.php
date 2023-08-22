@@ -128,7 +128,7 @@
     <div class="contenedor">
         <header class="header">
             <a href="http://personeriabogota.gov.co/" class="column column__uno">
-                <img src="{{URL::asset('imagen/logoConciweb.png')}}" class="rounded mx-auto d-block"  style="width: 2.27in; height: auto;">
+                <img src="{{URL::asset('imagen/logoConciweb1.png')}}" class="rounded mx-auto d-block"  style="width: 2.27in; height: auto;">
             </a>
             <div class="column column__dos">
                 <div>

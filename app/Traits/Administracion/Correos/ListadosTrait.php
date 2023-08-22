@@ -7,6 +7,7 @@ use App\Models\Acciones\Grupales\Traslado\MotivoEgresoSecu;
 use App\Models\Acciones\Grupales\Traslado\MotivoEgreu;
 use App\Models\ASubasunto;
 use App\Models\Asunto;
+use App\Models\ConciCorreoinv;
 use App\Models\Descripciona;
 use App\Models\fichaobservacion\FosSeguimiento;
 use App\Models\fichaobservacion\FosStse;
@@ -40,7 +41,7 @@ trait ListadosTrait
             $request->botonesx = $this->opciones['rutacarp'] .
                 $this->opciones['carpetax'] . '.Botones.botonesapi';
             $request->estadoxx = 'layouts.components.botones.estadosx';
-            $dataxxxx = Asunto::select(
+            $dataxxxx = ConciCorreoinv::select(
 				[
 					'conci_correoinvs.id',
 					'conci_correoinvs.email',

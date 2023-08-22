@@ -600,16 +600,17 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                 <div class="col-md-6">
                     <div class="form-floating mb-3">
                     
-                        <input type="email" class="form-control form-control-sm validate[required, custom[email]]" name="email" id="email" autocomplete="off" placeholder="0">
+                        <input type="email" class="form-control form-control-sm validate" style="text-transform: lowercase" name="email" id="email" autocomplete="off" placeholder="0" required>
                         <label for="email"> 19. Correo electrónico *</label>
                         <div class="invalid-feedback email">
                             Campo obligatorio.
                           </div>
+                          <span class="email-error email" style="color: red;"></span>
                      </div> 
                 </div>
                 <div class="col-md-6">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm validate[required, custom[email]]" name="emailCon" id="emailCon" autocomplete="off" placeholder="0">
+                        <input type="text" class="form-control form-control-sm validate" style="text-transform: lowercase" name="emailCon" id="emailCon"  placeholder="0">
                         <label for="emailCon"> 19.1. Confirme correo electrónico *</label>
                     </div> 
                 </div>
@@ -627,12 +628,12 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
             </div>
             <div class="row justify-content-md-center" style="padding-top: 3px">
                 <div id="apode_id" class="col-2">
-                <div class="btn btn-success" onclick="run(1, 2);" style="width: 130px" > Siguiente  <i class="far fa-check-circle" style="padding: 1.7px;"></i> </div>
+                <div class="btn btn-success pt-2" onclick="run(1, 2);"  > Siguiente  <i class="far fa-check-circle ms-2" ></i> </div>
                 
                  </div>
                  <div id="dire_id" class="col-2" >
                     
-                <div class="btn btn-success" onclick="run(1, 3);" style="width: 130px"  > Siguiente  <i class="far fa-check-circle" style="padding: 1.7px;"></i> </div>
+                <div class="btn btn-success pt-2" onclick="run(1, 3);"   > Siguiente  <i class="far fa-check-circle ms-2" ></i> </div>
              </div>
             </div>
             <br>
@@ -750,17 +751,18 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
             <div class="row">
                 <div class="col-md-6">
                   <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm validate[required, custom[email]]" name="emailApoderado" id="emailApoderado" autocomplete="off" placeholder="0">
+                        <input type="text" class="form-control form-control-sm validate" style="text-transform: lowercase" name="emailApoderado" id="emailApoderado" autocomplete="off" placeholder="0" required>
                         <label for="emailApoderado"> 20.11. Correo electronico*</label>
                         <div class="invalid-feedback emailApoderado">
                             Campo obligatorio.
                           </div>
+                          <span class="email-error emailApoderado" style="color: red;"></span>
              
                     </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm validate[required, custom[email]]" name="emailApoderadoCon" id="emailApoderadoCon" autocomplete="off" placeholder="0">
+                        <input type="text" class="form-control form-control-sm validate"  style="text-transform: lowercase" name="emailApoderadoCon" id="emailApoderadoCon" autocomplete="off" placeholder="0">
                         <label for="emailApoderadoCon"> 20.12. Confirme correo electronico *</label>
                         <div class="invalid-feedback emailApoderadoCon">
                             Campo obligatorio.
@@ -779,10 +781,10 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
 
         <div class="row justify-content-md-center">
                 <div class="col-2">
-                     <div class="btn btn-outline-secondary " onclick="run(2, 1);" style="width: 120px"><svg style="height: 25px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 101 101" id="left"><path  d="M50.5 16.4c-18.8 0-34.1 15.3-34.1 34.1s15.3 34.1 34.1 34.1 34.1-15.3 34.1-34.1-15.3-34.1-34.1-34.1zm0 63.4c-16.1 0-29.3-13.1-29.3-29.3s13.1-29.3 29.3-29.3 29.3 13.1 29.3 29.3-13.2 29.3-29.3 29.3z"></path><path d="M57.1 33.1c-.9-.9-2.5-.9-3.4 0L38.2 48.6c-.5.5-.7 1.1-.7 1.7s.3 1.2.7 1.7l15.5 15.5c.5.5 1.1.7 1.7.7s1.2-.2 1.7-.7c.9-.9.9-2.5 0-3.4L43.3 50.3l13.8-13.8c1-.9 1-2.4 0-3.4z"></path></svg> Anterior </div>
+                     <div class="btn btn-outline-secondary " onclick="run(2, 1);" ><svg style="height: 25px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 101 101" id="left"><path  d="M50.5 16.4c-18.8 0-34.1 15.3-34.1 34.1s15.3 34.1 34.1 34.1 34.1-15.3 34.1-34.1-15.3-34.1-34.1-34.1zm0 63.4c-16.1 0-29.3-13.1-29.3-29.3s13.1-29.3 29.3-29.3 29.3 13.1 29.3 29.3-13.2 29.3-29.3 29.3z"></path><path d="M57.1 33.1c-.9-.9-2.5-.9-3.4 0L38.2 48.6c-.5.5-.7 1.1-.7 1.7s.3 1.2.7 1.7l15.5 15.5c.5.5 1.1.7 1.7.7s1.2-.2 1.7-.7c.9-.9.9-2.5 0-3.4L43.3 50.3l13.8-13.8c1-.9 1-2.4 0-3.4z"></path></svg> Anterior </div>
                 </div>    
                 <div class="col-2">
-                     <div class="btn btn-success " onclick="run(2, 3);" style="width: 120px"> Siguiente  <i class="far fa-check-circle" style="padding: 1.5px;"></i> </div>
+                     <div class="btn btn-success pt-2 " onclick="run(2, 3);" > Siguiente  <i class="far fa-check-circle ms-2" ></i> </div>
                 </div>
         </div>
         <br>
@@ -800,7 +802,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
             </center>
             </div>
             <div class="card-body" style="margin-bottom: 10px; height">
-                <p class="text-justify">Si es un numero plural de convocados indique los correos electrónicos de cada uno de ellos. Se advierte que la invitación a la audiencia de conciliación virtual se realizará por correo electrónico, y por tanto deben ser verídicos. Si no cuenta con ellos, adelante la solicitud de conciliación presencial en la Sedes de Conciliación del Personería de Bogotá D.C. que se encuentra publicadas en la página web de la Entidad.</p>
+                <p class="text-justify">Si es un numero plural de convocados indique los correos electrónicos de cada uno de ellos. Se advierte que la invitación a la audiencia de conciliación virtual se realizará por correo electrónico, y por tanto deben ser verídicos. <b><u>Si no cuenta con ellos, adelante la solicitud de conciliación presencial en la Sedes de Conciliación del Personería de Bogotá D.C</u> </b>. que se encuentra publicadas en la página web de la Entidad.</p>
                 <br>
                 <div class="agregar">
                 <div class="row">
@@ -825,11 +827,13 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                     <div class="col-md-4">
                         <div class="form-floating mb-6">
                         
-                            <input type="email" class="form-control form-control-sm" name="emailConvo" id="emailConvo" autocomplete="off" placeholder="0" >
+                            <input type="email" class="form-control form-control-sm" name="emailConvo" style="text-transform: lowercase" id="emailConvo" autocomplete="off" placeholder="0" >
                             <label for="email"> Correo electrónico</label>
                             <div class="invalid-feedback emailConU">
                                 Campo obligatorio.
                               </div>
+
+                              <span class="email-error emailConvo" style="color: red;"></span>
                          </div> 
                     </div>
                     {{-- <div class="col-md-3">
@@ -847,7 +851,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                     
                     <div class="col-md-3">
                          
-                   <button type="button" class="btn btn-success" id="add_btn" >Agregar <i class="fa-solid fa-user-plus"></i></button> 
+                   <button type="button" class="btn btn-success pt-2" id="add_btn" >Agregar <i class="fa-solid fa-user-plus"></i></button> 
                     
     
       
@@ -883,7 +887,9 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                 <div class="col-2" id="full_div">
             <div class="btn btn-outline-secondary" onclick="run(3, 2);" style="width: 120px"><svg style="height: 25px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 101 101" id="left"><path  d="M50.5 16.4c-18.8 0-34.1 15.3-34.1 34.1s15.3 34.1 34.1 34.1 34.1-15.3 34.1-34.1-15.3-34.1-34.1-34.1zm0 63.4c-16.1 0-29.3-13.1-29.3-29.3s13.1-29.3 29.3-29.3 29.3 13.1 29.3 29.3-13.2 29.3-29.3 29.3z"></path><path d="M57.1 33.1c-.9-.9-2.5-.9-3.4 0L38.2 48.6c-.5.5-.7 1.1-.7 1.7s.3 1.2.7 1.7l15.5 15.5c.5.5 1.1.7 1.7.7s1.2-.2 1.7-.7c.9-.9.9-2.5 0-3.4L43.3 50.3l13.8-13.8c1-.9 1-2.4 0-3.4z"></path></svg> Anterior </div>
             </div>
-            <div class="btn btn-success" onclick="run(3, 4);" style="width: 120px"> Siguiente  <i class="far fa-check-circle" style="padding: 1.5px;"></i></div>
+            <div class="col-2" id="full_div">
+            <div class="btn btn-success pt-2" onclick="run(3, 4);" > Siguiente  <i class="far fa-check-circle ms-2" ></i></div>
+        </div>
         </div>
         </center>
         <br>
@@ -1031,22 +1037,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
             </div>
             <div class="row">
                 <div class="col-md-3"></div>
-                {{-- <div class="col-md-3">
-                    <div class="alert alert-success text-center" role="alert">
-                        <small class="text-center" style="font-size: 100%"> <span id="valorCaptcha"></span> </small>
-                    </div>
-                </div>
-                <div class="col-md-1 text-center" style="padding: .75rem 1.25rem;">
-                    <span class="badge badge-light"><i class="fas fa-sync fa-2x" onclick="getCapchaValue()"></i></span>
-                </div> --}}
-                {{-- <div class="col-md-3" style="padding: .75rem 1.25rem;">
-                    <div class="form-floating mb-5">
-                        <input type="text" class="form-control form-control-sm validate" name="captcha" id="captcha" autocomplete="off" placeholder="0">
-                        <input type="hidden" name="captchaOrg" id="captchaOrg">
-                        <label for="captcha"> Digite los caracteres de la imagen *</label>
-     
-                    </div>
-                </div> --}}
+          
 
      
       
@@ -1062,7 +1053,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                 <br>
                 <div class="row justify-content-md-center">
                     <div class="col-4">
-                      <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal"> Registrar Solicitud  <i class="far fa-check-circle"></i></button>
+                      <button type="button" class="btn btn-success pt-2" data-bs-toggle="modal" data-bs-target="#exampleModal"> Registrar Solicitud  <i class="far fa-check-circle ms-2"></i></button>
                     </div>
                   </div>
 <br>
@@ -1079,7 +1070,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                         </div>
                         
                         <div class="modal-footer">
-                        <button type="submit" class="btn btn-success" id="btnRegistro"  > Si  <i class="far fa-check-circle"></i></button>
+                        <button type="submit" class="btn btn-success pt-2" id="btnRegistro"  > Si  <i class="far fa-check-circle"></i></button>
                         <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal"> No <i class="far fa-times-circle"></i></button>
                 
                         </div>
@@ -1091,7 +1082,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                 {{-- <div class="row" id="btnRegistro">
                     <div class="col-md-4"></div>
                     <div class="col-md-4">
-                        <button type="submit" class="btn btn-success btn-block btn-sm "><span class="fa fa-save pr-4"> </span> Registrar Solicitud </button>
+                        <button type="submit" class="btn btn-success pt-2 btn-block btn-sm "><span class="fa fa-save pr-4"> </span> Registrar Solicitud </button>
                     </div>
                     <div class="col-md-4"></div>
                 </div> --}}
@@ -1154,7 +1145,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                 // if ($("#emailConD").val() !== $("#emailConDC").val()) {
                 //     errorEmailICon('segundo');
                 //     return;
-                // }
+                // }em
                 // if ($("#emailConT").val() !== $("#emailConTC").val()) {
                 //     errorEmailICon('tercer');
                 //     return;
@@ -1174,9 +1165,15 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
         var msg = "<center><p><i class='fas fa-times-circle fa-3x'></i></p></center>" + msg;
         llamarNotyTime('error', msg, 'center', 3000);
     }
+
+    function correoinvalido() {
+        var msg = "El correo ingresado no es valido.  ";
+        var msg = "<center><p><i class='fas fa-times-circle fa-3x'></i></p></center>" + msg;
+        llamarNotyTime('error', msg, 'center', 3000);
+    }
     
     function TipoSolicitud() {
-        var msg = "12. Seleccione un tipo de solicitud.  ";
+        var msg = "Seleccione un tipo de solicitud.  ";
         var msg = "<center><p><i class='fas fa-times-circle fa-3x'></i></p></center>" + msg;
         llamarNotyTime('error', msg, 'center', 3000);
     }
@@ -1297,19 +1294,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
     $('#numDocApoderado').on('keyup', function() {
         limitText(this, 10)
     });
-    // $('#cuantia').on('keyup', function() {
-    //     $(this).val();
-    //     console.log($(this).val());
-    //     var valor= $('#salario').val()*$(this).val();
-    //     var maximo= $('#maximo').val();
-    //     console.log(valor > maximo);
-    //     if (valor > maximo) {
-    //         var msg = "La pretensión no podrá ser superior a 100 SMMLV ($"+maximo+"), salvo que se trate de solicitudes de conciliación promovida por persona natural deudor hipotecario y por persona natural que reclame ser damnificado o victima el pago de indemnización de seguros de responsabilidad civil";
-    //         var msg = "<center><p><i class='fas fa-check-circle fa-3x'></i></p></center>" + msg;
-    //         llamarNotyTime('error', msg, 'center', 3000);
-    //     }
 
-    // });
 
     // function cuantiaVerificar(field) {
     //     var ref = $(field),
@@ -1489,64 +1474,9 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
         }
     });
 
-    
 
 
 
-
-    //Mostrar tercer convocado
-    $("#gridCheck2").change(function() {
-        if ($("#gridCheck2").is(':checked')) {
-            $("#divConvocante3").slideDown();
-        } else {
-            $("#divConvocante3").slideUp();
-        }
-    });
-    // //Oncahge del select optio tipoSolicitud
-    // $("#tipoSolicitud").change(function() {
-    //     const tipoSolicitud = parseInt($("#tipoSolicitud").val());
-    //     if (tipoSolicitud == 0) {
-    //         //Solicitud - Directa
-    //         $("#askAudienciaPresencial").slideDown(); //Pregunta Audiencia Presencial
-    //         $("#seccionApoderado").slideUp(); //Ocultar seccion para msotrr los datos del apodedaro
-    //     } else if (tipoSolicitud == 1) {
-    //         //Solicitud - Apoderado
-    //         $("#seccionApoderado").slideDown(); //Mostrar seccion para msotrr los datos del apodedaro
-    //         $("#askAudienciaPresencial").slideDown(); //Pregunta Audiencia Presencial
-    //     } else {
-    //         alert('opcion no valida');
-    //     }
-    //     $.ajax({
-    //         url: "solicitud",
-    //         type: "POST",
-    //         data: {
-    //             tipoSolicitud: $("#tipoSolicitud").val()
-    //         },
-    //         headers: {
-    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //         },
-    //         success: function(respuesta) {
-    //             console.log( $("#tipoSolicitud").val());
-    //          }
-    //     })
-    // });
-    //Oncahge del select optio tipoAudiencia
-    $("#tipoAudiencia").change(function() {
-        const tipoAudiencia = parseInt($("#tipoAudiencia").val());
-        if (tipoAudiencia == 0) {
-            //Si
-            $("#sedesConciliacion").show(); //Mostrar campos de sedes
-            $("#datosConciliacion").show(); //Mostrar campos de la conciliacion 
-        } else if (tipoAudiencia == 1) {
-            //NO
-            $("#sedesConciliacion").hide(); //OCulat campos de sedes
-            $("#datosConciliacion").show(); //Mostrar campos de la conciliacion 
-            $("#sedePrincipal").prop('selectedIndex', 0); //Reiniciar select option
-            $("#sedeSecundaria").prop('selectedIndex', 0); //Reiniciar select option
-        } else {
-            alert('opcion o valida');
-        }
-    });
     //Desplegar combo lista detalle del asunto 
     $("#asunto").change(() => {
         $.ajax({
@@ -1603,41 +1533,8 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
             }
         })
     });
-    //Eliminar opcion preseleccionada en al primer campo
-    $("#sedePrincipal").change(function() {
-        var idSedeSeleccionada = $('#sedePrincipal').val();
-        $("#sedeSecundaria option[value='" + idSedeSeleccionada + "']").each(function() {
-            $(this).remove();
-        });
-    });
-    //Funcionalidad de seleccionar o borrar documento
-    function bs_input_file() {
-        $(".input-file").before(
-            function() {
-                if (!$(this).prev().hasClass('input-ghost')) {
-                    var element = $("<input type='file' class='input-ghost' style='visibility:hidden; height:0' id='Fichier1'>");
-                    element.attr("name", $(this).attr("name"));
-                    element.change(function() {
-                        element.next(element).find('input').val((element.val()).split('\\').pop());
-                        processSelectedFiles(this);
-                    });
-                    $(this).find("button.btn-choose").click(function() {
-                        element.click();
-                    });
-                    $(this).find("button.btn-danger").click(function() {
-                        element.val(null);
-                        $(this).parents(".input-file").find('input').val('');
-                    });
-                    $(this).find('input').css("cursor", "pointer");
-                    $(this).find('input').mousedown(function() {
-                        $(this).parents('.input-file').prev().click();
-                        return false;
-                    });
-                    return element;
-                }
-            }
-        );
-    }
+
+
   
     $(document).ready(function () {
 
@@ -1775,6 +1672,45 @@ var f_municipio = function(dataxxxx) {
                 selected: [0]
             });
         });
+
+        function validateEmail(emailInput, emailError,emailCon='') {
+            const email = emailInput.val();
+            const emailcon = emailCon.val();
+            const currentError = emailError;
+            let isValid = true; // Establece el valor predeterminado como verdadero
+
+            if (email !== '') {
+                $.ajax({
+                    url: '/validar-correo',
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    },
+                    data: JSON.stringify({ email }),
+                    success: function(data) {
+                        if (data.exists) {
+                            currentError.text('Este correo no esta permitido.');
+                            emailInput.val('');
+                            emailCon.val('');
+                            correoinvalido();
+                            emailInput.data('valid', false); // E
+                            isValid = false; // Establece como falso si el correo está duplicado
+                        } else {
+                            currentError.text('');
+                            emailInput.data('valid', true); // E
+                            isValid = true; // Establece como verdadero si el correo es válido
+                        }
+                        isValid=data.valor; // Almacena el estado de validez en el atributo de datos
+                    },
+                    error: function() {
+                        console.error('Error en la solicitud AJAX');
+                    }
+                });
+            }
+       
+            return isValid; // Devuelve el estado de validez
+        }
 function run(hideTab, showTab){
         if(hideTab < showTab){ // If not press previous button
           // Validation if press next button
@@ -1789,51 +1725,10 @@ function run(hideTab, showTab){
                     errorEmailIgual();
                     return;
                 }
+                validateEmail($("#email"),$('.email-error.email'),$("#emailCon") );
+ 
+     
 
-
-                // $('.selectize').find('input').on('blur', function(){
-                //     var selected_customer = $(this).val();
-                //     console.log(selected_customer);
-                //     if(selected_customer === ''){
-                //         alert(selected_customer);
-                //         return;
-                //     }
-                //     });
-
-                // $(".selectize").each(function() {
-                //         // var select = $(this).selectize(
-                //         //     //your options
-                //         // );
-                //         // console.log(select);
-                //         // var selectize = select[0].selectize;
-                //         // console.log(selectize.getValue);
-                //         var nombre= `${this.id}`;
-                //         var valor=  $(this).val();
-                //         nombre= nombre.replace('[]','')
-                //         console.log(nombre);
-                //          console.log(valor);
-                //         if(valor===""){
-                //             $(this).css("background", "#ffdddd");
-                //             $(".invalid-feedback."+nombre).show();
-                //             camposfaltantes();
-                //             return;
-                //         }else{
-                //             $(this).css("background", "transparent");
-                //             $(".invalid-feedback."+nombre).hide();
-                            
-                //         }
-                    
-                //     });
-
-            
-          
-                 
-
-
-                // if ($("#tipoDocumento").val()==='') {
-                //     TipoDocumento();
-                //     return;
-                // }
                 if ($("#tipoSolicitud").val()===' ') {
                     TipoSolicitud();
                     return;
@@ -1844,6 +1739,9 @@ function run(hideTab, showTab){
                     errorEmailIgualApod();
                     return;
                 }
+
+                validateEmail($("#emailApoderado"),$('.email-error.emailApoderado'),$("#emailApoderadoCon") );
+                 
 
                 if ($("#tipoDocApoderado").val()==='') {
                     TipoDocumento();
@@ -1866,38 +1764,13 @@ function run(hideTab, showTab){
 
         }
 
-        /*
-             if (hideTab==2){
-                //  if ($("#nomConvocante").val()=== "") {
-                //     var texto="Nombre";
-                //     campostab2(texto);
-                //      return;
-                //  }
-                //  if ($("#apeConvocante").val()=== "") {
-                //     var texto="Apellido";
-                //     campostab2(texto);
-                //      return;
-                //  }
-                //  if ($("#emailConU").val()=== "") {
-                //     var texto="Correo";
-                //     campostab2(texto);
-                //     return;
-                //  }else if (isValidEmail($("#emailConU").val())) {
-                //     $('.invalid-feedback.emailConU').hide();
-                //  }else{
-                //     $('.invalid-feedback.emailConU').show();
-                //     correonovalido();
-                //     return;
-                //  }
-                */
+
                 for (i = 0; i < y.length; i++){
                     console.log(hideTab);
                     if (y[i].value == ""||$(y[i]).val().length < y[i].minLength){
                         var nombre= y[i].name;
                         $(y[i]).css("background", "#ffdddd");
-                        console.log(y[i]);
-                        console.log(nombre);
-                        console.log(y[i].value);
+      
                         nombre= nombre.replace('[]','')
                  
                         $('.invalid-feedback.'+nombre).show();
@@ -1937,65 +1810,7 @@ function run(hideTab, showTab){
                     }          
                   }
 
-             //}
-            //      y.each(function() {
-            //     //console.log(`${index}: ${this.id} ${value}`);
-            //     var nombre= `${this.id}`;
-            //     var valor=  $(this).val();
-            //     nombre= nombre.replace('[]','')
-            //      console.log(nombre);
-            //      console.log(valor);
-            //     if(valor===""){
-            //         $(this).css("background", "#ffdddd");
-            //         $(".invalid-feedback."+nombre).show();
-            //         camposfaltantes();
-            //         return false;
-            //     }else{
-            //         $(this).css("background", "transparent");
-            //         $(".invalid-feedback."+nombre).hide();
-                    
-            //     }
-            //    });
-            //     y.each(function() {
-            //     //console.log(`${index}: ${this.id} ${value}`);
-            //     var nombre= `${this.id}`;
-            //     var valor=  $(this).val();
-            //     nombre= nombre.replace('[]','')
-            //      console.log(nombre);
-            //     // console.log(valor);
-            //     if(valor===""){
-            //         $(this).css("background", "#ffdddd");
-            //         $(".invalid-feedback."+nombre).show();
-            //         camposfaltantes();
-            //         return;
-            //     }else{
-            //         $(this).css("background", "transparent");
-            //         $(".invalid-feedback."+nombre).hide();
-                    
-            //     }
-            //    });
-               
 
-
-
-        //    for (i = 0; i < y.length; i++){
-        //     if (y[i].value == ""||$(y[i]).val().length < y[i].minLength){
-        //         var nombre= y[i].name;
-        //         $(y[i]).css("background", "#ffdddd");
-   
-        //         nombre= nombre.replace('[]','')
-  
-        //         $('.invalid-feedback.'+nombre).show();
-        //         return false;
-        //     }else{
-        //         var nombre= y[i].name;
-     
-        //         nombre= nombre.replace('[]','')
-        
-        //         $(y[i]).css("background", "transparent");
-        //         $('.invalid-feedback.'+nombre).hide();
-        //     }          
-        //   }
         }
 
         // Progress bar
@@ -2062,8 +1877,10 @@ $('#add_btn').on('click',function(){
                  }else{
                     $('.invalid-feedback.emailConU').show();
                     $("#emailConvo").css("background", "#ffdddd");
-                    correonovalido();
+                    validateEmail($("#emailConvo").val(),$('.email-error.emailConvo'),$("#emailConvo").val() )
+                    
                     return;
+                
                  }
                    
      
@@ -2074,6 +1891,33 @@ $('#add_btn').on('click',function(){
     $(document).on('click','#deletebtn',function(){
             console.log('test');
             $(this).closest('tr').remove();
+
+            $("#email").on('input', function() {
+            const email = this.val();
+
+            if (email !== '') {
+                $.ajax({
+                    url: '/validar-correo',
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    },
+                    data: JSON.stringify({ email }),
+                    success: function(data) {
+                        if (data.exists) {
+                            $(".email-error.email").text('Este correo ya está registrado.');
+                            
+                        } else {
+                            $(".email-error.email").text('');
+                        }
+                    },
+                    error: function() {
+                        console.error('Error en la solicitud AJAX');
+                    }
+                });
+            }
+        });
         });
 
 
@@ -2251,8 +2095,11 @@ function doc1(valor){
 }
 
 
+
     window.onload=carga;
 
+
+    
 
 </script>
 

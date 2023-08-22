@@ -6,7 +6,7 @@ namespace App\Traits\Administracion\Correos;
 trait PestaniasTrait
 {
     public $pestanix = [
-        'asunto' => [true, []],
+        'correoinv' => [true, []],
         
         
     ];
