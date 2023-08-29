@@ -119,7 +119,7 @@ Route::get('/administracion', [AdministracionController::class, 'index'])->name(
 Route::get('login', [AuthController::class, "login"]);
 // login?key=Wnp5TEVrTlc0U05jVzcreU1CWnVjcFlPeDdETDMxR3E2MzRSU0ZVS3lETT0=
 // login?key=Wnp5TEVrTlc0U05jVzcreU1CWnVjcFlPeDdETDMxR3E2MzRSU0ZVS3lETT0=
-
+// login?key=ZzyLEkNW4SNcW7%2ByMBZucpYOx7DL31Gq634RSFUKyDM%3D
 
 Route::get('unautorized', function () { abort(403);
 });

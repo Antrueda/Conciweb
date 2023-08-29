@@ -453,16 +453,27 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                         <label for="segundoTelefono">8. Teléfono fijo</label>
                     </div>
                 </div>
-                <div class="col-md-3">
+ 
+                <div class="col-md-4">
+    
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm validate" name="direccion" id="direccion" autocomplete="off" onkeyup="this.value=this.value.toUpperCase();" placeholder="0" required style="text-transform: uppercase">
-                        <label for="direccion">9. Dirección *</label>
-                        <div class="invalid-feedback direccion">
-                            Campo obligatorio.
-                          </div>
-                    </div>
+                        <select class="form-select form-select-sm validate" name="estrato" id="estrato" onchange = 'doc(this.value)' required title="
+                        DIRECTO POR EL SOLICITANTE: Cuando se actúa a título propio, sin intermediación de un abogado. 
+    MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado únicamente a un abogado; a menos que se cuente con un PODER GENERAL OTORGADO MEDIANTE ESCRITURA PUBLICA
+                        ">
+                            <option value=" ">- Seleccione Dato -</option>
+                            <option value="0" title="">1</option>
+                            <option value="0" title="">2</option>
+                            <option value="0" title="">3</option>
+                            <option value="0" title="">4</option>
+                            <option value="0" title="">5</option>
+                            <option value="0" title="">6</option>
+                            <option value="1" title="">NO INFORMA</option>
+                        </select>
+                    <label for="localidad"> 9. Estrato *</label>
+                  </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
     
                     <div class="form-floating mb-3">
       
@@ -475,7 +486,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                 </div>
             
 
-                    <div class="col-md-3" id="fuera_div" >
+                    <div class="col-md-4" id="fuera_div" >
     
                         <div class="form-floating mb-3">
                             {!! Form::select('sis_departam_id',  $data['departamentos'], null, ['class' => 'form-control form-control-sm', 'id'=>'sis_departam_id', 'disabled']) !!}
@@ -504,6 +515,15 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
               </div>
             </div>
             <div class="col-md-3">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control form-control-sm validate" name="direccion" id="direccion" autocomplete="off" onkeyup="this.value=this.value.toUpperCase();" placeholder="0" required style="text-transform: uppercase">
+                    <label for="direccion">11. Dirección *</label>
+                    <div class="invalid-feedback direccion">
+                        Campo obligatorio.
+                      </div>
+                </div>
+            </div>
+            <div class="col-md-3">
     
                 <div class="form-floating mb-3">
   
@@ -511,7 +531,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                 <div class="invalid-feedback fechanacimiento">
                     Campo obligatorio.
                   </div>
-                <label for="fechanacimiento"> 11. Fecha de Nacimiento *</label>
+                <label for="fechanacimiento"> 12. Fecha de Nacimiento *</label>
               </div>
             </div>
 
@@ -523,7 +543,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                 <div class="invalid-feedback rangoedad">
                     Campo obligatorio.
                   </div>
-                <label for="rangoedad">12. Rango de Edad</label>
+                <label for="rangoedad">13. Rango de Edad</label>
               </div>
             </div>
             <div class="col-md-3">
@@ -534,7 +554,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                 <div class="invalid-feedback escolaridad">
                     Campo obligatorio.
                   </div>
-                <label for="escolaridad"> 13. Nivel de Escolaridad *</label>
+                <label for="escolaridad"> 14. Nivel de Escolaridad *</label>
               </div>
             </div>
             <div class="col-md-3">
@@ -546,7 +566,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                     Campo obligatorio.
                   </div>
               
-                <label for="nacionalidad"> 14. Nacionalidad *</label>
+                <label for="nacionalidad"> 15. Nacionalidad *</label>
               </div>
             </div>
 
@@ -559,7 +579,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                 <div class="invalid-feedback sexo">
                     Campo obligatorio.
                   </div>
-                <label for="sexo"> 15. Sexo *</label>
+                <label for="sexo"> 16. Sexo *</label>
               </div>
             </div>
             <div class="col-md-3">
@@ -570,7 +590,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                 <div class="invalid-feedback genero">
                     Campo obligatorio.
                   </div>
-                <label for="genero"> 16. Identidad de Genero *</label>
+                <label for="genero"> 17. Identidad de Genero *</label>
               </div>
             </div>
 
@@ -582,7 +602,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                 <div class="invalid-feedback orientacion">
                     Campo obligatorio.
                   </div>
-                <label for="localidad"> 17. Orientación Sexual *</label>
+                <label for="localidad"> 18. Orientación Sexual *</label>
               </div>
             </div>
             <div class="col-md-3">
@@ -593,25 +613,25 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                 <div class="invalid-feedback grupoafectado">
                     Campo obligatorio.
                   </div>
-                <label for="localidad"> 18. Grupo Afectado *</label>
+                <label for="localidad"> 19. Grupo Afectado *</label>
               </div>
             </div>
 
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <div class="form-floating mb-3">
                     
                         <input type="email" class="form-control form-control-sm validate" style="text-transform: lowercase" name="email" id="email" autocomplete="off" placeholder="0" required>
-                        <label for="email"> 19. Correo electrónico *</label>
+                        <label for="email"> 20. Correo electrónico *</label>
                         <div class="invalid-feedback email">
                             Campo obligatorio.
                           </div>
                           <span class="email-error email" style="color: red;"></span>
                      </div> 
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control form-control-sm validate" style="text-transform: lowercase" name="emailCon" id="emailCon"  placeholder="0">
-                        <label for="emailCon"> 19.1. Confirme correo electrónico *</label>
+                        <label for="emailCon"> 20.1. Confirme correo electrónico *</label>
                     </div> 
                 </div>
 
@@ -658,7 +678,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                             {{ $errors->first('tipoDocApoderado') }}
                         </div>
                     @endif
-                    <label for="tipoDocApoderado"> 20.1. Tipo Documento *</label>
+                    <label for="tipoDocApoderado"> 21.1. Tipo Documento *</label>
                     <div class="invalid-feedback tipoDocApoderado">
                         Campo obligatorio.
                       </div>
@@ -667,7 +687,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                  <div class="col-md-3">
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control form-control-sm validate" name="numDocApoderado" id="numDocApoderado" autocomplete="off" placeholder="0" onkeypress = "return soloNumeros(event);">
-                        <label for="numDocApoderado"> 20.2. No. de Documento *</label>
+                        <label for="numDocApoderado"> 21.2. No. de Documento *</label>
                         <div class="invalid-feedback numDocApoderado">
                             Campo obligatorio.
                           </div>
@@ -678,7 +698,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control form-control-sm validate" onkeyup="this.value=this.value.toUpperCase();" name="primerNombreApoderado" id="primerNombreApoderado" onkeyup="this.value=this.value.toUpperCase();" autocomplete="off" placeholder="0" style="text-transform: uppercase">
-                        <label for="primerNombreApoderado"> 20.3. Primer Nombre *</label>
+                        <label for="primerNombreApoderado"> 21.3. Primer Nombre *</label>
                         <div class="invalid-feedback primerNombreApoderado">
                             Campo obligatorio.
                           </div>
@@ -688,14 +708,14 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                 <div class="col-md-3">
                   <div class="form-floating mb-3">
                         <input type="text" class="form-control form-control-sm" onkeyup="this.value=this.value.toUpperCase();" name="segundoNombreApoderado" id="segundoNombreApoderado" autocomplete="off" placeholder="0" style="text-transform: uppercase">
-                        <label for="segundoNombreApoderado"> 20.4. Segundo Nombre</label>
+                        <label for="segundoNombreApoderado"> 21.4. Segundo Nombre</label>
                     </label>
                 </div>
             </div>
                 <div class="col-md-3">
                   <div class="form-floating mb-3">
                         <input type="text" class="form-control form-control-sm validate" onkeyup="this.value=this.value.toUpperCase();" name="primerApellidoApoderado" id="primerApellidoApoderado" autocomplete="off" placeholder="0" style="text-transform: uppercase">
-                        <label for="primerApellidoApoderado"> 20.5. Primer Apellido *</label>
+                        <label for="primerApellidoApoderado"> 21.5. Primer Apellido *</label>
                         <div class="invalid-feedback primerApellidoApoderado">
                             Campo obligatorio.
                           </div>
@@ -705,7 +725,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                 <div class="col-md-3">
                   <div class="form-floating mb-3">
                         <input type="text" class="form-control form-control-sm" onkeyup="this.value=this.value.toUpperCase();" name="segundoApellidoApoderado" id="segundoApellidoApoderado" autocomplete="off" placeholder="0" style="text-transform: uppercase">
-                        <label for="segundoApellidoApoderado"> 20.6. Segundo Apellido</label>
+                        <label for="segundoApellidoApoderado"> 21.6. Segundo Apellido</label>
                         
                     </div>
                 </div>
@@ -713,8 +733,8 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
         
                 <div class="col-md-3">
                   <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm validate"  name="tarjetaProfesional" id="tarjetaProfesional" autocomplete="off" placeholder="0" style="text-transform: uppercase">
-                        <label for="tarjetaProfesional"> 20.7. No. tarjeta Profesional *</label>
+                        <input type="text" class="form-control form-control-sm validate"  name="tarjetaProfesional" id="tarjetaProfesional" autocomplete="off" placeholder="0" style="text-transform: uppercase" onkeypress = "return soloNumeros(event);" minlength="3" maxlength="10">
+                        <label for="tarjetaProfesional"> 21.7. No. tarjeta Profesional *</label>
                         <div class="invalid-feedback tarjetaProfesional">
                             Campo obligatorio.
                           </div>
@@ -724,7 +744,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                 <div class="col-md-3">
                   <div class="form-floating mb-3">
                         <input type="text" class="form-control form-control-sm" onkeyup="this.value=this.value.toUpperCase();" name="direccionApoderado" id="direccionApoderado" autocomplete="off" placeholder="0" style="text-transform: uppercase">
-                        <label for="direccionApoderado"> 20.8. Dirección *</label>
+                        <label for="direccionApoderado"> 21.8. Dirección *</label>
                         <div class="invalid-feedback direccionApoderado">
                             Campo obligatorio.
                           </div>
@@ -734,7 +754,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                 <div class="col-md-3">
                   <div class="form-floating mb-3">
                         <input type="text" class="form-control form-control-sm validate" name="primerTelefonoApoderado" id="primerTelefonoApoderado" autocomplete="off" placeholder="0"  minlength="10" max="10" onkeypress = "return soloNumeros(event);">
-                        <label for="primerTelefonoApoderado"> 20.9. Teléfono Celular *</label>
+                        <label for="primerTelefonoApoderado"> 21.9. Teléfono Celular *</label>
                         <div class="invalid-feedback primerTelefonoApoderado">
                             Campo obligatorio.
                           </div>
@@ -743,7 +763,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                 <div class="col-md-3">
                   <div class="form-floating mb-3">
                         <input type="text" class="form-control form-control-sm" name="segundoTelefonoApoderado"  minlength="5" maxlength="10" id="segundoTelefonoApoderado" autocomplete="off" placeholder="0" onkeypress = "return soloNumeros(event);">
-                        <label for="segundoTelefonoApoderado"> 20.10. Teléfono fijo</label>
+                        <label for="segundoTelefonoApoderado"> 21.10. Teléfono fijo</label>
            
                     </div>
                 </div>
@@ -751,8 +771,8 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
             <div class="row">
                 <div class="col-md-6">
                   <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm validate" style="text-transform: lowercase" name="emailApoderado" id="emailApoderado" autocomplete="off" placeholder="0" required>
-                        <label for="emailApoderado"> 20.11. Correo electronico*</label>
+                        <input type="text" class="form-control form-control-sm validate" style="text-transform: lowercase" name="emailApoderado" id="emailApoderado" autocomplete="off" placeholder="0">
+                        <label for="emailApoderado"> 21.11. Correo electronico*</label>
                         <div class="invalid-feedback emailApoderado">
                             Campo obligatorio.
                           </div>
@@ -763,7 +783,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                 <div class="col-md-6">
                   <div class="form-floating mb-3">
                         <input type="text" class="form-control form-control-sm validate"  style="text-transform: lowercase" name="emailApoderadoCon" id="emailApoderadoCon" autocomplete="off" placeholder="0">
-                        <label for="emailApoderadoCon"> 20.12. Confirme correo electronico *</label>
+                        <label for="emailApoderadoCon"> 21.12. Confirme correo electronico *</label>
                         <div class="invalid-feedback emailApoderadoCon">
                             Campo obligatorio.
                           </div>
@@ -978,7 +998,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                                     {{ $errors->first('asunto') }}
                                 </div>
                             @endif
-                            <label for="asunto">21. Asunto *</label>
+                            <label for="asunto">22. Asunto *</label>
                         </div>
                         </div>
                     </div>
@@ -988,7 +1008,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                                 <select class="form-control form-control-sm custom-select validate[required]" name="subAsunto" id="subAsunto">
                                     <option value=" ">- Seleccione una opcion -</option>
                                 </select>
-                                <label for="subAsunto"> 21.1. Sub Asunto *</label>
+                                <label for="subAsunto"> 22.1. Sub Asunto *</label>
                             </div>
                          
                         </div>
@@ -997,7 +1017,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                         <div class="col-md-12">
                             <div class="form-floating mb-3">
                                 <textarea class="form-control form-control-sm validate[required, maxSize[1000]]" onkeyup="this.value=this.value.toUpperCase();" name="detalle" id="detalle" placeholder="Resumen" oninput="auto_grow(this)" maxlength="1000"  cols='30' rows='20' style="text-transform: uppercase"></textarea>
-                                <label for="detalle"> 22. Resumen de la pretensión o conflicto (Máximo 1000 caracteres)*</label>
+                                <label for="detalle"> 23. Resumen de la pretensión o conflicto (Máximo 1000 caracteres)*</label>
                                 <span id="chars"></span>
                                 </div>
              
@@ -1018,7 +1038,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                         <div class="col-md-3">
                             <div class="form-floating mb-3">
                                 <input class="form-control form-control-sm validate" type="number" name="cuantia" id="cuantia" onkeypress = "return soloNumeros(event);" autocomplete="off" placeholder="0" min="1" max="116000000" maxlength="9">
-                                <label for="cuantia"> 23. Valor de la Cuantía *</label>
+                                <label for="cuantia"> 24. Valor de la Cuantía *</label>
                                 <div id="test">
                                     {{ Form::number('salario', $data['salario']->numero, ['class' => 'form-control-plaintext' ,'id'=>'salario', 'style'=>"display: none"]) }}
                                     {{ Form::number('maximo', $data['salario']->maximo, ['class' => 'form-control-plaintext','id'=>'maximo','style'=>"display: none"]) }}

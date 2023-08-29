@@ -51,7 +51,7 @@
     </div>
     <div class="col-md-3">
       <b style="color:#0171BD" >Correo Electrónico</b>
-      <p style="text-transform: uppercase">{{$dato->email}}</p>
+      <p style="text-transform: lowercase">{{$dato->email}}</p>
     </div>
   </div>
 
@@ -126,7 +126,7 @@
      </div>
      <div class="col-md-4 mt-2">
       <b  style="color:#0171BD">Correo Electrónico</b></label>
-       <p style="text-transform: uppercase"> {{$dato->emailapoderado}}</p>
+       <p style="text-transform: lowercase"> {{$dato->emailapoderado}}</p>
      </div>
 
 
@@ -164,9 +164,9 @@
           border: 1px solid #F0F8FF;
           border-radius: 7px / 7px;
           padding: 8px 30px;
-          text-align: justify;" >
+          text-align: left;" >
         <b  style="color:#0171BD">Nombre Convocado (Correo Electrónico)</b></label>
-        <p style="text-transform: uppercase">{!! $info->nomconvocante . ' ' . $info->apeconvocante !!} <span style="text-transform: lowercase"> ({!! $info->emailconvocante  !!}) </span></p>
+        <p style="text-transform: uppercase">{!! $info->nomconvocante . ' ' . $info->apeconvocante !!} <br><span style="text-transform: lowercase"> ({!! $info->emailconvocante  !!}) </span></p>
       </div>
  
       @endforeach 

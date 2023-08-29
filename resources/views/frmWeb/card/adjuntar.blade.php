@@ -421,7 +421,7 @@
 
 <div class="row">
   <div class="col-md-4" style="padding-left: 15%;margin-top:10px;margin-left:30%">
-    <button type="button" class="btn btn-outline-success btn-block btn-sm" data-bs-toggle="modal" id="registro" data-bs-target="#exampleModal">  Registrar Adjuntos  <span class="fas fa-upload"> </span></button>
+    <button type="button" class="btn btn-outline-success btn-block btn-sm" data-bs-toggle="modal" id="registro" >  Registrar Adjuntos  <span class="fas fa-upload"> </span></button>
   </div>
 </div>
 
@@ -493,7 +493,7 @@ $(".input-file").change(function() {
 $(document).ready(function() {
   $('#registro').click(function(event) {
     var archivos = $('input[name^="document1"]');
-
+    var missingFiles = [];
       archivos.each(function(index, input) {
           var archivo = $(input).val();
           var alertId = '#archivoAlert' + index;
@@ -501,13 +501,18 @@ $(document).ready(function() {
           if (archivo === '') {
               $(alertId).text('Debes adjuntar este archivo.');
               $(alertId).show();
+              missingFiles.push(index);
               event.preventDefault();
           }else{
             $(alertId).text('');
+         
               $(alertId).hide();
               event.preventDefault();
           }
       });
+      if (missingFiles.length === 0) {
+          $('#exampleModal').modal('show');
+        }
       });
 
       // Ocultar las alertas al cambiar el contenido de los campos

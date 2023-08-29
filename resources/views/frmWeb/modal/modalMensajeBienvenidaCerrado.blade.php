@@ -24,7 +24,7 @@
                     <center>
                         <div class="custom-control custom-checkbox">
                             
-                            <button id="customCheck1" type="submit" class="btn btn-primary "><span class="fas fa-undo"></span> ACEPTAR</button>
+                            <button id="customCheck1" type="submit" class="btn btn-success "><span class="fas fa-undo"></span> ACEPTAR</button>
                             @can('administrar-modulo')  
                             <a href="{{ route('estadoform.editar',1)}}" class="btn btn-success">
                                 <svg style="margin-right: 5px;

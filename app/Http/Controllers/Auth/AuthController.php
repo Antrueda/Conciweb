@@ -24,7 +24,8 @@ class AuthController extends Controller
     {
         //Login desde SINPROC se envia semilla encryptada y luego a json encode en variable key con tres variables 
         if (!isset($_GET['key'])) {
-            return redirect('/validation/103');
+            dd($_GET['key']);
+            return redirect()->route('sinpermisos');
         }
         
         $key = base64_decode($_GET['key']);
@@ -39,7 +40,7 @@ class AuthController extends Controller
                 ->where('estado', 'A')
                 ->first();
         } else {
-            return redirect('/validation/104');
+            return redirect()->route('sinpermisos');
         }
  
        // ddd($user->roles);
@@ -47,14 +48,14 @@ class AuthController extends Controller
             //valido que ya tenga un rol asignado
             if (count($user->roles) > 0) {
                 Auth::login($user);
-                return redirect()->route('home');
+                return redirect()->route('admin');
                 exit;
             } else {
-                return redirect('/unautorized');
+                return redirect()->route('sinpermisos');
             }
         } else {
             // validation not successful, send back to form
-            return redirect('/validation/105');
+            return redirect()->route('sinpermisos');
         }
     }
 

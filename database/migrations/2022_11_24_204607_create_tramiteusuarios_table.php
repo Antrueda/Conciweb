@@ -42,6 +42,7 @@ return new class extends Migration
             $table->string('primerTelefonoApoderado')->nullable();
             $table->string('segundoTelefonoApoderado')->nullable();
             $table->date('fechanacimiento')->nullable();
+            $table->string('estrato')->nullable();
             $table->string('direccionapoderado')->nullable();
             $table->string('emailApoderado')->nullable();
             $table->string('tipoAudiencia')->nullable();
