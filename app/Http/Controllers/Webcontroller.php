@@ -15,11 +15,12 @@ use Response;
 use App\tramiteusuario;
 use App\tramiterespuesta;
 use App\binconsecutivo;
-
+use Illuminate\Support\Facades\Http;
 use App\Models\ASubasunto;
 use App\Models\Asunto;
 use App\Models\ConciCorreoinv;
 use App\Models\ConciDocumento;
+use App\Models\ConciMetadata;
 use App\Models\ConciReferente;
 use App\Models\Convocante;
 use App\Models\Estadoform;
@@ -373,6 +374,42 @@ class Webcontroller extends Controller
             'numeroDocumento' => 'required|string|max:120|unique:parametros,nombre,' . $id,
         ]);
     }
+
+    function parseUserAgent($userAgent)
+            {
+                $browser = "Desconocido";
+                $platform = "Desconocido";
+
+                if (strpos($userAgent, 'MSIE') !== false || strpos($userAgent, 'Trident') !== false) {
+                    $browser = "Internet Explorer";
+                } elseif (strpos($userAgent, 'Firefox') !== false) {
+                    $browser = "Mozilla Firefox";
+                } elseif (strpos($userAgent, 'Chrome') !== false) {
+                    $browser = "Google Chrome";
+                } elseif (strpos($userAgent, 'Safari') !== false) {
+                    $browser = "Apple Safari";
+                } elseif (strpos($userAgent, 'Opera') !== false) {
+                    $browser = "Opera";
+                }
+
+                if (strpos($userAgent, 'Windows') !== false) {
+                    $platform = "Windows";
+                } elseif (strpos($userAgent, 'Macintosh') !== false) {
+                    $platform = "Macintosh";
+                } elseif (strpos($userAgent, 'Linux') !== false) {
+                    $platform = "Linux";
+                } elseif (strpos($userAgent, 'iPhone') !== false) {
+                    $platform = "iPhone";
+                } elseif (strpos($userAgent, 'iPad') !== false) {
+                    $platform = "iPad";
+                } elseif (strpos($userAgent, 'Android') !== false) {
+                    $platform = "Android";
+                }
+
+                return [$browser, $platform];
+            }
+
+
     //Registro de la solicitud
     public function registroConciliacionWeb(Request $request)
     {
@@ -385,6 +422,7 @@ class Webcontroller extends Controller
         $fechaRegistro = date_format($carbonDate, 'd/m/Y h:m:s');
         $fechaRegistroA = date('d/m/Y H:i:s A');
 
+       
         $idTramite = $tramiteid->id_tramite; 
         $msg = "Registro conciliaciones Web.";
         //Datos del solictante
@@ -425,6 +463,7 @@ class Webcontroller extends Controller
         $sedeSecundaria = $request->input("sedeSecundaria");
         $asunto = $request->input("asunto");
         $subAsunto = $request->input("subAsunto");
+        $estrato = $request->input("estrato");
         $detalle = $request->input("detalle");
         $cuantia = $request->input("cuantia");
         
@@ -453,30 +492,15 @@ class Webcontroller extends Controller
         $documentonombre = Parametro::select(['nombre'])
         ->where('id', $request->input("tipoDocumento"))
         ->first();
-        //0.0) Preguntar si se registro un caso 
-        //echo($subAsuntoold);
-        // try {
-        //     $contadorSolicitudes = tramiteusuario::where('ID_USUARIO_REG', DB::raw("'" . $numeroDocumento . "'"))
-        //         ->where('ESTADO_TRAMITE', DB::raw("'Remitido'"))
-        //         ->where('TEXTO01', DB::raw("'" . $primerNombre . "'"))
-        //         ->where('TEXTO02', DB::raw("'" . $segundoNombre . "'"))
-        //         ->where('TEXTO03', DB::raw("'" . $primerApellido . "'"))
-        //         ->where('TEXTO04', DB::raw("'" . $segundoApellido . "'"))
-        //         ->where('TEXTO05', DB::raw("'" . $primerTelefono . "'"))
-        //         ->where('NUMERO05', DB::raw("'" . $asuntoold->nombre . "'"))
-        //         ->where('NUMERO06', DB::raw("'" . $subAsuntoold->nombre . "'"))
-        //         ->where('TEXTO21', DB::raw("'" . $detalle . "'"))
-        //         ->count();
-        // } catch (\Exception $e) {
-        //     DB::rollback();
-        //     return '|0| 0.0 Problema al indentificaRRr la cantidad de solicitudes realizada [TRAM_USU] <br>' . $e->getMessage();
-        // }
-
-        // if ($contadorSolicitudes >= 1) {
-        //     DB::commit();
-        //     return '|1|El registro finalizo de forma correcta <br> Por favor verifique su correo electronico para mas información.';
-        // }
-
+    
+        //Metadata
+        $ip = $request->ip();
+        //llave del API
+        $apiKey = 'f685a6cb8f8ba4ac7b6522ff90db36d0';
+        $response = Http::get("http://api.ipstack.com/$ip?access_key=$apiKey");
+        $locationData = $response->json();
+        $userAgent = $_SERVER['HTTP_USER_AGENT'];
+        list($browser, $platform) = $this->parseUserAgent($userAgent);
 
         try {
 
@@ -536,6 +560,7 @@ class Webcontroller extends Controller
                     'estado_tramite' => DB::raw("'Remitido'"),
                     'vigencia' => $vigencia,
                     'oido_codigo' => 0,
+                    'estrato' => $estrato,
                      'primerNombre' => DB::raw("'$primerNombre'"),
                      'segundoNombre' => DB::raw("'$segundoNombre'"),
                      'primerApellido' => DB::raw("'$primerApellido'"),
@@ -579,6 +604,21 @@ class Webcontroller extends Controller
         } catch (\Exception $e) {
             DB::rollback();
             return '|0| Problema al Insertar la informacion al sistema TRAMITEUSUARIO NUEVO ' . $e->getMessage();
+        }
+
+        try {
+            
+            ConciMetadata::create([
+                'num_solicitud' => $numSolicitud,
+                'explorador' => $browser,
+                'ip' => $ip,
+                'pais' =>  $locationData['country_name'],
+                'ciudad' => $locationData['city'] ,
+                'plataforma' => $platform,
+            ]);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return '|0| Problema al Insertar la informacion de METADATA' . $e->getMessage();
         }
         //1.b) Registrar informacion en tramiteusuario SINPROC
         try {

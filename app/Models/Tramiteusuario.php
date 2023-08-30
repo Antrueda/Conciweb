@@ -49,7 +49,7 @@ class Tramiteusuario extends Model
       'DETALLE',
       'CUANTIA',
       'CODE',
-      
+      'estrato',
       'estadodoc',
       'sis_departam_id',
       'sis_municipio_id',

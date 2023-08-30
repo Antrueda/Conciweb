@@ -457,10 +457,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                 <div class="col-md-4">
     
                     <div class="form-floating mb-3">
-                        <select class="form-select form-select-sm validate" name="estrato" id="estrato" onchange = 'doc(this.value)' required title="
-                        DIRECTO POR EL SOLICITANTE: Cuando se actúa a título propio, sin intermediación de un abogado. 
-    MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado únicamente a un abogado; a menos que se cuente con un PODER GENERAL OTORGADO MEDIANTE ESCRITURA PUBLICA
-                        ">
+                        <select class="form-select form-select-sm validate" name="estrato" id="estrato" required>
                             <option value=" ">- Seleccione Dato -</option>
                             <option value="0" title="">1</option>
                             <option value="0" title="">2</option>
@@ -1410,7 +1407,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
             beforeSend: function() {
                 llamarNotyCarga();
                 $('#btnRegistro').prop('disabled', true);
-                $('#exampleModal').modal("hide");
+                
             },
             success: function(r) {
                 var datUsr = r.split("|");
