@@ -33,6 +33,11 @@ class DatabaseSeeder extends Seeder
         $this->call(GrupoAfectadoSeeder::class);
         $this->call(SisLocalidadsSeeder::class);
         $this->call(TextosSeeder::class);
+        $this->call(DiasSeeder::class);
         $this->call(AsuntosSeeder::class);
+        $this->call(CorreosInvalidadosSeeder::class);
+        $this->call(SalarioSeeder::class);
+        $this->call(EstadoFormularioSeeder::class);
+        
     }
 }
