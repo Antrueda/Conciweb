@@ -11,6 +11,8 @@ class Tramiteusuario extends Model
 {
     use HasFactory;
     protected $table = 'conci_tramiteusuarios';
+    public $incrementing = false;
+    protected $primaryKey = 'num_solicitud';
     protected $fillable = [
       'NUM_SOLICITUD',
       'ID_TRAMITE',
@@ -51,6 +53,7 @@ class Tramiteusuario extends Model
       'CODE',
       'estrato',
       'estadodoc',
+      'observaciones',
       'sis_departam_id',
       'sis_municipio_id',
       'id_usuario_adm',
@@ -82,12 +85,12 @@ class Tramiteusuario extends Model
 
       public function realizarCambioDespuesDe5Dias($dias)
       {
-        $fechaCreacion = Carbon::parse($this->created_at);
-
+        $fechaCreacion = Carbon::parse($this->fec_solicitud_tramite);
+        
         $fechaCambio = $fechaCreacion->addWeekdays($dias);
-
+        
         if (Carbon::now()->isSameDay($fechaCambio) || Carbon::now()->gt($fechaCambio)) {
-            $this->update(['estado_tramite' => 'Desistimiento']);
+          $this->update(['ESTADO_TRAMITE' => 'Finalizado','estadodoc' => 'Desistimiento Automatico']);
         }
   }
 }

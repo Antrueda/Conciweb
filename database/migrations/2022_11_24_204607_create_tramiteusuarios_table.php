@@ -71,6 +71,7 @@ return new class extends Migration
             $table->integer('grupoafectado')->nullable()->unsigned();
             $table->foreign('grupoafectado')->references('id')->on('gruposafectados');
             $table->string('detalle',2000)->nullable();
+            $table->string('observaciones',2000)->nullable();
             $table->string('cuantia')->nullable();
             $table->string('code')->nullable();
             $table->string('estadodoc')->nullable();

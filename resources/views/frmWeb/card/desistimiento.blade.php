@@ -188,7 +188,7 @@
 
         $("#checks").change(function() {
         if ($("#checks").is(':checked')) {
-            $("#desistir").val('Cancelado');
+            $("#desistir").val('Finalizado');
             $("#divobserva").slideDown();
             $("#botondiv").slideDown();
             

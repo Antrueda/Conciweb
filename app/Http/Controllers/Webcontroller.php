@@ -22,6 +22,7 @@ use App\Models\ConciCorreoinv;
 use App\Models\ConciDocumento;
 use App\Models\ConciMetadata;
 use App\Models\ConciReferente;
+use App\Models\ConciTiempo;
 use App\Models\Convocante;
 use App\Models\Estadoform;
 use App\Models\Parametro;
@@ -80,6 +81,18 @@ class Webcontroller extends Controller
             $escolaridad = Tema::comboasc(7, true, false);
             $nacionalidad = SisPai::combo(false, false);
        
+
+            $diasParam = ConciTiempo::firstOrNew()->tiempo;
+    
+            $consulta=ModelsTramiteusuario::whereDate('fec_solicitud_tramite', '<=', now()->subWeekdays($diasParam))
+            ->where('ESTADO_TRAMITE', 'Remitido')
+            ->where('id_tramite', 335)
+          
+            ->each(function ($consulta) use ($diasParam) {
+  
+                $consulta->realizarCambioDespuesDe5Dias($diasParam);
+            });
+
             $listaCondiciones = CondicionProteccion::where('habilitado', true)
             ->select('id', 'nombre', 'descripcion', 'imagen_on', 'imagen_off','habilitado')
             ->orderBy('id', 'ASC')
@@ -122,6 +135,8 @@ class Webcontroller extends Controller
             return ((string)\View::make("frmWeb.homestep", array("data" => $data,"listaCondicionesProteccion"=>$this->listaCondicionesProteccion)));
         }
 
+
+ 
         private function fetchCondicionesProteccion(){
             /**
              * Esta funcion se encarga de traer la lista inicial de condiciones
@@ -1204,7 +1219,7 @@ class Webcontroller extends Controller
         $tiposolicitud= $dato->tiposolicitud;
         $nombrecompleto = $dato->primernombre . ' ' . $dato->segundonombre . ' ' . $dato->primerapellido  . ' ' . $dato->segundoapellido;
         $fecha = $dato->fec_solicitud_tramite;
-        $newDate = date("d-m-Y", strtotime($fecha));  
+        $newDate = date("d/m/Y h:m:s" , strtotime($fecha));   
         
         $tiposolicitud= $dato->tiposolicitud;
         $tipodedocapoderado='';
@@ -1249,14 +1264,19 @@ class Webcontroller extends Controller
 //Funcion para el cambio de estado de la conciliacion
     public function Cambioestado(Request $request, $id)
     {
+        //finalizado 20 sinproc
+        //desistir voluntario
+        //desistir automatico
+        //Finaliza por error
+        //Remitido
         $detalle = $request->input("desistir");
         
         $dato = ModelsTramiteusuario::where('num_solicitud', $id)->first();
         $fecha = $dato->fec_solicitud_tramite;
-        $newDate = date("d-m-Y", strtotime($fecha));  
+        $newDate = date("d/m/Y h:m:s" , strtotime($fecha));   
         $nombrecompleto = $dato->primernombre . ' ' . $dato->segundonombre . ' ' . $dato->primerapellido  . ' ' . $dato->segundoapellido;
-        $modelo = ModelsTramiteusuario::where('num_solicitud', $id)->update(['estado_tramite' => $detalle,'estadodoc'=>'Cancelado']);
-        if ($detalle == 'Cancelado') {
+        $modelo = ModelsTramiteusuario::where('num_solicitud', $id)->update(['estado_tramite' => $detalle,'estadodoc'=>'Desistimiento Voluntario']);
+        if ($detalle == 'Finalizado') {
 
   
             $apoderado = $dato->primernombreapoderado . ' ' . $dato->segundonombreapoderado . ' ' . $dato->primerapellidoapoderado  . ' ' . $dato->segundoapellidoapoderado;
@@ -1394,7 +1414,7 @@ class Webcontroller extends Controller
      
         $dato->fec_solicitud_tramite;
         $fecha = $dato->fec_solicitud_tramite;
-        $newDate = date("d-m-Y", strtotime($fecha));  
+        $newDate = date("d/m/Y h:m:s" , strtotime($fecha));  
         $nombrecompleto = $dato->primernombre . ' ' . $dato->segundonombre . ' ' . $dato->primerapellido  . ' ' . $dato->segundoapellido;
         $apoderado = $dato->primernombreapoderado . ' ' . $dato->segundonombreapoderado . ' ' . $dato->primerapellidoapoderado  . ' ' . $dato->segundoapellidoapoderado;
         $fechaRegistro = new DateTime(Carbon::now());
@@ -1442,9 +1462,6 @@ class Webcontroller extends Controller
         La información relacionada y sus anexos serán revisados por los funcionarios al interior de la Personería de Bogotá D.C., quienes próximamente lo contactarán por medio de los correos electrónicos registrados';
         
         DB::commit();
-        
-
-
         
     }
 

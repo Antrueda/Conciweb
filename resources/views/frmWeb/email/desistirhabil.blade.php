@@ -235,24 +235,21 @@
     <img  style="height: 25%;" src="{{asset('imagen/logoConciweb1.png')}}" alt="ConciwebLogo">
 </div>
 <div class='saludo'>
-    <p>Cordial saludo, </p><br>
+    <p>Cordial saludo </p><br>
     <b><strong style="text-transform: uppercase;color:#0171BD" class="px-2">{{$nombrecompleto}}</strong></b>
         <br>
         @if (isset($emailApoderado) && !empty($emailApoderado)) 
         <b><strong style="text-transform: uppercase;color:#0171BD" class="px-2">{{$apoderado}}</strong></b>
         <br>
     <p>
-        
-        El Centro de Conciliación de la Personería de Bogotá D.C., se permite informar que conforme al Artículo 53, de la Ley 2220 del 30 de junio de 2022, 
-        TRAS NO APORTARSE LA TOTALIDAD DE LA DOCUMENTACION Y/O INFORMACION SOLICITADA, se decreta el Desistimiento Tácito de la Solicitud de Conciliación en Línea 
-        presentada por usted y se ordena el archivo del expediente radicado bajo el numero de solicitud <b>{{$numSolicitud}} </b> de fecha {{$newDate}} 
+        El Centro de Conciliación de la Personería de Bogotá D.C., se permite informar que conforme al Artículo 53, de la Ley 2220 del 30 de junio de 2022, <b>TRAS NO APORTARSE LA TOTALIDAD DE LA DOCUMENTACION Y/O INFORMACION SOLICITADA,</b> 
+        se decreta el <b>DESISTIMIENTO TÁCITO </b> de la Solicitud de Conciliación en Línea presentada por usted y se ordena el archivo del expediente radicado bajo el numero de solicitud <b>{{$numSolicitud}} </b> de fecha {{$newDate}} 
 
     </p>
     @else
     <p>
-        El Centro de Conciliación de la Personería de Bogotá D.C., se permite informar que conforme al Artículo 53, de la Ley 2220 del 30 de junio de 2022, 
-        TRAS NO APORTARSE LA TOTALIDAD DE LA DOCUMENTACION Y/O INFORMACION SOLICITADA, se decreta el Desistimiento Tácito de la Solicitud de Conciliación en Línea 
-        presentada por usted y se ordena el archivo del expediente radicado bajo el numero de solicitud <b>{{$numSolicitud}} </b> de fecha {{$newDate}} 
+        El Centro de Conciliación de la Personería de Bogotá D.C., se permite informar que conforme al Artículo 53, de la Ley 2220 del 30 de junio de 2022, <b>TRAS NO APORTARSE LA TOTALIDAD DE LA DOCUMENTACION Y/O INFORMACION SOLICITADA,</b> 
+        se decreta el <b>DESISTIMIENTO TÁCITO </b> de la Solicitud de Conciliación en Línea presentada por usted y se ordena el archivo del expediente radicado bajo el numero de solicitud <b>{{$numSolicitud}} </b> de fecha {{$newDate}} 
     </p>
 
    @endif

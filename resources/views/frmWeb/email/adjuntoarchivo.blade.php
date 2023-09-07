@@ -244,11 +244,18 @@
     <br>
   
     <p>
-        La Personería de Bogotá, D.C., le informa que el día {{$fechaRegistro}}, usted finalizó con el proceso de Solicitud de Conciliación Web, por lo cual,  a los correos registrados <b> {{$email}} </b> y <b> {{$emailApoderado}} </b>, se enviarán las correspondientes notificaciones,  posterior a la revisión de la solicitud No. <b style="text-transform: uppercase;color:#0171BD"> {{$numSolicitud}} </b> 
+        El Centro de Conciliación de la Personería de Bogotá D.C., le informa que el día {{$fechaRegistro}}, usted finalizó con el proceso de Solicitud de Conciliación Web, por lo cual, a los correos registrados <b> {{$email}} </b> y <b> {{$emailApoderado}} </b>, se enviarán las correspondientes notificaciones,  posterior a la revisión de la solicitud No. <b style="text-transform: uppercase;color:#0171BD"> {{$numSolicitud}} </b> 
+        
+    </p>
+    <p>
+        Se recuerda que su solicitud entra a proceso de revisión a partir del siguiente día hábil en que finalizó su registro. Dentro de los siguientes diez (10) días hábiles se enviará la respuesta correspondiente, según sea el caso.
     </p>
     @else
     <p>
-        La Personería de Bogotá, D.C., le informa que el día {{$fechaRegistro}}, usted finalizó con el proceso de Solicitud de Conciliación Web, por lo cual,  al correo registrado <b> {{$email}} </b>, se enviarán las correspondientes notificaciones,  posterior a la revisión de la solicitud <b style="text-transform: uppercase;color:#0171BD"> No. {{$numSolicitud}}</b> . 
+        El Centro de Conciliación de la Personería de Bogotá D.C., le informa que el día {{$fechaRegistro}}, usted finalizó con el proceso de Solicitud de Conciliación Web, por lo cual,  al correo registrado <b> {{$email}} </b>, se enviarán las correspondientes notificaciones,  posterior a la revisión de la solicitud <b style="text-transform: uppercase;color:#0171BD"> No. {{$numSolicitud}}</b> . 
+    </p>
+    <p>
+        Se recuerda que su solicitud entra a proceso de revisión a partir del siguiente día hábil en que finalizó su registro. Dentro de los siguientes diez (10) días hábiles se enviará la respuesta correspondiente, según sea el caso.
     </p>
 
    @endif
