@@ -106,7 +106,7 @@
         <p style="text-transform: uppercase"> {{$nombrecompleto}}</p>
       </div>
       <div class="col-md-3">
-        <b  style="color:#0171BD">Fecha de Solicitud</b> <b  style="color:#0171BD;font-size:80%">(dd-mm-yyyy)</b></label>
+        <b  style="color:#0171BD">Fecha de Solicitud</b> <b  style="color:#0171BD;font-size:80%">(dd/mm/yyyy)</b></label>
         <p style="text-transform: uppercase"> {{$newDate}}</p>
       </div>
       <div class="col-md-3">

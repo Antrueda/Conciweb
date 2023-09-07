@@ -64,7 +64,7 @@ class DocumentsController extends Controller
     
           $dato = Tramiteusuario::where('num_solicitud', $id)->where('vigencia',2023)->first();
           $fecha = Tramiteusuario::where('num_solicitud', $id)->first()->fec_solicitud_tramite;
-          $newDate = date("d-m-Y", strtotime($fecha));  
+          $newDate = date("d/m/Y h:m:s" , strtotime($fecha));   
           $tipodedocumento=Parametro::where('id', $dato->tipodocumento)->first()->nombre;
                  
           $tiposolicitud= $dato->tiposolicitud;
@@ -187,7 +187,7 @@ class DocumentsController extends Controller
           
           $dato = Tramiteusuario::where('num_solicitud', $acceso[3])->where('vigencia',$acceso[4])->first();
           $fecha = Tramiteusuario::where('num_solicitud', $acceso[3])->first()->fec_solicitud_tramite;
-          $newDate = date("d-m-Y", strtotime($fecha));  
+          $newDate = date("d/m/Y" , strtotime($fecha));   
           $tipodedocumento=Parametro::where('id', $dato->tipodocumento)->first()->nombre;
                  
           $tiposolicitud= $dato->tiposolicitud;

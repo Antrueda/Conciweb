@@ -1198,7 +1198,7 @@ class Webcontroller extends Controller
              
                 $output .= '<br><p style="width:90%;margin:auto;" class="alert alert-success"><i class="fa-regular fa-circle-check fa-2xl"></i>' . '<span style="padding:8px;font-size: 1.2rem;"> El proceso de adjuntar documentos finalizó el día '.date("d-m-Y", strtotime($data->updated_at)) . '</span></p>';
                 //Validacion de estado "Cancelado", devuelve mensaje y no deja ingresar al formulario de adjuntos
-            }else if($data->estadodoc=='Cancelado') {
+            }else if($data->estadodoc=='Desistimiento Voluntario'||$data->estadodoc=='Desistimiento Automatico') {
                 $output .= '<br><p style="width:90%;margin:auto;" class="alert alert-warning"><i class="fa-solid fa-triangle-exclamation fa-2xl"></i>' . '<span style="padding:8px;font-size: 1.2rem;"> Se realizo desistimiento a la Solicitud de Conciliación ' . '</span></p>';
             }
             return $output;
@@ -1329,6 +1329,60 @@ class Webcontroller extends Controller
             return '|0| 3.0) test: </br>';
         }
     }
+
+    public function CorreoDesistir($consulta)
+    {    
+        $dato = ModelsTramiteusuario::where('num_solicitud', $consulta->num_solicitud)->first();
+        $fechaRegistro = $dato->fec_solicitud_tramite;
+        $update=$dato->update_at;
+        $newDate = date("d/m/Y h:m:s" , strtotime($update));   
+        $fechaRegistro = date("d/m/Y h:m:s" , strtotime($fechaRegistro));  
+        
+        $nombrecompleto = $dato->primernombre . ' ' . $dato->segundonombre . ' ' . $dato->primerapellido  . ' ' . $dato->segundoapellido;
+        $apoderado = $dato->primernombreapoderado . ' ' . $dato->segundonombreapoderado . ' ' . $dato->primerapellidoapoderado  . ' ' . $dato->segundoapellidoapoderado;
+        $detalleAbc = Subdescripcion::where('subasu_id', $dato->subasunto)
+                ->where('sis_esta_id', 1)
+                ->orderBy('id')
+                ->get();
+    
+        
+    
+            //Correo de confirmación de desistimiento
+            $conteo= count($detalleAbc)-1;
+            try {
+                $subject = 'Solicitud conciliaciones Web  - Personería de Bogotá D.C.';
+                $data = array(
+                    'email' => $dato->email,
+                    'asuntos' => $dato->asuntos->nombre,
+                    'nombrecompleto' => $nombrecompleto,
+                    'subject' => $subject,
+                    'numSolicitud' => $consulta->num_solicitud,
+                    'emailApoderado' => $dato->emailapoderado,
+                    'apoderado' => $apoderado,
+                    'fechaRegistro' => explode(' ',$fecha)[0],
+                    'newDate' => $newDate,
+                );
+    
+                Mail::send('frmWeb.email.desistirhabil', $data, function ($message) use ($data) {
+                    $message->from('master@personeriabogota.gov.co', 'Solicitud conciliaciones Web - Personería de Bogotá D.C.');
+                    $message->to($data['email']);
+                    if (isset($data['emailApoderado']) && !empty($data['emailApoderado'])) {
+                        $message->cc($data['emailApoderado']);
+                    }
+                    // $message->bcc('jaruedag@personeriabogota.gov.co');
+                    // $message->bcc('jamumi14@gmail.com');
+                   // $message->attach('FORMATO_SOLICITUD_DE_CONCILIACION_V4');
+                    // $message->bcc('ljmeza@personeriabogota.gov.co');
+                    // $message->bcc('nylopez@personeriabogota.gov.co');
+                    // $message->bcc('asarmiento@personeriabogota.gov.co');
+                    $message->subject($data['subject']);
+                });
+            } catch (\Exception $e) {
+                return ;
+            }
+        
+    }
+
 
 
 //Funcion de carga de documentos
