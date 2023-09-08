@@ -161,7 +161,10 @@
               </div>
               <img src="{{URL::asset('imagen/logoConciweb1.png')}}" class="rounded mx-auto d-block"  style="width: 100%; height: auto;">
             </a>
-     
+            <div class="col-md-6">
+            
+              <p class="mt-2" style="text-justify;color:#0171BD;font-weight:800;font-size:1.35rem">SOLICITUD DE CONCILIACIÓN</p>
+          </div>
             <a class="navbar-brand" href="#"></a>
             @can('administrar-modulo')  
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">

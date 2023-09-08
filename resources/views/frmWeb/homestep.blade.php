@@ -60,6 +60,13 @@ img {
     overflow: clip;
 }
 
+.selectize-dropdown-content {
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 130px;
+    overflow-scrolling: touch;
+}
+
 textarea {
     resize: none;
     overflow: hidden;
@@ -86,7 +93,7 @@ textarea {
     color: var(--bs-body-color);
         border: 0px solid #d0d0d0;
         background: 0 0!important;
-        width: 90%;
+        width: 95%;
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
@@ -162,15 +169,7 @@ input[type=number] {
     border-radius: var(--bs-progress-border-radius);
     margin-top: -21px;
 }
-/* .progress{
-        height: 5px;
-        margin-top: 2px;
-}
-.progress-bar{
-        height: 25px;
-        color: transparent;
-        opacity: 0.0;
-} */
+
 
 .select2-container {
     box-sizing: border-box;
@@ -292,21 +291,13 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
 
     <div class="row">
         <center>
-        <div class="col-md-6">
-            
-            <p class="mt-2" style="text-justify;color:#0171BD;font-weight:800;font-size:1.35rem">SOLICITUD DE CONCILIACIÓN</p>
-        </div>
+    
     </center>
         <div class="col-md-1"> </div>
-        {{-- <div class="col-md-4 text-block"><img src="{{URL::asset('imagen/logo-personeria-azul.png')}}" class="rounded mx-auto d-block" width="50%"></div> --}}
+
     </div>
     <br>
-    {{-- <div style="text-align:center;">
-        <span class="step" id = "step-1"><i class="fas fa-info"></i></span>
-        <span class="step" id = "step-2"><i class="fa fa-users nav-icon"></i></span>
-        <span class="step" id = "step-3"><i class="fas fa-user-tie"></i></span>
-        <span class="step" id = "step-4"><i class="fas fa-clipboard-list"></i></span>
-      </div> --}}
+
 
 
     
@@ -335,12 +326,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
       <div class="progress">
         <div class="progress-bar bg-primary" role="progressbar" id="progressbar" style="width: 12%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
       </div>
-      {{-- <div style="text-align:center;">
-        <span class="step" id = "step-1"></span>
-        <span class="step" id = "step-2"></span>
-        <span class="step" id = "step-3"></span>
-        <span class="step" id = "step-4"></span>
-      </div> --}}
+    
       <br>   <br>
 
     
@@ -449,7 +435,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                 </div>
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm" min="7" max="10" name="segundoTelefono" id="segundoTelefono" onkeypress = "return soloNumeros(event);" autocomplete="off" placeholder="0">
+                        <input type="text" class="form-control form-control-sm" min="7" max="10" name="segundoTelefono" id="segundoTelefono" onkeypress = "return soloNumeros(event);" autocomplete="off" minlength="10"  placeholder="0">
                         <label for="segundoTelefono">8. Teléfono fijo</label>
                     </div>
                 </div>
@@ -619,11 +605,10 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                     
                         <input type="email" class="form-control form-control-sm validate" style="text-transform: lowercase" name="email" id="email" autocomplete="off" placeholder="0" required>
                         <label for="email"> 20. Correo electrónico *</label>
-                        <div class="invalid-feedback email">
-                            Campo obligatorio.
-                          </div>
-                          <span class="email-error email" style="color: red;"></span>
+                       
+                          <div class="email-error email" style="color: red;"></div>
                      </div> 
+
                 </div>
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
@@ -750,7 +735,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                 </div>
                 <div class="col-md-3">
                   <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm validate" name="primerTelefonoApoderado" id="primerTelefonoApoderado" autocomplete="off" placeholder="0"  minlength="10" max="10" onkeypress = "return soloNumeros(event);">
+                        <input type="text" class="form-control form-control-sm validate" name="primerTelefonoApoderado" id="primerTelefonoApoderado" autocomplete="off" placeholder="0"  minlength="10" max="10"  maxlength="10" onkeypress = "return soloNumeros(event);">
                         <label for="primerTelefonoApoderado"> 21.9. Teléfono Celular *</label>
                         <div class="invalid-feedback primerTelefonoApoderado">
                             Campo obligatorio.
@@ -759,7 +744,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                 </div>
                 <div class="col-md-3">
                   <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm" name="segundoTelefonoApoderado"  minlength="5" maxlength="10" id="segundoTelefonoApoderado" autocomplete="off" placeholder="0" onkeypress = "return soloNumeros(event);">
+                        <input type="text" class="form-control form-control-sm" name="segundoTelefonoApoderado"  maxlength="10" id="segundoTelefonoApoderado" autocomplete="off" minlength="10" max="10"  maxlength="10" placeholder="0" onkeypress = "return soloNumeros(event);">
                         <label for="segundoTelefonoApoderado"> 21.10. Teléfono fijo</label>
            
                     </div>
@@ -935,53 +920,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
             </div>
             <div class="card-body" style="margin-bottom: -12px; height">
 
-                {{-- <div id="tipoAudienciaSeleccion" style="display: none">
-
-                    <div class="alert alert-success" role="alert">
-                     
-                        <small class="text-justify">{!! $data['mensaje']->texto !!}</small>
-                      
-                    </div>
-                    <div class="row">
-                        <div class="col-4">
-                            <label class="form-group has-float-label">
-                                <select class="form-control form-control-sm custom-select validate[required]" name="tipoAudiencia" id="tipoAudiencia">
-                                    <option value=" ">- Seleccione una opcion -</option>
-                                    <option value="0">Presencial</option>
-                                    <option value="1">Virtual</option>
-                                </select>
-                                <span>13. Tipo de Audiencia *</span>
-                            </label>
-                        </div>
-                        <!-- INICIO SEDES -->
-                        <div id="sedesConciliacion" style="display: none">
-                            <div class="row">
-                                <div class="col-6">
-                                    {{ Form::label('sedePrincipal', '13.1. Centro de conciliación principal *', ['class' => 'control-label col-form-label-sm']) }}
-                                    {{ Form::select('sedePrincipal', $data['listaSedes'], null, ['class' => $errors->first('sedePrincipal') ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm']) }}
-                                    @if($errors->has('sedePrincipal'))
-                                        <div class="invalid-feedback d-block">
-                                            {{ $errors->first('sedePrincipal') }}
-                                        </div>
-                                    @endif
-                                  
-                                </div>
-                                <div class="col-6">
-                                    {{ Form::label('sedeSecundaria', '13.2. Centro de conciliación secundaria *', ['class' => 'control-label col-form-label-sm']) }}
-                                    {{ Form::select('sedeSecundaria', $data['listaSedes'], null, ['class' => $errors->first('sedeSecundaria') ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm']) }}
-                                    @if($errors->has('sedeSecundaria'))
-                                        <div class="invalid-feedback d-block">
-                                            {{ $errors->first('sedeSecundaria') }}
-                                        </div>
-                                    @endif
-                                
-                                </div>
-                            </div>
-                        </div>
-                        <!-- FIN SEDES -->
-                    </div>
-                </div> --}}
-
+             
 
                 <!-- INICIO DATOS AUDIENCIA -->
                 <div id="datosConciliacion">
@@ -990,11 +929,9 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                             <div class="form-floating mb-3">
                  
                         {{ Form::select('asunto', $data['listaAsuntos'], null, ['class' => $errors->first('asunto') ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm','id'=>'asunto']) }}
-                            @if($errors->has('asunto'))
-                                <div class="invalid-feedback d-block">
-                                    {{ $errors->first('asunto') }}
-                                </div>
-                            @endif
+                            <div class="invalid-feedback asunto">
+                                Campo obligatorio.
+                            </div>
                             <label for="asunto">22. Asunto *</label>
                         </div>
                         </div>
@@ -1002,9 +939,12 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-floating mb-3">
-                                <select class="form-control form-control-sm custom-select validate[required]" name="subAsunto" id="subAsunto">
+                                <select class="form-control form-control-sm custom-select validate" name="subAsunto" id="subAsunto">
                                     <option value=" ">- Seleccione una opcion -</option>
                                 </select>
+                                <div class="invalid-feedback subasunto">
+                                    Campo obligatorio.
+                                </div>
                                 <label for="subAsunto"> 22.1. Sub Asunto *</label>
                             </div>
                          
@@ -1013,7 +953,10 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-floating mb-3">
-                                <textarea class="form-control form-control-sm validate[required, maxSize[1000]]" onkeyup="this.value=this.value.toUpperCase();" name="detalle" id="detalle" placeholder="Resumen" oninput="auto_grow(this)" maxlength="1000"  cols='30' rows='20' style="text-transform: uppercase"></textarea>
+                                <textarea class="form-control form-control-sm validate" onkeyup="this.value=this.value.toUpperCase();" name="detalle" id="detalle" placeholder="Resumen" oninput="auto_grow(this)" maxlength="1000"  cols='30' rows='30' style="text-transform: uppercase;height:150px"></textarea>
+                                <div class="invalid-feedback detalle">
+                                    Campo obligatorio.
+                                </div>
                                 <label for="detalle"> 23. Resumen de la pretensión o conflicto (Máximo 1000 caracteres)*</label>
                                 <span id="chars"></span>
                                 </div>
@@ -1032,16 +975,26 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                     </div>
 
                     <div class="row">
-                        <div class="col-md-3">
-                            <div class="form-floating mb-3">
-                                <input class="form-control form-control-sm validate" type="number" name="cuantia" id="cuantia" onkeypress = "return soloNumeros(event);" autocomplete="off" placeholder="0" min="1" max="116000000" maxlength="9">
-                                <label for="cuantia"> 24. Valor de la Cuantía *</label>
-                                <div id="test">
-                                    {{ Form::number('salario', $data['salario']->numero, ['class' => 'form-control-plaintext' ,'id'=>'salario', 'style'=>"display: none"]) }}
-                                    {{ Form::number('maximo', $data['salario']->maximo, ['class' => 'form-control-plaintext','id'=>'maximo','style'=>"display: none"]) }}
-                                </div>
+                        <div class="col-md-3 input-group mb-3">
+                            <span class="input-group-text">$</span>
+                            <div class="form-floating">
+                                <input class="form-control form-control-sm validate" type="number" name="cuantia" id="cuantia" onkeypress = "return soloNumeros(event);" autocomplete="off" placeholder="0" min="1" max={{$data['salario']->maximo}} maxlength="9">
+                     
+                              <label for="floatingInputGroup1">24. Valor de la Cuantía *</label>
+                  
+                              <div id="test">
+                                {{ Form::number('salario', $data['salario']->numero, ['class' => 'form-control-plaintext' ,'id'=>'salario', 'style'=>"display: none"]) }}
+                                {{ Form::number('maximo', $data['salario']->maximo, ['class' => 'form-control-plaintext','id'=>'maximo','style'=>"display: none"]) }}
                             </div>
-                        </div>
+                            </div>
+                            <div class="invalid-feedback cuantia">
+                                Campo obligatorio.
+                            </div>
+                            <div class="invalid-feedback valor">
+                                Valor de cuantia excedido.
+                            </div>
+                          </div>
+
                     </div>
                 </div>
                 <!-- FIN DATOS AUDIENCIA -->
@@ -1070,7 +1023,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                 <br>
                 <div class="row justify-content-md-center">
                     <div class="col-4">
-                      <button type="button" class="btn btn-success pt-2" data-bs-toggle="modal" data-bs-target="#exampleModal"> Registrar Solicitud  <i class="far fa-check-circle ms-2"></i></button>
+                      <button type="button" class="btn btn-success pt-2"  id="preregistro"> Registrar Solicitud  <i class="far fa-check-circle ms-2"></i></button>
                     </div>
                   </div>
 <br>
@@ -1096,13 +1049,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                 </div>
 
 
-                {{-- <div class="row" id="btnRegistro">
-                    <div class="col-md-4"></div>
-                    <div class="col-md-4">
-                        <button type="submit" class="btn btn-success pt-2 btn-block btn-sm "><span class="fa fa-save pr-4"> </span> Registrar Solicitud </button>
-                    </div>
-                    <div class="col-md-4"></div>
-                </div> --}}
+              
                 </center>
  
                 <div class="col-md-2"></div>
@@ -1126,23 +1073,19 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
 @section('AddScriptFooter')
 
 <script>
+
+
     //Cargar modal con mensaje de bienvenida
     $(document).ready(function() {
         modalBienvendia();
-      //  getCapchaValue();
-        validarEstadoTipoAudiencia();
         validarCcEmail();
         
         $("#frmRegistroDatos").validationEngine('attach', {
             onValidationComplete: function(form, status) {
 
                 let recaptchaToken = grecaptcha.getResponse();
-                    // console.log($('#g-recaptcha-response'));
-                    // console.log($('#recaptcha-anchor').val());
-                    // console.log($('#recaptcha-anchor').is(':checked'));
-                    // console.log($('#recaptcha-anchor').attr('value'));
-                    // console.log($('#g-recaptcha-response').attr('value'));
-                    console.log(recaptchaToken);
+                  
+                    
                 if (recaptchaToken==='') {
                     errorCaptcha();
                     return;
@@ -1176,9 +1119,68 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
             }
         });
     });
+
+    $("#preregistro").click(function() {
+        var maximo= parseInt($("#maximo").val());
+        var valor= parseInt($("#cuantia").val());
+        let recaptchaToken = grecaptcha.getResponse();
+                if( $("#asunto").val()===''){
+                    $('.invalid-feedback.asunto').show();
+                        return false;
+                }else{
+                    $('.invalid-feedback.asunto').hide();
+                }
+                if( $("#subAsunto").val()===''){
+                    $('.invalid-feedback.subasunto').show();
+                        return false;
+                }else{
+                    $('.invalid-feedback.subasunto').hide();
+                }
+
+                if( $("#detalle").val()===''){
+                    $('.invalid-feedback.detalle').show();
+                        return false;
+                }else{
+                    $('.invalid-feedback.detalle').hide();
+                }
+                if( $("#cuantia").val()===''){
+                    $('.invalid-feedback.cuantia').show();
+                        return false;
+                }else{
+                    $('.invalid-feedback.cuantia').hide();
+                } 
+
+                if (maximo < valor) {
+                    $('.invalid-feedback.valor').show();
+                    return false;
+                    }else{
+                    $('.invalid-feedback.valor').hide();
+                }
+
+                if (recaptchaToken==='') {
+                    errorCaptcha();
+                    return;
+                }else{
+                    $("#exampleModal").modal("show");
+                }
+    });
+
+    $('#cuantia').on('keyup', function() {
+        $(this).val();
+   
+        var valor= parseInt($(this).val());
+        var maximo= parseInt($("#maximo").val());
+
+        if (maximo < valor) {
+            $('.invalid-feedback.valor').show();
+                    return false;
+                    }else{
+                    $('.invalid-feedback.valor').hide();
+        }
+    });
     //Error en comparacion de email
     function errorEmailIgual() {
-        var msg = "Los correos electrónicos del solicitante en el campo 19 y 19.1 no son iguales. Por favor verifíquelos.  ";
+        var msg = "Los correos electrónicos del solicitante en el campo 20 y 20.1 no son iguales. Por favor verifíquelos.  ";
         var msg = "<center><p><i class='fas fa-times-circle fa-3x'></i></p></center>" + msg;
         llamarNotyTime('error', msg, 'center', 3000);
     }
@@ -1237,7 +1239,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
     }
     //Error en comparacion de email Apoderado
     function errorEmailIgualApod() {
-        var msg = "Los correos electrónicos del apoderado en el campo 20.11 y 20.12 no son iguales Por favor verifíquelos.  ";
+        var msg = "Los correos electrónicos del apoderado en el campo 21.11 y 21.12 no son iguales Por favor verifíquelos.  ";
         var msg = "<center><p><i class='fas fa-times-circle fa-3x'></i></p></center>" + msg;
         llamarNotyTime('error', msg, 'center', 3000);
     }
@@ -1313,20 +1315,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
     });
 
 
-    // function cuantiaVerificar(field) {
-    //     var ref = $(field),
-    //         val = ref.val();
-    //     var str = $('#cuantia').val();
-    //     var maxmo = $('#maximo').val();
-        
-    //     str = str.replace(/\+/gi, ' ');
-    //     $("#cuantia").val(str);
-    //     if (val > maxmo) {
-    //         var msg = "La pretensión no podrá ser superior a 100 SMMLV ($116,000,000), salvo que se trate de solicitudes de conciliación promovida por persona natural deudor hipotecario y por persona natural que reclame ser damnificado o victima el pago de indemnización de seguros de responsabilidad civil";
-    //         var msg = "<center><p><i class='fas fa-check-circle fa-3x'></i></p></center>" + msg;
-    //         llamarNotyTime('error', msg, 'center', 3000);
-    //     }
-    // }
+  
     //Funcion que limita la cantidad de caracteres en un campo
     function limitText(field, maxChar) {
         var ref = $(field),
@@ -1340,50 +1329,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
     
                       
                        
-//     $('#add_btn').on('click',function(){
-//      var html='';
-//      html+='<div class="row" id="lista">'
-//      html+='<div class="col-md-3">'
-//      html+='<div class="form-floating mb-3">'
-//      html+='<input type="text" class="form-control form-control-sm validate" name="nomConvocante[]" id="nomConvocante" autocomplete="off" placeholder="0">'
-//      html+='<label for="nomConvocante">Nombre completo convocado</label>'
-//      html+='<div class="invalid-feedback nomConvocante">'
-//      html+='Campo obligatorio.'
-//      html+='</div>'
-//      html+='</div>'
-//      html+='</div>'
-//      html+='<div class="col-md-3">'
-//      html+='<div class="form-floating mb-3">'
-//      html+='<input type="text" class="form-control form-control-sm validate" name="apeConvocante[]" id="apeConvocante" autocomplete="off" placeholder="0">'
-//      html+='<label for="apeConvocante">Nombre completo convocado</label>'
-//      html+='<div class="invalid-feedback apeConvocante">'
-//      html+='Campo obligatorio.'
-//      html+='</div>'
-//      html+='</div>'
-//      html+='</div>'
-//      html+='<div class="col-md-3">'
-//      html+='<div class="form-floating mb-3">'
-//      html+='<input type="email" class="form-control form-control-sm validate" name="emailConvocante[]" id="emailConU" autocomplete="off" placeholder="0">'
-//      html+='<label for="email"> Correo electronico</label>'
-//      html+='<div class="invalid-feedback emailConU">'
-//      html+='Campo obligatorio.'
-//      html+='</div>'
-//      html+='</div>' 
-//      html+='</div>'
-//     //  html+='<div class="col-md-3">'
-//     //  html+='<div class="form-floating mb-3">'
-//     //  html+='<input type="text" class="form-control form-control-sm validate" name="emailCon" id="emailConUC" autocomplete="off" placeholder="0">'
-//     //  html+='<label for="emailCon"> Confirme correo electronico</label>'
-//     //  html+='<div class="invalid-feedback emailConvocante">'
-//     //  html+='Campo obligatorio.'
-//     //  html+='</div>'
-//     //  html+='</div>' 
-//     //  html+='</div>'
-//      html+='<div class="col-md-3">'
-//      html+='<button type="button" class="btn btn-outline-danger" id="remove" style="height: 50px; width: 120px">Eliminar <i class="far fa-times-circle"></i></button>'
-//      html+='   </div>';
-//      html+='</div>'
-//      html+='</div>'
+
      
  
 
@@ -1469,13 +1415,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
         })
     }
     //Mostrar segundo convocado
-    $("#gridCheck1").change(function() {
-        if ($("#gridCheck1").is(':checked')) {
-            $("#divConvocante2").slideDown();
-        } else {
-            $("#divConvocante2").slideUp();
-        }
-    });
+
 
      $("#localidad").change(function() {
         
@@ -1506,15 +1446,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             beforeSend: function() {
-                // new Noty({
-                //     text: '<div class="d-flex justify-content-center"><div class="spinner-border" role="status"><span class="sr-only">Cargando...</span></div></div>',
-                //     //type: 'info',
-                //     layout: 'center',
-                //     theme: 'bootstrap-v4',
-                //     killer: true,
-                //     progressBar: true,
-                //     timeout: 300,
-                // }).show();
+               
             },
             success: function(opciones) {
                 $('#subAsunto')
@@ -1710,7 +1642,7 @@ var f_municipio = function(dataxxxx) {
                             currentError.text('Este correo no esta permitido.');
                             emailInput.val('');
                             emailCon.val('');
-                            correoinvalido();
+                            
                             emailInput.data('valid', false); // E
                             isValid = false; // Establece como falso si el correo está duplicado
                         } else {
@@ -1721,13 +1653,32 @@ var f_municipio = function(dataxxxx) {
                         isValid=data.valor; // Almacena el estado de validez en el atributo de datos
                     },
                     error: function() {
-                        console.error('Error en la solicitud AJAX');
+                        console.error('No se encuentran valores para verificar');
                     }
                 });
             }
        
             return isValid; // Devuelve el estado de validez
         }
+
+
+        $('#email').on('keyup', function() {
+            let email= validateEmail($("#email"),$('.email-error.email'),$("#emailCon") );
+            
+
+    });
+
+
+    $('#emailApoderado').on('keyup', function() {
+        validateEmail($("#emailApoderado"),$('.email-error.emailApoderado'),$("#emailApoderadoCon") );
+    });
+
+    
+    $('#emailConvo').on('keyup', function() {
+        validateEmail($("#emailConvo"),$('.email-error.emailConvo'),$("#emailConvo") );
+    });
+
+
 function run(hideTab, showTab){
         if(hideTab < showTab){ // If not press previous button
           // Validation if press next button
@@ -1742,7 +1693,7 @@ function run(hideTab, showTab){
                     errorEmailIgual();
                     return;
                 }
-                validateEmail($("#email"),$('.email-error.email'),$("#emailCon") );
+                
  
      
 
@@ -1757,7 +1708,7 @@ function run(hideTab, showTab){
                     return;
                 }
 
-                validateEmail($("#emailApoderado"),$('.email-error.emailApoderado'),$("#emailApoderadoCon") );
+                
                  
 
                 if ($("#tipoDocApoderado").val()==='') {
@@ -1894,7 +1845,7 @@ $('#add_btn').on('click',function(){
                  }else{
                     $('.invalid-feedback.emailConU').show();
                     $("#emailConvo").css("background", "#ffdddd");
-                    validateEmail($("#emailConvo").val(),$('.email-error.emailConvo'),$("#emailConvo").val() )
+                    
                     
                     return;
                 
@@ -1903,6 +1854,8 @@ $('#add_btn').on('click',function(){
      
      
     });
+
+
 
 
     $(document).on('click','#deletebtn',function(){
@@ -1990,33 +1943,7 @@ $('#add_btn').on('click',function(){
             //$('#edad').val(edad);
         }
 
-    //     $(".btn").click(() => {
-    //     alert('jorge');
-    //     var id = $(".btn").val();
-    //     console.log(id);
-    //     seleccionarCondicion(id);
-    // });
-
-// function seleccionarCondicion(id){
-//     console.log(id);
-//         $.ajax({
-//             url: "seleccionarCondicion",
-//             type: "POST",
-//             data: {
-//                 id: id,
-              
-//             },
-//             headers: {
-//                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-//             },
-//             success: function(id) {
-//                 console.log(id);
-//                 },
-//                 error: function(xhr, status) {
-//                     alert('Disculpe, existió un problema al cargar los municipios');
-//                 },
-//         })
-//     };
+ 
 
 
 
@@ -2029,39 +1956,8 @@ function soloNumeros(e) {
         return /\d/.test(String.fromCharCode(keynum));
     }
 
-// const formEl = document.querySelector("form");
-// const tbodyEl = document.querySelector("tbody");
-// const tableEl = document.querySelector("table");
-// function onAddWebsite(e) {
-// e.preventDefault();
-// const nomConvocante = document.getElementById("nomConvocante").value;
-// const apeConvocante = document.getElementById("apeConvocante").value;
-// const emailConU = document.getElementById("emailConU").value;
-// tbodyEl.innerHTML += `
-//             <tr>
-//                 <td name="nomConvocante[]">${nomConvocante}</td>
-//                 <td name="apeConvocante[]">${apeConvocante}</td>
-//                 <td name="emailConU[]">${emailConU}</td>
-//                 <td><button class="btn btn-danger deleteBtn">Eliminar</button></td>
-//             </tr>
-//         `;
-  
-// }
-
-// function onDeleteRow(e) {
-//         if (!e.target.classList.contains("deleteBtn")) {
-//           return;
-//         }
-
-//         const btn = e.target;
-//         btn.closest("tr").remove();
-//       }
-
-//       formEl.addEventListener("submit", onAddWebsite);
-//       tableEl.addEventListener("click", onDeleteRow);
-
 function auto_grow(element) {
-    element.style.height = "20px";
+    element.style.height = "150px";
     element.style.height = (element.scrollHeight)+"px";
 }
 document.getElementById("dire_id").hidden=true;

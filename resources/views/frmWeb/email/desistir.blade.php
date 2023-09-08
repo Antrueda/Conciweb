@@ -242,17 +242,18 @@
         <b><strong style="text-transform: uppercase;color:#0171BD" class="px-2">{{$apoderado}}</strong></b>
         <br>
     <p>
-        
-        El Centro de Conciliación de la Personería de Bogotá D.C., se permite informar que conforme al Artículo 53, de la Ley 2220 del 30 de junio de 2022, 
-        TRAS NO APORTARSE LA TOTALIDAD DE LA DOCUMENTACION Y/O INFORMACION SOLICITADA, se decreta el Desistimiento Tácito de la Solicitud de Conciliación en Línea 
-        presentada por usted y se ordena el archivo del expediente radicado bajo el numero de solicitud <b>{{$numSolicitud}} </b> de fecha {{$newDate}} 
+        El Centro de Conciliación de la Personería de Bogotá D.C., le informa que el día {{$fechaRegistro}} se recibió la solicitud de DESISTIMIENTO para la Conciliación WEB 
+        No. <b>{{$numSolicitud}} </b> registrada por usted el día {{$newDate}}. Por lo anterior, y dando alcance al Artículo 53, de la Ley 2220 del 30 de junio de 2022, 
+        se decreta DESISTIMIENTO TÁCITO de la Solicitud de Conciliación referenciada.
+
+      
 
     </p>
     @else
     <p>
-        El Centro de Conciliación de la Personería de Bogotá D.C., se permite informar que conforme al Artículo 53, de la Ley 2220 del 30 de junio de 2022, 
-        TRAS NO APORTARSE LA TOTALIDAD DE LA DOCUMENTACION Y/O INFORMACION SOLICITADA, se decreta el Desistimiento Tácito de la Solicitud de Conciliación en Línea 
-        presentada por usted y se ordena el archivo del expediente radicado bajo el numero de solicitud <b>{{$numSolicitud}} </b> de fecha {{$newDate}} 
+        El Centro de Conciliación de la Personería de Bogotá D.C., le informa que el día {{$fechaRegistro}} se recibió la solicitud de DESISTIMIENTO para la Conciliación WEB 
+        No. <b>{{$numSolicitud}} </b> registrada por usted el día {{$newDate}}. Por lo anterior, y dando alcance al Artículo 53, de la Ley 2220 del 30 de junio de 2022, 
+        se decreta DESISTIMIENTO TÁCITO de la Solicitud de Conciliación referenciada.
     </p>
 
    @endif

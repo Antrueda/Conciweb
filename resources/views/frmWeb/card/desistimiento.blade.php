@@ -152,7 +152,7 @@
                 var msg = datUsr[2];
                 if (valor == 0) {
                     var msg = "<center><p><i class='fas fa-times fa-3x'></i></p></center>" + msg;
-                    llamarNotyTime('error', msg, 'topRight', 3000);
+                    llamarNotyTime('error', msg, 'topRight', 5000);
                     $("#btnRegistro").show();
                     $('#btnRegistro').prop('disabled', false);
                 } else {

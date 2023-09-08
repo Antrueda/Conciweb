@@ -82,17 +82,7 @@ class Webcontroller extends Controller
             $nacionalidad = SisPai::combo(false, false);
        
 
-            $diasParam = ConciTiempo::firstOrNew()->tiempo;
-    
-            $consulta=ModelsTramiteusuario::whereDate('fec_solicitud_tramite', '<=', now()->subWeekdays($diasParam))
-            ->where('ESTADO_TRAMITE', 'Remitido')
-            ->where('id_tramite', 335)
-          
-            ->each(function ($consulta) use ($diasParam) {
-  
-                $consulta->realizarCambioDespuesDe5Dias($diasParam);
-            });
-
+        
             $listaCondiciones = CondicionProteccion::where('habilitado', true)
             ->select('id', 'nombre', 'descripcion', 'imagen_on', 'imagen_off','habilitado')
             ->orderBy('id', 'ASC')
@@ -434,8 +424,8 @@ class Webcontroller extends Controller
         //Datos requeridos por sistema
         $carbonDate = Carbon::now();
         $vigencia = Carbon::today()->isoFormat('YYYY');
-        $fechaRegistro = date_format($carbonDate, 'd/m/Y h:m:s');
-        $fechaRegistroA = date('d/m/Y H:i:s A');
+        $fechaRegistro = date_format($carbonDate, 'd/m/Y h:m:s A');
+        $fechaRegistroA = date('d/m/Y h:m:s A');
 
        
         $idTramite = $tramiteid->id_tramite; 
@@ -1170,6 +1160,21 @@ class Webcontroller extends Controller
 //Funcion de consulta de solicitud
     public function autosearch(Request $request)
     {
+
+        $diasParam = ConciTiempo::firstOrNew()->tiempo;
+    
+        $consulta=ModelsTramiteusuario::whereDate('fec_solicitud_tramite', '<=', now()->subWeekdays($diasParam))
+        ->where('ESTADO_TRAMITE', 'Remitido')
+        ->where('id_tramite', 335)
+      
+        ->each(function ($consulta) use ($diasParam) {
+
+            $consulta->realizarCambioDespuesDe5Dias($diasParam);
+            $this->CorreoDesistir($consulta);
+        });
+
+
+
         if ($request->ajax()) {
            
             $data = ModelsTramiteusuario::where('num_solicitud', $request->num_solicitud)->where('CODE', $request->codigo)->first();
@@ -1256,7 +1261,7 @@ class Webcontroller extends Controller
     public function Desistir($id)
     {
         $dato = ModelsTramiteusuario::where('num_solicitud', $id)->first();
-        $newDate = date("d-m-Y", strtotime($dato->fec_solicitud_tramite));  
+        $newDate = date("d/m/Y", strtotime($dato->fec_solicitud_tramite));  
         return view('frmWeb.card.desistimiento', compact('dato','id','newDate'));
     }
 
@@ -1264,15 +1269,14 @@ class Webcontroller extends Controller
 //Funcion para el cambio de estado de la conciliacion
     public function Cambioestado(Request $request, $id)
     {
-        //finalizado 20 sinproc
-        //desistir voluntario
-        //desistir automatico
-        //Finaliza por error
-        //Remitido
+
         $detalle = $request->input("desistir");
         
         $dato = ModelsTramiteusuario::where('num_solicitud', $id)->first();
         $fecha = $dato->fec_solicitud_tramite;
+        $nuevafecha = new DateTime(Carbon::now());
+        $nuevafecha = $nuevafecha->setTimezone(new DateTimeZone('America/Bogota'));
+        $nuevafecha = $nuevafecha->format("d/m/Y h:m:s");
         $newDate = date("d/m/Y h:m:s" , strtotime($fecha));   
         $nombrecompleto = $dato->primernombre . ' ' . $dato->segundonombre . ' ' . $dato->primerapellido  . ' ' . $dato->segundoapellido;
         $modelo = ModelsTramiteusuario::where('num_solicitud', $id)->update(['estado_tramite' => $detalle,'estadodoc'=>'Desistimiento Voluntario']);
@@ -1300,7 +1304,7 @@ class Webcontroller extends Controller
                     'numSolicitud' => $id,
                     'emailApoderado' => $dato->emailapoderado,
                     'apoderado' => $apoderado,
-                    'fechaRegistro' => explode(' ',$fecha)[0],
+                    'fechaRegistro' => $nuevafecha,
                     'newDate' => $newDate,
                 );
     
@@ -1331,11 +1335,13 @@ class Webcontroller extends Controller
     }
 
     public function CorreoDesistir($consulta)
-    {    
+    {  
+        
         $dato = ModelsTramiteusuario::where('num_solicitud', $consulta->num_solicitud)->first();
         $fechaRegistro = $dato->fec_solicitud_tramite;
-        $update=$dato->update_at;
-        $newDate = date("d/m/Y h:m:s" , strtotime($update));   
+
+        $newDate = date("newDate" , strtotime($fechaRegistro));   
+        
         $fechaRegistro = date("d/m/Y h:m:s" , strtotime($fechaRegistro));  
         
         $nombrecompleto = $dato->primernombre . ' ' . $dato->segundonombre . ' ' . $dato->primerapellido  . ' ' . $dato->segundoapellido;
@@ -1359,7 +1365,7 @@ class Webcontroller extends Controller
                     'numSolicitud' => $consulta->num_solicitud,
                     'emailApoderado' => $dato->emailapoderado,
                     'apoderado' => $apoderado,
-                    'fechaRegistro' => explode(' ',$fecha)[0],
+                    'fechaRegistro' => explode(' ',$fechaRegistro)[0],
                     'newDate' => $newDate,
                 );
     
@@ -1471,10 +1477,8 @@ class Webcontroller extends Controller
         $newDate = date("d/m/Y h:m:s" , strtotime($fecha));  
         $nombrecompleto = $dato->primernombre . ' ' . $dato->segundonombre . ' ' . $dato->primerapellido  . ' ' . $dato->segundoapellido;
         $apoderado = $dato->primernombreapoderado . ' ' . $dato->segundonombreapoderado . ' ' . $dato->primerapellidoapoderado  . ' ' . $dato->segundoapellidoapoderado;
-        $fechaRegistro = new DateTime(Carbon::now());
-        
-        $fechaRegistro = $fechaRegistro->setTimezone(new DateTimeZone('America/Bogota'));
-        $fechaRegistro = $fechaRegistro->format("d/m/Y h:m:s");
+        $carbonDate = Carbon::now();
+        $fechaRegistro = date_format($carbonDate, 'd/m/Y h:m:s A');
         
         $detalleAbc = Subdescripcion::where('subasu_id', $dato->subasunto)
             ->where('sis_esta_id', 1)
@@ -1524,7 +1528,8 @@ class Webcontroller extends Controller
         $email = $request->input('email');
         
         $user = ConciCorreoinv::where('email', $email)->first();
-
+ 
+        // return response()->json(['correos' => $correos]);
         if ($user) {
             return response()->json(['exists' => true,
                                     'valor' => true]);
