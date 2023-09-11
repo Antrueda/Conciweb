@@ -424,8 +424,8 @@ class Webcontroller extends Controller
         //Datos requeridos por sistema
         $carbonDate = Carbon::now();
         $vigencia = Carbon::today()->isoFormat('YYYY');
-        $fechaRegistro = date_format($carbonDate, 'd/m/Y h:m:s A');
-        $fechaRegistroA = date('d/m/Y h:m:s A');
+        $fechaRegistro = date_format($carbonDate, 'd/m/Y h:m:s');
+        $fechaRegistroA = date('d/m/Y H:i:s A');
 
        
         $idTramite = $tramiteid->id_tramite; 
@@ -593,7 +593,7 @@ class Webcontroller extends Controller
                     'asunto' => $asunto,
                     'subAsunto' => $subAsunto,
                     'tipoDocumento' => $tipoDocumento,
-                    'detalle' => DB::raw("'$detalle'"),
+                    'detalle' => $detalle,
                     'cuantia' => $cuantia,
                     'code' => DB::raw("'$code'"),
                     'fechanacimiento' => $fechanacimiento,
@@ -638,7 +638,7 @@ class Webcontroller extends Controller
                 'ID_TRAMITE' => $idTramite,
                 'ID_USUARIO_REG' => $numeroDocumento,
                 'ID_USUARIO_ADM' => $datosSolicitante->consec,
-                'FEC_SOLICITUD_TRAMITE' => DB::raw("TO_DATE('" . $fechaRegistro . "','DD/MM/YYYY HH24:MI:SS')"),
+                'fec_solicitud_tramite' => DB::raw("TO_DATE('" . $fechaRegistro . "','DD/MM/YYYY HH24:MI:SS')"),
                 'ESTADO_TRAMITE' => DB::raw("'Remitido'"),
                 'VIGENCIA' => $vigencia,
                 'OIDO_CODIGO' => 0,
@@ -673,7 +673,7 @@ class Webcontroller extends Controller
                 'NUMERO05' => $asunto,
                 'NUMERO06' => $subAsunto,
                 'NUMERO07' => $tipoDocumento,
-                'TEXTO08' => DB::raw("'$detalle'"),
+                'TEXTO08' => $detalle,
                 'NUMERO03' => $cuantia,
                 ]
             );

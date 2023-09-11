@@ -55,6 +55,8 @@ img, svg {
     float: left;
 }
 
+
+
 img {
     overflow-clip-margin: content-box;
     overflow: clip;
@@ -233,7 +235,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
 .steps-form .steps-row .steps-step p {
     margin-top: 0.5rem; }
 .steps-form .steps-row .steps-step button[disabled] {
-    opacity: 1 !important;
+    opacity: 3 !important;
     filter: alpha(opacity=100) !important; }
 .steps-form .steps-row .steps-step .btn-circle {
     width: 36px;
@@ -262,6 +264,14 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
     color: white;
 }
 
+.btn-secondary:hover .svg {
+  fill: black !important;
+}
+
+svg {
+  fill: white;
+}
+
 .btn-step{
     background-color: var(--prm-color);
     color: #fff;
@@ -273,6 +283,18 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
     
 }
 
+.btn-step:hover{
+    border-color: #0a5b42;
+    background-color: #50ae82;
+    color: #ffffff
+    
+}
+
+.text-:hover{
+    border-color: #0a5b42;
+    background-color: #ffffff;
+    
+}
 /* .btn-light:hover {
   color: #1F2D3D;
   background-color: #e2e6ea;
@@ -282,6 +304,7 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
     border-color: #2039c9;
  
 }
+
 
 
 
@@ -304,19 +327,19 @@ padding: -0.625rem 0.75rem 0.375rem 2.25rem;
     <div class="steps-form">
         <div class="steps-row setup-panel">
           <div class="steps-step">
-            <a href="#step-1" type="button" data-bs-toggle="tooltip" data-bs-title="DATOS DEL SOLICITANTE"  class="btn btn-step btn-circle" id = "step-1"><span id="text-1">1</span><i id="stepi-1" class="fas fa-check" style="display:none;"></i></a>
+            <a href="#step-1" type="button" data-bs-toggle="tooltip" data-bs-title="DATOS DEL SOLICITANTE"  class="btn btn-step btn-circle" id = "step-1"><span id="text-1"><b>1</b></span><i id="stepi-1" class="fas fa-check" style="display:none;"></i></a>
         
           </div>
           <div class="steps-step">
-            <a href="#step-2" type="button" data-bs-toggle="tooltip" data-bs-title="DATOS DEL APODERADO" class="btn btn-light btn-circle" id = "step-2" disabled="disabled"><span id="text-2">2</span><i id="stepi-2" class="fas fa-check" style="display:none;"></i></a>
+            <a href="#step-2" type="button" data-bs-toggle="tooltip" data-bs-title="DATOS DEL APODERADO" class="btn btn-light btn-circle" id = "step-2" disabled="disabled"><span id="text-2"><b>2</b></span><i id="stepi-2" class="fas fa-check" style="display:none;"></i></a>
   
           </div>
           <div class="steps-step">
-            <a href="#step-3" type="button" data-bs-toggle="tooltip" data-bs-title="DATOS DE CONVOCADOS" class="btn btn-light btn-circle"  id = "step-3" disabled="disabled"><span id="text-3">3</span><i id="stepi-3" class="fas fa-check" style="display:none;"></i></a>
+            <a href="#step-3" type="button" data-bs-toggle="tooltip" data-bs-title="DATOS DE CONVOCADOS" class="btn btn-light btn-circle"  id = "step-3" disabled="disabled"><span id="text-3"><b>3</b></span><i id="stepi-3" class="fas fa-check" style="display:none;"></i></a>
        
           </div>
           <div class="steps-step">
-            <a href="#step-4" type="button" data-bs-toggle="tooltip" data-bs-title="DATOS DE CONCILIACIÓN" class="btn btn-light btn-circle" id = "step-4" disabled="disabled"><span id="text-4">4</span><i id="stepi-4" class="fas fa-check" style="display:none;"></i></a>
+            <a href="#step-4" type="button" data-bs-toggle="tooltip" data-bs-title="DATOS DE CONCILIACIÓN" class="btn btn-light btn-circle" id = "step-4" disabled="disabled"><span id="text-4"><b>4</b></span><i id="stepi-4" class="fas fa-check" style="display:none;"></i></a>
          
           </div>
         </div>
@@ -379,7 +402,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                 </div>
                 <div class="col-md-3">
                 <div class="form-floating mb-3">
-                    <input type="number" class="form-control form-control-sm validate" id="numeroDocumento" onkeyup="this.value=this.value.toUpperCase();" name="numeroDocumento" autocomplete="off" onkeypress = "return soloNumeros(event);" required placeholder="0" minlength="4" maxlength="10" pattern="[0-9]+" >
+                    <input type="number" class="form-control form-control-sm validate" id="numeroDocumento" onkeyup="this.value=this.value.toUpperCase();"  onpaste="return false;" name="numeroDocumento" autocomplete="off" onkeypress = "return soloNumeros(event);" required placeholder="0" minlength="4" maxlength="10" pattern="[0-9]+" >
                     <label for="numeroDocumento">2. No. de documento *</label>
                     <div class="invalid-feedback numeroDocumento">
                         Campo obligatorio.
@@ -393,7 +416,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
      
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
-                    <input type="text" class="form-control form-control-sm validate" minlength="3" name="primerNombre"  onkeyup="this.value=this.value.toUpperCase();" id="primerNombre" autocomplete="off" placeholder="0" required style="text-transform: uppercase">
+                    <input type="text" class="form-control form-control-sm validate" minlength="3" name="primerNombre"  onkeyup="this.value=this.value.toUpperCase();"  onpaste="return false;" id="primerNombre" autocomplete="off" placeholder="0" minlength="3" maxlength="20"  required style="text-transform: uppercase">
                         <label for="primerNombre">3. Primer Nombre *</label>
                         <div class="invalid-feedback primerNombre">
                             Campo obligatorio.
@@ -403,13 +426,13 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
 
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm" name="segundoNombre" id="segundoNombre" onkeyup="this.value=this.value.toUpperCase();" autocomplete="off" placeholder="0" style="text-transform: uppercase" >
+                        <input type="text" class="form-control form-control-sm" name="segundoNombre" id="segundoNombre" onkeyup="this.value=this.value.toUpperCase();" autocomplete="off" onpaste="return false;"  placeholder="0" minlength="3" maxlength="20" style="text-transform: uppercase" >
                         <label for="segundoNombre">4. Segundo Nombre</label>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm validate" minlength="3" name="primerApellido" onkeyup="this.value=this.value.toUpperCase();" id="primerApellido" autocomplete="off" placeholder="0" required style="text-transform: uppercase">
+                        <input type="text" class="form-control form-control-sm validate" minlength="3" name="primerApellido" onkeyup="this.value=this.value.toUpperCase();" id="primerApellido" onpaste="return false;"  autocomplete="off" minlength="3" maxlength="20" placeholder="0" required style="text-transform: uppercase">
                         <label for="primerApellido">5. Primer Apellido*</label>
                         <div class="invalid-feedback primerApellido">
                             Campo obligatorio.
@@ -418,7 +441,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                 </div>
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm" name="segundoApellido" id="segundoApellido" onkeyup="this.value=this.value.toUpperCase();" autocomplete="off" placeholder="0" style="text-transform: uppercase">
+                        <input type="text" class="form-control form-control-sm" name="segundoApellido" id="segundoApellido" onkeyup="this.value=this.value.toUpperCase();" onpaste="return false;"  autocomplete="off" placeholder="0"  minlength="3" maxlength="20" style="text-transform: uppercase">
                         <label for="segundoApellido">6. Segundo Apellido</label>
                     </div>
                 </div>
@@ -426,7 +449,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
          
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm validate" name="primerTelefono" id="primerTelefono"  onkeypress = "return soloNumeros(event);" autocomplete="off" placeholder="0"  minlength="10" max="10" required>
+                        <input type="text" class="form-control form-control-sm validate" name="primerTelefono" id="primerTelefono"  onpaste="return false;" onkeypress = "return soloNumeros(event);" autocomplete="off" placeholder="0"  minlength="10" maxlength="10" required>
                         <label for="primerTelefono">7. Teléfono celular *</label>
                         <div class="invalid-feedback primerTelefono">
                             Campo obligatorio.
@@ -435,7 +458,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                 </div>
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm" min="7" max="10" name="segundoTelefono" id="segundoTelefono" onkeypress = "return soloNumeros(event);" autocomplete="off" minlength="10"  placeholder="0">
+                        <input type="text" class="form-control form-control-sm" min="7" maxlength="10" name="segundoTelefono" id="segundoTelefono" onpaste="return false;" onkeypress = "return soloNumeros(event);" autocomplete="off" minlength="10"  placeholder="0">
                         <label for="segundoTelefono">8. Teléfono fijo</label>
                     </div>
                 </div>
@@ -603,7 +626,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
                     
-                        <input type="email" class="form-control form-control-sm validate" style="text-transform: lowercase" name="email" id="email" autocomplete="off" placeholder="0" required>
+                        <input type="email" class="form-control form-control-sm validate" style="text-transform: lowercase" onpaste="return false;" name="email" minlength="3" maxlength="50" id="email" autocomplete="off" placeholder="0" required>
                         <label for="email"> 20. Correo electrónico *</label>
                        
                           <div class="email-error email" style="color: red;"></div>
@@ -668,7 +691,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                 </div>
                  <div class="col-md-3">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm validate" name="numDocApoderado" id="numDocApoderado" autocomplete="off" placeholder="0" onkeypress = "return soloNumeros(event);">
+                        <input type="text" class="form-control form-control-sm validate" name="numDocApoderado" onpaste="return false;" id="numDocApoderado" autocomplete="off" placeholder="0" minlength="3" maxlength="20" onkeypress = "return soloNumeros(event);">
                         <label for="numDocApoderado"> 21.2. No. de Documento *</label>
                         <div class="invalid-feedback numDocApoderado">
                             Campo obligatorio.
@@ -679,7 +702,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
 
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm validate" onkeyup="this.value=this.value.toUpperCase();" name="primerNombreApoderado" id="primerNombreApoderado" onkeyup="this.value=this.value.toUpperCase();" autocomplete="off" placeholder="0" style="text-transform: uppercase">
+                        <input type="text" class="form-control form-control-sm validate" onkeyup="this.value=this.value.toUpperCase();" onpaste="return false;"  name="primerNombreApoderado" id="primerNombreApoderado"  onkeyup="this.value=this.value.toUpperCase();" autocomplete="off" placeholder="0" minlength="3" maxlength="20" style="text-transform: uppercase">
                         <label for="primerNombreApoderado"> 21.3. Primer Nombre *</label>
                         <div class="invalid-feedback primerNombreApoderado">
                             Campo obligatorio.
@@ -689,14 +712,14 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                 </div>
                 <div class="col-md-3">
                   <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm" onkeyup="this.value=this.value.toUpperCase();" name="segundoNombreApoderado" id="segundoNombreApoderado" autocomplete="off" placeholder="0" style="text-transform: uppercase">
+                        <input type="text" class="form-control form-control-sm" onkeyup="this.value=this.value.toUpperCase();"  onpaste="return false;" name="segundoNombreApoderado" id="segundoNombreApoderado"  autocomplete="off" placeholder="0" minlength="3" maxlength="20" style="text-transform: uppercase">
                         <label for="segundoNombreApoderado"> 21.4. Segundo Nombre</label>
                     </label>
                 </div>
             </div>
                 <div class="col-md-3">
                   <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm validate" onkeyup="this.value=this.value.toUpperCase();" name="primerApellidoApoderado" id="primerApellidoApoderado" autocomplete="off" placeholder="0" style="text-transform: uppercase">
+                        <input type="text" class="form-control form-control-sm validate" onkeyup="this.value=this.value.toUpperCase();" onpaste="return false;" name="primerApellidoApoderado" id="primerApellidoApoderado"  autocomplete="off" placeholder="0" minlength="3" maxlength="20" style="text-transform: uppercase">
                         <label for="primerApellidoApoderado"> 21.5. Primer Apellido *</label>
                         <div class="invalid-feedback primerApellidoApoderado">
                             Campo obligatorio.
@@ -706,7 +729,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                 </div>
                 <div class="col-md-3">
                   <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm" onkeyup="this.value=this.value.toUpperCase();" name="segundoApellidoApoderado" id="segundoApellidoApoderado" autocomplete="off" placeholder="0" style="text-transform: uppercase">
+                        <input type="text" class="form-control form-control-sm" onkeyup="this.value=this.value.toUpperCase();" onpaste="return false;" name="segundoApellidoApoderado" id="segundoApellidoApoderado"  autocomplete="off" placeholder="0" minlength="3" maxlength="20" style="text-transform: uppercase">
                         <label for="segundoApellidoApoderado"> 21.6. Segundo Apellido</label>
                         
                     </div>
@@ -715,7 +738,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
         
                 <div class="col-md-3">
                   <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm validate"  name="tarjetaProfesional" id="tarjetaProfesional" autocomplete="off" placeholder="0" style="text-transform: uppercase" onkeypress = "return soloNumeros(event);" minlength="3" maxlength="10">
+                        <input type="text" class="form-control form-control-sm validate"  name="tarjetaProfesional" id="tarjetaProfesional" onpaste="return false;" autocomplete="off" placeholder="0" style="text-transform: uppercase" onkeypress = "return soloNumeros(event);" minlength="3" maxlength="10">
                         <label for="tarjetaProfesional"> 21.7. No. tarjeta Profesional *</label>
                         <div class="invalid-feedback tarjetaProfesional">
                             Campo obligatorio.
@@ -725,7 +748,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                 </div>
                 <div class="col-md-3">
                   <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm" onkeyup="this.value=this.value.toUpperCase();" name="direccionApoderado" id="direccionApoderado" autocomplete="off" placeholder="0" style="text-transform: uppercase">
+                        <input type="text" class="form-control form-control-sm" onkeyup="this.value=this.value.toUpperCase();" onpaste="return false;" name="direccionApoderado" id="direccionApoderado" autocomplete="off" placeholder="0" minlength="3" maxlength="50" style="text-transform: uppercase">
                         <label for="direccionApoderado"> 21.8. Dirección *</label>
                         <div class="invalid-feedback direccionApoderado">
                             Campo obligatorio.
@@ -735,7 +758,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                 </div>
                 <div class="col-md-3">
                   <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm validate" name="primerTelefonoApoderado" id="primerTelefonoApoderado" autocomplete="off" placeholder="0"  minlength="10" max="10"  maxlength="10" onkeypress = "return soloNumeros(event);">
+                        <input type="text" class="form-control form-control-sm validate" name="primerTelefonoApoderado" id="primerTelefonoApoderado" onpaste="return false;" autocomplete="off" placeholder="0"  minlength="10" max="10"  maxlength="10" onkeypress = "return soloNumeros(event);">
                         <label for="primerTelefonoApoderado"> 21.9. Teléfono Celular *</label>
                         <div class="invalid-feedback primerTelefonoApoderado">
                             Campo obligatorio.
@@ -744,7 +767,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                 </div>
                 <div class="col-md-3">
                   <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm" name="segundoTelefonoApoderado"  maxlength="10" id="segundoTelefonoApoderado" autocomplete="off" minlength="10" max="10"  maxlength="10" placeholder="0" onkeypress = "return soloNumeros(event);">
+                        <input type="text" class="form-control form-control-sm" name="segundoTelefonoApoderado"  maxlength="10" id="segundoTelefonoApoderado" onpaste="return false;" onpaste="return false;" autocomplete="off" max="10"  maxlength="10" placeholder="0" onkeypress = "return soloNumeros(event);">
                         <label for="segundoTelefonoApoderado"> 21.10. Teléfono fijo</label>
            
                     </div>
@@ -753,7 +776,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
             <div class="row">
                 <div class="col-md-6">
                   <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm validate" style="text-transform: lowercase" name="emailApoderado" id="emailApoderado" autocomplete="off" placeholder="0">
+                        <input type="text" class="form-control form-control-sm validate" style="text-transform: lowercase" name="emailApoderado" onpaste="return false;" id="emailApoderado" minlength="3" maxlength="50" autocomplete="off" placeholder="0">
                         <label for="emailApoderado"> 21.11. Correo electronico*</label>
                         <div class="invalid-feedback emailApoderado">
                             Campo obligatorio.
@@ -764,7 +787,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                 </div>
                 <div class="col-md-6">
                   <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm validate"  style="text-transform: lowercase" name="emailApoderadoCon" id="emailApoderadoCon" autocomplete="off" placeholder="0">
+                        <input type="text" class="form-control form-control-sm validate"  style="text-transform: lowercase" name="emailApoderadoCon"  id="emailApoderadoCon" autocomplete="off" placeholder="0">
                         <label for="emailApoderadoCon"> 21.12. Confirme correo electronico *</label>
                         <div class="invalid-feedback emailApoderadoCon">
                             Campo obligatorio.
@@ -783,7 +806,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
 
         <div class="row justify-content-md-center">
                 <div class="col-2">
-                     <div class="btn btn-outline-secondary " onclick="run(2, 1);" ><svg style="height: 25px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 101 101" id="left"><path  d="M50.5 16.4c-18.8 0-34.1 15.3-34.1 34.1s15.3 34.1 34.1 34.1 34.1-15.3 34.1-34.1-15.3-34.1-34.1-34.1zm0 63.4c-16.1 0-29.3-13.1-29.3-29.3s13.1-29.3 29.3-29.3 29.3 13.1 29.3 29.3-13.2 29.3-29.3 29.3z"></path><path d="M57.1 33.1c-.9-.9-2.5-.9-3.4 0L38.2 48.6c-.5.5-.7 1.1-.7 1.7s.3 1.2.7 1.7l15.5 15.5c.5.5 1.1.7 1.7.7s1.2-.2 1.7-.7c.9-.9.9-2.5 0-3.4L43.3 50.3l13.8-13.8c1-.9 1-2.4 0-3.4z"></path></svg> Anterior </div>
+                     <div class="btn btn-secondary " onclick="run(2, 1);" ><svg style="height: 25px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 101 101" id="left"><path  d="M50.5 16.4c-18.8 0-34.1 15.3-34.1 34.1s15.3 34.1 34.1 34.1 34.1-15.3 34.1-34.1-15.3-34.1-34.1-34.1zm0 63.4c-16.1 0-29.3-13.1-29.3-29.3s13.1-29.3 29.3-29.3 29.3 13.1 29.3 29.3-13.2 29.3-29.3 29.3z"></path><path d="M57.1 33.1c-.9-.9-2.5-.9-3.4 0L38.2 48.6c-.5.5-.7 1.1-.7 1.7s.3 1.2.7 1.7l15.5 15.5c.5.5 1.1.7 1.7.7s1.2-.2 1.7-.7c.9-.9.9-2.5 0-3.4L43.3 50.3l13.8-13.8c1-.9 1-2.4 0-3.4z" ></path></svg> Anterior </div>
                 </div>    
                 <div class="col-2">
                      <div class="btn btn-success pt-2 " onclick="run(2, 3);" > Siguiente  <i class="far fa-check-circle ms-2" ></i> </div>
@@ -810,7 +833,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                 <div class="row">
                     <div class="col-md-3">
                         <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm" onkeyup="this.value=this.value.toUpperCase();"  style="text-transform: uppercase" name="nomConvoc" id="nomConvoc" autocomplete="off" placeholder="0" minlength="3" >
+                        <input type="text" class="form-control form-control-sm" onkeyup="this.value=this.value.toUpperCase();"  onpaste="return false;" style="text-transform: uppercase" name="nomConvoc" id="nomConvoc" autocomplete="off" placeholder="0" minlength="3" maxlength="20" >
                             <label for="nomConvoc">Nombre(s) convocado</label>
                             <div class="invalid-feedback nomConvoc">
                                 Campo obligatorio.
@@ -819,7 +842,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                     </div>
                     <div class="col-md-3">
                         <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm" onkeyup="this.value=this.value.toUpperCase();" style="text-transform: uppercase" name="apeConvoca" id="apeConvoca" autocomplete="off" placeholder="0" minlength="3" >
+                        <input type="text" class="form-control form-control-sm" onkeyup="this.value=this.value.toUpperCase();"  onpaste="return false;" style="text-transform: uppercase" name="apeConvoca" id="apeConvoca" autocomplete="off" placeholder="0" minlength="3" maxlength="20" >
                             <label for="apeConvocante">Apellido(s) convocado</label>
                             <div class="invalid-feedback apeConvocante">
                                 Campo obligatorio.
@@ -829,7 +852,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                     <div class="col-md-4">
                         <div class="form-floating mb-6">
                         
-                            <input type="email" class="form-control form-control-sm" name="emailConvo" style="text-transform: lowercase" id="emailConvo" autocomplete="off" placeholder="0" >
+                            <input type="email" class="form-control form-control-sm" name="emailConvo" style="text-transform: lowercase" id="emailConvo" autocomplete="off" onpaste="return false;" placeholder="0" minlength="3" maxlength="50" >
                             <label for="email"> Correo electrónico</label>
                             <div class="invalid-feedback emailConU">
                                 Campo obligatorio.
@@ -884,10 +907,10 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
             <center>
             <div class="row justify-content-md-center">
                 <div class="col-2" id="audi_div">
-            <div class="btn btn-outline-secondary" onclick="run(3, 1);"  style="width: 120px"><svg style="height: 25px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 101 101" id="left"><path  d="M50.5 16.4c-18.8 0-34.1 15.3-34.1 34.1s15.3 34.1 34.1 34.1 34.1-15.3 34.1-34.1-15.3-34.1-34.1-34.1zm0 63.4c-16.1 0-29.3-13.1-29.3-29.3s13.1-29.3 29.3-29.3 29.3 13.1 29.3 29.3-13.2 29.3-29.3 29.3z"></path><path d="M57.1 33.1c-.9-.9-2.5-.9-3.4 0L38.2 48.6c-.5.5-.7 1.1-.7 1.7s.3 1.2.7 1.7l15.5 15.5c.5.5 1.1.7 1.7.7s1.2-.2 1.7-.7c.9-.9.9-2.5 0-3.4L43.3 50.3l13.8-13.8c1-.9 1-2.4 0-3.4z"></path></svg> Anterior </div>
+            <div class="btn btn-secondary" onclick="run(3, 1);"  style="width: 120px"><svg style="height: 25px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 101 101" id="left"><path  d="M50.5 16.4c-18.8 0-34.1 15.3-34.1 34.1s15.3 34.1 34.1 34.1 34.1-15.3 34.1-34.1-15.3-34.1-34.1-34.1zm0 63.4c-16.1 0-29.3-13.1-29.3-29.3s13.1-29.3 29.3-29.3 29.3 13.1 29.3 29.3-13.2 29.3-29.3 29.3z"></path><path d="M57.1 33.1c-.9-.9-2.5-.9-3.4 0L38.2 48.6c-.5.5-.7 1.1-.7 1.7s.3 1.2.7 1.7l15.5 15.5c.5.5 1.1.7 1.7.7s1.2-.2 1.7-.7c.9-.9.9-2.5 0-3.4L43.3 50.3l13.8-13.8c1-.9 1-2.4 0-3.4z"></path></svg> Anterior </div>
                 </div>
                 <div class="col-2" id="full_div">
-            <div class="btn btn-outline-secondary" onclick="run(3, 2);" style="width: 120px"><svg style="height: 25px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 101 101" id="left"><path  d="M50.5 16.4c-18.8 0-34.1 15.3-34.1 34.1s15.3 34.1 34.1 34.1 34.1-15.3 34.1-34.1-15.3-34.1-34.1-34.1zm0 63.4c-16.1 0-29.3-13.1-29.3-29.3s13.1-29.3 29.3-29.3 29.3 13.1 29.3 29.3-13.2 29.3-29.3 29.3z"></path><path d="M57.1 33.1c-.9-.9-2.5-.9-3.4 0L38.2 48.6c-.5.5-.7 1.1-.7 1.7s.3 1.2.7 1.7l15.5 15.5c.5.5 1.1.7 1.7.7s1.2-.2 1.7-.7c.9-.9.9-2.5 0-3.4L43.3 50.3l13.8-13.8c1-.9 1-2.4 0-3.4z"></path></svg> Anterior </div>
+            <div class="btn btn-secondary" onclick="run(3, 2);" style="width: 120px"><svg style="height: 25px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 101 101" id="left"><path  d="M50.5 16.4c-18.8 0-34.1 15.3-34.1 34.1s15.3 34.1 34.1 34.1 34.1-15.3 34.1-34.1-15.3-34.1-34.1-34.1zm0 63.4c-16.1 0-29.3-13.1-29.3-29.3s13.1-29.3 29.3-29.3 29.3 13.1 29.3 29.3-13.2 29.3-29.3 29.3z"></path><path d="M57.1 33.1c-.9-.9-2.5-.9-3.4 0L38.2 48.6c-.5.5-.7 1.1-.7 1.7s.3 1.2.7 1.7l15.5 15.5c.5.5 1.1.7 1.7.7s1.2-.2 1.7-.7c.9-.9.9-2.5 0-3.4L43.3 50.3l13.8-13.8c1-.9 1-2.4 0-3.4z"></path></svg> Anterior </div>
             </div>
             <div class="col-2" id="full_div">
             <div class="btn btn-success pt-2" onclick="run(3, 4);" > Siguiente  <i class="far fa-check-circle ms-2" ></i></div>
@@ -978,7 +1001,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                         <div class="col-md-3 input-group mb-3">
                             <span class="input-group-text">$</span>
                             <div class="form-floating">
-                                <input class="form-control form-control-sm validate" type="number" name="cuantia" id="cuantia" onkeypress = "return soloNumeros(event);" autocomplete="off" placeholder="0" min="1" max={{$data['salario']->maximo}} maxlength="9">
+                                <input class="form-control form-control-sm validate" type="text" onpaste="return false;" name="cuantia" id="cuantia" onkeypress = "return soloNumeros(event);" autocomplete="off" placeholder="0" min="1" max={{$data['salario']->maximo}} maxlength="9">
                      
                               <label for="floatingInputGroup1">24. Valor de la Cuantía *</label>
                   
@@ -1016,7 +1039,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
               
 
 
-                <div class="btn btn-outline-secondary" onclick="run(4, 3);" style="width: 120px"><svg style="height: 25px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 101 101" id="left"><path  d="M50.5 16.4c-18.8 0-34.1 15.3-34.1 34.1s15.3 34.1 34.1 34.1 34.1-15.3 34.1-34.1-15.3-34.1-34.1-34.1zm0 63.4c-16.1 0-29.3-13.1-29.3-29.3s13.1-29.3 29.3-29.3 29.3 13.1 29.3 29.3-13.2 29.3-29.3 29.3z"></path><path d="M57.1 33.1c-.9-.9-2.5-.9-3.4 0L38.2 48.6c-.5.5-.7 1.1-.7 1.7s.3 1.2.7 1.7l15.5 15.5c.5.5 1.1.7 1.7.7s1.2-.2 1.7-.7c.9-.9.9-2.5 0-3.4L43.3 50.3l13.8-13.8c1-.9 1-2.4 0-3.4z"></path></svg> Anterior </div> 
+                <div class="btn btn-secondary" onclick="run(4, 3);" style="width: 120px"><svg style="height: 25px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 101 101" id="left"><path  d="M50.5 16.4c-18.8 0-34.1 15.3-34.1 34.1s15.3 34.1 34.1 34.1 34.1-15.3 34.1-34.1-15.3-34.1-34.1-34.1zm0 63.4c-16.1 0-29.3-13.1-29.3-29.3s13.1-29.3 29.3-29.3 29.3 13.1 29.3 29.3-13.2 29.3-29.3 29.3z"></path><path d="M57.1 33.1c-.9-.9-2.5-.9-3.4 0L38.2 48.6c-.5.5-.7 1.1-.7 1.7s.3 1.2.7 1.7l15.5 15.5c.5.5 1.1.7 1.7.7s1.2-.2 1.7-.7c.9-.9.9-2.5 0-3.4L43.3 50.3l13.8-13.8c1-.9 1-2.4 0-3.4z"></path></svg> Anterior </div> 
                 <br>
                 <br>
                 {!! htmlFormSnippet() !!}
@@ -1185,6 +1208,12 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
         llamarNotyTime('error', msg, 'center', 3000);
     }
 
+    function cuantiaVerificar() {
+        var msg = "Los correos electrónicos del solicitante en el campo 20 y 20.1 no son iguales. Por favor verifíquelos.  ";
+        var msg = "<center><p><i class='fas fa-times-circle fa-3x'></i></p></center>" + msg;
+        llamarNotyTime('error', msg, 'center', 3000);
+    }
+
     function correoinvalido() {
         var msg = "El correo ingresado no es valido.  ";
         var msg = "<center><p><i class='fas fa-times-circle fa-3x'></i></p></center>" + msg;
@@ -1272,6 +1301,15 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
             e.preventDefault();
         });
     }
+
+        window.onload = () => {
+        const cuantia = document.getElementById('cuantia');
+        cuantia.onpaste = e => e.preventDefault();
+        const primerTelefono = document.getElementById('primerTelefono');
+        primerTelefono.onpaste = e => e.preventDefault();
+        }
+        
+      
     //Validar si el estado tipo de audiencia esta o no activo
     function validarEstadoTipoAudiencia() {
         let indicadorTipoAudi = $('#estadoTipoAudi').val();
@@ -1955,6 +1993,7 @@ function soloNumeros(e) {
             return true;
         return /\d/.test(String.fromCharCode(keynum));
     }
+
 
 function auto_grow(element) {
     element.style.height = "150px";
