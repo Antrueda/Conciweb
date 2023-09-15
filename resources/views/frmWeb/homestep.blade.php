@@ -369,8 +369,8 @@ svg {
                                        
                   
                     
-                   <small> <b>DIRECTO POR EL SOLICITANTE:</b> Cuando se actúa a título propio, sin intermediación de un abogado <br>
-                    <b>MEDIANTE APODERADO:</b> Cuando se actúa a través de PODER ESPECIAL otorgado únicamente a un abogado; a menos que se cuente con un PODER GENERAL OTORGADO MEDIANTE ESCRITURA PUBLICA</small>
+                   <small> <b>DIRECTO POR EL SOLICITANTE:</b> Cuando se actúa a título propio, sin intermediación de un abogado. <br>
+                    <b>MEDIANTE APODERADO:</b> Cuando se actúa a través de PODER ESPECIAL otorgado únicamente a un abogado; a menos que se cuente con un PODER GENERAL OTORGADO MEDIANTE ESCRITURA PUBLICA.</small>
             </div>
    
                 </div> 
@@ -799,7 +799,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
         <br>
         <div class="row justify-content-md-center">
             <div class="alert alert-warning text-justify" role="alert" style=";">
-                Recuerde que debe adjuntar el PODER ESPECIAL PARA CONCILIAR, el cual debe estar <b>DIRIGIDO AL CENTRO DE CONCILIACIÓN DE LA PERSONERÍA DE BOGOTÁ D.C.</b>. y firmado por poderdante (s) y apoderado (s) o el PODER GENERAL OTORGADO MEDIANTE ESCRITURA PUBLICA, según sea el caso
+                Recuerde que debe adjuntar el PODER ESPECIAL PARA CONCILIAR, el cual debe estar <b>DIRIGIDO AL CENTRO DE CONCILIACIÓN DE LA PERSONERÍA DE BOGOTÁ D.C.</b>. y firmado por poderdante (s) y apoderado (s) o el PODER GENERAL OTORGADO MEDIANTE ESCRITURA PUBLICA, según sea el caso.
             </div>
         </div>
     </div>

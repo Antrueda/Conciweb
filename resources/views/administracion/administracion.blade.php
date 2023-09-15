@@ -7,7 +7,7 @@
   
   <p class="fs-5 text-center color_titulo fw-bold">SELECCIONE LA ADMINISTRACCION DE INTERÉS</p>
 
-  <div class="row">
+  {{-- <div class="row">
       <div class="col-sm-6">
           <div class="card rounded-3 shadow card-acceso">
               <div class="card-body">
@@ -40,7 +40,7 @@
               </div>
           </div>
       </div>
-  </div>
+  </div> --}}
   <div class="row mt-5">
       <div class="col-sm-6">
           <div class="card rounded-3 shadow card-acceso">

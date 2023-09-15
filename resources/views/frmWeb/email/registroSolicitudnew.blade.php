@@ -148,7 +148,7 @@
     
 </div>
 <div class='saludo'>
-    <p>Cordial saludo 
+    <p>Cordial saludo, 
         <br><b><strong class="px-2" style="text-transform: uppercase;color:#0171BD" class="px-2">{{$nombrecompleto}}</strong></b>
         <br>
         @if (isset($emailApoderado) && !empty($emailApoderado)) 
@@ -161,7 +161,7 @@
     </p>
     <p>
         Su cuenta de correo electrónico ha sido autorizada para recibir la información necesaria para continuar con su requerimiento, 
-        por ello para el trámite solicitado debe  <strong>ADJUNTAR LOS SIGUIENTES DOCUMENTOS EN EL TÉRMINO MÁXIMO DE CINCO (5) DIAS HÁBILES:</strong>
+        por ello para el trámite solicitado debe  <b>ADJUNTAR LOS SIGUIENTES DOCUMENTOS EN EL TÉRMINO MÁXIMO DE CINCO (5) DIAS HÁBILES:</b>
     </p>
     
     <div class="row">
@@ -192,12 +192,7 @@
         <center>
        
        <br>
-       {{-- <a class="btn-perso"  type="button" href="https://conciwebv2.personeriabogota.gov.co/search">Adjuntar Documentos</a> --}}
        <div>
-       {{-- <a class="btn-perso" style="vertical-align: bottom;" type="button" href="https://conciweb2-dev.personeriabogota.gov.co/search">Adjuntar Documentos <img style="    vertical-align: middle;
-        padding-top: 2px;
-        padding-bottom: -23px;
-        padding-bottom: 4px;" width="25" height="25" src="https://img.icons8.com/windows/32/FFFFFF/file-upload.png" alt="file-upload"/></a> --}}
                <a class="btn-perso" style="vertical-align: bottom;" type="button" href="https://conciwebv2.personeriabogota.gov.co/search">Adjuntar Documentos <img style="    vertical-align: middle;
                 padding-top: 2px;
                 padding-bottom: -23px;

@@ -1199,9 +1199,9 @@ class Webcontroller extends Controller
               
                 $output .= '</div>';
                 //Validacion de estado "adjunto", devuelve mensaje y no deja ingresar al formulario de adjuntos
-            } else if($data->estadodoc=='adjunto') {
+            } else if($data->estadodoc=='Finalizado Adjuntos') {
              
-                $output .= '<br><p style="width:90%;margin:auto;" class="alert alert-success"><i class="fa-regular fa-circle-check fa-2xl"></i>' . '<span style="padding:8px;font-size: 1.2rem;"> El proceso de adjuntar documentos finalizó el día '.date("d-m-Y", strtotime($data->updated_at)) . '</span></p>';
+                $output .= '<br><p style="width:90%;margin:auto;" class="alert alert-success"><i class="fa-regular fa-circle-check fa-2xl"></i>' . '<span style="padding:8px;font-size: 1.2rem;"> El proceso de adjuntar documentos finalizó el día '.date("d/m/Y", strtotime($data->updated_at)) . '</span></p>';
                 //Validacion de estado "Cancelado", devuelve mensaje y no deja ingresar al formulario de adjuntos
             }else if($data->estadodoc=='Desistimiento Voluntario'||$data->estadodoc=='Desistimiento Automatico') {
                 $output .= '<br><p style="width:90%;margin:auto;" class="alert alert-warning"><i class="fa-solid fa-triangle-exclamation fa-2xl"></i>' . '<span style="padding:8px;font-size: 1.2rem;"> Se realizo desistimiento a la Solicitud de Conciliación ' . '</span></p>';
@@ -1328,7 +1328,7 @@ class Webcontroller extends Controller
 
 
             //return redirect('https://www.personeriabogota.gov.co/');
-            return '|1|Se confirma el Desistimiento a la Solicitud de Conciliación vía WEB No. <b> '.$id.'</b> registrada el día '.explode(' ',$fecha)[0];
+            return '|1|Se confirma el Desistimiento a la Solicitud de Conciliación vía WEB No. <b> '.$id.'</b> registrada el día '.$nuevafecha;
         } else {
             return '|0| 3.0) test: </br>';
         }
@@ -1340,7 +1340,7 @@ class Webcontroller extends Controller
         $dato = ModelsTramiteusuario::where('num_solicitud', $consulta->num_solicitud)->first();
         $fechaRegistro = $dato->fec_solicitud_tramite;
 
-        $newDate = date("newDate" , strtotime($fechaRegistro));   
+        $newDate = date("d/m/Y h:m:s" , strtotime($fechaRegistro));   
         
         $fechaRegistro = date("d/m/Y h:m:s" , strtotime($fechaRegistro));  
         
@@ -1466,7 +1466,7 @@ class Webcontroller extends Controller
             return '|0| 0.2) Problema al actualizar el numero asignado por el sistema' . $e->getMessage();
         }
         $solicitud = ModelsTramiteusuario::where('num_solicitud', $id)->update([
-            'estadodoc' => 'adjunto'
+            'estadodoc' => 'Finalizado Adjuntos','estado_tramite' => 'Finalizado'
          ]);
      
 
