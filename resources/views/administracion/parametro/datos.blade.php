@@ -1,10 +1,10 @@
 <div class="card card-outline card-secondary">
     <div class="card-header">
         <h3 class="card-title">
-            Datos
+            
             @can('parametro-crear')
-                <a class="btn btn-sm btn-primary ml-2" title="Nuevo" href="{{ route('parametro.nuevo') }}">
-                    Nuevo
+                <a class="btn btn-sm btn-success ml-2" title="Nuevo" href="{{ route('parametro.nuevo') }}">
+                    Nuevo Parametro
                 </a>
             @endcan
         </h3>
@@ -12,14 +12,20 @@
     <div class="card-body">
         @canany(['parametro-leer','parametro-crear','parametro-editar','parametro-borrar'])
             <form class="form-inline pb-3" action="{{ route('parametro') }}" method="get">
-                <div class="form-group">
-                    <input type="text" class="form-control" name="buscar" value="{{ $buscar }}" placeholder="Texto a buscar">
+                <div class="form-group row d-flex">
+                    <div class="col-3 " >
+                  
+                        <input type="text" class="form-control" name="buscar" value="{{ $buscar }}" placeholder="Buscar">
+                    </div>
+                    <div class="col-3">
+                        
+                        <button type="submit" class="btn btn-primary" title="Buscar">Buscar</button>
                 </div>
-                <button type="submit" class="btn btn-primary ml-2" title="Buscar">Buscar</button>
+                </div>
+      
             </form>
             @if(count($datos)>0)
-                <div class="table-responsive">
-                    <table class="table table-bordered table-striped table-hover table-sm">
+                    <table class="table table-striped table-bordered" style="--bs-table-striped-bg:#F5F9FC" id="tablita" >
                         <thead>
                             <tr class="text-center">
                                 @canany(['parametro-editar','parametro-borrar'])
@@ -36,7 +42,7 @@
                                     @canany(['parametro-editar','parametro-borrar'])
                                         <td class='text-center'>
                                             @can('parametro-editar')
-                                                <a class="btn btn-sm btn-primary" title="Editar" href="{{ route('parametro.editar', $d->id) }}">
+                                                <a class="btn btn-sm btn-success" title="Editar" href="{{ route('parametro.editar', $d->id) }}">
                                                     Editar
                                                 </a>
                                             @endcan
@@ -60,11 +66,19 @@
                             @endforeach
                         </tbody>
                     </table>
-                </div>
-                {{ $datos->appends(['buscar' => $buscar])->links() }}
+              
+                {{-- {{ $datos->appends(['buscar' => $buscar])->links() }} --}}
             @else
                 <p>No hay datos</p>
             @endif
         @endcanany
     </div>
 </div>
+<script>
+    var table ='';
+    $(document).ready(function() {
+
+
+
+ } );
+ </script>

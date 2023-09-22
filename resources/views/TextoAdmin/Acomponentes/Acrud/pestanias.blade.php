@@ -1,4 +1,4 @@
-@extends('../mainUsrWeb')
+@extends('../mainAdmin')
 @section('content')
     @component($todoxxxx["rutacarp"].'Acomponentes.tabsxxxx.index',['todoxxxx'=>$todoxxxx])
         @slot('crudxxxx')

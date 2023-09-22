@@ -16,7 +16,7 @@
             <div class="col-md-10 offset-1">
                 <div class="card">
                     <div class="card-header">
-                        <h5>Por favor ingrese el numero de solicitud y el codigo correspondiente</h5>
+                        <h5>Por favor ingrese el numero de cedula</h5>
                     </div>
                     <div class="card-body">
                         <div class="row">

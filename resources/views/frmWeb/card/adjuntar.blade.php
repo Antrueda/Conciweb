@@ -421,7 +421,7 @@
 
 <div class="row">
   <div class="col-md-4" style="padding-left: 15%;margin-top:10px;margin-left:30%">
-    <button type="button" class="btn btn-outline-success btn-block btn-sm" data-bs-toggle="modal" id="registro" >  Registrar Adjuntos  <span class="fas fa-upload"> </span></button>
+    <button type="button" class="btn btn-outline-success btn-block btn-sm" data-bs-toggle="modal" id="registro" >  Registrar Adjuntos  <span class="fas fa-upload ms-2"> </span></button>
   </div>
 </div>
 
@@ -439,8 +439,8 @@
       
       <div class="modal-footer">
 
-        <button type="submit" class="btn btn-outline-success" id="submits"><span class="fas fa-upload"> </span> Si</button>
-        <button type="button" class="btn btn-outline-danger" id="" data-bs-dismiss="modal"><i class="fas fa-times"></i> No</button>
+        <button type="submit" class="btn btn-outline-success" id="submits"><span class="fas fa-upload ms-2"> </span> Si</button>
+        <button type="button" class="btn btn-outline-danger" id="" data-bs-dismiss="modal"><i class="fas fa-times ms-2"></i> No</button>
  
       </div>
     </div>
@@ -499,7 +499,7 @@ $(document).ready(function() {
           var alertId = '#archivoAlert' + index;
 
           if (archivo === '') {
-              $(alertId).text('Debes adjuntar este archivo.');
+              $(alertId).text('Documento obligatorio.');
               $(alertId).show();
               missingFiles.push(index);
               event.preventDefault();

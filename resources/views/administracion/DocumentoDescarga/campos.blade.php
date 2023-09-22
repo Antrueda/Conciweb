@@ -7,14 +7,14 @@
 	@if($accion == 'Nuevo')
 		@can('permiso-crear')
 		<center>
-			{{ Form::submit('Guardar', ['class' => 'btn btn-primary','style'=>'width: 120px']) }}
+			{{ Form::submit('Guardar', ['class' => 'btn btn-success','style'=>'width: 120px']) }}
 		</center>
 		@endcan
 	@endif
 	@if($accion == 'Editar')
 
 		<center>
-			{{ Form::submit('Modificar', ['class' => 'btn btn-primary', 'style'=>'width: 120px']) }}
+			{{ Form::submit('Modificar', ['class' => 'btn btn-success', 'style'=>'width: 120px']) }}
 		</center>
 
 	@endif

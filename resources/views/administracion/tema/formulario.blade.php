@@ -26,10 +26,16 @@
             </div>
             <div class="card-body">
                 <form class="form-inline pb-3" action="{{ route('tema.editar', $dato->id) }}" method="get">
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="buscar" value="{{ $buscar }}" placeholder="Texto a buscar">
+                    <div class="form-group row d-flex">
+                        <div class="col-3 " >
+                      
+                            <input type="text" class="form-control" onkeyup="this.value=this.value.toUpperCase();" name="buscar" value="{{ $buscar }}" placeholder="Buscar">
+                        </div>
+                        <div class="col-3">
+                            
+                            <button type="submit" class="btn btn-primary" title="Buscar">Buscar</button>
                     </div>
-                    <button type="submit" class="btn btn-primary ml-2" title="Buscar">Buscar</button>
+                    </div>
                 </form>
                 @if(count($parametros)>0)
                     <div class="table-responsive">
@@ -65,7 +71,7 @@
                             </tbody>
                         </table>
                     </div>
-                    {{ $parametros->appends(['buscar' => $buscar])->links() }}
+                    
                 @else
                     <p>No hay datos</p>
                 @endif

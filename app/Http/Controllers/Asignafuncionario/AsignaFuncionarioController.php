@@ -63,7 +63,7 @@ class AsignaFuncionarioController extends Controller
             $data = User::where('CEDULA', $request->cedula)->get();
 
          
-            $roles =$data->roles()->sync($request->input('roles'));
+            
             $output = '';
             if (count($data) > 0) {
                 $output = '<ul class="list-group" style="display: block; position: relative; z-index: 1">';
@@ -121,8 +121,8 @@ class AsignaFuncionarioController extends Controller
     public function asignar(Request $request, $id)
     {
         $dato = User::where('cedula', $id)->first();
-        $roles =$dato->roles()->sync($request->input('roles'));
-
+        //$roles =$dato->roles()->sync($request->input('roles'));
+        $dato->assignRole('super-administrador');
         $correo = $request->input("correo");
         $arrayxx =
                     [
@@ -139,7 +139,7 @@ class AsignaFuncionarioController extends Controller
 
 
         $modelo = ConciReferente::create($arrayxx);
-        return redirect()->route('asignafun')->with('info', 'Registro actualizado con éxito');
+        return redirect()->route('asignafun');
         
     }
 
@@ -182,7 +182,7 @@ class AsignaFuncionarioController extends Controller
         "email" =>  $modeloxx->email,
         "fechafin" =>  $fechafin,]);
         
-        return redirect()->route('asignafun')->with('info', 'Registro actualizado con éxito');
+        return redirect()->route('asignafun');
 
     }
 

@@ -1,4 +1,4 @@
-<div class="container">
+
 <div class="card card-outline card-secondary" >
     <div class="card-header">
         <h3 class="card-title">
@@ -15,7 +15,7 @@
     <div class="card-body" >
         @canany($todoxxxx['permtabl'])
         <div class="table-responsive">
-            <table id="{{ $tableName }}" class="table table-striped table-bordered" >
+            <table id="{{ $tableName }}" class="table table-striped table-bordered" style="--bs-table-striped-bg:#F5F9FC" >
                 <thead>
 
                     @foreach( $todoxxxx['cabecera'] as $cabecera )
@@ -30,5 +30,4 @@
         </div>
         @endcanany
     </div>
-</div>
 </div>

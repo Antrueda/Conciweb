@@ -1,25 +1,38 @@
+<style>
+    .badge {
+        color: black; 
+    }
+</style>
+
 <div class="card card-outline card-secondary">
     <div class="card-header">
         <h3 class="card-title">
-            Datos
+            
             @can('tema-crear')
-                <a class="btn btn-sm btn-primary ml-2" title="Nuevo" href="{{ route('tema.nuevo') }}">
-                    Nuevo
+                <a class="btn btn-sm btn-success ml-2" title="Nuevo" href="{{ route('tema.nuevo') }}">
+                    Nuevo Tema
                 </a>
             @endcan
         </h3>
     </div>
     <div class="card-body">
         @canany(['tema-leer','tema-crear','tema-editar','tema-borrar'])
-            <form class="form-inline pb-3" action="{{ route('tema') }}" method="get">
-                <div class="form-group">
-                    <input type="text" class="form-control" name="buscar" value="{{ $buscar }}" placeholder="Texto a buscar">
+        <form class="form-inline pb-3" action="{{ route('parametro') }}" method="get">
+            <div class="form-group row d-flex">
+                <div class="col-3 " >
+              
+                    <input type="text" class="form-control" name="buscar" value="{{ $buscar }}" placeholder="Buscar">
                 </div>
-                <button type="submit" class="btn btn-primary ml-2" title="Buscar">Buscar</button>
-            </form>
+                <div class="col-3">
+                    
+                    <button type="submit" class="btn btn-primary" title="Buscar">Buscar</button>
+            </div>
+            </div>
+  
+        </form>
             @if(count($datos)>0)
                 <div class="table-responsive">
-                    <table class="table table-bordered table-striped table-hover table-sm">
+                    <table class="table table-striped table-bordered" style="--bs-table-striped-bg:#F5F9FC" id="tablita" >
                         <thead>
                             <tr class="text-center">                                
                                 @canany(['tema-editar','tema-borrar'])
@@ -38,7 +51,7 @@
                                     
                                         <td class='text-center'>
                                             @can('tema-editar')
-                                                <a class="btn btn-sm btn-primary" title="Editar" href="{{ route('tema.editar', $d->id) }}">
+                                                <a class="btn btn-sm btn-success" title="Editar" href="{{ route('tema.editar', $d->id) }}">
                                                     Editar
                                                 </a>
                                             @endcan
@@ -77,3 +90,4 @@
         @endcanany
     </div>
 </div>
+

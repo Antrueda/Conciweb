@@ -1190,10 +1190,10 @@ class Webcontroller extends Controller
                     $id = $data->num_solicitud;
                     $output .= '<div class="col-md-4">
                     
-                    <a class="btn btn-outline-secondary" data-bs-toggle="modal" id="mediumButton" data-target="#mediumModal" data-attr="' . route('desistir', ['id' => $id]) . '" > Desistimiento del proceso    <i class="fa-regular fa-file-excel"></i></a>
+                    <a class="btn btn-outline-secondary" data-bs-toggle="modal" id="mediumButton" data-target="#mediumModal" data-attr="' . route('desistir', ['id' => $id]) . '" > Desistimiento del proceso    <i class="fa-regular fa-file-excel ms-2"></i></a>
                     </div>
                     <div class="col-md-4">
-                    <a href="' . route('adjuntar', ['id' => $id]) . '" class="btn btn-outline-success">Adjuntar Documentos  <i class="fas fa-folder-plus"></i></a> 
+                    <a href="' . route('adjuntar', ['id' => $id]) . '" class="btn btn-outline-success pt-2">Adjuntar Documentos  <i class="fas fa-folder-plus ms-2"></i></a> 
                     </div>
                     ';
               
@@ -1220,6 +1220,11 @@ class Webcontroller extends Controller
 
         //Cargo de los datos de solicitud
         $dato = ModelsTramiteusuario::where('num_solicitud', $id)->first();
+        
+        if($dato->estadodoc!=''){
+               return redirect('https://www.personeriabogota.gov.co/');
+        }
+
         $tipodedocumento=Parametro::where('id', $dato->tipodocumento)->first()->nombre;
         $tiposolicitud= $dato->tiposolicitud;
         $nombrecompleto = $dato->primernombre . ' ' . $dato->segundonombre . ' ' . $dato->primerapellido  . ' ' . $dato->segundoapellido;

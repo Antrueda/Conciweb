@@ -61,7 +61,7 @@ class ParametroController extends Controller{
             ->when(request('buscar'), function($q, $buscar){
                 return $q->orWhere('nombre', 'like', '%'.$buscar.'%')->orWhere('id','like','%'.$buscar.'%');
             })
-            ->orderBy('nombre')->paginate(10);
+            ->orderBy('nombre')->paginate(50);
     }
 
     protected function validator(array $data){

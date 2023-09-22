@@ -13,17 +13,22 @@
       	</div>
     @endif
 </div>
-<div class="row">
-	@if($accion == 'Nuevo')
-		@can('permiso-crear')
-			{{ Form::submit('Guardar', ['class' => 'btn btn-primary']) }}
-		@endcan
-	@endif
-	@if($accion == 'Editar')
-		@can('permiso-editar')
-			{{ Form::submit('Modificar', ['class' => 'btn btn-primary']) }}
-		@endcan
-	@endif
+<br>
+<div class="row justify-content-md-center">
+	<div class="col-2" >
+		@if($accion == 'Nuevo')
+			@can('permiso-crear')
+				{{ Form::submit('Guardar', ['class' => 'btn btn-success','style'=>'width: 120px']) }}
+			@endcan
+		@endif
+	</div>
+	<div class="col-2" >
+		@if($accion == 'Editar')
+			@can('permiso-editar')
+				{{ Form::submit('Guardar', ['class' => 'btn btn-success ml-2','style'=>'width: 120px']) }}
+			@endcan
+		@endif
+	</div>
 	@if($accion == 'Ver')
 		@can('permiso-borrar')
 			{!! Form::open(['route' => ['parametro.ver', $dato->id], 'method' => 'DELETE']) !!}
@@ -35,5 +40,7 @@
         	{!! Form::close() !!}
 		@endcan
 	@endif
+	<div class="col-2" >
     <a class="btn btn-primary ml-2" href="{{ route('parametro') }}">Regresar</a>
+</div>
 </div>

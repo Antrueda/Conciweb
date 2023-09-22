@@ -125,32 +125,6 @@
     justify-content: flex-start;
 }
 
-.footer{
-  z-index:200;
-  font-family: PublicSans-custom !important;
-   background-color: #003E65 !important; */
-    background: rgb(0,40,68);
-    background: -moz-linear-gradient(90deg, rgba(0,40,68,1) 0%, rgba(0,45,76,1) 33%, rgba(33,97,140,0.9360119047619048) 50%, rgba(0,45,76,1) 65%, rgba(0,40,68,1) 100%);
-    background: -webkit-linear-gradient(90deg, rgba(0,40,68,1) 0%, rgba(0,45,76,1) 33%, rgba(33,97,140,0.9360119047619048) 50%, rgba(0,45,76,1) 65%, rgba(0,40,68,1) 100%);
-    background: linear-gradient(90deg, rgba(0,40,68,1) 0%, rgba(0,45,76,1) 33%, rgba(33,97,140,0.9360119047619048) 50%, rgba(0,45,76,1) 65%, rgba(0,40,68,1) 100%);
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    height: 42px;
-    color: white;
-    /* font-size: 75%; */
-    font-size: 0.73rem;
-    font-weight: 500;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    letter-spacing: 0.093em;
-    word-spacing: 0.12em;
-    
-    /* padding-top: 5px; */
-    
-    /* margin-top: 5px; */
-}
         </style>
         
     @yield('AddScritpHeader')
@@ -260,7 +234,28 @@
 
     {{-- @livewireScripts --}}
     </body>
-    <footer class="footer" >© 2023 Copyright <img  src="{{asset('imagen/escBta39.png')}}"  style="margin-right:22px; margin-left:22px;"  alt="logo">Personería de Bogotá D.C.</footer>
+    <footer style="font-family: PublicSans-custom !important;
+   background-color: #003E65 !important; */
+    background: rgb(0,40,68);
+    background: -moz-linear-gradient(90deg, rgba(0,40,68,1) 0%, rgba(0,45,76,1) 33%, rgba(33,97,140,0.9360119047619048) 50%, rgba(0,45,76,1) 65%, rgba(0,40,68,1) 100%);
+    background: -webkit-linear-gradient(90deg, rgba(0,40,68,1) 0%, rgba(0,45,76,1) 33%, rgba(33,97,140,0.9360119047619048) 50%, rgba(0,45,76,1) 65%, rgba(0,40,68,1) 100%);
+    background: linear-gradient(90deg, rgba(0,40,68,1) 0%, rgba(0,45,76,1) 33%, rgba(33,97,140,0.9360119047619048) 50%, rgba(0,45,76,1) 65%, rgba(0,40,68,1) 100%);
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 42px;
+    color: white;
+    /* font-size: 75%; */
+    font-size: 0.73rem;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    letter-spacing: 0.093em;
+    word-spacing: 0.12em;
+    /* padding-top: 5px; */
+    
+    /* margin-top: 5px; */}">© 2023 Copyright <img  src="{{asset('imagen/escBta39.png')}}"  style="margin-right:22px; margin-left:22px;"  alt="logo">Personería de Bogotá D.C.</footer>
     {{-- <div class="text-center text-secondary" style="margin-top: -20px; font-size: 80%;">
       © 2022 Copyright:<img style="margin-right: 2px; margin-left: 7px;" src="imagen/escBta.png" alt=""> Personería de Bogotá D.C.
     </div> --}}
@@ -321,47 +316,7 @@
 <script src="{{asset('js/popoversController.js')}}"></script>
 
 @yield('AddScriptFooter')
-<script>
-  
-    @if(Session::has('message'))
-    toastr.options =
-    {
-      "closeButton" : true,
-      "progressBar" : true
-    }
-          toastr.success("{{ session('message') }}");
-    @endif
-  
-    @if(Session::has('error'))
-    toastr.options =
-    {
-      "closeButton" : true,
-      "progressBar" : true
-    }
-          toastr.error("{{ session('error') }}");
-    @endif
-  
-    @if(Session::has('info'))
-    toastr.options =
-    {
-      "closeButton" : true,
-      "progressBar" : true
-    }
-          toastr.info("{{ session('info') }}");
-    @endif
-  
-    @if(Session::has('warning'))
-    toastr.options =
-    {
-      "closeButton" : true,
-      "progressBar" : true
-    }
-          toastr.warning("{{ session('warning') }}");
-    @endif
 
-
-    
-  </script>
 
 
 </html>

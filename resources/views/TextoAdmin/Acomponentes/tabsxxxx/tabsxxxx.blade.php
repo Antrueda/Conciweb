@@ -1,7 +1,5 @@
 <div class="card card-outline card-secondary">
-    <div class="card-header">
-        {{$todoxxxx['tituhead']}}
-    </div>
+
     <div class="card-header p-2">
         <ul class="nav nav-tabs">
             @foreach($todoxxxx['pestania'] as $pestania)

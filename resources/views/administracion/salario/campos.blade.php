@@ -1,5 +1,5 @@
 <div class="form-group row{{ $errors->first('nombre') ? ' is-invalid' : '' }}">
-	{{ Form::label('nombre', 'Numero:', ['class' => 'col-sm-2 col-form-label']) }}
+	{{ Form::label('nombre', 'Salario Minimo:', ['class' => 'col-sm-2 col-form-label']) }}
 	<div class="col-sm-10">
 		@if($accion == 'Ver')
 			{{ Form::text('numero', $dato->numero, ['class' => 'form-control-plaintext']) }}
@@ -30,12 +30,15 @@
     @endif
 </div>
 <br>
-<div class="row">
+<div class="row justify-content-md-center">
+	<div class="col-2" >
 	@if($accion == 'Nuevo')
 		@can('permiso-crear')
 			{{ Form::submit('Guardar', ['class' => 'btn btn-success']) }}
 		@endcan
 	@endif
+</div>
+<div class="col-2" >
 	@if($accion == 'Editar')
 		@can('permiso-editar')
 		<center>
@@ -43,6 +46,7 @@
 		</center>
 		@endcan
 	@endif
+</div>
 	@if($accion == 'Ver')
 		@can('permiso-borrar')
 			{!! Form::open(['route' => ['salario.ver', $dato->id], 'method' => 'DELETE']) !!}
@@ -54,5 +58,7 @@
         	{!! Form::close() !!}
 		@endcan
 	@endif
-
+	<div class="col-2" >
+		<a class="btn btn-primary ml-2" href="{{ route('admin') }}">Regresar</a>
+	</div>
 </div>

@@ -51,10 +51,13 @@
             <div class="row" id="divobserva">
               <div class="col-md-12">
                   <div class="form-floating mb-3">
-                      <textarea class="form-control form-control-sm validate[required, maxSize[1000]]" name="observaciones" id="observaciones" placeholder="Resumen"  maxlength="1000"  style="height: 124px;" required></textarea>
+                      <textarea class="form-control form-control-sm validate[required, maxSize[1000]]" name="observaciones" id="observaciones" placeholder="Resumen"  maxlength="1000"  style="height: 124px;"></textarea>
                       <label for="detalle"> Observaciones*</label>
                       <span id="chars"> </span>
                       </div>
+                      <div class="invalid-feedback observaciones">
+                        Campo obligatorio.
+                    </div>
    
               </div>
           </div>
@@ -62,7 +65,7 @@
             <div class="modal-footer" style="justify-content: center;">
           
               <div class="row" id="botondiv">
-              <button type="" class="btn btn-success" id="btnRegistro"  > Si, confirmo desistimiento   <i class="far fa-check-circle"></i></button>
+              <button type="" class="btn btn-success" id="btnRegistro"  > Si, confirmo desistimiento   <i class="far fa-check-circle ms-2"></i></button>
             </div>
               {{-- <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal"> No, confirmo el desistimiento.     <i class="far fa-times-circle"></i></button> --}}
        
@@ -184,7 +187,16 @@
         });
     }
 
+    $('#btnRegistro').click(function(event) {
+      if( $("#observaciones").val()===''){
+                    $('.invalid-feedback.observaciones').show();
+                        return false;
+                }else{
+                    $('.invalid-feedback.observaciones').hide();
+                } 
 
+ 
+      });
 
         $("#checks").change(function() {
         if ($("#checks").is(':checked')) {

@@ -56,6 +56,10 @@ img, svg {
 }
 
 
+.selectize-dropdown .selected {
+    background-color: #198754;
+    color: #fff;
+}
 
 img {
     overflow-clip-margin: content-box;
@@ -458,7 +462,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                 </div>
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm" min="7" maxlength="10" name="segundoTelefono" id="segundoTelefono" onpaste="return false;" onkeypress = "return soloNumeros(event);" autocomplete="off" minlength="10"  placeholder="0">
+                        <input type="text" class="form-control form-control-sm" maxlength="10" name="segundoTelefono" id="segundoTelefono" onpaste="return false;" onkeypress = "return soloNumeros(event);" autocomplete="off"   placeholder="0">
                         <label for="segundoTelefono">8. Teléfono fijo</label>
                     </div>
                 </div>
@@ -1727,16 +1731,13 @@ function run(hideTab, showTab){
           var empty_fields=[];
 
             if (hideTab==1){
-                if ($("#email").val() !== $("#emailCon").val()||$("#email").val() ==='') {
-                    errorEmailIgual();
-                    return;
-                }
-                
- 
-     
-
+              
                 if ($("#tipoSolicitud").val()===' ') {
                     TipoSolicitud();
+                    return;
+                }
+                if ($("#email").val() !== $("#emailCon").val()||$("#email").val() ==='') {
+                    errorEmailIgual();
                     return;
                 }
          }

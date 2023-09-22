@@ -13,17 +13,22 @@
       	</div>
     @endif
 </div>
-<div class="row">
+<br>
+<div class="row justify-content-md-center">
+	<div class="col-2" >
 	@if($accion == 'Nuevo')
 		@can('permiso-crear')
 			{{ Form::submit('Guardar', ['class' => 'btn btn-success','style'=>'width: 120px']) }}
 		@endcan
 	@endif
+</div>
+<div class="col-2" >
 	@if($accion == 'Editar')
 		@can('permiso-editar')
-			{{ Form::submit('Modificar', ['class' => 'btn btn-success','style'=>'width: 120px']) }}
+			{{ Form::submit('Guardar', ['class' => 'btn btn-success ml-2','style'=>'width: 120px']) }}
 		@endcan
 	@endif
+</div>
 	@if($accion == 'Ver')
 		@can('permiso-borrar')
 			{!! Form::open(['route' => ['tema.ver', $dato->id], 'method' => 'DELETE']) !!}
@@ -35,5 +40,7 @@
         	{!! Form::close() !!}
 		@endcan
 	@endif
-    <a class="btn btn-primary ml-2" href="{{ route('tema') }}">Regresar</a>
+	<div class="col-2" >
+    <a class="btn btn-primary px-2 ml-2"  href="{{ route('tema') }}" style="width: 120px;">Regresar</a>
+</div>
 </div>
