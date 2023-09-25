@@ -20,8 +20,8 @@ trait DataTablesTrait
 
         $dataxxxx['tablasxx'] = [
             [
-                'titunuev' => 'NUEVO ASIGNACIÓN',
-                'titulist' => 'LISTA DE ASUNTO',
+                'titunuev' => 'NUEVA ASIGNACIÓN',
+                'titulist' => 'LISTA DE ASUNTOS ASIGNADOS',
                 'archdttb' => $dataxxxx['rutacarp'] . 'Acomponentes.Adatatable.index',
                 'vercrear' => true,
                 'urlxxxxx' => route($dataxxxx['routxxxx'] . '.listaxxx', []),

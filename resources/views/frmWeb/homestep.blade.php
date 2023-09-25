@@ -378,22 +378,36 @@ svg {
             </div>
    
                 </div> 
-            <div class="col-md-3">
+            {{-- <div class="col-md-3">
                     
                 <div class="form-floating mb-3">
-                    <select class="form-select form-select-sm validate" name="tipoSolicitud" id="tipoSolicitud" onchange = 'doc(this.value)' required title="
+                    <select class="form-control form-control-sm validate" name="tipoSolicitud" id="tipoSolicitud" onchange = 'doc(this.value)'  title="
                     DIRECTO POR EL SOLICITANTE: Cuando se actúa a título propio, sin intermediación de un abogado. 
 MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado únicamente a un abogado; a menos que se cuente con un PODER GENERAL OTORGADO MEDIANTE ESCRITURA PUBLICA
                     ">
-                        <option value=" ">- Seleccione una opcion -</option>
+                         <option value=" ">- Seleccione una opcion -</option>
                         <option value="0" title="Cuando se actúa a título propio, sin intermediación de un abogado">DIRECTO POR EL SOLICITANTE</option>
                         <option value="1" title="Cuando se actúa a través de PODER ESPECIAL otorgado únicamente a un abogado; a menos que se cuente con un PODER GENERAL OTORGADO MEDIANTE ESCRITURA PUBLICA">MEDIANTE APODERADO</option>
                     </select>
                     <label for="tipoSolicitud"> Tipo de Solicitud * <i class="far fa-question-circle fa-xs"></i></label>
-                    <div class="invalid-feedback">Example invalid select feedback</div>
+                    <div class="invalid-feedback tipoSolicitud">
+                        Campo obligatorio.
                     </div>
-                </div> 
+                </div>
+                </div>  --}}
 
+                <div class="col-md-3">
+                    <div class="form-floating mb-3">
+         
+                    {{ Form::select('tipoSolicitud', $data['tiposoli'], null, ['class' => 'form-control form-control-sm validate','name'=>'tipoSolicitud','id'=>'tipoSolicitud','aria-label'=>"tipoSolicitud",'required','placeholder'=>'- Seleccione una opcion -','onchange' => 'doc(this.value)','title'=>'
+                    DIRECTO POR EL SOLICITANTE: Cuando se actúa a título propio, sin intermediación de un abogado. 
+                    MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado únicamente a un abogado; a menos que se cuente con un PODER GENERAL OTORGADO MEDIANTE ESCRITURA PUBLICA' ]) }}
+                    <div class="invalid-feedback tipoSolicitud">
+                        Campo obligatorio.
+                      </div>
+                      <label for="tipoSolicitud"> Tipo de Solicitud * <i class="far fa-question-circle fa-xs"></i></label>
+                    </div>
+                </div>
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
          
@@ -467,20 +481,16 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                     </div>
                 </div>
  
+
                 <div class="col-md-4">
     
                     <div class="form-floating mb-3">
-                        <select class="form-select form-select-sm validate" name="estrato" id="estrato" required>
-                            <option value=" ">- Seleccione Dato -</option>
-                            <option value="0" title="">1</option>
-                            <option value="0" title="">2</option>
-                            <option value="0" title="">3</option>
-                            <option value="0" title="">4</option>
-                            <option value="0" title="">5</option>
-                            <option value="0" title="">6</option>
-                            <option value="1" title="">NO INFORMA</option>
-                        </select>
-                    <label for="localidad"> 9. Estrato *</label>
+      
+                    {{ Form::select('estrato', $data['estrato'], null, ['class' => $errors->first('estrato') ? 'form-control form-control-sm is-invalid validate' : 'form-control form-control-sm validate','name'=>'estrato','id'=>'estrato','placeholder'=>'- Seleccione Dato -']) }}
+                    <label for="estrato"> 9. Estrato *</label>
+                    <div class="invalid-feedback estrato">
+                        Campo obligatorio.
+                      </div>
                   </div>
                 </div>
                 <div class="col-md-4">
@@ -634,6 +644,9 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                         <label for="email"> 20. Correo electrónico *</label>
                        
                           <div class="email-error email" style="color: red;"></div>
+                          <div class="invalid-feedback email">
+                            Campo obligatorio.
+                          </div>
                      </div> 
 
                 </div>
@@ -641,6 +654,9 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control form-control-sm validate" style="text-transform: lowercase" name="emailCon" id="emailCon"  placeholder="0">
                         <label for="emailCon"> 20.1. Confirme correo electrónico *</label>
+                        <div class="invalid-feedback emailCon">
+                            Campo obligatorio.
+                          </div>
                     </div> 
                 </div>
 
@@ -1722,38 +1738,41 @@ var f_municipio = function(dataxxxx) {
 
 
 function run(hideTab, showTab){
+    let valid = true ;
         if(hideTab < showTab){ // If not press previous button
           // Validation if press next button
           var currentTab = 0;
+      
           x = $('#tab-'+hideTab);
           y = $(x).find(".form-control.form-control-sm.validate");
-          z = $(x).find(".selectize");
+          z = $(x).find(".form-control.form-control-sm.selectize");
+          
           var empty_fields=[];
 
             if (hideTab==1){
               
-                if ($("#tipoSolicitud").val()===' ') {
-                    TipoSolicitud();
-                    return;
-                }
-                if ($("#email").val() !== $("#emailCon").val()||$("#email").val() ==='') {
-                    errorEmailIgual();
-                    return;
-                }
+                // if ($("#tipoSolicitud").val()===' ') {
+                //     TipoSolicitud();
+                //     return;
+                // }
+                // if ($("#email").val() !== $("#emailCon").val()||$("#email").val() ==='') {
+                //     errorEmailIgual();
+                //     return;
+                // }
          }
          if (hideTab==2){
-                if ($("#emailApoderado").val() !== $("#emailApoderadoCon").val() || $("#emailApoderado").val() ==='') {
-                    errorEmailIgualApod();
-                    return;
-                }
+                // if ($("#emailApoderado").val() !== $("#emailApoderadoCon").val() || $("#emailApoderado").val() ==='') {
+                //     errorEmailIgualApod();
+                //     return;
+                // }
 
                 
                  
 
-                if ($("#tipoDocApoderado").val()==='') {
-                    TipoDocumento();
-                    return;
-                }
+                // if ($("#tipoDocApoderado").val()==='') {
+                //     TipoDocumento();
+                //     return;
+                // }
       
                 
 
@@ -1773,46 +1792,52 @@ function run(hideTab, showTab){
 
 
                 for (i = 0; i < y.length; i++){
-                    console.log(hideTab);
+                    
                     if (y[i].value == ""||$(y[i]).val().length < y[i].minLength){
                         var nombre= y[i].name;
+                        //$(y[i]).css("border-color", "rgb(235 16 16)");
                         $(y[i]).css("background", "#ffdddd");
-      
                         nombre= nombre.replace('[]','')
-                 
                         $('.invalid-feedback.'+nombre).show();
-                        return false;
+                        valid =false;
                     }else{
                         console.log(y[i].name);
                         var nombre= y[i].name;
             
                         nombre= nombre.replace('[]','');
                 
-                        $(y[i]).css("background", "transparent");
+                      //  $(y[i]).css("border", "var(--bs-border-width) solid var(--bs-border-color)");
+                       $(y[i]).css("background", "transparent");
                         $('.invalid-feedback.'+nombre).hide();
                     }          
                   }
    
                   for (i = 0; i < z.length; i++){
-                    console.log(hideTab);
+                    
                     var nombre= z[i].id;
                     if (z[i].value == ""||$(z[i]).val().length < z[i].minLength){
-                 
+                        
+                     //   $(y[i]).css("border-color", "rgb(235 16 16)");
                         $(z[i]).css("background", "#ffdddd");
-                        console.log(z[i]);
-                        console.log(nombre);
+                        //$(z[i]).parents(".input-file").find('input').val('');
+                        console.log( $(z[i]));
+                  
+                        var cerca =$(z[i]).next(".form-control.form-control-sm.selectize.selectize-control.single")
+                        //form-control form-control-sm selectize selectize-control single
+                        console.log(cerca);
+                        $(cerca).css("background", "#ffdddd");
                         console.log(z[i].value);
                         nombre= nombre.replace('[]','')
                  
                         $('.invalid-feedback.'+nombre).show();
-                        return false;
+                        valid =false;
                     }else{
                         console.log(z[i].name);
                         var nombre= z[i].name;
-            
+                        var cerca =$(z[i]).next(".form-control.form-control-sm.selectize.selectize-control.single")
                        
-                
-                        $(z[i]).css("background", "transparent");
+                        $(cerca).css("background", "transparent");
+                        
                         $('.invalid-feedback.'+nombre).hide();
                     }          
                   }
@@ -1833,6 +1858,8 @@ function run(hideTab, showTab){
           console.log(i)
           
         }
+        if (valid) {
+        // Lógica para avanzar al siguiente paso (puede ser cambio de clases, visibilidad, etc.)
 
         // Switch tab
         $("#tab-"+hideTab).css("display", "none");
@@ -1843,6 +1870,7 @@ function run(hideTab, showTab){
         $("#step-"+showTab).removeClass('btn-light');
         $("#step-"+showTab).addClass('btn-step');
         //$("input").css("background", "#fff");
+        }
         if(showTab===1){
             $("#progressbar").css("width", "12%");
         }else

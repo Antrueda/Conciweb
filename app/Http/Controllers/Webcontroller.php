@@ -80,8 +80,18 @@ class Webcontroller extends Controller
             $orientacioncombo = Tema::comboasc(6, true, false);
             $escolaridad = Tema::comboasc(7, true, false);
             $nacionalidad = SisPai::combo(false, false);
-       
+            $estrato= [1=>1,2=>2,3=>3,4=>4,5=>5,6=>6,'NO INFORMA'=>'NO INFORMA'];
+            $tiposoli= [0=>'DIRECTO POR EL SOLICITANTE',1=>'MEDIANTE APODERADO'];
 
+
+            // <option value=" ">- Seleccione Dato -</option>
+            // <option value="0" title="">1</option>
+            // <option value="0" title="">2</option>
+            // <option value="0" title="">3</option>
+            // <option value="0" title="">4</option>
+            // <option value="0" title="">5</option>
+            // <option value="0" title="">6</option>
+            // <option value="1" title="">NO INFORMA</option>
         
             $listaCondiciones = CondicionProteccion::where('habilitado', true)
             ->select('id', 'nombre', 'descripcion', 'imagen_on', 'imagen_off','habilitado')
@@ -108,6 +118,8 @@ class Webcontroller extends Controller
                 "estadoTipoAudi" => $estadoTipoAudi,
                 "grupoafectado" => $grupoafectado,
                 "mensaje" => $mensaje,
+                "tiposoli" => $tiposoli,
+                "estrato" => $estrato,
                 "salario" => $salario,
                 "departamentos" => $departamentos,
                 "municipios" => $municipios,
