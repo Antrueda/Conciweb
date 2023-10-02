@@ -642,10 +642,13 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                     
                         <input type="email" class="form-control form-control-sm validate" style="text-transform: lowercase" onpaste="return false;" name="email" minlength="3" maxlength="50" id="email" autocomplete="off" placeholder="0" required>
                         <label for="email"> 20. Correo electrónico *</label>
-                       
+
                           <div class="email-error email" style="color: red;"></div>
                           <div class="invalid-feedback email">
                             Campo obligatorio.
+                          </div>
+                          <div class="invalid-feedback igual">
+                            Los correos no son iguales.
                           </div>
                      </div> 
 
@@ -656,6 +659,9 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                         <label for="emailCon"> 20.1. Confirme correo electrónico *</label>
                         <div class="invalid-feedback emailCon">
                             Campo obligatorio.
+                          </div>
+                          <div class="invalid-feedback igualcon">
+                            Los correos no son iguales.
                           </div>
                     </div> 
                 </div>
@@ -801,6 +807,9 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                         <div class="invalid-feedback emailApoderado">
                             Campo obligatorio.
                           </div>
+                          <div class="invalid-feedback iguala">
+                            Los correos no son iguales.
+                          </div>
                           <span class="email-error emailApoderado" style="color: red;"></span>
              
                     </div>
@@ -811,6 +820,9 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                         <label for="emailApoderadoCon"> 21.12. Confirme correo electronico *</label>
                         <div class="invalid-feedback emailApoderadoCon">
                             Campo obligatorio.
+                          </div>
+                          <div class="invalid-feedback igualacon">
+                            Los correos no son iguales.
                           </div>
                     </div>
                 </div>
@@ -1133,10 +1145,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                     errorCaptcha();
                     return;
                 }
-                if ($("#email").val() !== $("#emailCon").val()) {
-                    errorEmailIgual();
-                    return;
-                }
+              
                 if ($("#emailApoderado").val() !== $("#emailApoderadoCon").val()) {
                     errorEmailIgualApod();
                     return;
@@ -1749,34 +1758,8 @@ function run(hideTab, showTab){
           
           var empty_fields=[];
 
-            if (hideTab==1){
-              
-                // if ($("#tipoSolicitud").val()===' ') {
-                //     TipoSolicitud();
-                //     return;
-                // }
-                // if ($("#email").val() !== $("#emailCon").val()||$("#email").val() ==='') {
-                //     errorEmailIgual();
-                //     return;
-                // }
-         }
-         if (hideTab==2){
-                // if ($("#emailApoderado").val() !== $("#emailApoderadoCon").val() || $("#emailApoderado").val() ==='') {
-                //     errorEmailIgualApod();
-                //     return;
-                // }
 
-                
-                 
 
-                // if ($("#tipoDocApoderado").val()==='') {
-                //     TipoDocumento();
-                //     return;
-                // }
-      
-                
-
-        }
 
         if (hideTab==3){
             
@@ -1860,6 +1843,35 @@ function run(hideTab, showTab){
         }
         if (valid) {
         // Lógica para avanzar al siguiente paso (puede ser cambio de clases, visibilidad, etc.)
+        if (hideTab==1){
+              
+              // if ($("#tipoSolicitud").val()===' ') {
+              //     TipoSolicitud();
+              //     return;
+              // }
+               if ($("#email").val() !== $("#emailCon").val()||$("#email").val() ==='') {
+                  $('.invalid-feedback.igual').show();
+                  $('.invalid-feedback.igualcon').show();
+                   return;
+              
+              }else{
+                  $('.invalid-feedback.igual').hide();
+                  $('.invalid-feedback.igualcon').hide();
+              }
+      }
+
+      if (hideTab==2){
+                if ($("#emailApoderado").val() !== $("#emailApoderadoCon").val() || $("#emailApoderado").val() ==='') {
+                    $('.invalid-feedback.iguala').show();
+                    $('.invalid-feedback.igualacon').show();
+                    return;
+                }else{
+                    $('.invalid-feedback.iguala').hide();
+                    $('.invalid-feedback.igualacon').hide();
+                }
+
+        }
+
 
         // Switch tab
         $("#tab-"+hideTab).css("display", "none");
