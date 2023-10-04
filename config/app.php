@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'Conciweb'),
 
     /*
     |--------------------------------------------------------------------------
@@ -227,6 +227,8 @@ return [
         'ReCaptcha' => Biscolab\ReCaptcha\Facades\ReCaptcha::class, 
         'NoCaptcha' => Anhskohbo\NoCaptcha\Facades\NoCaptcha::class,
     ])->toArray(),
+    
+
     
 
 ];

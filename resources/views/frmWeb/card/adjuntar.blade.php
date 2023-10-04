@@ -470,8 +470,16 @@ $(".input-file").change(function() {
     if(this.files[0].size>10289594){
     toastr.error("El tamaño permitido es de 10MB");
     this.value = "";
-    }
-    });
+    }else{
+      var extension = this.value.split('.').pop().toLowerCase();
+                if (extension !== 'pdf') {
+                  toastr.error("Formato no permitido");
+                  this.value = "";
+                  event.preventDefault();
+                }
+            }
+        });
+
 
 
 
@@ -504,6 +512,7 @@ $(document).ready(function() {
               missingFiles.push(index);
               event.preventDefault();
           }else{
+            
             $(alertId).text('');
          
               $(alertId).hide();

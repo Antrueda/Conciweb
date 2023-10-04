@@ -3,6 +3,7 @@
 use App\Http\Controllers\Administracion\AdministracionController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Webcontroller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Composer;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
@@ -123,6 +124,13 @@ Route::get('login', [AuthController::class, "login"]);
 
 Route::get('unautorized', function () { abort(403);
 });
+
+
+Route::get('/ip', function (Request $request) {
+    $ip = $request->getClientIp();
+    return "La dirección IP del cliente es: " . $ip;
+});
+
 Route::get('validation/{codigo}', function () {
     abort(401);
 });

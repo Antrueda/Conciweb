@@ -19,20 +19,23 @@ class Sinproc
         if (!isset($_GET['key'])) {
             return redirect()->route('sinpermisos');
         }
-
+ 
         $key = urldecode($_GET['key']);
         $key = str_replace(" ", "+", $key);
         $keyIgual = rtrim($key, "=");
-
+        $key= rtrim($key, "=");
+        
+        
         if ($key != $keyIgual) {
             return redirect()->route('sinpermisos');
         }
 
-
+     
         $key = urldecode($_GET['key']);
+    
         $key = str_replace(" ", "+", $key);
         $acceso = $this->data($key);
-        //dd($acceso);
+        
         if (count($acceso) == 5) {
             $user = User::where('consec', $acceso[1])
                 ->where('cedula', $acceso[0])

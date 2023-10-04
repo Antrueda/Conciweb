@@ -435,8 +435,9 @@ class Webcontroller extends Controller
             //America/Bogota
         //Datos requeridos por sistema
         $carbonDate = Carbon::now();
+        //
         $vigencia = Carbon::today()->isoFormat('YYYY');
-        $fechaRegistro = date_format($carbonDate, 'd/m/Y h:m:s');
+        $fechaRegistro = DB::raw("sysdate");
         $fechaRegistroA = date('d/m/Y H:i:s A');
 
        
@@ -511,7 +512,8 @@ class Webcontroller extends Controller
         ->first();
     
         //Metadata
-        $ip = $request->ip();
+        $ip = $request->getClientIp();
+ 
         //llave del API
         $apiKey = 'f685a6cb8f8ba4ac7b6522ff90db36d0';
         $response = Http::get("http://api.ipstack.com/$ip?access_key=$apiKey");
@@ -521,9 +523,9 @@ class Webcontroller extends Controller
 
         try {
 
-            $user = binconsecutivo::where('vigencia', $vigencia)->orderBy('secuencial', 'DESC')->first();
+            $consec = binconsecutivo::where('vigencia', $vigencia)->first();
           
-            $numSolicitud = $user->secuencial + 1;
+            $numSolicitud = $consec->secuencial + 1;
             
         } catch (\Exception $e) {
             DB::rollback();
@@ -573,7 +575,7 @@ class Webcontroller extends Controller
                     'id_tramite' => $idTramite,
                     'id_usuario_reg' => $numeroDocumento,
                     'id_usuario_adm' => $datosSolicitante->consec,
-                    'fec_solicitud_tramite' => DB::raw("TO_DATE('" . $fechaRegistro . "','DD/MM/YYYY HH24:MI:SS')"),
+                    'fec_solicitud_tramite' =>  $fechaRegistro,
                     'estado_tramite' => DB::raw("'Remitido'"),
                     'vigencia' => $vigencia,
                     'oido_codigo' => 0,
@@ -628,7 +630,7 @@ class Webcontroller extends Controller
             ConciMetadata::create([
                 'num_solicitud' => $numSolicitud,
                 'explorador' => $browser,
-                'ip' => $ip,
+                'ip' => $request->getClientIp(),
                 'pais' =>  $locationData['country_name'],
                 'ciudad' => $locationData['city'] ,
                 'plataforma' => $platform,
@@ -650,7 +652,7 @@ class Webcontroller extends Controller
                 'ID_TRAMITE' => $idTramite,
                 'ID_USUARIO_REG' => $numeroDocumento,
                 'ID_USUARIO_ADM' => $datosSolicitante->consec,
-                'fec_solicitud_tramite' => DB::raw("TO_DATE('" . $fechaRegistro . "','DD/MM/YYYY HH24:MI:SS')"),
+                'fec_solicitud_tramite' =>  $fechaRegistro,
                 'ESTADO_TRAMITE' => DB::raw("'Remitido'"),
                 'VIGENCIA' => $vigencia,
                 'OIDO_CODIGO' => 0,
@@ -801,7 +803,7 @@ class Webcontroller extends Controller
             ModelsTramiterespuesta::insert([
                 [
                     'NUM_SOLICITUD' => $numSolicitud, 'ID_TRAMITE' => $idTramite, 'NUM_PASO' => 0,
-                    'FEC_RESPUESTA' => DB::raw("sysdate"),
+                    'FEC_RESPUESTA' => $fechaRegistro,
                     'TEX_RESPUESTA' => DB::raw("'" . $msg . "'"), 'ID_USU_ADM_CONTESTA' => $consec,
                     'ID_USU_ADM' => $consecResponsable, 'ESTADO_TRAMITE' => DB::raw("'Remitido'"),
                     'CONSECUTIVO' => $consecutivo, 'VIGENCIA' => $vigencia,
@@ -818,7 +820,7 @@ class Webcontroller extends Controller
             tramiterespuesta::insert([
                 [
                     'NUM_SOLICITUD' => $numSolicitud, 'ID_TRAMITE' => $idTramite, 'NUM_PASO' => 0,
-                    'FEC_RESPUESTA' => DB::raw("sysdate"),
+                    'FEC_RESPUESTA' => $fechaRegistro,
                     'TEX_RESPUESTA' => DB::raw("'" . $msg . "'"), 'ID_USU_ADM_CONTESTA' => $numeroDocumento,
                     'ID_USU_ADM' => $consecResponsable, 'ESTADO_TRAMITE' => DB::raw("'Remitido'"),
                     'CONSECUTIVO' => $consecutivo, 'VIGENCIA' => $vigencia,
@@ -920,7 +922,8 @@ class Webcontroller extends Controller
                     'subject' => $subject,
                     'tiposolicitud' => $dato->tiposolicitud,
                     'numSolicitud' => $numSolicitud,
-                    'fechaRegistro' => explode(' ',$fechaRegistroA)[0],
+                    //'fechaRegistro' => explode(' ',$fechaRegistroA)[0],
+                    'fechaRegistro' => $fechaRegistro,
                     'llaveingreso' => $code,
                     'emailApoderado' => $data['emailApoderado'],
                     'apoderado' => $apoderado,
@@ -1241,8 +1244,7 @@ class Webcontroller extends Controller
         $tiposolicitud= $dato->tiposolicitud;
         $nombrecompleto = $dato->primernombre . ' ' . $dato->segundonombre . ' ' . $dato->primerapellido  . ' ' . $dato->segundoapellido;
         $fecha = $dato->fec_solicitud_tramite;
-        $newDate = date("d/m/Y h:m:s" , strtotime($fecha));   
-        
+        $newDate = Carbon::parse($fecha)->format('d/m/Y H:i:s');
         $tiposolicitud= $dato->tiposolicitud;
         $tipodedocapoderado='';
         if($tiposolicitud==1){
@@ -1356,10 +1358,10 @@ class Webcontroller extends Controller
         
         $dato = ModelsTramiteusuario::where('num_solicitud', $consulta->num_solicitud)->first();
         $fechaRegistro = $dato->fec_solicitud_tramite;
-
-        $newDate = date("d/m/Y h:m:s" , strtotime($fechaRegistro));   
         
-        $fechaRegistro = date("d/m/Y h:m:s" , strtotime($fechaRegistro));  
+        $newDate = Carbon::parse($fechaRegistro)->format('d/m/Y H:i:s');  
+        
+        //$fechaRegistro = date("d/m/Y h:m:s" ,$fechaRegistro);  
         
         $nombrecompleto = $dato->primernombre . ' ' . $dato->segundonombre . ' ' . $dato->primerapellido  . ' ' . $dato->segundoapellido;
         $apoderado = $dato->primernombreapoderado . ' ' . $dato->segundonombreapoderado . ' ' . $dato->primerapellidoapoderado  . ' ' . $dato->segundoapellidoapoderado;
@@ -1382,7 +1384,7 @@ class Webcontroller extends Controller
                     'numSolicitud' => $consulta->num_solicitud,
                     'emailApoderado' => $dato->emailapoderado,
                     'apoderado' => $apoderado,
-                    'fechaRegistro' => explode(' ',$fechaRegistro)[0],
+                    //'fechaRegistro' => explode(' ',$fechaRegistro)[0],
                     'newDate' => $newDate,
                 );
     
@@ -1420,10 +1422,11 @@ class Webcontroller extends Controller
         $validator = Validator::make(
             $input_data,
             [
-                'document1.*' => 'required|max:10000'
+                'document1.*' => 'required|max:10000|mimes:pdf'
                 ],[
                     'document1.*.required' => 'Ingrese el documento',
                     'document1.*.max' => 'El tamaño permitido es de 10MB',
+                    'document1.*.mimes' => 'El formato no permitido',
                 ]
        
         );
@@ -1491,7 +1494,7 @@ class Webcontroller extends Controller
      
         $dato->fec_solicitud_tramite;
         $fecha = $dato->fec_solicitud_tramite;
-        $newDate = date("d/m/Y h:m:s" , strtotime($fecha));  
+        $newDate = Carbon::parse($fecha)->format('d/m/Y H:i:s');  
         $nombrecompleto = $dato->primernombre . ' ' . $dato->segundonombre . ' ' . $dato->primerapellido  . ' ' . $dato->segundoapellido;
         $apoderado = $dato->primernombreapoderado . ' ' . $dato->segundonombreapoderado . ' ' . $dato->primerapellidoapoderado  . ' ' . $dato->segundoapellidoapoderado;
         $carbonDate = Carbon::now();
