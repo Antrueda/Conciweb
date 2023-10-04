@@ -546,8 +546,8 @@ class Webcontroller extends Controller
 
         //Metodo para traer el valor minimo del contador de los usuarios referentes
 
-        $Contadorminimo =ConciReferente::min('contador');
-
+        $Contadorminimo =ConciReferente::where('estado', 1)->min('contador');
+        
 
         //Se toma en cuenta el valor minimo y se compara con los demas registros
         $datosminimos = ConciReferente::select('consec','contador','depend_codigo')->where('estado', 1)
@@ -895,6 +895,8 @@ class Webcontroller extends Controller
         // 4.1 Se asegura que la variable tenga un valor en $emailapoderado
         $nombrecompleto = $primerNombre . ' ' . $segundoNombre . ' ' . $primerApellido  . ' ' . $segundoApellido;
         $dato = ModelsTramiteusuario::where('num_solicitud', $numSolicitud)->first();
+        $fecha = $dato->fec_solicitud_tramite;
+        $newDate = Carbon::parse($fecha)->format('d/m/Y H:i:s');
         $apoderado = $dato->primernombreapoderado . ' ' . $dato->segundonombreapoderado . ' ' . $dato->primerapellidoapoderado  . ' ' . $dato->segundoapellidoapoderado;
         $asuntos = Subdescripcion::where('subasu_id', $dato->subasunto)
             ->where('sis_esta_id', 1)
@@ -922,8 +924,8 @@ class Webcontroller extends Controller
                     'subject' => $subject,
                     'tiposolicitud' => $dato->tiposolicitud,
                     'numSolicitud' => $numSolicitud,
-                    //'fechaRegistro' => explode(' ',$fechaRegistroA)[0],
-                    'fechaRegistro' => $fechaRegistro,
+                    //'fechaRegistro' => explode(' ',$fechaRegistro)[0],
+                    'fechaRegistro' => $newDate,
                     'llaveingreso' => $code,
                     'emailApoderado' => $data['emailApoderado'],
                     'apoderado' => $apoderado,
@@ -968,7 +970,7 @@ class Webcontroller extends Controller
     {
         $numSolicitud = $request->input("num_solicitud");
         //0) Verificar que caso exista y con estado 1 de actualización
-        ddd($numSolicitud);
+        //ddd($numSolicitud);
         try {
             $contadorSolicitudActualizar = ModelsTramiteusuario::where('NUM_SOLICITUD', 37)
                 ->where('ID_TRAMITE', 330)
@@ -1280,10 +1282,9 @@ class Webcontroller extends Controller
     public function Desistir($id)
     {
         $dato = ModelsTramiteusuario::where('num_solicitud', $id)->first();
-        $newDate = date("d/m/Y", strtotime($dato->fec_solicitud_tramite));  
+        $newDate = Carbon::parse($dato->fec_solicitud_tramite)->format('d/m/Y H:i:s');  
         return view('frmWeb.card.desistimiento', compact('dato','id','newDate'));
     }
-
 
 //Funcion para el cambio de estado de la conciliacion
     public function Cambioestado(Request $request, $id)
@@ -1293,10 +1294,13 @@ class Webcontroller extends Controller
         
         $dato = ModelsTramiteusuario::where('num_solicitud', $id)->first();
         $fecha = $dato->fec_solicitud_tramite;
-        $nuevafecha = new DateTime(Carbon::now());
-        $nuevafecha = $nuevafecha->setTimezone(new DateTimeZone('America/Bogota'));
-        $nuevafecha = $nuevafecha->format("d/m/Y h:m:s");
-        $newDate = date("d/m/Y h:m:s" , strtotime($fecha));   
+       $nuevafecha = now();
+       $nuevafecha=Carbon::parse($nuevafecha)->format('d/m/Y H:i:s');
+       //$nuevafecha = now()->toDateTimeString();
+        
+
+        $newDate = Carbon::parse($fecha)->format('d/m/Y H:i:s');  
+        
         $nombrecompleto = $dato->primernombre . ' ' . $dato->segundonombre . ' ' . $dato->primerapellido  . ' ' . $dato->segundoapellido;
         $modelo = ModelsTramiteusuario::where('num_solicitud', $id)->update(['estado_tramite' => $detalle,'estadodoc'=>'Desistimiento Voluntario']);
         if ($detalle == 'Finalizado') {
