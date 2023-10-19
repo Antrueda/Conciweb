@@ -476,7 +476,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                 </div>
                 <div class="col-md-3">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control form-control-sm" maxlength="10" name="segundoTelefono" id="segundoTelefono" onpaste="return false;" onkeypress = "return soloNumeros(event);" autocomplete="off"   placeholder="0">
+                        <input type="text" class="form-control form-control-sm" minlength="10" name="segundoTelefono" id="segundoTelefono" onpaste="return false;" onkeypress = "return soloNumeros(event);" autocomplete="off"   placeholder="0">
                         <label for="segundoTelefono">8. Teléfono fijo</label>
                     </div>
                 </div>
@@ -1033,7 +1033,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                         <div class="col-md-3 input-group mb-3">
                             <span class="input-group-text">$</span>
                             <div class="form-floating">
-                                <input class="form-control form-control-sm validate" type="text" onpaste="return false;" name="cuantia" id="cuantia" onkeypress = "return soloNumeros(event);" autocomplete="off" placeholder="0" min="1" max={{$data['salario']->maximo}} maxlength="9">
+                                <input class="form-control form-control-sm validate" pattern="[0-9]+" type="text" onpaste="return false;" name="cuantia" id="cuantia" onkeypress = "return soloNumeros(event);" autocomplete="off" placeholder="0" min="1" max={{$data['salario']->maximo}} maxlength="9">
                      
                               <label for="floatingInputGroup1">24. Valor de la Cuantía *</label>
                   

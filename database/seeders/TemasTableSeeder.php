@@ -56,6 +56,7 @@ class TemasTableSeeder extends Seeder
             19 => $camposmagicos,
             20 => $camposmagicos,
             22 => $camposmagicos,
+            50 => $camposmagicos,
         ]);
 
 
@@ -141,3 +142,4 @@ class TemasTableSeeder extends Seeder
         // ]); //359
     }
 }
+

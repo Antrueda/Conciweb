@@ -72,6 +72,7 @@ class SisParametrosSeeder extends Seeder
         Parametro::create(['id' => 47, 'nombre' => 'JUVENTUD (14 - 26 AÑOS)', 'user_crea_id' => '1', 'user_edita_id' => '1', 'sis_esta_id' => '1', ]); // 838
         Parametro::create(['id' => 48, 'nombre' => 'ADULTEZ (27- 59 AÑOS)', 'user_crea_id' => '1', 'user_edita_id' => '1', 'sis_esta_id' => '1', ]); // 838
         Parametro::create(['id' => 49, 'nombre' => 'PERSONA MAYOR (60 AÑOS O MAS) ENVEJECIMIENTO Y VEJEZ', 'user_crea_id' => '1', 'user_edita_id' => '1', 'sis_esta_id' => '1', ]); // 838
+        Parametro::create(['id' => 50, 'nombre' => 'SUSPENDIDO', 'user_crea_id' => '1', 'user_edita_id' => '1', 'sis_esta_id' => '1', ]); // 838
 
 
 

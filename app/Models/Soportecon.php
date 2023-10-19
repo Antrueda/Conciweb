@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Models;
+namespace App\Models;
 
 use app\Models\Tramiteusuario as ModelsTramiteusuario;
 use app\tramiteusuario;
@@ -13,7 +13,7 @@ class Soportecon extends Model
 
     protected $table = 'conci_soportecons';
     protected $fillable = 
-    ['NUM_SOLICITUD', 'nombreOriginalFile', 'rutaFinalFile', 'descripcion'];
+    ['NUM_SOLICITUD', 'nombreOriginalFile', 'rutaFinalFile', 'descripcion','vigencia'];
 
 
 

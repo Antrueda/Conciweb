@@ -91,6 +91,10 @@ Route::get('subasunto', [
     'uses' => 'App\Http\Controllers\Webcontroller@getSubasunto',
 ])->name('subasunto');
 
+Route::get('/datatable', 'App\Http\Controllers\Reportes\ReportesConciController@index')->name('datatable.index');
+Route::get('/datatable/getData', 'App\Http\Controllers\Reportes\ReportesConciController@getData')->name('datatable.getData');
+
+
 Route::get('/reload-captcha', [Webcontroller::class, 'reloadCaptcha']);
 // Route::get('/','App\Http\Controllers\frmWebController@home')->name('home');
 // Route::post('modalMensajeBienvenida','App\Http\Controllers\frmWebController@modalMensajeBienvenida');

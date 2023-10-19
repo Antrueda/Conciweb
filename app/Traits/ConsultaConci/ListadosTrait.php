@@ -15,7 +15,7 @@ use App\Models\Usuario\Estusuario;
 use App\Traits\DatatableTrait;
 use App\tramiteusuario as AppTramiteusuario;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 
 /**
  * Este trait permite armar las consultas para ubicacion que arman las datatable
@@ -28,6 +28,31 @@ trait ListadosTrait
      * 
      */
 
+    // public function listaConciliaciones(Request $request)
+    // {
+
+    //     if ($request->ajax()) {
+    //         // ddd($request);
+    //         $request->routexxx = [$this->opciones['routxxxx'],'textos'];
+    //         $request->botonesx = $this->opciones['rutacarp'] .
+    //             $this->opciones['carpetax'] . '.Botones.botonesapi';
+    //         $request->estadoxx = 'layouts.components.botones.estadosx';
+    //         $dataxxxx = Tramiteusuario::select(
+	// 			[
+	// 				'conci_tramiteusuarios.num_solicitud',
+	// 				'conci_tramiteusuarios.id_tramite',
+    //                 'conci_tramiteusuarios.fec_solicitud_tramite',
+	// 				'conci_tramiteusuarios.sis_esta_id',
+	// 				'conci_sis_estas.s_estado'
+	// 			]
+	// 		)
+    //             ->where('conci_tramiteusuarios.id_tramite', 335)
+	// 			->join('conci_sis_estas', 'conci_tramiteusuarios.sis_esta_id', '=', 'conci_sis_estas.id')->orderBy('num_solicitud', 'desc');;
+
+    //         return $this->getDt($dataxxxx, $request);
+    //     }
+    // }
+
     public function listaConciliaciones(Request $request)
     {
 
@@ -36,23 +61,33 @@ trait ListadosTrait
             $request->routexxx = [$this->opciones['routxxxx'],'textos'];
             $request->botonesx = $this->opciones['rutacarp'] .
                 $this->opciones['carpetax'] . '.Botones.botonesapi';
-            $request->estadoxx = 'layouts.components.botones.estadosx';
             $dataxxxx = Tramiteusuario::select(
 				[
 					'conci_tramiteusuarios.num_solicitud',
-					'conci_tramiteusuarios.id_tramite',
+                    'conci_tramiteusuarios.primernombre',
+                    'conci_tramiteusuarios.segundonombre',
+                    DB::raw("conci_tramiteusuarios.primernombre || ' ' || conci_tramiteusuarios.segundonombre as nombre_completo"),
                     'conci_tramiteusuarios.fec_solicitud_tramite',
-					'conci_tramiteusuarios.sis_esta_id',
-					'conci_sis_estas.s_estado'
-				]
+                    'conci_tramiteusuarios.updated_at',
+                    DB::raw("TO_CHAR(updated_at, 'YYYY-MM-DD HH24:MI:SS') as fecha_actualizacion_formateada"),
+                    DB::raw('TRUNC((CAST(updated_at AS DATE) - fec_solicitud_tramite)) AS dias_de_diferencia'),
+					'conci_tramiteusuarios.estadodoc',
+				] 
 			)
                 ->where('conci_tramiteusuarios.id_tramite', 335)
-				->join('conci_sis_estas', 'conci_tramiteusuarios.sis_esta_id', '=', 'conci_sis_estas.id')->orderBy('num_solicitud', 'desc');;
+                ->whereNotNull('updated_at')
+                ->whereDate('fec_solicitud_tramite', '>=', '2023-10-02')->orderBy('num_solicitud', 'desc');
 
-            return $this->getDt($dataxxxx, $request);
+            return $this->getDts($dataxxxx, $request);
         }
     }
 
+    /*
+          'PRIMERNOMBRE',
+      'SEGUNDONOMBRE',
+      'PRIMERAPELLIDO',
+      'SEGUNDOAPELLIDO',
+*/
     // public function listaConciliaciones(Request $request)
     // {
 

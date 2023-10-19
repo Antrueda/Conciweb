@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 
 use App\Models\ConciReferente;
+use App\Models\Convocante;
+use App\Models\Parametro;
 use App\Models\Soportecon;
 use App\Models\Subdescripcion;
 use App\Models\Texto;
@@ -16,6 +18,7 @@ use App\Traits\ConsultaConci\Consulta\ParametrizarTrait;
 use App\Traits\ConsultaConci\Consulta\VistasTrait;
 use App\Traits\ConsultaConci\ListadosTrait;
 use App\Traits\ConsultaConci\PestaniasTrait;
+use Carbon\Carbon;
 use Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -59,7 +62,7 @@ class ConsultaConciController extends Controller
 
 
 
-    public function agregar($modeloxx)
+    public function agrega($modeloxx)
     {
     
         $dato = Tramiteusuario::where('num_solicitud', $modeloxx)->first();
@@ -81,6 +84,49 @@ class ConsultaConciController extends Controller
         return view('Consulta.Consulta.Formulario.agregar', compact('dato', 'data', 'nombrecompleto','tiposolicitud','adjuntos','numero'));
     }
 
+    public function agregar($modeloxx)
+    {
+    
+        $tramite = Soportecon::where('num_solicitud', $modeloxx)->get();
+
+        $dato = Tramiteusuario::where('num_solicitud', $modeloxx)->where('vigencia',Carbon::today()->isoFormat('YYYY'))->first();
+        $fecha = Tramiteusuario::where('num_solicitud', $modeloxx)->first()->fec_solicitud_tramite;
+        $newDate =    $newDate = Carbon::parse($fecha)->format('d/m/Y H:i:s'); 
+        $tipodedocumento=Parametro::where('id', $dato->tipodocumento)->first()->nombre;
+               
+        $tiposolicitud= $dato->tiposolicitud;
+        $tipodedocapoderado='';
+        if($tiposolicitud==1){
+            $tipodedocapoderado=Parametro::where('id', $dato->tipodocapoderado)->first()->nombre;
+        }
+      $nombrecompleto = $dato->primernombre . ' ' . $dato->segundonombre . ' ' . $dato->primerapellido  . ' ' . $dato->segundoapellido;
+        $apoderado = $dato->primernombreapoderado . ' ' . $dato->segundonombreapoderado . ' ' . $dato->primerapellidoapoderado  . ' ' . $dato->segundoapellidoapoderado;
+    
+        $convocates = Convocante::where('num_solicitud', $modeloxx)
+        ->orderBy('id')
+        ->get();
+        $numero=number_format($dato->cuantia,0,'.','.');
+        $detalleAbc = Subdescripcion::where('subasu_id', $dato->subasunto)
+            ->where('sis_esta_id', 1)
+            ->orderBy('id')
+            ->get();
+        //INFORMACION RETORNADA EN LA VISTA
+        //$conteo= count($detalleAbc)-1;
+    
+        $data = array(
+            "detalleAbc" => $detalleAbc,
+            "convocates" => $convocates
+        );
+    
+      if(!$tramite->isEmpty()){
+          return view('Consulta.Consulta.Formulario.archivos', compact('tramite','dato', 'data', 'nombrecompleto','tiposolicitud','numero','newDate','tipodedocumento','tipodedocapoderado','apoderado'));
+       
+      } else{
+          return view('administracion.incompleto',compact('tramite','dato', 'data', 'nombrecompleto','tiposolicitud','numero','newDate','tipodedocumento','tipodedocapoderado','apoderado'));
+      }
+    
+    }
+  
     public function archivo($id)
     {
 

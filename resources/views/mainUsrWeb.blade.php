@@ -200,7 +200,7 @@
    
               <ul class="navbar-nav">
                 <li class="nav-item">
-                  <a href="{{ route('consultac') }}" class="nav-link">
+                  <a href="{{ route('datatable.index') }}" class="nav-link">
                     <i class="fas fa-search"></i> Consulta
                 </a>
                 </li>

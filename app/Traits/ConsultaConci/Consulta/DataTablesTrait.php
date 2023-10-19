@@ -35,8 +35,10 @@ trait DataTablesTrait
                     [
                    
                         ['td' => 'NUM SOLICITUD', 'widthxxx' => 0, 'rowspanx' => 1, 'colspanx' => 1],
-                        ['td' => 'ID TRAMITE', 'widthxxx' => 0, 'rowspanx' => 1, 'colspanx' => 1],
+                        ['td' => 'NOMBRE', 'widthxxx' => 0, 'rowspanx' => 1, 'colspanx' => 1],
                         ['td' => 'FECHA SOLICITUD', 'widthxxx' => 0, 'rowspanx' => 1, 'colspanx' => 1],
+                        ['td' => 'FECHA ACTUALIZACIÓN', 'widthxxx' => 0, 'rowspanx' => 1, 'colspanx' => 1],
+                        ['td' => 'DÍAS', 'widthxxx' => 0, 'rowspanx' => 1, 'colspanx' => 1],
                         ['td' => 'ESTADO', 'widthxxx' => 0, 'rowspanx' => 1, 'colspanx' => 1],
                         ['td' => 'ACCIONES', 'widthxxx' => 1, 'rowspanx' => 1, 'colspanx' => 1],
                     ]
@@ -44,9 +46,12 @@ trait DataTablesTrait
                 'columnsx' => [
                   
                     ['data' => 'num_solicitud', 'name' => 'conci_tramiteusuarios.num_solicitud'],
-                    ['data' => 'id_tramite', 'name' => 'conci_tramiteusuarios.id_tramite'],
+                    ['data' => 'nombre_completo', 'name' => 'nombre_completo'],
                     ['data' => 'fec_solicitud_tramite', 'name' => 'conci_tramiteusuarios.fec_solicitud_tramite'],
-                    ['data' => 's_estado', 'name' => 'conci_sis_estas.s_estado'],
+                    ['data' => 'fecha_actualizacion_formateada', 'name' => 'fecha_actualizacion_formateada'],
+                    ['data' => 'dias_de_diferencia', 'name' => 'dias_de_diferencia'],
+                    
+                    ['data' => 'estadodoc', 'name' => 'conci_tramiteusuarios.estadodoc'],
                       ['data' => 'botonexx', 'name' => 'botonexx'],
                 ],
                 'tablaxxx' => 'datatable',

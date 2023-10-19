@@ -340,6 +340,29 @@ trait DatatableTrait
             ->toJson();
     }
 
+
+    public  function getDts($queryxxx, $requestx)
+    {
+        return datatables()
+            ->of($queryxxx)
+            ->addColumn(
+                'botonexx',
+                function ($queryxxx) use ($requestx) {
+                    /**
+                     * validaciones para los permisos
+                     */
+
+                    return  view($requestx->botonesx, [
+                        'queryxxx' => $queryxxx,
+                        'requestx' => $requestx,
+                    ]);
+                }
+            )
+  
+            ->rawColumns(['botonexx'])
+            ->toJson();
+    }
+
     public  function getDtAdjunto($queryxxx, $requestx)
     {
         return datatables()

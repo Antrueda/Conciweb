@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Estadoform;
 use App\Models\Sistema\SisEsta;
+use App\Models\Texto;
 use Illuminate\Support\Facades\Validator;
 
 class EstadoFormController extends Controller{
@@ -40,6 +41,14 @@ class EstadoFormController extends Controller{
         $dato = Estadoform::findOrFail($id);
         $estado = SisEsta::combo(['cabecera' => true, 'esajaxxx' => false]);
         return view('administracion.EstadoFormulario.index', ['accion' => 'Editar'], compact('dato','estado'));
+    }
+
+    
+    public function editcierre($id){
+        $dato = Estadoform::findOrFail($id);
+        $mensaje = Texto::where('tipotexto_id', 50)->first();
+        $estado = SisEsta::combo(['cabecera' => true, 'esajaxxx' => false]);
+        return view('administracion.EstadoFormulario.index', ['accion' => 'Editar'], compact('dato','estado','mensaje'));
     }
 
     public function update(Request $request, $id){

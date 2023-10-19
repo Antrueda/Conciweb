@@ -2,7 +2,7 @@
 <a class="btn btn-sm btn-success " href="{{ route($requestx->routexxx[0].'.editar', $queryxxx->id) }}">EDITAR</a> --}}
 
 
-<a class="btn btn-sm btn-primary " href="{{ route($requestx->routexxx[0].'.agregar', [$queryxxx->num_solicitud]) }}">VER</a>
+<a class="btn btn-sm btn-primary " href="{{ route($requestx->routexxx[0].'.agregar', [$queryxxx->num_solicitud]) }}"><i class="fas fa-paperclip"></i></a>
 {{-- <a class="btn btn-success" data-bs-toggle="modal" id="mediumButton" data-target="#mediumModal" data-attr=" {{route('consultac.agregar', $queryxxx->num_solicitud)}} " style="color:white">Ver  2  <i class="fas fa-minus-square"></i></a> --}}
 
 {{-- <a class="btn btn-sm btn-danger " href="{{ route($requestx->routexxx[0].'.borrar', [$queryxxx->id]) }}">INACTIVAR</a> --}}
