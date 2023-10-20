@@ -46,9 +46,7 @@ use App\Models\Sistema\SisMunicipio;
 use App\Models\Sistema\SisPai;
 use App\Models\Tramite;
 use App\Traits\Combos\CombosTrait;
-use DateTime;
-use DateTimeImmutable;
-use DateTimeZone;
+use Illuminate\Support\Facades\Crypt;
 
 class Webcontroller extends Controller
 {
@@ -1540,11 +1538,13 @@ class Webcontroller extends Controller
                 $files[]['name'] = $descripcion[$key];
                 //estructura de nombre de archivo id -- nombreoriginal
                 $nombreOriginalFile = $file->getClientOriginalName();
-                $filePath = $file->storeAs('Documentos/'.$id, $nombreOriginalFile);
+                $filePath = $file->storeAs('Documentos/'.$id, $nombreOriginalFile,'public');
                 $rutaFinalFile =$file->getRealPath();
-                //echo $rutaFinalFile;
-                
-                $ddd = Soportecon::create(['NUM_SOLICITUD' => $id, 'descripcion' => $descripcion[$key], 'rutaFinalFile' => $filePath, 'nombreOriginalFile' =>$id.'--'. $nombreOriginalFile]);
+                $nombreencriptado = $id.'-- Adjunto'. $key.'.pdf';
+                $rutastorage = $file->storeAs('Adjunto/', $nombreencriptado,'public');
+
+                $ddd = Soportecon::create(['NUM_SOLICITUD' => $id, 'descripcion' => $descripcion[$key], 'rutaFinalFile' => $filePath,  'rutastorage' => $rutastorage, 
+                'nombreOriginalFile' =>$id.'--'. $nombreOriginalFile,'vigencia'=>Carbon::today()->isoFormat('YYYY')]);
   
             }
 

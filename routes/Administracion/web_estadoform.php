@@ -20,6 +20,15 @@ Route::group(['prefix' => 'EstadoFormulario'], function () {
 		'uses' => 'App\Http\Controllers\Administracion\EstadoFormController@update',
 		//'middleware' => ['permission:salario-editar']
 	]);
+
+	Route::get('editacierrrer/{id}', [
+		'uses' => 'App\Http\Controllers\Administracion\EstadoFormController@editcierre',
+		//'middleware' => ['permission:salario-editar']
+	])->name('estadoform.editarcie');
+	Route::put('editacierrrer/{id}', [
+		'uses' => 'App\Http\Controllers\Administracion\EstadoFormController@updatecierre',
+		//'middleware' => ['permission:salario-editar']
+	]);
 	Route::get('ver/{id}', [
 		'uses' => 'App\Http\Controllers\Administracion\EstadoFormController@show',
 		//'middleware' => ['permission:salario-leer']

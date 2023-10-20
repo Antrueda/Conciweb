@@ -19,6 +19,8 @@ use Dompdf\Dompdf;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\View;
 
+use function PHPUnit\Framework\isNull;
+
 class DocumentsController extends Controller
 {
 
@@ -234,6 +236,12 @@ class DocumentsController extends Controller
         return view('administracion.incompleto');
     }
 
+    public function Soportetic()
+    {
+
+        return view('administracion.soportetic');
+    }
+
 
         // public function descargar($id)
         // {
@@ -247,8 +255,26 @@ class DocumentsController extends Controller
         public function download($id)
         {
             $documento = Soportecon::findOrFail($id);
-    
-            return Storage::download($documento->rutafinalfile);
+            
+            if (Storage::fileExists($documento->rutafinalfile)) {
+                // Genera el encabezado para forzar la descarga del archivo
+   
+                return Storage::download($documento->rutafinalfile);
+            } else 
+            if (Storage::disk('public')->exists($documento->rutafinalfile)) {
+                // Maneja el caso en el que el archivo no existe
+        
+                return response()->download(storage_path('app/public/' . $documento->rutafinalfile));
+            } else 
+            if (!isNull($documento->rutastorage)||Storage::disk('public')->exists($documento->rutastorage)) {
+        
+                // Maneja el caso en el que el archivo no existe
+                return response()->download(storage_path('app/public/' . $documento->rutastorage));
+             
+            }else{
+                return view('administracion.soportetic',compact('documento'));
+            }
+
         }
     
         // public function show($id)

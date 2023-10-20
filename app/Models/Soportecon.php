@@ -13,7 +13,8 @@ class Soportecon extends Model
 
     protected $table = 'conci_soportecons';
     protected $fillable = 
-    ['NUM_SOLICITUD', 'nombreOriginalFile', 'rutaFinalFile', 'descripcion','vigencia'];
+    ['NUM_SOLICITUD', 'nombreOriginalFile', 'rutaFinalFile','rutastorage',
+     'descripcion','vigencia'];
 
 
 

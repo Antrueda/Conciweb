@@ -466,7 +466,7 @@
     });
 
 $(".input-file").change(function() {
-    console.log(this.files[0].size);
+    console.log(this.files[0].name);
     if(this.files[0].size>10289594){
     toastr.error("El tamaño permitido es de 10MB");
     this.value = "";
@@ -478,10 +478,16 @@ $(".input-file").change(function() {
                   event.preventDefault();
                 }
             }
+            if (/[^a-zA-Z0-9()_ .-]/.test(this.files[0].name)) {
+              
+                    toastr.error("Estimado usuario, El archivo contiene caracteres especiales no permitidos, por lo tanto se recomienda ajustar el nombre del archivo adjunto");
+                    this.value = "";
+                  event.preventDefault();
+                }
         });
 
 
-
+      
 
 
 

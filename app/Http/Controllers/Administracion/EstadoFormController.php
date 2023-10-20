@@ -48,10 +48,21 @@ class EstadoFormController extends Controller{
         $dato = Estadoform::findOrFail($id);
         $mensaje = Texto::where('tipotexto_id', 50)->first();
         $estado = SisEsta::combo(['cabecera' => true, 'esajaxxx' => false]);
-        return view('administracion.EstadoFormulario.index', ['accion' => 'Editar'], compact('dato','estado','mensaje'));
+        return view('administracion.EstadoCierre.index', ['accion' => 'Editar'], compact('dato','estado','mensaje'));
     }
 
     public function update(Request $request, $id){
+        $this->validatorUpdate($request->all(), $id)->validate();
+
+        $dato = Estadoform::findOrFail($id);
+        $texto = $dato->texto;
+  
+        $dato->fill($request->all())->save();
+        $texto->fill($request->all())->save();
+        return redirect()->route('estadoform.editar',$id)->with('info', 'Registro actualizado con éxito');
+    }
+
+    public function updatecierre(Request $request, $id){
         $this->validatorUpdate($request->all(), $id)->validate();
 
         $dato = Estadoform::findOrFail($id);
