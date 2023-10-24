@@ -25,6 +25,7 @@ use App\Models\ConciReferente;
 use App\Models\ConciTiempo;
 use App\Models\Convocante;
 use App\Models\Estadoform;
+use App\Models\Festivos;
 use App\Models\Parametro;
 use App\Models\Salario;
 use App\Models\Sistema\CondicionProteccion;
@@ -46,7 +47,9 @@ use App\Models\Sistema\SisMunicipio;
 use App\Models\Sistema\SisPai;
 use App\Models\Tramite;
 use App\Traits\Combos\CombosTrait;
+use DateTime;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Date;
 
 class Webcontroller extends Controller
 {
@@ -1235,8 +1238,18 @@ class Webcontroller extends Controller
 
         // //     $respues->realizarCambioDespuesDe5Dias($diasParam);
             
+
+        // $fechas = new DateTime('10/10/2023');
+        // $fechassemana=new DateTime('10/17/2023');
         // // });
-        if(Carbon::now()->isWeekday()){
+        $fechas = Carbon::parse(Carbon::now());
+        
+        $fechassemana=$fechas->addWeekdays($diasParam);
+
+        //$fetivos= Festivos::select('fecha')->where('fecha',$fechas->toDateString())->first();
+        $fetivos2= Festivos::select('fecha')->where('fecha', '<=', $fechassemana->toDateString())->where('fecha', '>=', $fechas->toDateString())->exists();
+
+        if(Carbon::now()->isWeekday()&&!isset($fetivos)){
 
         
         $consulta=ModelsTramiteusuario::whereDate('fec_solicitud_tramite', '<=', now()->subWeekdays($diasParam))
@@ -1376,7 +1389,7 @@ class Webcontroller extends Controller
                 ->get();
     
         
-    
+            
             //Correo de confirmación de desistimiento
             $conteo= count($detalleAbc)-1;
             try {
@@ -1526,7 +1539,10 @@ class Webcontroller extends Controller
      
             return Redirect::back()->withErrors($validator);
         }
-
+        // $caracteresPermitidos = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        // $longitud = 20; // Puedes ajustar la longitud según tus necesidades
+        
+        // $nombreAleatorio = substr(str_shuffle($caracteresPermitidos), 0, $longitud);
         //Carga de adjuntos
         try {
             $files = [];
@@ -1540,7 +1556,7 @@ class Webcontroller extends Controller
                 $nombreOriginalFile = $file->getClientOriginalName();
                 $filePath = $file->storeAs('Documentos/'.$id, $nombreOriginalFile,'public');
                 $rutaFinalFile =$file->getRealPath();
-                $nombreencriptado = $id.'-- Adjunto'. $key.'.pdf';
+                $nombreencriptado = $id.'--Adjunto'. $key.'.pdf';
                 $rutastorage = $file->storeAs('Adjunto/', $nombreencriptado,'public');
 
                 $ddd = Soportecon::create(['NUM_SOLICITUD' => $id, 'descripcion' => $descripcion[$key], 'rutaFinalFile' => $filePath,  'rutastorage' => $rutastorage, 
@@ -1628,6 +1644,34 @@ class Webcontroller extends Controller
         'valor' => false]);
     }
 
+/*************************************************************************************************************/
+/**************** Funciones para crear un codigo de validación - Diligenciamiento de Encuenta ****************/
+// function crypto_rand_secure($min, $max){
+// 	$range = $max - $min;
+// 	if ($range < 0) return $min; // not so random...
+// 	$log = log($range, 2);
+// 	$bytes = (int) ($log / 8) + 1; // length in bytes
+// 	$bits = (int) $log + 1; // length in bits
+// 	$filter = (int) (1 << $bits) - 1; // set all lower bits to 1
+// 	do{
+// 		$rnd = hexdec(bin2hex(openssl_random_pseudo_bytes($bytes)));
+// 		$rnd = $rnd & $filter; // discard irrelevant bits
+// 	} while ($rnd >= $range);
+// 	return $min + $rnd;
+// }
 
+ 
+
+// function getToken($length){
+//     $token = "";
+//     $codeAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+//     $codeAlphabet.= "abcdefghijklmnopqrstuvwxyz";
+//     $codeAlphabet.= "0123456789";
+// 	//$codeAlphabet.= "|#$%*+-";
+//     for($i=0;$i<$length;$i++){
+//         $token .= $codeAlphabet[crypto_rand_secure(0,strlen($codeAlphabet))];
+//     }
+//     return $token;
+// }
   
 }

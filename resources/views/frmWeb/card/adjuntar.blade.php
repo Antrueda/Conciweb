@@ -290,8 +290,9 @@
     
       <b style="color:#0171BD;margin-bottom: 2px">Cargue los siguientes Documentos</b>
       <div class="alert alert-warning text-justify" role="alert" style="margin-bottom: -10px;margin-top: 10px;" >
-       <i class="fa-solid fa-triangle-exclamation fa-2xl"> </i><span class="px-2"><b>IMPORTANTE</b>, los campos marcados con asterisco (<b style="color: red;font-size:18px">*</b>) son obligatorios</span>
+       <i class="fa-solid fa-triangle-exclamation fa-2xl"> </i><span class="px-2"><b>IMPORTANTE.</b><br> Los campos marcados con asterisco (<b style="color: red;font-size:18px">*</b>) son obligatorios.</span><span class="pr-2"> El nombre de los archivos que anexe <b>NO</b> debe contener tildes, ni caracteres especiales.</span>
       </div>
+      
     <div class="table-responsive">
       <table class="table table-striped" style="--bs-table-striped-bg:#F5F9FC">
         <thead>

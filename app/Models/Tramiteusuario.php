@@ -100,7 +100,7 @@ class Tramiteusuario extends Model
         public function realizarCambioDespuesDe5Dias($dias)
         {
           $fechaCreacion = Carbon::parse($this->fec_solicitud_tramite);
-          // dd($this->num_solicitud);
+          
           $tramites=AppTramiteusuario::where('NUM_SOLICITUD',$this->num_solicitud)
           ->where('id_tramite', 335)
           ->where('vigencia',$this->vigencia)->first();
@@ -114,7 +114,18 @@ class Tramiteusuario extends Model
           ->where('vigencia',$this->vigencia)->first();
           
           $fechaCambio = $fechaCreacion->addWeekdays($dias);
-          //dd($fechaCambio.' Solicitud: '.$this->num_solicitud . ' fecha '.$this->fec_solicitud_tramite );
+        
+          // $fechafestivo = Festivos::select('fecha')->where('fecha',$fechaCambio->toDateString())->first();
+          $fechafestivo2 = Festivos::select('fecha')->where('fecha', '<=', $fechaCambio->toDateString())->where('fecha', '>=', Carbon::parse($this->fec_solicitud_tramite))->exists();
+          //dd($fechaCambio->toDateString().'  '.Carbon::parse($this->fec_solicitud_tramite));
+          //dd($fechafestivo2);
+          //
+          if(isset($fechafestivo2)){
+            $fechaCambio->addWeekdays(1);
+            dd($fechaCambio);
+          }
+
+
           if (Carbon::now()->isSameDay($fechaCambio) || Carbon::now()->gt($fechaCambio)) {
             $this->update(['ESTADO_TRAMITE' => 'Finalizado','estadodoc' => 'Desistimiento Automatico']);
             if(isset($respuestsi)){
