@@ -1246,8 +1246,8 @@ class Webcontroller extends Controller
         
         $fechassemana=$fechas->addWeekdays($diasParam);
 
-        //$fetivos= Festivos::select('fecha')->where('fecha',$fechas->toDateString())->first();
-        $fetivos2= Festivos::select('fecha')->where('fecha', '<=', $fechassemana->toDateString())->where('fecha', '>=', $fechas->toDateString())->exists();
+        $fetivos= Festivos::select('fecha')->where('fecha',$fechas->toDateString())->first();
+        //$fetivos2= Festivos::select('fecha')->where('fecha', '<=', $fechassemana->toDateString())->where('fecha', '>=', $fechas->toDateString())->exists();
 
         if(Carbon::now()->isWeekday()&&!isset($fetivos)){
 
@@ -1377,7 +1377,10 @@ class Webcontroller extends Controller
         $newDate = Carbon::parse($fecha)->format('d/m/Y H:i:s');  
         
         $nombrecompleto = $dato->primernombre . ' ' . $dato->segundonombre . ' ' . $dato->primerapellido  . ' ' . $dato->segundoapellido;
-        $modelo = ModelsTramiteusuario::where('num_solicitud', $id)->update(['estado_tramite' => $detalle,'estadodoc'=>'Desistimiento Voluntario']);
+        $modelo = ModelsTramiteusuario::where('num_solicitud', $id)->where('vigencia',$dato->vigencia)->update(['estado_tramite' => $detalle,'estadodoc'=>'Desistimiento Voluntario']);
+        $modelosinc = tramiteusuario::where('num_solicitud', $id)->where('vigencia',$dato->vigencia)->update(['estado_tramite' => $detalle]);
+        $modelorespusin = tramiterespuesta::where('num_solicitud', $id)->where('vigencia',$dato->vigencia)->update(['estado_tramite' => $detalle]);
+        $modelorespuesta = ModelsTramiterespuesta::where('num_solicitud', $id)->where('vigencia',$dato->vigencia)->update(['estado_tramite' => $detalle]);
         if ($detalle == 'Finalizado') {
 
   
@@ -1494,7 +1497,7 @@ class Webcontroller extends Controller
     public function CargaArchivos(Request $request, $id)
     {
         //Se carga los datos del formulario 
-        $dato = ModelsTramiteusuario::where('num_solicitud', $id)->first();
+        $dato = ModelsTramiteusuario::where('num_solicitud', $id)->where('vigencia',Carbon::today()->isoFormat('YYYY'))->first();
         //Se realiza validacion por request
 
         $input_data = $request->all();
@@ -1570,9 +1573,12 @@ class Webcontroller extends Controller
             DB::rollback();
             return '|0| 0.2) Problema al actualizar el numero asignado por el sistema' . $e->getMessage();
         }
-        $solicitud = ModelsTramiteusuario::where('num_solicitud', $id)->update([
+        $solicitud = ModelsTramiteusuario::where('num_solicitud', $id)->where('vigencia',$dato->vigencia)->update([
             'estadodoc' => 'Finalizado Adjuntos','estado_tramite' => 'Finalizado'
          ]);
+        //  $modelosinc = tramiteusuario::where('num_solicitud', $id)->where('vigencia',$dato->vigencia)->update(['estado_tramite' => 'Finalizado']);
+        // $modelorespusin = tramiterespuesta::where('num_solicitud', $id)->where('vigencia',$dato->vigencia)->update(['estado_tramite' => 'Finalizado']);
+        $modelorespuesta = ModelsTramiterespuesta::where('num_solicitud', $id)->where('vigencia',$dato->vigencia)->update(['estado_tramite' => 'Finalizado']);
      
 
 

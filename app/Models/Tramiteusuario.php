@@ -116,15 +116,15 @@ class Tramiteusuario extends Model
           $fechaCambio = $fechaCreacion->addWeekdays($dias);
         
           // $fechafestivo = Festivos::select('fecha')->where('fecha',$fechaCambio->toDateString())->first();
-          $fechafestivo2 = Festivos::select('fecha')->where('fecha', '<=', $fechaCambio->toDateString())->where('fecha', '>=', Carbon::parse($this->fec_solicitud_tramite))->exists();
+          $fechafestivo2 = Festivos::select('fecha')->where('fecha', '<=', $fechaCambio->toDateString())->where('fecha', '>=', Carbon::parse($this->fec_solicitud_tramite))->count();
           //dd($fechaCambio->toDateString().'  '.Carbon::parse($this->fec_solicitud_tramite));
-          //dd($fechafestivo2);
+          
           //
           if(isset($fechafestivo2)){
-            $fechaCambio->addWeekdays(1);
-            dd($fechaCambio);
+            $fechaCambio->addWeekdays($fechafestivo2);
+            
           }
-
+          
 
           if (Carbon::now()->isSameDay($fechaCambio) || Carbon::now()->gt($fechaCambio)) {
             $this->update(['ESTADO_TRAMITE' => 'Finalizado','estadodoc' => 'Desistimiento Automatico']);
