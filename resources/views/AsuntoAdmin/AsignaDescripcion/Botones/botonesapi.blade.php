@@ -7,6 +7,8 @@
 
 <a class="btn btn-sm btn-danger " href="{{ route($requestx->routexxx[0].'.borrar', [$queryxxx->id]) }}">INACTIVAR</a>
 
+<a class="btn btn-sm btn-secondary " href="{{ route($requestx->routexxx[0].'.obligar', [$queryxxx->id]) }}">OBLIGATORIO</a>
+
 
 
 

@@ -24,12 +24,12 @@
 }
 .col-md-3 {
     flex: 0 0 auto;
-    width: 25%;
+
     padding: 10px;
 }
 .col-md-4 {
     flex: 0 0 auto;
-    width: 25%;
+
     padding: 10px;
 }
 .d-flex {
@@ -482,7 +482,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                 </div>
  
 
-                <div class="col-md-4">
+                <div class="col-md-3">
     
                     <div class="form-floating mb-3">
       
@@ -493,7 +493,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                       </div>
                   </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
     
                     <div class="form-floating mb-3">
       
@@ -506,7 +506,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                 </div>
             
 
-                    <div class="col-md-4" id="fuera_div" >
+                    <div class="col-md-3" id="fuera_div" >
     
                         <div class="form-floating mb-3">
                             {!! Form::select('sis_departam_id',  $data['departamentos'], null, ['class' => 'form-control form-control-sm', 'id'=>'sis_departam_id', 'disabled']) !!}
@@ -994,13 +994,12 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-floating mb-3">
-                                <select class="form-control form-control-sm custom-select validate" name="subAsunto" id="subAsunto">
-                                    <option value=" ">- Seleccione una opcion -</option>
-                                </select>
+                   
+                                {{ Form::select('subasunto', $data['listaAsuntos'], null, ['class' => $errors->first('subasunto') ? 'form-control form-control-sm is-invalid' : 'form-control form-control-sm','id'=>'subasunto']) }}
                                 <div class="invalid-feedback subasunto">
                                     Campo obligatorio.
                                 </div>
-                                <label for="subAsunto"> 22.1. Sub Asunto *</label>
+                                <label for="subasunto"> 22.1. Sub Asunto *</label>
                             </div>
                          
                         </div>
@@ -1182,7 +1181,7 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                 }else{
                     $('.invalid-feedback.asunto').hide();
                 }
-                if( $("#subAsunto").val()===''){
+                if( $("#subasunto").val()===''){
                     $('.invalid-feedback.subasunto').show();
                         return false;
                 }else{
@@ -1516,39 +1515,23 @@ MEDIANTE APODERADO: Cuando se actúa a través de PODER ESPECIAL otorgado única
                
             },
             success: function(opciones) {
-                $('#subAsunto')
+                $('#subasunto')
                     .find('option')
                     .remove()
                     .end()
                     .val('whatever');
-                $('#subAsunto')
+                $('#subasunto')
                     .append($("<option></option>")
-                        .attr("value", ' ')
+                        .attr("value", '')
                         .text('- Seleccione una opcion -'));
-                opciones.forEach(element => $('#subAsunto').append(new Option(element['nombre'], element['id'])));
+                opciones.forEach(element => $('#subasunto').append(new Option(element['nombre'], element['id'])));
             }
         })
     });
 
     //Extraer infromacion de documentos solicitados
 
-    $("#subAsunto").change(() => {
-        $.ajax({
-            url: "consultaDocumentosRelacionados",
-            type: "POST",
-            data: {
-                asunto: $("#asunto").val(),
-                subAsunto: $("#subAsunto").val()
-            },
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            success: function(respuesta) {
-                $("#abcAsunto").html(respuesta);
-                 //$("#abcContenedor").slideDown(); //Mostrar informacion ABC y input para documento adjunto
-            }
-        })
-    });
+
 
 
   

@@ -1,26 +1,51 @@
-<div class="form-group row{{ $errors->first('nombre') ? ' is-invalid' : '' }}">
-	{{ Form::label('Estado', 'Estado:', ['class' => 'col-sm-2 col-form-label']) }}
-	<div class="col-sm-10">
-		@if($accion == 'Ver')
-			{{ Form::select('sis_esta_id', $estado, null, ['class' => $errors->first('sis_esta_id') ?
-			'form-control select2 form-control-sm is-invalid cargos' : 'form-control select2 form-control-sm cargos',
-			'data-placeholder' => 'Seleccione un estado']) }}
-		@else
-		{{ Form::select('sis_esta_id', $estado, null, ['class' => $errors->first('sis_esta_id') ?
-		'form-control select2 form-control-sm is-invalid cargos' : 'form-control select2 form-control-sm cargos',
-		'data-placeholder' => 'Seleccione un estado']) }}
+
+
+<div class=" row">
+	<div class="col-sm-2">
+	{{ Form::label('horainicio', 'Hora Inicio:', ['class' => 'control-label col-form-label-sm']) }}
+	{{ Form::time('horainicio', $dato->horainicio, ['class' => $errors->first('horainicio') ? 'form-control form-control-sm is-invalid ' :'form-control form-control-sm ']) }}
+	@if($errors->has('horainicio'))
+	<div class="invalid-feedback d-block">
+		{{ $errors->first('horainicio') }}
+	</div>
+	@endif
+</div>
+
+	<div class="col-md-2">
+		{{ Form::label('horacierre', 'Hora Cierre:', ['class' => 'control-label col-form-label-sm']) }}
+		{{ Form::time('horacierre', $dato->horacierre, ['class' => $errors->first('horacierre') ? 'form-control form-control-sm is-invalid ' :'form-control form-control-sm ']) }}
+		@if($errors->has('horacierre'))
+		<div class="invalid-feedback d-block">
+			{{ $errors->first('horacierre') }}
+		</div>
 		@endif
 	</div>
-	@if($errors->has('nombre'))
-		<div class="invalid-feedback d-block">
-        	{{ $errors->first('estado') }}
-      	</div>
-    @endif
+	{{-- <div class="col-md-4">
+	<label class="form-check-label" >
+		@if(!isset($todoxxxx['modeloxx']))
+		<input class="form-check-input" type="checkbox" name="cierrese" value=""> Horario de cierre
+		@else
+		<input type="checkbox" name="cierrese" id="cierrese" value="{{ $dato->cierrese }}" {{ in_array($dato->cierrese,$todoxxxx['planesxx']) ? 'checked' : '' }}> Horario de cierre
+		@endif
+	</label>
+	</div> --}}
+
+	<div class="col-md-3">
+		<div class="form-check">
+		  <input class="form-check-input" type="checkbox" id="checks" style="margin-left: 30px;"  >
+		  <label style="padding-top: 5px;" class="form-check-label" for="checks">Horario de cierre</label>
+		  <div style="display: none">
+			<input type="text" class="form-control form-control-sm validate"  name="cierrese" id="cierrese" autocomplete="off" placeholder="0" required value=0>
+		  </div>
+		</div>
+	  </div>
 </div>
-<br>
+
+
+
 <div class="form-group col-md-12">
 	{{ Form::label('texto', 'Descripción:', ['class' => 'control-label col-form-label-sm']) }}
-	{{ Form::textarea('texto', $dato->texto->texto, ['class' => $errors->first('texto') ? 'form-control form-control-sm is-invalid contarcaracteres' :'form-control form-control-sm contarcaracteres ckeditor']) }}
+	{{ Form::textarea('texto', $mensaje->texto, ['class' => $errors->first('texto') ? 'form-control form-control-sm is-invalid contarcaracteres' :'form-control form-control-sm contarcaracteres ckeditor']) }}
 	@if($errors->has('texto'))
 	<div class="invalid-feedback d-block">
 		{{ $errors->first('texto') }}
@@ -41,6 +66,13 @@
 		</center>
 
 	@endif
+	@if($accion == 'Editarcierre')
+
+	<center>
+		{{ Form::submit('Modificar', ['class' => 'btn btn-success', 'style'=>'width: 120px']) }}
+	</center>
+
+@endif
 	@if($accion == 'Ver')
 		@can('permiso-borrar')
 			{!! Form::open(['route' => ['estadoform.ver', $dato->id], 'method' => 'DELETE']) !!}
@@ -54,3 +86,16 @@
 	@endif
 
 </div>
+<script>
+	 $("#cierrese").change(function() {
+        if ($("#cierrese").is(':checked')) {
+		
+            $("#cierrese").val(1);
+          
+            
+        } else {
+            $("#cierrese").val(0);
+        
+        }
+          });
+</script>

@@ -119,6 +119,19 @@ class AsignaDescripcionController extends Controller
             ->with('info', 'Subasunto inactivado correctamente');
     }
 
+    public function obligar(Request $request, Subdescripcion $modeloxx)
+    {
+        if($modeloxx->obligatorio==1){
+            $modeloxx->update(['obligatorio' => 0, ]);
+        }else{
+            $modeloxx->update(['obligatorio' => 1, ]);
+        }
+        
+        return redirect()
+            ->route($this->opciones['permisox'], [$modeloxx->sis_nnaj_id])
+            ->with('info', 'Se ha cambiado la obligatoriedad');
+    }
+
     public function activate(Subdescripcion $modeloxx)
     {
         $this->opciones['pestania'] = $this->getPestanias($this->opciones);

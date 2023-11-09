@@ -2,7 +2,7 @@
 <div class="form-row align-items-end">
     <div class="form-group col-md-6">
         {{ Form::label('nombre', 'Nombre:', ['class' => 'control-label col-form-label-sm']) }}
-        {{ Form::text('nombre', null, ['class' => $errors->first('nombre') ? 'form-control form-control-sm is-invalid' :'form-control form-control-sm']) }}
+        {{ Form::text('nombre', null, ['class' => $errors->first('nombre') ? 'form-control form-control-sm is-invalid' :'form-control form-control-sm','style'=>"text-transform: uppercase"]) }}
         @if($errors->has('nombre'))
         <div class="invalid-feedback d-block">
             {{ $errors->first('nombre') }}

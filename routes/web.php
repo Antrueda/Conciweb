@@ -112,6 +112,7 @@ require_once('Asunto/web_modulo.php');
 require_once('Administracion/web_parametro.php');
 require_once('Administracion/web_correoinv.php');
 require_once('Administracion/web_salario.php');
+require_once('Administracion/web_semilla.php');
 require_once('Administracion/web_estadoform.php');
 require_once('Administracion/web_documentod.php');
 require_once('Administracion/web_tiempod.php');

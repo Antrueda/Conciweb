@@ -34,7 +34,7 @@
                                       <div class="form-floating mb-3">
                                    
                                     <input type="text" name="codigo" id="codigo" class="form-control" autocomplete="off" placeholder="0">
-                                    <label for="codigo">Pin</label>
+                                    <label for="codigo">Pin (Digite el número de 5 digitos)</label>
                                     </div>
                                 </div>
                                 <div class="col-sm-1" style="padding: 6px;margin-top:7px;width:60px;height:60px">

@@ -52,7 +52,7 @@ trait DataTablesTrait
                     ['data' => 'dias_de_diferencia', 'name' => 'dias_de_diferencia'],
                     
                     ['data' => 'estadodoc', 'name' => 'conci_tramiteusuarios.estadodoc'],
-                      ['data' => 'botonexx', 'name' => 'botonexx'],
+                    ['data' => 'botonexx', 'name' => 'botonexx'],
                 ],
                 'tablaxxx' => 'datatable',
                 'permisox' => $dataxxxx['permisox'],
@@ -61,7 +61,7 @@ trait DataTablesTrait
             ]
         ];
         $dataxxxx['ruarchjs'] = [
-            ['jsxxxxxx' => 'TextoAdmin.Texto.Js.tabla']
+            ['jsxxxxxx' => 'Consulta\.Consulta.Js.tabla']
         ];
     
         return $dataxxxx;

@@ -46,6 +46,11 @@ Route::group(['prefix' => 'AsignaDescripcion'], function () use($controll,$routx
 		'middleware' => ['permission:' . $routxxxx . '-borrar']
     ])->name($routxxxx . '.borrar');
 
+	Route::get('obligar/{modeloxx}', [
+		'uses' => $controll . 'Controller@obligar',
+		'middleware' => ['permission:' . $routxxxx . '-borrar']
+    ])->name($routxxxx . '.obligar');
+
     Route::get('activate/{modeloxx}', [
 	    'uses' => $controll.'Controller@activate',
 	    'middleware' => ['permission:'.$routxxxx.'-activarx']

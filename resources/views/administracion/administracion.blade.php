@@ -28,20 +28,23 @@ border-left: 7px solid #00A1DB;
 
   <div class="row">
       <div class="col-sm-6">
-          <div class="card rounded-3 shadow card-acceso">
-              <div class="card-body">
-                <p class="fs-6 color_titulo fw-bold">Temas y combos</p>
-                <p class="fs-6">Administraccion de temas y subtemas</p>
-                  <center><a href="{{ route('tema')}}"class="btn btn-success">
-                
-                    <span class="px-2">Ingresar</span>   <svg style="margin-right: 5px;
-                    margin-bottom: 6px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path>
-                        <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path>
-                    </svg>  </a>
-                  </center>
-              </div>
-          </div>
+       
+            <div class="card rounded-3 shadow card-acceso">
+                <div class="card-body">
+                  <p class="fs-6 color_titulo fw-bold">Asuntos y Adjuntos</p>
+                  <p class="fs-6">Administración de Asuntos y Adjuntos</p>
+                    <center><a href="{{ route('asuntomodulo')}}" class="btn btn-success">
+                      
+                             <span class="px-2">Ingresar</span> <svg style="margin-right: 5px;
+                        margin-bottom: 6px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path>
+                            <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path>
+                        </svg>  </a>
+                    </center>
+                </div>
+            </div>
+        
+
       </div>
       <div class="col-sm-6">
           <div class="card rounded-3 shadow card-acceso">
@@ -97,20 +100,20 @@ border-left: 7px solid #00A1DB;
   </div>
   <div class="row mt-5">
       <div class="col-sm-6">
-          <div class="card rounded-3 shadow card-acceso">
-              <div class="card-body">
-                <p class="fs-6 color_titulo fw-bold">Asuntos y Adjuntos</p>
-                <p class="fs-6">Administración de Asuntos y Adjuntos</p>
-                  <center><a href="{{ route('asuntomodulo')}}" class="btn btn-success">
-                    
-                           <span class="px-2">Ingresar</span> <svg style="margin-right: 5px;
-                      margin-bottom: 6px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
-                          <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path>
-                          <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path>
-                      </svg>  </a>
-                  </center>
-              </div>
-          </div>
+        <div class="card rounded-3 shadow card-acceso">
+            <div class="card-body">
+              <p class="fs-6 color_titulo fw-bold">Temas y combos</p>
+              <p class="fs-6">Administraccion de temas y subtemas</p>
+                <center><a href="{{ route('tema')}}"class="btn btn-success">
+              
+                  <span class="px-2">Ingresar</span>   <svg style="margin-right: 5px;
+                  margin-bottom: 6px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path>
+                      <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path>
+                  </svg>  </a>
+                </center>
+            </div>
+        </div>
       </div>
 
 
@@ -205,13 +208,30 @@ border-left: 7px solid #00A1DB;
             <div class="card-body">
               <p class="fs-6 color_titulo fw-bold">Hora de cierre e inicio</p>
               <p class="fs-6">Administración para la hora de cierre e inicio del aplicativo</p>
-              <center><a href="{{ route('estadoform.editar',1)}}" class="btn btn-success"> 
+              <center><a href="{{ route('estadoform.editarcie',1)}}" class="btn btn-success"> 
                    
                          <span class="px-2">Ingresar</span> <svg style="margin-right: 5px;
                     margin-bottom: 6px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path>
                         <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path>
                     </svg>  </a>
+                </center>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="card rounded-3 shadow card-acceso">
+            <div class="card-body">
+              <p class="fs-6 color_titulo fw-bold">Semilla</p>
+              <p class="fs-6">Cambiar foramto de semilla de adjuntos</p>
+                <center><a href="{{ route('semilla.editar',1) }}" class="btn btn-success">
+                
+                    <span class="px-2">Ingresar</span>   <svg style="margin-right: 5px;
+                    margin-bottom: 6px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path>
+                        <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path>
+                    </svg>  </a>
+                    
                 </center>
             </div>
         </div>

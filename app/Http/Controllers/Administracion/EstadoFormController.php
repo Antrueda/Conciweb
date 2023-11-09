@@ -8,6 +8,8 @@ use App\Models\Estadoform;
 use App\Models\Sistema\SisEsta;
 use App\Models\Texto;
 use Illuminate\Support\Facades\Validator;
+use DB;
+use Illuminate\Support\Facades\DB as FacadesDB;
 
 class EstadoFormController extends Controller{
     public function __construct(){
@@ -48,7 +50,7 @@ class EstadoFormController extends Controller{
         $dato = Estadoform::findOrFail($id);
         $mensaje = Texto::where('tipotexto_id', 50)->first();
         $estado = SisEsta::combo(['cabecera' => true, 'esajaxxx' => false]);
-        return view('administracion.EstadoCierre.index', ['accion' => 'Editar'], compact('dato','estado','mensaje'));
+        return view('administracion.EstadoCierre.index', ['accion' => 'Editarcierre'], compact('dato','estado','mensaje'));
     }
 
     public function update(Request $request, $id){
@@ -63,14 +65,15 @@ class EstadoFormController extends Controller{
     }
 
     public function updatecierre(Request $request, $id){
-        $this->validatorUpdate($request->all(), $id)->validate();
-
+        
+        
         $dato = Estadoform::findOrFail($id);
-       $texto = $dato->texto;
-  
+        $dato->horainicio = FacadesDB::raw("TO_TIMESTAMP(".$request->input('horainicio').", 'HH24:MI:SS')"); 
+        $texto =   Texto::where('tipotexto_id', 50)->first();
+        
         $dato->fill($request->all())->save();
         $texto->fill($request->all())->save();
-        return redirect()->route('estadoform.editar',$id)->with('info', 'Registro actualizado con éxito');
+        return redirect()->route('estadoform.editarcie',$id)->with('info', 'Registro actualizado con éxito');
     }
 
     public function destroy($id){

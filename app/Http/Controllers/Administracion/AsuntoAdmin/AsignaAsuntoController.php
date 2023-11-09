@@ -56,7 +56,7 @@ class AsignaAsuntoController extends Controller
         return $this->setASubAsunto([
             'requestx' => $request,
             'modeloxx' => '',
-            'infoxxxx' => 'Asunto creado con éxito',
+            'infoxxxx' => 'Sub Asunto Asignado con éxito',
             'routxxxx' => $this->opciones['routxxxx'] . '.editar'
         ]);
     }
@@ -113,9 +113,11 @@ class AsignaAsuntoController extends Controller
 
         $modeloxx->update(['sis_esta_id' => 2, 'user_edita_id' => Auth::user()->id]);
         return redirect()
-            ->route($this->opciones['permisox'], [$modeloxx->sis_nnaj_id])
-            ->with('info', 'Subasunto inactivado correctamente');
+            ->route($this->opciones['permisox']);
+            
     }
+
+    
 
     public function activate(ASubasunto $modeloxx)
     {

@@ -28,6 +28,7 @@ use App\Models\Estadoform;
 use App\Models\Festivos;
 use App\Models\Parametro;
 use App\Models\Salario;
+use App\Models\Semilla;
 use App\Models\Sistema\CondicionProteccion;
 use App\Models\Sistema\GrupoAfectado;
 use App\Models\Sistema\RelacionCondicionProteccion;
@@ -48,8 +49,7 @@ use App\Models\Sistema\SisPai;
 use App\Models\Tramite;
 use App\Traits\Combos\CombosTrait;
 use DateTime;
-use Illuminate\Support\Facades\Crypt;
-use Illuminate\Support\Facades\Date;
+
 
 class Webcontroller extends Controller
 {
@@ -142,135 +142,135 @@ class Webcontroller extends Controller
 
 
  
-        private function fetchCondicionesProteccion(){
-            /**
-             * Esta funcion se encarga de traer la lista inicial de condiciones
-             * de proteccion de acuerdo con lo registrado en la base de datos
-             */
-            $this->listaCondicionesProteccion = 
-                CondicionProteccion::where('habilitado', true)
-                    ->select('id', 'nombre', 'descripcion', 'imagen_on', 'imagen_off','habilitado')
-                    ->orderBy('id', 'ASC')
-                    ->get();
-            foreach ($this->listaCondicionesProteccion as $key => $lista) {
-                /**
-                 * Agrega a la lista traida de la base de dato los siguientes campos:
-                 * enabled -> activar o desactivar boton en front
-                 * checked -> cambiar icono al seleccionar o deseleccionar condicion
-                 */
-                $this->listaCondicionesProteccion[$key] += ['enabled' => true];
-                $this->listaCondicionesProteccion[$key] += ['checked' => false];
-            }
-        }
+    //     private function fetchCondicionesProteccion(){
+    //         /**
+    //          * Esta funcion se encarga de traer la lista inicial de condiciones
+    //          * de proteccion de acuerdo con lo registrado en la base de datos
+    //          */
+    //         $this->listaCondicionesProteccion = 
+    //             CondicionProteccion::where('habilitado', true)
+    //                 ->select('id', 'nombre', 'descripcion', 'imagen_on', 'imagen_off','habilitado')
+    //                 ->orderBy('id', 'ASC')
+    //                 ->get();
+    //         foreach ($this->listaCondicionesProteccion as $key => $lista) {
+    //             /**
+    //              * Agrega a la lista traida de la base de dato los siguientes campos:
+    //              * enabled -> activar o desactivar boton en front
+    //              * checked -> cambiar icono al seleccionar o deseleccionar condicion
+    //              */
+    //             $this->listaCondicionesProteccion[$key] += ['enabled' => true];
+    //             $this->listaCondicionesProteccion[$key] += ['checked' => false];
+    //         }
+    //     }
     
-        private function updateCondicionesDisponibles($undo){
-            /**
-             * Esta funcion se encarga de actualizar las condiciones posibles de seleccionar
-             * de acuerdo con la seleccion del ususario y las relaciones asignadas en DB
-             */
+    //     private function updateCondicionesDisponibles($undo){
+    //         /**
+    //          * Esta funcion se encarga de actualizar las condiciones posibles de seleccionar
+    //          * de acuerdo con la seleccion del ususario y las relaciones asignadas en DB
+    //          */
         
-            if(count($this->selectedCondiciones) > 0){
-                /**
-                 * undo -> booleano usado para identificar la accion del usuario, es decir,
-                 * si el usuario esta seleccionando o deseleccionando una condicion
-                 */
+    //         if(count($this->selectedCondiciones) > 0){
+    //             /**
+    //              * undo -> booleano usado para identificar la accion del usuario, es decir,
+    //              * si el usuario esta seleccionando o deseleccionando una condicion
+    //              */
        
-                if(!$undo){
-                    //Selecciona una condicion
+    //             if(!$undo){
+    //                 //Selecciona una condicion
                
-                    //Itera el arreglo con las selecciones del peticionario
-                    foreach ($this->selectedCondiciones as $selected) {
-                        //Trae las relaciones de cada condicion seleccionada
-                        $relaciones = RelacionCondicionProteccion::where('condicion', $selected)->get();
-                        //Itera las relacioens
-                        foreach ($this->listaCondicionesProteccion as $key => $lista) {
-                            //Desactiva las condiciones que no posean relacion con la seleccion del peticionario
-                            if($lista['id'] != $selected && $relaciones->where('relacion', $lista['id'])->first() == null){
-                                $this->listaCondicionesProteccion[$key]['enabled'] = false;
+    //                 //Itera el arreglo con las selecciones del peticionario
+    //                 foreach ($this->selectedCondiciones as $selected) {
+    //                     //Trae las relaciones de cada condicion seleccionada
+    //                     $relaciones = RelacionCondicionProteccion::where('condicion', $selected)->get();
+    //                     //Itera las relacioens
+    //                     foreach ($this->listaCondicionesProteccion as $key => $lista) {
+    //                         //Desactiva las condiciones que no posean relacion con la seleccion del peticionario
+    //                         if($lista['id'] != $selected && $relaciones->where('relacion', $lista['id'])->first() == null){
+    //                             $this->listaCondicionesProteccion[$key]['enabled'] = false;
                         
-                            }
-                        }
-                    }
-                } else{
-                    //Deseleccionando una condicion
-                    foreach ($this->listaCondicionesProteccion as $key => $lista) {
-                        //Habilita todas las condiciones
-                        $this->listaCondicionesProteccion[$key]['enabled'] = true;
-                    }
-                    //Recursividad para desactivar botones de acuerdo a las relaciones
-                    $this->updateCondicionesDisponibles(false);
-                }
-            }else{
-                //Habilita todos los botones
-                foreach ($this->listaCondicionesProteccion as $key => $lista) {
-                    $this->listaCondicionesProteccion[$key]['enabled'] = true;
-                }
-            }  
-        }
+    //                         }
+    //                     }
+    //                 }
+    //             } else{
+    //                 //Deseleccionando una condicion
+    //                 foreach ($this->listaCondicionesProteccion as $key => $lista) {
+    //                     //Habilita todas las condiciones
+    //                     $this->listaCondicionesProteccion[$key]['enabled'] = true;
+    //                 }
+    //                 //Recursividad para desactivar botones de acuerdo a las relaciones
+    //                 $this->updateCondicionesDisponibles(false);
+    //             }
+    //         }else{
+    //             //Habilita todos los botones
+    //             foreach ($this->listaCondicionesProteccion as $key => $lista) {
+    //                 $this->listaCondicionesProteccion[$key]['enabled'] = true;
+    //             }
+    //         }  
+    //     }
 
-        public function seleccionarCondicion(Request $request){
+    //     public function seleccionarCondicion(Request $request){
    
 
-            $this->listaCondicionesProteccion = CondicionProteccion::where('habilitado', true)
-            ->select('id', 'nombre', 'descripcion', 'imagen_on', 'imagen_off','habilitado')
-            ->orderBy('id', 'ASC')
-            ->get()->toArray();
+    //         $this->listaCondicionesProteccion = CondicionProteccion::where('habilitado', true)
+    //         ->select('id', 'nombre', 'descripcion', 'imagen_on', 'imagen_off','habilitado')
+    //         ->orderBy('id', 'ASC')
+    //         ->get()->toArray();
 
-            foreach ($this->listaCondicionesProteccion as $key => $lista) {
-                /**
-                 * Agrega a la lista traida de la base de dato los siguientes campos:
-                 * enabled -> activar o desactivar boton en front
-                 * checked -> cambiar icono al seleccionar o deseleccionar condicion
-                 */
-                $this->listaCondicionesProteccion[$key] += ['enabled' => true];
-                $this->listaCondicionesProteccion[$key] += ['checked' => false];
-            }
+    //         foreach ($this->listaCondicionesProteccion as $key => $lista) {
+    //             /**
+    //              * Agrega a la lista traida de la base de dato los siguientes campos:
+    //              * enabled -> activar o desactivar boton en front
+    //              * checked -> cambiar icono al seleccionar o deseleccionar condicion
+    //              */
+    //             $this->listaCondicionesProteccion[$key] += ['enabled' => true];
+    //             $this->listaCondicionesProteccion[$key] += ['checked' => false];
+    //         }
     
-            if ($request->ajax()) {
-            $id=$request->id;
-            //Trae toda la informacion de la condicion seleccionada
-            //$table = CondicionProteccion::find($request->id);
-            $table = CondicionProteccion::find($this->listaCondicionesProteccion[$id]['id']);
+    //         if ($request->ajax()) {
+    //         $id=$request->id;
+    //         //Trae toda la informacion de la condicion seleccionada
+    //         //$table = CondicionProteccion::find($request->id);
+    //         $table = CondicionProteccion::find($this->listaCondicionesProteccion[$id]['id']);
 
-            /**
-             * Valida la accion del usuario
-             * - Si el id que recibe la funcion no esta en el arreglo selectedCondiciones,
-             *   es por que el usuario esta seleccionando una condicion
-             * - Si el id que recibe la funcion SI existe en el arreglo selectedCondiciones,
-             *   es porque el usuario esta deseleccionando una condicion
-             */
-            if(!in_array($this->listaCondicionesProteccion[$id]['id'], $this->selectedCondiciones)){
-                //guarda el id de base de datos correspondiente a la condicion seleccionada
-                array_push($this->selectedCondiciones, $this->listaCondicionesProteccion[$id]['id']);
-                //marca como seleccionado el boton para cambiar el icono
-                $this->listaCondicionesProteccion[$id]['checked'] = true;
-                //valida si la condicion seleccionada posee una lista desplegable
+    //         /**
+    //          * Valida la accion del usuario
+    //          * - Si el id que recibe la funcion no esta en el arreglo selectedCondiciones,
+    //          *   es por que el usuario esta seleccionando una condicion
+    //          * - Si el id que recibe la funcion SI existe en el arreglo selectedCondiciones,
+    //          *   es porque el usuario esta deseleccionando una condicion
+    //          */
+    //         if(!in_array($this->listaCondicionesProteccion[$id]['id'], $this->selectedCondiciones)){
+    //             //guarda el id de base de datos correspondiente a la condicion seleccionada
+    //             array_push($this->selectedCondiciones, $this->listaCondicionesProteccion[$id]['id']);
+    //             //marca como seleccionado el boton para cambiar el icono
+    //             $this->listaCondicionesProteccion[$id]['checked'] = true;
+    //             //valida si la condicion seleccionada posee una lista desplegable
             
-                $lista = $this->getDesplegable(['condicion' => $table->id]);
+    //             $lista = $this->getDesplegable(['condicion' => $table->id]);
           
-                if(isset($lista)){
-                    //trae la lista desplegable correspondiente a la condicion
-                    $this->listaDesplegables[$table->id] = [
-                        // 'datos' => DB::table($table->tabla_desplegable)->where('habilitado', true)->get(),
-                        'datos' => $lista,
-                        'nombre' =>  $table->tabla_desplegable,
-                        // 'id' => $table->id,
-                    ];
+    //             if(isset($lista)){
+    //                 //trae la lista desplegable correspondiente a la condicion
+    //                 $this->listaDesplegables[$table->id] = [
+    //                     // 'datos' => DB::table($table->tabla_desplegable)->where('habilitado', true)->get(),
+    //                     'datos' => $lista,
+    //                     'nombre' =>  $table->tabla_desplegable,
+    //                     // 'id' => $table->id,
+    //                 ];
                     
-                    // dd($this->listaDesplegables);
-                    // $this->selectListaDesplegables[$table->tabla_desplegable] = '';
-                }
-                //actualiza las condiciones disponibles para seleccion
-                $this->updateCondicionesDisponibles(false);
-            } else{
-                $indexCondicion = array_search($this->listaCondicionesProteccion[$id]['id'], $this->selectedCondiciones);
-                //Elimina la condicion recibida del arreglo selectedCondiciones
-                unset($this->selectedCondiciones[$indexCondicion], $this->listaDesplegables[$table->id], $this->selectListaDesplegables[$table->id]);
-                $this->listaCondicionesProteccion[$id]['checked'] = false;
-                $this->updateCondicionesDisponibles(true);
-            }
-        }
-    }
+    //                 // dd($this->listaDesplegables);
+    //                 // $this->selectListaDesplegables[$table->tabla_desplegable] = '';
+    //             }
+    //             //actualiza las condiciones disponibles para seleccion
+    //             $this->updateCondicionesDisponibles(false);
+    //         } else{
+    //             $indexCondicion = array_search($this->listaCondicionesProteccion[$id]['id'], $this->selectedCondiciones);
+    //             //Elimina la condicion recibida del arreglo selectedCondiciones
+    //             unset($this->selectedCondiciones[$indexCondicion], $this->listaDesplegables[$table->id], $this->selectListaDesplegables[$table->id]);
+    //             $this->listaCondicionesProteccion[$id]['checked'] = false;
+    //             $this->updateCondicionesDisponibles(true);
+    //         }
+    //     }
+    // }
     //Modal con el texto de bienvenida
     public function modalMensajeBienvenida()
     {
@@ -525,7 +525,7 @@ class Webcontroller extends Controller
         $sedePrincipal = $request->input("sedePrincipal");
         $sedeSecundaria = $request->input("sedeSecundaria");
         $asunto = $request->input("asunto");
-        $subAsunto = $request->input("subAsunto");
+        $subAsunto = $request->input("subasunto");
         $estrato = $request->input("estrato");
         $detalle = $request->input("detalle");
         $cuantia = $request->input("cuantia");
@@ -1530,7 +1530,7 @@ class Webcontroller extends Controller
                 // $rutaFinalFile = Storage::disk('local')->put("", $value);
             }
             
-            $descripcion[] = 'Documentos que complementen su solicitud';
+            //$descripcion[] = 'Documentos que complementen su solicitud';
             if($dato->tiposolicitud==1){
                 $descripcion[] = 'Poder especial para conciliar dirigido al centro de conciliación de la personería de Bogota D.C.';
             }
@@ -1542,22 +1542,26 @@ class Webcontroller extends Controller
      
             return Redirect::back()->withErrors($validator);
         }
-        // $caracteresPermitidos = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-        // $longitud = 20; // Puedes ajustar la longitud según tus necesidades
+        $semilla=Semilla::findOrfail(1);
+        //$caracteresPermitidos = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        $caracteresPermitidos = $semilla->caracteres;
+        $longitud = $semilla->longitud; // Puedes ajustar la longitud según tus necesidades
         
-        // $nombreAleatorio = substr(str_shuffle($caracteresPermitidos), 0, $longitud);
+        
         //Carga de adjuntos
         try {
             $files = [];
             foreach ($request->file("document1") as $key => $file) {
  
                // $rutaFinalFile = Storage::put($id, $file);
-          
+
+               $vigencia =Carbon::today()->isoFormat('YYYY');
+               $nombreAleatorio = substr(str_shuffle($caracteresPermitidos), 0, $longitud);
       
                 $files[]['name'] = $descripcion[$key];
                 //estructura de nombre de archivo id -- nombreoriginal
                 $nombreOriginalFile = $file->getClientOriginalName();
-                $filePath = $file->storeAs('Documentos/'.$id, $nombreOriginalFile,'public');
+                $filePath = $file->storeAs('Documentos/'.$id.'_'.$vigencia,$id.'_'. $nombreAleatorio.'.pdf','public');
                 $rutaFinalFile =$file->getRealPath();
                 $nombreencriptado = $id.'--Adjunto'. $key.'.pdf';
                 $rutastorage = $file->storeAs('Adjunto/', $nombreencriptado,'public');

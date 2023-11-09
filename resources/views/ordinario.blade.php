@@ -17,6 +17,8 @@
         .header {
             margin-top: 10px;
             height: 80px;
+            
+
         }
 
         header .column {
@@ -50,7 +52,7 @@
             font-family: Helvetica, sans-serif;
             color: #000000
         }
-        
+
 
         .caja_titulo {
             line-height: 0.16in;
@@ -58,8 +60,15 @@
             padding-top: 20px;
         }
 
+        .caja_subtitulo {
+            line-height: 10pt;
+            text-align: left;
+            padding-top: 20px;
+        }
+
         .caja_titulo__span {
             font-style: normal;
+            text-align: left;
             font-weight: bold;
             font-size: 9pt;
             font-family: Helvetica;
@@ -148,152 +157,184 @@
             </span>
         </div>
         <div class="caja_titulo">
-            <span class="caja_titulo__span">
+            <span class="caja_titulo__span" >
                 SOLICITUD DE CONCILIACIÓN No. {{$data['dato']->num_solicitud}}  DE {{$data['dato']->vigencia}}</b> 
             </span><br>
             <span class="caja_titulo__span">
                 LA PERSONERÍA DE BOGOTÁ, D.C.
             </span><br><br>
-            <span class="caja_titulo__span">
-                DATOS DEL SOLICITANTE
-            </span>
-        </div>
-        <div class="card-body" style="margin-bottom: 10px;" >
-                  <div class="row">
-                    <div class="col-md-3">
-                      <b  style="color:#0171BD">Tipo de Documento</b>
-                      <p style="text-transform: uppercase">{{$data['tipodedocumento']}}</p>
-                    </div>
-                    <div class="col-md-3">
-                      <b  style="color:#0171BD">Número de Documento</b>
-                      <p style="text-transform: uppercase">{{$data['dato']->id_usuario_reg}}</p>
-                    </div>
-                    <div class="col-md-3">
-                     <b  style="color:#0171BD">Solicitante</b>
-                      <p style="text-transform: uppercase"> {{$data['nombrecompleto']}}</p>
-                    </div>
-                    <div class="col-md-3">
-                     <b  style="color:#0171BD">Fecha de Solicitud</b> <b  style="color:#0171BD;font-size:80%">(dd-mm-yyyy)</b>
-                     <p style="text-transform: uppercase"> {{$data['newDate']}}</p>
-                    </div>
-                    <div class="col-md-3">
-                     <b  style="color:#0171BD">Asuntos</b>
-                      <p style="text-transform: uppercase"> {{$data['dato']->asuntos->nombre}}</p>
-                    </div>
-                    <div class="col-md-3">
-                    <b  style="color:#0171BD">Sub Asunto</b>
-                      <p style="text-transform: uppercase"> {{$data['dato']->subasuntos->nombre}}</p>
-                    </div>
-                    <div class="col-md-3">
-                      <b style="color:#0171BD" >Cuantía</b>
-                      <p style="text-transform: uppercase">$ {{$data['numero']}}</p>
-                    </div>
-                    <div class="col-md-3">
-                      <b style="color:#0171BD" >Correo Electrónico</b>
-                      <p style="text-transform: uppercase">{{$data['dato']->email}}</p>
-                    </div>
-                  </div>
-        </div>  
 
-         
+        </div>
+    
+        <div class="caja_subtitulo">
+            <span class="caja_titulo__span"style="color:#35A8E4">
+                DATOS DEL SOLICITANTE
+            </span><br>
+        </div>
+        <br>
+        <table class="table table-striped" style="--bs-table-striped-bg:#F5F9FC">
+            <thead>
+              <tr style="">
+                <th scope="col" style="color:#35A8E4">Tipo de Documento</th>
+                <th scope="col" style="color:#35A8E4">Número de Documento</th>
+                <th scope="col" style="color:#35A8E4">Solicitante</th>
                 
-                
-                
-           
-                  <hr style="color:#0171BD">
-                    <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><b style="color:#0171BD">Resumen de la pretensión o conflicto:</b><p> {{$data['dato']->detalle}}</p></li>
-                  </ul>
- 
-                  @if($data['tiposolicitud']==1)      
-                  <div class="caja_titulo">
-                      <span class="caja_titulo__span">
-                          DATOS DEL APODERADO
-                      </span><br>
-                  </div>
+              </tr>
+              <tr>
+                <td scope="col" style="text-transform: uppercase">{{$data['tipodedocumento']}}</td>
+                <td scope="col" style="text-transform: uppercase">{{$data['dato']->id_usuario_reg}}</td>
+                <td scope="col" style="text-transform: uppercase">{{$data['nombrecompleto']}}</td>
+              </tr>
           
-                  <div class="card-body" style="margin-bottom: 10px;" >
-                      <div class="row"  >
-                        <div class="col-md-4 mt-2">
-                          <b  style="color:#0171BD">Tipo de Documento</b></label>
-                          <p style="text-transform: uppercase">{{$data['tipodedocapoderado']}}</p>
-                        </div>
-                        <div class="col-md-4 mt-2">
-                          <b  style="color:#0171BD">Número de Documento</b></label>
-                          <p style="text-transform: uppercase">{{$data['dato']->numdocapoderado}}</p>
-                        </div>
-                        <div class="col-md-4 mt-2">
-                         <b  style="color:#0171BD">Nombre Apoderado</b></label>
-                          <p style="text-transform: uppercase"> {{$data['apoderado']}}</p>
-                        </div>
-                        <div class="col-md-4 mt-2">
-                          <b  style="color:#0171BD">No. Tarjeta Profesional</b></label>
-                           <p style="text-transform: uppercase"> {{$data['dato']->tarjetaprofesional}}</p>
-                         </div>
-                         <div class="col-md-4 mt-2">
-                          <b  style="color:#0171BD">Dirección</b></label>
-                           <p style="text-transform: uppercase"> {{$data['dato']->direccionapoderado}}</p>
-                         </div>
-                         <div class="col-md-4 mt-2">
-                          <b  style="color:#0171BD">Teléfono Celular</b></label>
-                           <p style="text-transform: uppercase"> {{$data['dato']->primertelefonoapoderado}}</p>
-                         </div>
-                         <div class="col-md-4 mt-2">
-                          <b  style="color:#0171BD">Teléfono Fijo</b></label>
-                           <p style="text-transform: uppercase"> {{$data['dato']->segundotelefonoapoderado}}</p>
-                         </div>
-                         <div class="col-md-4 mt-2">
-                          <b  style="color:#0171BD">Correo Electrónico</b></label>
-                           <p style="text-transform: uppercase"> {{$data['dato']->emailapoderado}}</p>
-                         </div>
-                    
-                    
-                    
-                      </div>
-                    
-                    
-                      </div>
+            </thead>
+     
+          </table>
+          <table class="table table-striped" style="--bs-table-striped-bg:#F5F9FC">
+            <thead>
+              <tr style="">
+                <th scope="col" style="color:#35A8E4">Fecha de Solicitud<b  style="color:#35A8E4;font-size:80%">(dd/mm/yyyy)</b></th>
+                <th scope="col" style="color:#35A8E4">Asuntos</th>
+                <th scope="col" style="color:#35A8E4">Sub Asunto</th>
+                
+              </tr>
+              <tr>
+                <td scope="col" style="text-transform: uppercase">{{$data['newDate']}}</td>
+                <td scope="col" style="text-transform: uppercase">{{$data['dato']->asuntos->nombre}}</td>
+                <td scope="col" style="text-transform: uppercase">{{$data['dato']->subasuntos->nombre}}</td>
+              </tr>
+             
+            </thead>
+     
+          </table>
+          <table class="table table-striped" style="--bs-table-striped-bg:#F5F9FC">
+            <thead>
+              <tr style="">
+                <th scope="col" style="color:#35A8E4">Cuantía</th>
+                <th scope="col" style="color:#35A8E4">Correo Electrónico</th>
+                
+              </tr>
+              <tr>
+                <td scope="col" style="text-transform: uppercase">{{$data['numero']}}</td>
+                <td scope="col" style="text-transform: uppercase">{{$data['dato']->email}}</td>
+              </tr>
+      
+         
+            </thead>
+     
+          </table>
+                
+     
+                
+<br>
+          <hr noshade="noshade" align="center" style="border-top: none; border-color: #35A8E4; border-style:solid; color: #35A8E4; height: 1px; margin-top: -5px; text-align: center;" />
+                    <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><b style="color:#35A8E4">Resumen de la pretensión o conflicto:</b><p> {{$data['dato']->detalle}}</p></li>
+                  </ul><br>
+                  <hr noshade="noshade" align="center" style="border-top: none; border-color: #35A8E4; border-style:solid; color: #35A8E4; height: 1px; margin-top: -5px; text-align: center;" />
+                  @if($data['tiposolicitud']==1)      
+                  <div class="caja_subtitulo">
+                      <span class="caja_titulo__span"style="color:#35A8E4">
+                          DATOS DEL APODERADO
+                      </span>
+                  </div>
+          <br>
+ 
+
+                      <table class="table table-striped" style="--bs-table-striped-bg:#F5F9FC">
+                        <thead>
+                          <tr style="">
+                            <th scope="col" style="color:#35A8E4">Tipo de Documento</th>
+                            <th scope="col" style="color:#35A8E4">Número de Documento</th>
+                            <th scope="col" style="color:#35A8E4">Nombre Apoderado</th>
+                            
+                          </tr>
+                          <tr>
+                            <td scope="col" style="text-transform: uppercase">{{$data['tipodedocapoderado']}}</td>
+                            <td scope="col" style="text-transform: uppercase">{{$data['dato']->numdocapoderado}}</td>
+                            <td scope="col" style="text-transform: uppercase">{{$data['apoderado']}}</td>
+                          </tr>
+                      
+                        </thead>
                  
+                      </table>
+                      <table class="table table-striped" style="--bs-table-striped-bg:#F5F9FC">
+                        <thead>
+                          <tr style="">
+                            <th scope="col" style="color:#35A8E4">No. Tarjeta Profesional</th>
+                            <th scope="col" style="color:#35A8E4">Dirección</th>
+                            <th scope="col" style="color:#35A8E4">Teléfono Celular</th>
+                            
+                          </tr>
+                          <tr>
+                            <td scope="col" style="text-transform: uppercase">{{$data['dato']->tarjetaprofesional}}</td>
+                            <td scope="col" style="text-transform: uppercase">{{$data['dato']->direccionapoderado}}</td>
+                            <td scope="col" style="text-transform: uppercase">{{$data['dato']->primertelefonoapoderado}}</td>
+                          </tr>
+                        </thead>
+                    </table>
+                    <table class="table table-striped" style="--bs-table-striped-bg:#F5F9FC">
+                        <thead>
+                          <tr style="">
+                            <th scope="col" style="color:#35A8E4">Teléfono Fijo</th>
+                            <th scope="col" style="color:#35A8E4">Correo Electrónico</th>
+                            
+                          </tr>
+                          <tr>
+                            <td scope="col" style="text-transform: uppercase">{{$data['dato']->segundotelefonoapoderado}}</td>
+                            <td scope="col" style="text-transform: uppercase">{{$data['dato']->emailapoderado}}</td>
+                          </tr>
+                        </thead>
+                    </table>    <br>
+                    <hr noshade="noshade" align="center" style="border-top: none; border-color: #35A8E4; border-style:solid; color: #35A8E4; height: 1px; margin-top: -5px; text-align: center;" />
+                
             @endif
-            <div class="caja_titulo">
-                <span class="caja_titulo__span">
+      
+            <div class="caja_subtitulo">
+                <span class="caja_titulo__span" style="color:#35A8E4">
                     DATOS DE CONVOCADOS
                 </span><br>
             </div>
-         
+            <br>
 
                 <div class="row"  >
                   @foreach ($data['convocates'] as $info)
                   
-                  
-                  <div class="col-md-3 mt-2 pt-10" style="
-               
-                      text-align: justify;" >
-                    <b  style="color:#0171BD">Nombre Convocado (Correo Electrónico)</b></label>
-                    <p style="text-transform: uppercase">{!! $info->nomconvocante . ' ' . $info->apeconvocante !!} <span style="text-transform: lowercase"> ({!! $info->emailconvocante  !!}) </span></p>
-                  </div>
+              
+                    <thead>
+                      <tr style="">
+                        <th scope="col" style="color:#35A8E4">Nombre Convocado (Correo Electrónico)</th>
+                      </tr>
+                      <tr>
+                        <td scope="col" style="text-transform: uppercase">{!! $info->nomconvocante . ' ' . $info->apeconvocante !!}<span style="text-transform: lowercase"> ({!! $info->emailconvocante  !!}) </span></td>
+                        
+                      </tr>
+                    </thead>
+                </table>
+         
              
                   @endforeach 
               </div>
-      
+              <hr noshade="noshade" align="center" style="border-top: none; border-color: #35A8E4; border-style:solid; color: #35A8E4; height: 1px; margin-top: -5px; text-align: center;" />
 
-        <div class="caja_certifica">
-            <span class="caja_titulo__span">REGISTRA LOS SIGUENTES DOCUMENTOS</span>
+
+        <div class="caja_subtitulo">
+            <span class="caja_titulo__span" style="color:#35A8E4;text-align: left">DOCUMENTOS ADJUNTOS</span>
         </div>
+        <br>
         @foreach ($data['tramite'] as $archivos)
             <div class="caja_sancion">
-                <ul>
-                <li style="text-justify;width:80%;vertical-align: middle;" >{!! $archivos->descripcion !!}</li>
+                <ul >
+                <li style="text-justify;width:80%;vertical-align: middle;color:#35A8E4" ></li><span>{!! $archivos->descripcion !!}</span>
             </ul>
             </div>
         @endforeach
+        <hr noshade="noshade" align="center" style="border-top: none; border-color: #35A8E4; border-style:solid; color: #35A8E4; height: 1px; margin-top: -5px; text-align: center;" />
 
 
 
 
 
-
-        <div class="caja_info" style="margin-top: 5px">
+        {{-- <div class="caja_info" style="margin-top: 5px">
             <span
                 style="font-style:normal;font-weight:normal;font-size:7pt;font-family:Helvetica;color:#000000">Certificado
                 generado por el sitio web: www.personeriabogota.gov.co. Para verificar su validez comuniquese con la
@@ -304,8 +345,8 @@
                     Cra. 7 No. 21 - 24 - Conmutador (601)382 0450/80 - www.personeriabogota.gov.co
                 </span>
             </div>
-        </div>
-        <div class="caja_info" style="margin-top: 10px">
+        </div> --}}
+        {{-- <div class="caja_info" style="margin-top: 10px">
             <span style="font-style:normal;font-weight:bold;font-size:7pt;font-family:Helvetica;color:#000000">
                 Código de verificación: 6_BQR44_4710. Link de verificación:
             </span>
@@ -314,7 +355,7 @@
                     https://www.personeriabogota.gov.co/antecedentes-disciplinarios
                 </span>
             </a>
-        </div>
+        </div> --}}
     </div>
 </body>
 

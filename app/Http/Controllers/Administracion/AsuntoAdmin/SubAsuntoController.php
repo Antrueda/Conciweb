@@ -101,13 +101,12 @@ class SubAsuntoController extends Controller
         ]);
     }
 
-    public function inactivate(Texto $modeloxx)
+    public function inactivate(SubAsunto $modeloxx)
     {
-        $this->opciones['pestania'] = $this->getPestanias($this->opciones);
-        return $this->view(
-            $this->getBotones(['borrar', [], 1, 'INACTIVAR', 'btn btn-sm btn-success'])            ,
-            ['modeloxx' => $modeloxx, 'accionxx' => ['destroy', 'destroy'],'padrexxx'=>$modeloxx->sis_nnaj]
-        );
+        $modeloxx->update(['sis_esta_id' => 2]);
+        return redirect()
+            ->route($this->opciones['permisox'], [$modeloxx->id])
+            ->with('info', 'Subasunto inactivado correctamente');
     }
 
 

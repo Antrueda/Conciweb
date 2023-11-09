@@ -272,9 +272,9 @@
   <a href="{{ route('logout', $archivo->id) }}"class="btn btn-outline-danger mb-3">
     
      Cerrar</a>
-     {{-- <a href="{{ route('imprimir', $archivo->num_solicitud) }}"class="btn btn-outline-danger mb-3">
+     <a href="{{ route('imprimir', $archivo->num_solicitud) }}"class="btn btn-outline-danger mb-3">
     
-      Imprimir</a> --}}
+      Imprimir</a>
     </center>
 
 <script>

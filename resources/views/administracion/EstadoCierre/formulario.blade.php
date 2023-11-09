@@ -11,8 +11,12 @@
             {!! Form::model($dato, ['route' => ['estadoform.editar', $dato->id], 'method' => 'PUT']) !!}
                 @include('administracion.EstadoCierre.campos')
             {!! Form::close() !!}
-        @else
-             @include('administracion.estadoform.campos')
+         @elseif ($accion == 'Editarcierre')
+            {!! Form::open(['route' => ['estadoform.editarcieres',$dato->id],'class' => 'form-horizontal']) !!}
+            {{-- {!! Form::model($dato, ['route' => ['estadoform.editarcieres', $dato->id], 'method' => 'PUT']) !!} --}}
+                @include('administracion.EstadoCierre.campos')
+            {!! Form::close() !!}
+
         @endif
     </div>
 </div>

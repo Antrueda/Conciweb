@@ -4,7 +4,7 @@
   @foreach ($todoxxxx['tablasxx'] as $tablasxx)
     {{ $tablasxx["tablaxxx"] }} =  $('#{{ $tablasxx["tablaxxx"] }}').DataTable({
         "serverSide": true,
-        "lengthMenu":				[[5, 10, 20, 25, 50], [5, 10, 20, 25, 50]],
+        "lengthMenu":				[[ 50], [ 50]],
         "ajax": {
             url:"{{ url($tablasxx['urlxxxxx'])  }}",
             @if(isset($tablasxx['dataxxxx']))

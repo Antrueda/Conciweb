@@ -10,7 +10,7 @@ class Estadoform extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['estado', 'sis_esta_id','texto_id','horainicio','horacierre','findesemana','cierre'];
+    protected $fillable = ['estado', 'sis_esta_id','texto_id','horainicio','horacierre','findesemana','cierrese'];
 
     
 
