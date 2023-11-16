@@ -15,14 +15,22 @@
                 }
             @endif
         },
+        
         "columns":[
             @foreach($tablasxx['columnsx'] as $columnsx)
                 {data:'{{ $columnsx["data"] }}',name:'{{ $columnsx["name"] }}'},
             @endforeach
         ],
+        "search": {
+            "regex": true,
+            "smart": false,
+        },
         "language": {
             "url": "{{ url('/adminlte/plugins/datatables/Spanish.lang') }}"
         }
+
+
+
     });
   @endforeach
 } );

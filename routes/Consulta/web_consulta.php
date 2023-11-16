@@ -7,10 +7,27 @@ Route::group(['prefix' => 'ConsultaConci'], function () use($controll,$routxxxx)
 		'uses' => $controll.'Controller@index',
 		'middleware' => ['permission:'.$routxxxx.'-leer|'.$routxxxx.'-crear|'.$routxxxx.'-editar|'.$routxxxx.'-borrar']
 	])->name($routxxxx);
+
+	Route::get('indexfin', [
+		'uses' => $controll.'Controller@indexFin',
+		'middleware' => ['permission:'.$routxxxx.'-leer|'.$routxxxx.'-crear|'.$routxxxx.'-editar|'.$routxxxx.'-borrar']
+	])->name($routxxxx.'.indexFin');
+	Route::get('indexdias', [
+		'uses' => $controll.'Controller@Dias',
+		'middleware' => ['permission:'.$routxxxx.'-leer|'.$routxxxx.'-crear|'.$routxxxx.'-editar|'.$routxxxx.'-borrar']
+	])->name($routxxxx.'.indexdias');
     Route::get('listaxxx', [
-		'uses' => $controll.'Controller@listaConciliaciones',
+		'uses' => $controll.'Controller@listaConciliacionesGeneral',
 		'middleware' => ['permission:'.$routxxxx.'-leer']
     ])->name($routxxxx.'.listaxxx');
+	Route::get('listadias', [
+		'uses' => $controll.'Controller@listaConciliacionesDias',
+		'middleware' => ['permission:'.$routxxxx.'-leer']
+    ])->name($routxxxx.'.listadias');
+	Route::get('listafin', [
+		'uses' => $controll.'Controller@listaConciliacionesFinalizados',
+		'middleware' => ['permission:'.$routxxxx.'-leer']
+    ])->name($routxxxx.'.listafin');
 	Route::get('nuevo', [
 		'uses' => $controll.'Controller@create',
 		'middleware' => ['permission:'.$routxxxx.'-crear']

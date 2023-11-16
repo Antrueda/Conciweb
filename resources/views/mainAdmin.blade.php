@@ -174,7 +174,7 @@
    
               <ul class="navbar-nav">
                 <li class="nav-item">
-                  <a href="{{ route('consultac') }}" class="nav-link">
+                  <a href="{{ route('consultac.indexdias') }}" class="nav-link">
                     <i class="fas fa-search"></i> Consulta
                 </a>
                 </li>

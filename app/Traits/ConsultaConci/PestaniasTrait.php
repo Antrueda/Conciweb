@@ -6,31 +6,60 @@ namespace App\Traits\ConsultaConci;
 trait PestaniasTrait
 {
     public $pestanix = [
-      //  'textos' => [true, []],
+        'consultac' => [true, []],
+        'consultac.indexFin' => [true, []],
+        'consultac.indexdias' => [true, []],
         
         
     ];
 
     private function getCanany($dataxxxx)
     {
-        $permisox = [
+        // $permisox = [
 
-        //    'textos' => ['leer', 'crear', 'editar', 'borrar', 'activar'],
+        //    'consultac' => ['leer', 'crear', 'editar', 'borrar', 'activar'],
+        //    'consultac' => ['leer', 'crear', 'editar', 'borrar', 'activar'],
+        //    'consultac' => ['leer', 'crear', 'editar', 'borrar', 'activar'],
         
+        // ];
+        // $cananyxx = [];
+        // foreach ($permisox[$dataxxxx['cananyxx']] as $key => $value) {
+        //     $cananyxx[] = $dataxxxx['cananyxx'] . '-' . $value;
+        // }
+        // return $cananyxx;
+
+        $permisox = [
+         'leer', 'crear', 'editar','borrar'
         ];
-        $cananyxx = [];
-        foreach ($permisox[$dataxxxx['cananyxx']] as $key => $value) {
-            $cananyxx[] = $dataxxxx['cananyxx'] . '-' . $value;
+        $respuest = [];
+        foreach ($permisox as $key => $value) {
+            $respuest[] ='consultac-' . $value;
         }
-        return $cananyxx;
+        return $respuest;
     }
 
     public function setPestanias($dataxxxx)
     {
-        $pestania['textos'] = [
+        $pestania['consultac'] = [
             'routexxx' => '',
             'activexx' => '',
-            'tituloxx' => 'TEXTOS',
+            'tituloxx' => 'CONSULTAR REGISTROS',
+            'tablaxxx' => 'sis_pais',
+            'datablex' => [],
+            'cananyxx' => $this->getCanany($dataxxxx),
+        ];
+        $pestania['consultac.indexFin'] = [
+            'routexxx' => '',
+            'activexx' => '',
+            'tituloxx' => 'CONSULTAR FINALIZADOS',
+            'tablaxxx' => 'sis_pais',
+            'datablex' => [],
+            'cananyxx' => $this->getCanany($dataxxxx),
+        ];
+        $pestania['consultac.indexdias'] = [
+            'routexxx' => '',
+            'activexx' => '',
+            'tituloxx' => 'CONSULTAR DÍAS',
             'tablaxxx' => 'sis_pais',
             'datablex' => [],
             'cananyxx' => $this->getCanany($dataxxxx),

@@ -358,12 +358,15 @@ trait DatatableTrait
                     ]);
                 }
             )
+
   
             ->rawColumns(['botonexx'])
             ->toJson();
     }
 
-    public  function getDtAdjunto($queryxxx, $requestx)
+
+    
+    public  function getDtConsus($queryxxx, $requestx)
     {
         return datatables()
             ->of($queryxxx)
@@ -380,28 +383,22 @@ trait DatatableTrait
                     ]);
                 }
             )
-            ->addColumn(
-                'estado',
-                function ($queryxxx) use ($requestx) {
-                    return  view($requestx->estadoxx, [
-                        'queryxxx' => $queryxxx,
-                        'requestx' => $requestx,
-                    ]);
-                }
-            )
-            ->addColumn(
-                'obligar',
-                function ($queryxxx) use ($requestx) {
-                    return  view($requestx->obligar, [
-                        'queryxxx' => $queryxxx,
-                        'requestx' => $requestx,
-                    ]);
-                }
-
-            )
-            ->rawColumns(['botonexx', 'estado','obligar'])
+            ->addColumn('nombre_completo', function ($row) {
+                return $row->primernombre . ' ' . $row->segundonombre;
+            })                 
+  
+            // ->filter(function ($queryxxx) use ($requestx) {
+            //     // Filtrar por nombre completo
+            //     if ($requestx->has('nombre_completo') && !empty($requestx->nombre_completo)) {
+            //         $queryxxx->whereRaw("CONCAT(primernombre, ' ', segundonombre) like ?", ["%{$requestx->nombre_completo}%"]);
+            //     }
+            // })
+  
+            ->rawColumns(['botonexx'])
             ->toJson();
     }
+
+  
 
     public  function getAsignaDt($queryxxx, $requestx)
     {

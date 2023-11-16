@@ -9,16 +9,34 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <style>
         .contenedor {
-            padding: 25px;
+           
             overflow: hidden;
             min-height: 100vh;
         }
 
-        .header {
+        #header{
+            position: fixed;
+            top: -2.3cm;
+            left: 0cm;
+            width: 100%;
             margin-top: 10px;
             height: 80px;
             
+        }
 
+        @page{
+            margin-top: 3.5cm;
+            
+        }
+
+        table {
+            width: 100%; /* Ancho total de la tabla */
+            border-collapse: collapse; /* Borra los bordes entre las celdas */
+        }
+        th, td {
+            width: 50%; /* Ancho de las celdas (50% para dos columnas iguales) */
+            
+            padding: 10px; /* Espacio interno de las celdas (ajusta según tus necesidades) */
         }
 
         header .column {
@@ -52,7 +70,10 @@
             font-family: Helvetica, sans-serif;
             color: #000000
         }
-
+        .columnss {
+            column-count: 2; /* Número de columnas deseado */
+            column-gap: 5px; /* Espacio entre columnas (ajusta según tus necesidades) */
+        }
 
         .caja_titulo {
             line-height: 0.16in;
@@ -118,6 +139,25 @@
             column-count: 3;
             column-gap: 10px;
         }
+
+
+       .columnas {       
+        display: flex;       
+        flex-wrap: wrap;     
+    }     
+    
+
+
+            .columna {    
+          width: 50%;
+          float: left;      
+          box-sizing: border-box;      
+          padding: 10px;   
+          }    
+         .clear {     
+        clear: both;   
+        }
+
         .item {
             margin-bottom: 10px;
             padding: 5px;
@@ -128,41 +168,35 @@
         .texto-capitalizado::first-letter {
             text-transform: capitalize;
         }
+
     </style>
 </head>
 
 <body>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
-    <div class="contenedor">
-        <header class="header">
-            <a href="http://personeriabogota.gov.co/" class="column column__uno">
-                <img src="{{URL::asset('imagen/logoConciweb1.png')}}" class="rounded mx-auto d-block"  style="width: 2.27in; height: auto;">
-            </a>
-            <div class="column column__dos">
-                <div>
-                    <span class="header_span"
-                        style="font-style:normal;font-weight:bold;font-size:10pt;font-family:Helvetica;color:#000000">CERTIFICADO
-                        ORDINARIO VÍA WEB
-                    </span><br>
-                    <span class="header_span"
-                        style="font-style:normal;font-weight:bold;font-size:10pt;font-family:Helvetica;color:#000000">
-                    </span>
-                </div>
+    <header class="header" id="header">
+        <a href="http://personeriabogota.gov.co/" class="column column__uno">
+            <img src="{{URL::asset('imagen/logoConciweb1.png')}}" class="rounded mx-auto d-block"  style="width: 2.27in; height: auto;">
+        </a>
+        <div class="column column__dos">
+            <div>
+                <span class="header_span"
+                    style="font-style:normal;font-weight:bold;font-size:10pt;font-family:Helvetica;color:#564D4D">
+                    Bogotá D.C., {{$data['fechaactual']}}  
+                </span><br>
+     
             </div>
-        </header>
-        <div class="caja_fecha">
-            <span class="caja_fecha__span">
-                Bogotá D.C., {{$data['fechaactual']}}
-            </span>
         </div>
-        <div class="caja_titulo">
+    </header>
+
+    <div class="contenedor">
+   
+
+        <div class="caja_subtitulo">
             <span class="caja_titulo__span" >
                 SOLICITUD DE CONCILIACIÓN No. {{$data['dato']->num_solicitud}}  DE {{$data['dato']->vigencia}}</b> 
             </span><br>
-            <span class="caja_titulo__span">
-                LA PERSONERÍA DE BOGOTÁ, D.C.
-            </span><br><br>
 
         </div>
     
@@ -209,8 +243,8 @@
           <table class="table table-striped" style="--bs-table-striped-bg:#F5F9FC">
             <thead>
               <tr style="">
-                <th scope="col" style="color:#35A8E4">Cuantía</th>
-                <th scope="col" style="color:#35A8E4">Correo Electrónico</th>
+                <th scope="col" style="color:#35A8E4;width:218px">Cuantía</th>
+                <th scope="col" style="color:#35A8E4;width:90%">Correo Electrónico</th>
                 
               </tr>
               <tr>
@@ -228,7 +262,7 @@
 <br>
           <hr noshade="noshade" align="center" style="border-top: none; border-color: #35A8E4; border-style:solid; color: #35A8E4; height: 1px; margin-top: -5px; text-align: center;" />
                     <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><b style="color:#35A8E4">Resumen de la pretensión o conflicto:</b><p> {{$data['dato']->detalle}}</p></li>
+                    <li class="list-group-item"><p style="color:#35A8E4">Resumen de la pretensión o conflicto:</p><p> {{$data['dato']->detalle}}</p></li>
                   </ul><br>
                   <hr noshade="noshade" align="center" style="border-top: none; border-color: #35A8E4; border-style:solid; color: #35A8E4; height: 1px; margin-top: -5px; text-align: center;" />
                   @if($data['tiposolicitud']==1)      
@@ -275,8 +309,8 @@
                     <table class="table table-striped" style="--bs-table-striped-bg:#F5F9FC">
                         <thead>
                           <tr style="">
-                            <th scope="col" style="color:#35A8E4">Teléfono Fijo</th>
-                            <th scope="col" style="color:#35A8E4">Correo Electrónico</th>
+                                     <th scope="col" style="color:#35A8E4;width:218px">Teléfono Fijo</th>
+                            <th scope="col" style="color:#35A8E4;width:90%">Correo Electrónico</th>
                             
                           </tr>
                           <tr>
@@ -285,7 +319,7 @@
                           </tr>
                         </thead>
                     </table>    <br>
-                    <hr noshade="noshade" align="center" style="border-top: none; border-color: #35A8E4; border-style:solid; color: #35A8E4; height: 1px; margin-top: -5px; text-align: center;" />
+                    <hr noshade="noshade" align="center" style="border-top: none; border-color: #35A8E4; border-style:solid; color: #35A8E4; height: 0.5px; margin-top: -5px; text-align: center;" />
                 
             @endif
       
@@ -295,27 +329,29 @@
                 </span><br>
             </div>
             <br>
+       
+            <div class="columna">
+                @foreach ($data['convocates'] as $key => $item)
+                    @if ($key % 2 == 0)
+                    <p style="color:#35A8E4">Nombre Convocado (Correo Electrónico)</p>
+                    <p>{!! $item->nomconvocante . ' ' . $item->apeconvocante . ' ' .  $item->emailconvocante  !!}</p>
+                    @endif
+                @endforeach
+            </div>
+            <div class="columna">
+                @foreach ($data['convocates'] as $key => $item)
+                    @if ($key % 2 == 1)
+                    <p style="color:#35A8E4">Nombre Convocado (Correo Electrónico)</p>
+                    <p>{!! $item->nomconvocante . ' ' . $item->apeconvocante . ' ' .  $item->emailconvocante  !!}</p>
+                    @endif
+                @endforeach
+            </div>
+            <br>
+            
+        <div    class="clear">
 
-                <div class="row"  >
-                  @foreach ($data['convocates'] as $info)
-                  
-              
-                    <thead>
-                      <tr style="">
-                        <th scope="col" style="color:#35A8E4">Nombre Convocado (Correo Electrónico)</th>
-                      </tr>
-                      <tr>
-                        <td scope="col" style="text-transform: uppercase">{!! $info->nomconvocante . ' ' . $info->apeconvocante !!}<span style="text-transform: lowercase"> ({!! $info->emailconvocante  !!}) </span></td>
-                        
-                      </tr>
-                    </thead>
-                </table>
-         
-             
-                  @endforeach 
-              </div>
-              <hr noshade="noshade" align="center" style="border-top: none; border-color: #35A8E4; border-style:solid; color: #35A8E4; height: 1px; margin-top: -5px; text-align: center;" />
-
+        </div>
+        <hr noshade="noshade" align="center" style="border-top: none; border-color: #35A8E4; border-style:solid; color: #35A8E4; height: 1px; margin-top: -5px; text-align: center;" />
 
         <div class="caja_subtitulo">
             <span class="caja_titulo__span" style="color:#35A8E4;text-align: left">DOCUMENTOS ADJUNTOS</span>
@@ -328,35 +364,26 @@
             </ul>
             </div>
         @endforeach
-        <hr noshade="noshade" align="center" style="border-top: none; border-color: #35A8E4; border-style:solid; color: #35A8E4; height: 1px; margin-top: -5px; text-align: center;" />
+
+  
 
 
-
-
-
-        {{-- <div class="caja_info" style="margin-top: 5px">
-            <span
-                style="font-style:normal;font-weight:normal;font-size:7pt;font-family:Helvetica;color:#000000">Certificado
-                generado por el sitio web: www.personeriabogota.gov.co. Para verificar su validez comuniquese con la
-                Personería de Bogotá D.C.
-            </span>
-            <div style="line-height:0.16in;">
-                <span style="font-style:normal;font-weight:bold;font-size:9pt;font-family:Helvetica;color:#000000">
-                    Cra. 7 No. 21 - 24 - Conmutador (601)382 0450/80 - www.personeriabogota.gov.co
-                </span>
-            </div>
-        </div> --}}
-        {{-- <div class="caja_info" style="margin-top: 10px">
-            <span style="font-style:normal;font-weight:bold;font-size:7pt;font-family:Helvetica;color:#000000">
-                Código de verificación: 6_BQR44_4710. Link de verificación:
-            </span>
-            <a href="https://www.personeriabogota.gov.co/antecedentes-disciplinarios">
-                <span style="font-style:normal;font-weight:bold;font-size:7pt;font-family:Helvetica;color:#000000">
-                    https://www.personeriabogota.gov.co/antecedentes-disciplinarios
-                </span>
-            </a>
-        </div> --}}
+   
     </div>
+   
+
+    <script type="text/php">
+        if ( isset($pdf) ) {
+            $pdf->page_script('
+                    $font = $fontMetrics->get_font("Arial, Helvetica, sans-serif", "normal");
+                    $size = 10;
+                    $pageText = "Hoja " . $PAGE_NUM . " de " . $PAGE_COUNT;
+                    $y = 62;
+                    $x = 515;
+                    $pdf->text($x, $y, $pageText, $font, $size);
+            ');
+        }
+    </script>
 </body>
 
 </html>

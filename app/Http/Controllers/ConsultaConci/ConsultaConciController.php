@@ -33,7 +33,7 @@ class ConsultaConciController extends Controller
     use ParametrizarTrait; // trait donde se inicializan las opciones de configuracion
     use DataTablesTrait; // trait donde se arman las datatables que se van a utilizar
     use VistasTrait; // trait que arma la logica para lo metodos: crud
-    use PestaniasTrait; // trit que construye las pestañas que va a tener el modulo con respectiva logica
+    use PestaniasTrait; // trait que construye las pestañas que va a tener el modulo con respectiva logica
     public function __construct()
     {
         $this->opciones['permisox'] = 'consultac';
@@ -46,18 +46,32 @@ class ConsultaConciController extends Controller
     {
         
         $this->opciones['pestania'] = $this->getPestanias($this->opciones);
-        $datosSolicitante = ConciReferente::where('estado', 1)
-        ->orderBy('contador', 'desc')
-        ->get();
-        
-        $random=[];
-        foreach($datosSolicitante as $consec){
-            
-            $random[]=$consec->consec;
-        }
-        //dd($random);
-        //dd($datosSolicitante);
         return view($this->opciones['rutacarp'] . 'pestanias', ['todoxxxx' => $this->getTablas($this->opciones)]);
+    }
+
+    public function indexFin()
+    {
+ 
+        $this->opciones['pestania'] = $this->getPestanias($this->opciones);
+        $this->opciones['pestania'][0]['activexx']="";
+        $this->opciones['pestania'][1]['activexx']="active";
+        $this->opciones['pestania'][2]['activexx']="";
+        return view($this->opciones['rutacarp'] . 'pestanias', ['todoxxxx' => $this->getTablasFinalizado($this->opciones)]);
+    }
+
+    public function Dias()
+    {
+        // $this->pestanix[0]['activexx'] = "";
+        // $this->pestanix[1]['activexx'] = "active";
+        // $this->pestanix[2]['activexx'] = "";
+   
+        $this->opciones['pestania'] = $this->getPestanias($this->opciones);
+        $this->opciones['pestania'][0]['activexx']="";
+        $this->opciones['pestania'][1]['activexx']="";
+        $this->opciones['pestania'][2]['activexx']="active";
+        
+
+        return view($this->opciones['rutacarp'] . 'pestanias', ['todoxxxx' => $this->getTabladias($this->opciones)]);
     }
 
 
@@ -122,7 +136,7 @@ class ConsultaConciController extends Controller
           return view('Consulta.Consulta.Formulario.archivos', compact('tramite','dato', 'data', 'nombrecompleto','tiposolicitud','numero','newDate','tipodedocumento','tipodedocapoderado','apoderado'));
        
       } else{
-          return view('administracion.incompleto',compact('tramite','dato', 'data', 'nombrecompleto','tiposolicitud','numero','newDate','tipodedocumento','tipodedocapoderado','apoderado'));
+        return view('Consulta.Consulta.Formulario.agregar', compact('tramite','dato', 'data', 'nombrecompleto','tiposolicitud','numero','newDate','tipodedocumento','tipodedocapoderado','apoderado'));
       }
     
     }

@@ -1243,14 +1243,21 @@ class Webcontroller extends Controller
         // $fechassemana=new DateTime('10/17/2023');
         // // });
         $fechas = Carbon::parse(Carbon::now());
-        
-        $fechassemana=$fechas->addWeekdays($diasParam);
+        $hoy=Carbon::parse(Carbon::now());
+        $fechassemana=$fechas->subWeekday($diasParam);
 
         $fetivos= Festivos::select('fecha')->where('fecha',$fechas->toDateString())->first();
         //$fetivos2= Festivos::select('fecha')->where('fecha', '<=', $fechassemana->toDateString())->where('fecha', '>=', $fechas->toDateString())->exists();
-
+        $fechafestivo2 = Festivos::where('fecha', '>=', $fechassemana->toDateString())->where('fecha', '<=', Carbon::parse($hoy))->count();
+        
+        if(isset($fechafestivo2)){
+            $diasParam = $diasParam +$fechafestivo2;
+            
+          }
+          
+        
         if(Carbon::now()->isWeekday()&&!isset($fetivos)){
-
+      
         
         $consulta=ModelsTramiteusuario::whereDate('fec_solicitud_tramite', '<=', now()->subWeekdays($diasParam))
         ->where('estado_tramite', 'Remitido')
@@ -1476,13 +1483,12 @@ class Webcontroller extends Controller
                     if (isset($data['emailApoderado']) && !empty($data['emailApoderado'])) {
                         $message->cc($data['emailApoderado']);
                     }
-                    // $message->bcc('jaruedag@personeriabogota.gov.co');
+                     $message->bcc('jaruedag@personeriabogota.gov.co');
                    // $message->bcc('jamumi14@gmail.com');
                    // $message->attach('FORMATO_SOLICITUD_DE_CONCILIACION_V4');
-                    // $message->bcc('ljmeza@personeriabogota.gov.co');
-                    $message->bcc('nabonilla@personeriabogota.gov.co');
-                    $message->bcc('nylopez@personeriabogota.gov.co');
-                    $message->bcc('asarmiento@personeriabogota.gov.co');
+                     $message->bcc('nabonilla@personeriabogota.gov.co');
+                     $message->bcc('nylopez@personeriabogota.gov.co');
+                     $message->bcc('asarmiento@personeriabogota.gov.co');
                     $message->subject($data['subject']);
                 });
             } catch (\Exception $e) {

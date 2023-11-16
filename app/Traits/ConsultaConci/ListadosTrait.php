@@ -53,7 +53,65 @@ trait ListadosTrait
     //     }
     // }
 
-    public function listaConciliaciones(Request $request)
+    public function listaConciliacionesFinalizados(Request $request)
+    {
+
+        if ($request->ajax()) {
+            // ddd($request);
+            $request->routexxx = [$this->opciones['routxxxx'],'textos'];
+            $request->botonesx = $this->opciones['rutacarp'] .
+                $this->opciones['carpetax'] . '.Botones.botonesapi';
+            $dataxxxx = Tramiteusuario::select(
+				[
+					'conci_tramiteusuarios.num_solicitud',
+                    'conci_tramiteusuarios.primernombre',
+                    'conci_tramiteusuarios.segundonombre',
+                    DB::raw("conci_tramiteusuarios.primernombre || ' ' || conci_tramiteusuarios.segundonombre as nombre_completo"),
+                    DB::raw("TO_CHAR(updated_at, 'YYYY-MM-DD HH24:MI:SS') as fecha_actualizacion_formateada"),
+                    'conci_tramiteusuarios.fec_solicitud_tramite',
+                    'conci_tramiteusuarios.updated_at',
+					'conci_tramiteusuarios.estadodoc',
+				] 
+			)
+                ->where('conci_tramiteusuarios.id_tramite', 335)
+                ->whereNotNull('conci_tramiteusuarios.estadodoc')
+                ->whereDate('fec_solicitud_tramite', '>=', '2023-10-02');
+
+            return $this->getDts($dataxxxx, $request);
+        }
+    }
+
+
+
+    public function listaConciliacionesGeneral(Request $request)
+    {
+
+        if ($request->ajax()) {
+            // ddd($request);
+            $request->routexxx = [$this->opciones['routxxxx'],'textos'];
+            $request->botonesx = $this->opciones['rutacarp'] .
+                $this->opciones['carpetax'] . '.Botones.botonesapi';
+            $dataxxxx = Tramiteusuario::select(
+				[
+					'conci_tramiteusuarios.num_solicitud',
+                    'conci_tramiteusuarios.primernombre',
+                    'conci_tramiteusuarios.segundonombre',
+                    DB::raw("conci_tramiteusuarios.primernombre || ' ' || conci_tramiteusuarios.segundonombre as nombre_completo"),
+                    'conci_tramiteusuarios.fec_solicitud_tramite',
+                    'conci_tramiteusuarios.updated_at',
+					'conci_tramiteusuarios.estadodoc',
+				] 
+			)
+                ->where('conci_tramiteusuarios.id_tramite', 335)
+                
+                ->whereDate('fec_solicitud_tramite', '>=', '2023-10-02');
+
+            return $this->getDts($dataxxxx, $request);
+        }
+    }
+
+
+    public function listaConciliacionesDias(Request $request)
     {
 
         if ($request->ajax()) {
@@ -76,7 +134,7 @@ trait ListadosTrait
 			)
                 ->where('conci_tramiteusuarios.id_tramite', 335)
                 ->whereNotNull('updated_at')
-                ->whereDate('fec_solicitud_tramite', '>=', '2023-10-02')->orderBy('num_solicitud', 'desc');
+                ->whereDate('fec_solicitud_tramite', '>=', '2023-10-02');
 
             return $this->getDts($dataxxxx, $request);
         }

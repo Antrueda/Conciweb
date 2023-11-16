@@ -59,13 +59,13 @@ class DocumentsController extends Controller
     }
 
 //Primer test de documentos
-    public function getDocuments($id){
+    public function getDocuments($id,$vigencia){
 
       // trae la información del documento...
           $tramite = Soportecon::where('num_solicitud', $id)->get();
     
-          $dato = Tramiteusuario::where('num_solicitud', $id)->where('vigencia',2023)->first();
-          $fecha = Tramiteusuario::where('num_solicitud', $id)->first()->fec_solicitud_tramite;
+          $dato = Tramiteusuario::where('num_solicitud', $id)->where('vigencia',$vigencia)->first();
+          $fecha = Tramiteusuario::where('num_solicitud', $id)->where('vigencia',$vigencia)->first()->fec_solicitud_tramite;
           $newDate = Carbon::parse($fecha)->format('d/m/Y H:i:s');  
           $tipodedocumento=Parametro::where('id', $dato->tipodocumento)->first()->nombre;
                  
@@ -102,21 +102,97 @@ class DocumentsController extends Controller
     }
 
 
-    public function imprimir($id)
+    public function modalValidacion($id,Request $request){
+        //dd($id);
+        $solicitud=$id;
+        
+        if ($request->ajax()) {
+           
+            $data = Tramiteusuario::where('num_solicitud', $request->num_solicitud)->where('CODE', $request->codigo)->first();
+            
+            //se verifica el estado de documento
+            $output = '';
+            if ($data) {
+           if($data->estadodoc=='Finalizado Adjuntos') {
+            $output = '<br><div class="row justify-content-md-center">';
+                $output .= '            <div class="col-md-4">
+                <a href="' . route('getDocumentsUsuario', ['id' => $solicitud,$data->vigencia]) . '" class="btn btn-outline-success pt-2">Ver Documentos  <i class="fas fa-folder-plus ms-2"></i></a>         </div>';
+              
+                //Validacion de estado "Cancelado", devuelve mensaje y no deja ingresar al formulario de adjuntos
+            }else  {
+                $output .= '<br><p style="width:90%;margin:auto;" class="alert alert-warning"><i class="fa-solid fa-triangle-exclamation fa-2xl"></i>' . '<span style="padding:8px;font-size: 1.2rem;"> La información digitada no es valida ' . '</span></p>';
+            }
+            return $output;
+        }else{
+            $output .= '<br><p style="width:90%;margin:auto;" class="alert alert-warning"> <i class="fa-solid fa-triangle-exclamation fa-2xl"></i>' . '<span style="padding:8px;font-size: 1.2rem;">  No se encuentra información' . ' </span>   </p>';
+            return $output;
+        }
+    }
+        return view('Api.modalvalidar', compact('solicitud'));
+    }
+        
+
+    
+
+    public function getDocumentsUsuario($id,$vigencia){
+
+        // trae la información del documento...
+            $tramite = Soportecon::where('num_solicitud', $id)->where('vigencia',$vigencia)->get();
+      
+            $dato = Tramiteusuario::where('num_solicitud', $id)->where('vigencia',$vigencia)->first();
+            $fecha = Tramiteusuario::where('num_solicitud', $id)->where('vigencia',$vigencia)->first()->fec_solicitud_tramite;
+            $newDate = Carbon::parse($fecha)->format('d/m/Y H:i:s');  
+            $tipodedocumento=Parametro::where('id', $dato->tipodocumento)->first()->nombre;
+                   
+            $tiposolicitud= $dato->tiposolicitud;
+            $tipodedocapoderado='';
+            if($tiposolicitud==1){
+                $tipodedocapoderado=Parametro::where('id', $dato->tipodocapoderado)->first()->nombre;
+            }
+          $nombrecompleto = $dato->primernombre . ' ' . $dato->segundonombre . ' ' . $dato->primerapellido  . ' ' . $dato->segundoapellido;
+            $apoderado = $dato->primernombreapoderado . ' ' . $dato->segundonombreapoderado . ' ' . $dato->primerapellidoapoderado  . ' ' . $dato->segundoapellidoapoderado;
+  
+            $convocates = Convocante::where('num_solicitud', $id)
+            ->orderBy('id')
+            ->get();
+            $numero=number_format($dato->cuantia,0,'.','.');
+            $detalleAbc = Subdescripcion::where('subasu_id', $dato->subasunto)
+                ->where('sis_esta_id', 1)
+                ->orderBy('id')
+                ->get();
+            //INFORMACION RETORNADA EN LA VISTA
+            //$conteo= count($detalleAbc)-1;
+    
+            $data = array(
+                "detalleAbc" => $detalleAbc,
+                "convocates" => $convocates
+            );
+        
+          if(!$tramite->isEmpty()){
+              return view('archivosuser', compact('tramite','dato', 'data', 'nombrecompleto','tiposolicitud','numero','newDate','tipodedocumento','tipodedocapoderado','apoderado'));
+           
+          } else{
+              return view('administracion.sinpermisos',compact('tramite','dato', 'data', 'nombrecompleto','tiposolicitud','numero','newDate','tipodedocumento','tipodedocapoderado','apoderado'));
+          }
+      }
+
+
+    public function imprimir($id,$vigencia)
     {
         //traer informacion de administracion formato pdf certifivados
-        $tramite = Soportecon::where('num_solicitud', $id)->get();
-        $dato = Tramiteusuario::where('num_solicitud', $id)->where('vigencia',2023)->first();
+        $tramite = Soportecon::where('num_solicitud', $id)->where('vigencia',$vigencia)->get();
+        $dato = Tramiteusuario::where('num_solicitud', $id)->where('vigencia',$vigencia)->first();
         $fecha = Tramiteusuario::where('num_solicitud', $id)->first()->fec_solicitud_tramite;
-        $newDate = date("d-m-Y", strtotime($fecha));  
+        $newDate = Carbon::parse($fecha)->format('d/m/Y H:i:s'); 
         $tipodedocumento=Parametro::where('id', $dato->tipodocumento)->first()->nombre;
         $fechaactual=Carbon::now();   
-      
+        $nuevafecha = now();
+        $nuevafecha=Carbon::parse($nuevafecha)->format('H:i:s A');
         $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
         $fecha = Carbon::parse($fechaactual);
         
         $mes = $meses[($fecha->format('n')) - 1];
-        $fechaactual= $fecha->format('d') . ' de ' . $mes . ' de ' . $fecha->format('Y').' - '. $fecha->format('h:m A');   
+        $fechaactual= $fecha->format('d') . ' de ' . $mes . ' de ' . $fecha->format('Y').' - '. $nuevafecha;   
         $tiposolicitud= $dato->tiposolicitud;
         $tipodedocapoderado='';
         if($tiposolicitud==1){
@@ -164,6 +240,7 @@ class DocumentsController extends Controller
         $pdf->setHttpContext($context);
         $options = $pdf->getOptions();
         $options->setIsRemoteEnabled(true);
+        $options->setIsPhpEnabled(true);
         $pdf->setOptions($options);
 
         $pdf->loadHtml(View::make('ordinario', ['data' => $data])->render());
@@ -185,7 +262,7 @@ class DocumentsController extends Controller
     
        
         // trae la información del documento...
-          $tramite = Soportecon::where('num_solicitud', $acceso[3])->get();
+          $tramite = Soportecon::where('num_solicitud', $acceso[3])->where('vigencia',$acceso[4])->get();
           
           $dato = Tramiteusuario::where('num_solicitud', $acceso[3])->where('vigencia',$acceso[4])->first();
           $fecha = Tramiteusuario::where('num_solicitud', $acceso[3])->first()->fec_solicitud_tramite;
