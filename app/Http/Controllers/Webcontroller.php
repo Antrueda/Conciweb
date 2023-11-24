@@ -727,8 +727,8 @@ class Webcontroller extends Controller
                 'TEXTO22' => DB::raw("'$genero'"),
                 'TEXTO25' => DB::raw("'$orientacion'"),
                 'NUMERO02' => $tipoAudiencia,
-                'NUMERO03' => $sedePrincipal,
-                'NUMERO04' => $sedeSecundaria,
+              //  'NUMERO03' => $sedePrincipal,
+              //  'NUMERO04' => $sedeSecundaria,
                 'NUMERO05' => $asunto,
                 'NUMERO06' => $subAsunto,
                 'NUMERO07' => $tipoDocumento,
@@ -1486,9 +1486,9 @@ class Webcontroller extends Controller
                      $message->bcc('jaruedag@personeriabogota.gov.co');
                    // $message->bcc('jamumi14@gmail.com');
                    // $message->attach('FORMATO_SOLICITUD_DE_CONCILIACION_V4');
-                     $message->bcc('nabonilla@personeriabogota.gov.co');
-                     $message->bcc('nylopez@personeriabogota.gov.co');
-                     $message->bcc('asarmiento@personeriabogota.gov.co');
+                    $message->bcc('nabonilla@personeriabogota.gov.co');
+                    $message->bcc('nylopez@personeriabogota.gov.co');
+                    $message->bcc('asarmiento@personeriabogota.gov.co');
                     $message->subject($data['subject']);
                 });
             } catch (\Exception $e) {
@@ -1552,7 +1552,7 @@ class Webcontroller extends Controller
         //$caracteresPermitidos = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
         $caracteresPermitidos = $semilla->caracteres;
         $longitud = $semilla->longitud; // Puedes ajustar la longitud según tus necesidades
-        
+        $code = random_int(10000, 99999);
         
         //Carga de adjuntos
         try {
@@ -1584,7 +1584,7 @@ class Webcontroller extends Controller
             return '|0| 0.2) Problema al actualizar el numero asignado por el sistema' . $e->getMessage();
         }
         $solicitud = ModelsTramiteusuario::where('num_solicitud', $id)->where('vigencia',$dato->vigencia)->update([
-            'estadodoc' => 'Finalizado Adjuntos','estado_tramite' => 'Finalizado'
+            'estadodoc' => 'Finalizado Adjuntos','estado_tramite' => 'Finalizado', 'code' =>  $code , 
          ]);
         //  $modelosinc = tramiteusuario::where('num_solicitud', $id)->where('vigencia',$dato->vigencia)->update(['estado_tramite' => 'Finalizado']);
         // $modelorespusin = tramiterespuesta::where('num_solicitud', $id)->where('vigencia',$dato->vigencia)->update(['estado_tramite' => 'Finalizado']);
@@ -1620,6 +1620,7 @@ class Webcontroller extends Controller
                 'numSolicitud' => $id,
                 'emailApoderado' => $dato->emailapoderado,
                 'apoderado' => $apoderado,
+                'code' => $code,
                 'fechaRegistro' =>$fechaRegistro,
             );
 

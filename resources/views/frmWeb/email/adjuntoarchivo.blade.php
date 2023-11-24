@@ -21,9 +21,15 @@
         }
 
         .btn-perso{
-             background-color: #003e65;
-                border-color:#003e65;
+             background-color: #198754;
+                border-color:#198754;
                 color: white;
+                border-radius: 5px;
+                line-height:15px;
+                font-family: Arial; 
+                font-weight: regular;
+                font-size: .875rem;
+                padding: 8px 30px;
             }
         .saludo {
             background-color: #fafafa;
@@ -257,6 +263,30 @@
     <p>
         Se recuerda que su solicitud entra a proceso de revisión a partir del siguiente día hábil en que finalizó su registro. Dentro de los siguientes diez (10) días hábiles se enviará la respuesta correspondiente, según sea el caso.
     </p>
+
+    <p>
+        Si desea consultar los documentos adjuntados, puede dar clic al botón de "Ver Documentos" e ingresar el siguiente <b>PIN</b> :
+    </p>
+    <div class='datosBasicos'>
+        <ul>
+
+            <li style="text-justify">Pin:<b style="font-size: 20px;font-weight: bold; color:#0171BD;"> {{$code}}</b></li> 
+  
+          </ul>  
+       
+        <center>
+       
+       <br>
+       <div>
+               <a class="btn-perso" style="vertical-align: bottom;" type="button" href="https://conciweb2-dev.personeriabogota.gov.co/api/modalvalidacion/{{$numSolicitud}}">Ver Documentos <img style="    vertical-align: middle;
+                padding-top: 2px;
+                padding-bottom: -23px;
+                padding-bottom: 4px;" width="25" height="25" src="https://img.icons8.com/windows/32/FFFFFF/file-upload.png" alt="file-upload"/></a>
+    </div>
+   
+        <div></div>
+     </center>
+    </div>
 
    @endif
 

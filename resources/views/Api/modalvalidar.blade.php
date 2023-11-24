@@ -16,7 +16,7 @@
             <div class="col-md-10 offset-1">
                 <div class="card">
                     <div class="card-header">
-                        <h5>Por favor ingrese el Número de solicitud y el Pin correspondiente</h5>
+                        <h5>Por favor ingrese el Pin correspondiente</h5>
                     </div>
                     <div class="card-body">
                         <div class="row justify-content-md-center">

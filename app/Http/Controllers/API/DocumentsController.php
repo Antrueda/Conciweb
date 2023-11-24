@@ -105,18 +105,20 @@ class DocumentsController extends Controller
     public function modalValidacion($id,Request $request){
         //dd($id);
         $solicitud=$id;
-        
+        $encriptar=base64_encode( $solicitud);
+       
+        //dd( $desencriptar);
         if ($request->ajax()) {
            
             $data = Tramiteusuario::where('num_solicitud', $request->num_solicitud)->where('CODE', $request->codigo)->first();
-            
+            $vigeencri=base64_encode( $data->vigencia);
             //se verifica el estado de documento
             $output = '';
             if ($data) {
            if($data->estadodoc=='Finalizado Adjuntos') {
             $output = '<br><div class="row justify-content-md-center">';
                 $output .= '            <div class="col-md-4">
-                <a href="' . route('getDocumentsUsuario', ['id' => $solicitud,$data->vigencia]) . '" class="btn btn-outline-success pt-2">Ver Documentos  <i class="fas fa-folder-plus ms-2"></i></a>         </div>';
+                <a href="' . route('getDocumentsUsuario', ['id' => $encriptar,$vigeencri]) . '" class="btn btn-outline-success pt-2">Ver Documentos  <i class="fas fa-folder-plus ms-2"></i></a>         </div>';
               
                 //Validacion de estado "Cancelado", devuelve mensaje y no deja ingresar al formulario de adjuntos
             }else  {
@@ -137,6 +139,8 @@ class DocumentsController extends Controller
     public function getDocumentsUsuario($id,$vigencia){
 
         // trae la información del documento...
+           $id=base64_decode( $id);
+           $vigencia=base64_decode( $vigencia);
             $tramite = Soportecon::where('num_solicitud', $id)->where('vigencia',$vigencia)->get();
       
             $dato = Tramiteusuario::where('num_solicitud', $id)->where('vigencia',$vigencia)->first();
@@ -255,11 +259,11 @@ class DocumentsController extends Controller
 
     //API Funcional, cargue de datos de la solicitud e ingreso por un token(key)
     public function getDocumentos(){
-
+     
         $key = urldecode($_GET['key']);
         $key = str_replace(" ", "+", $key);
         $acceso = $this->data($key);
-    
+        // dd( $acceso);
        
         // trae la información del documento...
           $tramite = Soportecon::where('num_solicitud', $acceso[3])->where('vigencia',$acceso[4])->get();
@@ -354,23 +358,6 @@ class DocumentsController extends Controller
 
         }
     
-        // public function show($id)
-        // {
-        //     $client = new Client([
-        //         'base_uri' => 'http://concil',
-        //     ]);
-    
-        //     $headers['Authorization'] = '3ctQPJC3OHuKj9GzmhRx7pqV6lD3I310';
-    
-    
-        //     $response = $client->request('GET', '/api/documentos/17/download', ['form_params' => [], 'headers' => $headers]);
-            
-        //     return $response;
-          
-        // }
-
-        //return response()->json($tramite);
-
 
 
         public function data($key)
