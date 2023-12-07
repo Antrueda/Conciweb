@@ -8,7 +8,7 @@
         <title>@yield('title','Inicio')</title>
         <meta name="keywords" content="HTML5 Admin Template" />
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <meta name="description" content="Porto Admin - Responsive HTML5 Template">
+        <meta name="description" content="Conciweb - Conciliaciones en Línea">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <!-- <link rel="stylesheet" href="URL::asset('css/bootstrap.css')}}" /> -->
         <!-- <link rel="stylesheet" href="URL::asset('css/bootstrap.css')}}" /> -->

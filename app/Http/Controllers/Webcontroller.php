@@ -1442,6 +1442,7 @@ class Webcontroller extends Controller
         }
     }
 
+    //Funcion para el envio de correo de desistimiento
     public function CorreoDesistir($consulta)
     {  
         

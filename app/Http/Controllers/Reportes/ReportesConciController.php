@@ -20,6 +20,12 @@ use Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use DB;
+use Carbon\Carbon;
 
 /**
  * FOS Tipo de seguimiento
@@ -36,45 +42,43 @@ class ReportesConciController extends Controller
     public function __construct()
     {
         $this->opciones['permisox'] = 'consultac';
-        $this->opciones['routxxxx'] = 'consultac';
+        $this->opciones['routxxxx'] = 'reportes';
         $this->getOpciones();
         $this->middleware($this->getMware());
     }
 
-    public function index()
+
+
+    public function general()
     {
-
+        $this->opciones['tituloxx'] = "Reportes Solicitudes";
         $this->opciones['pestania'] = $this->getPestanias($this->opciones);
-        $datosSolicitante = ConciReferente::where('estado', 1)
-        ->orderBy('contador', 'desc')
-        ->get();
-        
-        $random=[];
-        foreach($datosSolicitante as $consec){
-            
-            $random[]=$consec->consec;
-        }
-        //dd($random);
-        //dd($datosSolicitante);
-        return view($this->opciones['rutacarp'] . 'pestanias', ['todoxxxx' => $this->getTablas($this->opciones)]);
-
-
-
-        // $query = Tramiteusuario::select('NUM_SOLICITUD', 'FEC_SOLICITUD_TRAMITE', 'UPDATED_AT','ESTADODOC')
-        // ->whereNotNull('UPDATED_AT')
-        // ->whereDate('FEC_SOLICITUD_TRAMITE', '>=', '2023-10-02')->get();
-        // //dd($query);
-        // return view('Reportes.Consulta.Formulario.index',compact('query'));
-    
+        return $this->view(
+            $this->getBotones(['crear', [], 1, 'GUARDAR', 'btn btn-sm btn-success']),
+            ['modeloxx' => '', 'accionxx' => ['general', 'formulario']]
+        );
     }
 
-    public function getData()
-    {
-        $query = Tramiteusuario::select('NUM_SOLICITUD', 'FEC_SOLICITUD_TRAMITE', 'UPDATED_AT','ESTADODOC')
-            ->whereNotNull('UPDATED_AT')
-            ->whereDate('FEC_SOLICITUD_TRAMITE', '>=', '2023-10-02');
 
-        return datatables()->of($query)->make(true);
+    public function finalizados()
+    {
+        $this->opciones['tituloxx'] = "Reportes Solicitudes Finalizadas";
+          $this->opciones['pestania'] = $this->getPestanias($this->opciones);
+        return $this->view(
+            $this->getBotones(['crear', [], 1, 'GUARDAR', 'btn btn-sm btn-success']),
+            ['modeloxx' => '', 'accionxx' => ['finalizado', 'finalizado']]
+        );
+    }
+
+
+    public function dias()
+    {
+        $this->opciones['tituloxx'] = "Reportes Solicitudes Diferencia de días";
+           $this->opciones['pestania'] = $this->getPestanias($this->opciones);
+        return $this->view(
+            $this->getBotones(['crear', [], 1, 'GUARDAR', 'btn btn-sm btn-success']),
+            ['modeloxx' => '', 'accionxx' => ['dias', 'dias']]
+        );
     }
 
     /*
@@ -89,43 +93,363 @@ FROM CONCI_TRAMITEUSUARIOS WHERE UPDATED_AT IS NOT NULL and FEC_SOLICITUD_TRAMIT
 
     */
 
-    public function agregar($modeloxx)
+/*
+
+- Mostrar total de registros en reporte
+- Simplificar campos para consulta (Basarse en autosearch)
+- arreglar correo
+- agregar boton de salida en validacion de usuario
+
+
+
+*/
+
+
+
+    public function generateExcelGeneral(Request $request)
     {
-    
-        $dato = Tramiteusuario::where('num_solicitud', $modeloxx)->first();
-        $tiposolicitud= $dato->tiposolicitud;
-        //dd( $tiposolicitud);
-        $nombrecompleto = $dato->primernombre . ' ' . $dato->segundonombre . ' ' . $dato->primerapellido  . ' ' . $dato->segundoapellido;
-        //ddd($dato);
-        $detalleAbc = Subdescripcion::where('subasu_id', $dato->subasunto)
-            ->where('sis_esta_id', 1)
-            ->orderBy('id')
-            ->get();
-        $numero=number_format($dato->cuantia,0);
-        $adjuntos=Soportecon::where('num_solicitud', $modeloxx)->get();
-        //dd($adjuntos);
-        $data = array(
-            "detalleAbc" => $detalleAbc,
-            "adjuntos" =>$adjuntos
+
+        // Obtener fechas desde el formulario
+        $fechainicio = $request->input('start_date');
+        $fechafin = $request->input('end_date');
+
+        // Validar y formatear las fechas según sea necesario
+        $formatofechain = date('Y-m-d', strtotime($fechainicio));
+        $formatofechafin = date('Y-m-d', strtotime($fechafin));
+
+        $query = Tramiteusuario::query();
+
+        if ($formatofechain && $formatofechafin) {
+            // Si ambas fechas están presentes, aplicar el rango
+            $query->whereBetween('conci_tramiteusuarios.fec_solicitud_tramite', [$formatofechain, $formatofechafin]);
+        }
+
+        // Seleccionar los campos necesarios
+        $oracleData = $query->select(
+            [
+                'conci_tramiteusuarios.num_solicitud',
+                'conci_tramiteusuarios.primernombre',
+                'conci_tramiteusuarios.segundonombre',
+                DB::raw("conci_tramiteusuarios.primernombre || ' ' || conci_tramiteusuarios.segundonombre as nombre_completo"),
+                'conci_tramiteusuarios.fec_solicitud_tramite',
+                'conci_tramiteusuarios.updated_at',
+                'conci_tramiteusuarios.estadodoc',
+            ]
+        )
+            ->where('conci_tramiteusuarios.id_tramite', 335)->get();
+
+
+        // Crear una instancia de PhpSpreadsheet
+        $spreadsheet = new Spreadsheet();
+        $nuevafecha = now();
+        $nuevafecha = Carbon::parse($nuevafecha)->format('d/m/Y H:i:s');
+        // Seleccionar la hoja activa
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // Establecer estilos para los encabezados
+        $headerStyle = [
+            'font' => [
+                'bold' => true,
+                'color' => ['rgb' => 'FFFFFF'],
+            ],
+            'fill' => [
+                'fillType' => Fill::FILL_SOLID,
+                'startColor' => ['rgb' => '4F81BD'],
+            ],
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+
+                    'color' => ['rgb' => '000000'],
+                ],
+            ],
+            'alignment' => [
+                'horizontal' => Alignment::HORIZONTAL_CENTER,
+            ],
+        ];
+        //dd($nuevafecha);
+        // Aplicar estilos a los encabezados
+        $sheet->getStyle('A1:D1')->applyFromArray($headerStyle);
+        // Agregar datos al informe
+        $sheet->setCellValue('A1', 'Numero Solicitud');
+        $sheet->setCellValue('B1', 'Nombre Completo');
+        $sheet->setCellValue('C1', 'Fecha de Solicitud');
+        $sheet->setCellValue('D1', 'Estado');
+
+        $row = 2;
+        //dd($oracleData);
+        foreach ($oracleData as $data) {
+            $sheet->setCellValue('A' . $row, $data->num_solicitud);
+            $sheet->setCellValue('B' . $row, $data->nombre_completo);
+            $sheet->setCellValue('C' . $row, $data->fec_solicitud_tramite);
+            $sheet->setCellValue('D' . $row, $data->estadodoc);
+            $row++;
+        }
+        // Congelar la primera fila (encabezados)
+        $sheet->freezePane('A2');
+        // Establecer anchos de columna
+        $sheet->getColumnDimension('A')->setWidth(25);
+        $sheet->getColumnDimension('B')->setWidth(25);
+        $sheet->getColumnDimension('C')->setWidth(25);
+        $sheet->getColumnDimension('D')->setWidth(25);
+
+        // Crear una respuesta HTTP para descargar el archivo Excel
+        $response = response()->stream(
+            function () use ($spreadsheet) {
+                $writer = new Xlsx($spreadsheet);
+                $writer->save('php://output');
+            },
+            200,
+            [
+                'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                'Content-Disposition' => 'attachment; filename="ReporteGeneral ' . $nuevafecha . '.xlsx"',
+            ]
         );
-        return view('Consulta.Consulta.Formulario.agregar', compact('dato', 'data', 'nombrecompleto','tiposolicitud','adjuntos','numero'));
+
+        return $response;
     }
 
-    public function archivo($id)
+
+    public function generateExcelFinalizado(Request $request)
     {
 
-        $adjuntos=Soportecon::where('id', $id)->first();
 
-  
-        return response()->download(Storage::path($adjuntos->rutafinalfile));
-    }
+        // Obtener fechas desde el formulario
+        $fechainicio = $request->input('start_date');
+        $fechafin = $request->input('end_date');
+        $estado = [$request->input('estado')];
 
-    public function show(Tramiteusuario $modeloxx)
-    {
-        return view('AsignaUsuario.Asignar.Formulario.autosearch');
+        // Validar y formatear las fechas según sea necesario
+        $formatofechain = date('Y-m-d', strtotime($fechainicio));
+        $formatofechafin = date('Y-m-d', strtotime($fechafin));
+
+        $query = Tramiteusuario::query();
+
+        if ($formatofechain && $formatofechafin) {
+            // Si ambas fechas están presentes, aplicar el rango
+            $query->whereBetween('conci_tramiteusuarios.fec_solicitud_tramite', [$formatofechain, $formatofechafin]);
+        }
         
+        if($estado[0]==null){
+            $estado=[  'Desistimiento Automatico',
+            'Finalizado Adjuntos',
+            'Desistimiento Voluntario'];
+        };
+
+        // Obtener datos desde Oracle (ajusta la consulta según tu esquema y necesidades)
+        $oracleData =  Tramiteusuario::select(
+            [
+                'conci_tramiteusuarios.num_solicitud',
+                'conci_tramiteusuarios.primernombre',
+                'conci_tramiteusuarios.segundonombre',
+                DB::raw("conci_tramiteusuarios.primernombre || ' ' || conci_tramiteusuarios.segundonombre as nombre_completo"),
+                DB::raw("TO_CHAR(updated_at, 'YYYY-MM-DD HH24:MI:SS') as fecha_actualizacion_formateada"),
+                'conci_tramiteusuarios.fec_solicitud_tramite',
+                'conci_tramiteusuarios.updated_at',
+                'conci_tramiteusuarios.estadodoc',
+            ]
+        )
+            ->where('conci_tramiteusuarios.id_tramite', 335)
+            ->whereIn('conci_tramiteusuarios.estadodoc',$estado)
+            ->whereDate('fec_solicitud_tramite', '>=', '2023-10-02')->get();
+
+        // Crear una instancia de PhpSpreadsheet
+        $spreadsheet = new Spreadsheet();
+        $nuevafecha = now();
+        $nuevafecha = Carbon::parse($nuevafecha)->format('d/m/Y H:i:s');
+        // Seleccionar la hoja activa
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // Establecer estilos para los encabezados
+        $headerStyle = [
+            'font' => [
+                'bold' => true,
+                'color' => ['rgb' => 'FFFFFF'],
+            ],
+            'fill' => [
+                'fillType' => Fill::FILL_SOLID,
+                'startColor' => ['rgb' => '4F81BD'],
+            ],
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+
+                    'color' => ['rgb' => '000000'],
+                ],
+            ],
+            'alignment' => [
+                'horizontal' => Alignment::HORIZONTAL_CENTER,
+            ],
+        ];
+
+        // Aplicar estilos a los encabezados
+        $sheet->getStyle('A1:E1')->applyFromArray($headerStyle);
+        // Agregar datos al informe
+        $sheet->setCellValue('A1', 'Numero Solicitud');
+        $sheet->setCellValue('B1', 'Nombre Completo');
+        $sheet->setCellValue('C1', 'Fecha de Solicitud');
+        $sheet->setCellValue('D1', 'Fecha de Actualización');
+        $sheet->setCellValue('E1', 'Estado');
+
+        $row = 2;
+        //dd($oracleData);
+        foreach ($oracleData as $data) {
+            $sheet->setCellValue('A' . $row, $data->num_solicitud);
+            $sheet->setCellValue('B' . $row, $data->nombre_completo);
+            $sheet->setCellValue('C' . $row, $data->fec_solicitud_tramite);
+            $sheet->setCellValue('D' . $row, $data->fecha_actualizacion_formateada);
+            $sheet->setCellValue('E' . $row, $data->estadodoc);
+            $row++;
+        }
+
+        // Establecer anchos de columna
+        $sheet->getColumnDimension('A')->setWidth(25);
+        $sheet->getColumnDimension('B')->setWidth(25);
+        $sheet->getColumnDimension('C')->setWidth(25);
+        $sheet->getColumnDimension('D')->setWidth(25);
+        $sheet->getColumnDimension('E')->setWidth(25);
+
+        // Crear una respuesta HTTP para descargar el archivo Excel
+        $response = response()->stream(
+            function () use ($spreadsheet) {
+                $writer = new Xlsx($spreadsheet);
+                $writer->save('php://output');
+            },
+            200,
+            [
+                'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                'Content-Disposition' => 'attachment; filename="ReporteFinalizados ' . $nuevafecha . '.xlsx"',
+            ]
+        );
+
+        return $response;
     }
 
+    public function generateExcelDias(Request $request)
+    {
 
-   
+
+        // Obtener fechas desde el formulario
+        $fechainicio = $request->input('start_date');
+        $fechafin = $request->input('end_date');
+
+        // Validar y formatear las fechas según sea necesario
+        $formatofechain = date('Y-m-d', strtotime($fechainicio));
+        $formatofechafin = date('Y-m-d', strtotime($fechafin));
+
+        $query = Tramiteusuario::query();
+
+        if ($formatofechain && $formatofechafin) {
+            // Si ambas fechas están presentes, aplicar el rango
+            $query->whereBetween('conci_tramiteusuarios.fec_solicitud_tramite', [$formatofechain, $formatofechafin]);
+        }
+
+        // Obtener datos desde Oracle (ajusta la consulta según tu esquema y necesidades)
+        $oracleData =  Tramiteusuario::select(
+            [
+                'conci_tramiteusuarios.num_solicitud',
+                'conci_tramiteusuarios.primernombre',
+                'conci_tramiteusuarios.segundonombre',
+                DB::raw("conci_tramiteusuarios.primernombre || ' ' || conci_tramiteusuarios.segundonombre as nombre_completo"),
+                'conci_tramiteusuarios.fec_solicitud_tramite',
+                'conci_tramiteusuarios.updated_at',
+                DB::raw("TO_CHAR(updated_at, 'YYYY-MM-DD HH24:MI:SS') as fecha_actualizacion_formateada"),
+                DB::raw('TRUNC((CAST(updated_at AS DATE) - fec_solicitud_tramite)) AS dias_de_diferencia'),
+                'conci_tramiteusuarios.estadodoc',
+            ]
+        )
+            ->where('conci_tramiteusuarios.id_tramite', 335)
+            ->whereNotNull('updated_at')
+            ->whereDate('fec_solicitud_tramite', '>=', '2023-10-02')->get();
+
+
+        // Crear una instancia de PhpSpreadsheet
+        $spreadsheet = new Spreadsheet();
+        $nuevafecha = now();
+        $nuevafecha = Carbon::parse($nuevafecha)->format('d/m/Y H:i:s');
+        // Seleccionar la hoja activa
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // Establecer estilos para los encabezados
+        $headerStyle = [
+            'font' => [
+                'bold' => true,
+                'color' => ['rgb' => 'FFFFFF'],
+            ],
+            'fill' => [
+                'fillType' => Fill::FILL_SOLID,
+                'startColor' => ['rgb' => '4F81BD'],
+            ],
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+
+                    'color' => ['rgb' => '000000'],
+                ],
+            ],
+            'alignment' => [
+                'horizontal' => Alignment::HORIZONTAL_CENTER,
+            ],
+        ];
+
+        $columstyle = [
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+
+                    'color' => ['rgb' => '000000'],
+                ],
+            ],
+            'alignment' => [
+                'horizontal' => Alignment::HORIZONTAL_CENTER,
+            ],
+        ];
+
+        // Aplicar estilos a los encabezados
+        $sheet->getStyle('A1:F1')->applyFromArray($headerStyle);
+
+        // Agregar datos al informe
+        $sheet->setCellValue('A1', 'Numero Solicitud');
+        $sheet->setCellValue('B1', 'Nombre Completo');
+        $sheet->setCellValue('C1', 'Fecha de Solicitud');
+        $sheet->setCellValue('D1', 'Fecha de Actualización');
+        $sheet->setCellValue('E1', 'Días de diferencia');
+        $sheet->setCellValue('F1', 'Estado');
+
+        $row = 2;
+        //dd($oracleData);
+        foreach ($oracleData as $data) {
+            $sheet->setCellValue('A' . $row, $data->num_solicitud);
+            $sheet->setCellValue('B' . $row, $data->nombre_completo);
+            $sheet->setCellValue('C' . $row, $data->fec_solicitud_tramite);
+            $sheet->setCellValue('D' . $row, $data->fecha_actualizacion_formateada);
+            $sheet->setCellValue('E' . $row, $data->dias_de_diferencia);
+            $sheet->setCellValue('F' . $row, $data->estadodoc);
+            $sheet->getStyle('A' . $row . ':F' . $row)->applyFromArray($columstyle);
+            $row++;
+        }
+
+        // Establecer anchos de columna
+        $sheet->getColumnDimension('A')->setWidth(25);
+        $sheet->getColumnDimension('B')->setWidth(25);
+        $sheet->getColumnDimension('C')->setWidth(25);
+        $sheet->getColumnDimension('D')->setWidth(25);
+        $sheet->getColumnDimension('E')->setWidth(25);
+        $sheet->getColumnDimension('F')->setWidth(25);
+
+        // Crear una respuesta HTTP para descargar el archivo Excel
+        $response = response()->stream(
+            function () use ($spreadsheet) {
+                $writer = new Xlsx($spreadsheet);
+                $writer->save('php://output');
+            },
+            200,
+            [
+                'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                'Content-Disposition' => 'attachment; filename="ReporteDifD ' . $nuevafecha . '.xlsx"',
+            ]
+        );
+
+        return $response;
+    }
 }

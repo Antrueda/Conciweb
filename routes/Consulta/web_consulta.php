@@ -12,10 +12,19 @@ Route::group(['prefix' => 'ConsultaConci'], function () use($controll,$routxxxx)
 		'uses' => $controll.'Controller@indexFin',
 		'middleware' => ['permission:'.$routxxxx.'-leer|'.$routxxxx.'-crear|'.$routxxxx.'-editar|'.$routxxxx.'-borrar']
 	])->name($routxxxx.'.indexFin');
+
+	Route::get('indexgeneral', [
+		'uses' => $controll.'Controller@indexgeneral',
+		'middleware' => ['permission:'.$routxxxx.'-leer|'.$routxxxx.'-crear|'.$routxxxx.'-editar|'.$routxxxx.'-borrar']
+	])->name($routxxxx.'.indexgeneral');
 	Route::get('indexdias', [
 		'uses' => $controll.'Controller@Dias',
 		'middleware' => ['permission:'.$routxxxx.'-leer|'.$routxxxx.'-crear|'.$routxxxx.'-editar|'.$routxxxx.'-borrar']
 	])->name($routxxxx.'.indexdias');
+	Route::get('consultanum', [
+		'uses' => $controll.'Controller@consultanum',
+		'middleware' => ['permission:'.$routxxxx.'-leer|'.$routxxxx.'-crear|'.$routxxxx.'-editar|'.$routxxxx.'-borrar']
+	])->name($routxxxx.'.consultanum');
     Route::get('listaxxx', [
 		'uses' => $controll.'Controller@listaConciliacionesGeneral',
 		'middleware' => ['permission:'.$routxxxx.'-leer']
@@ -43,6 +52,26 @@ Route::group(['prefix' => 'ConsultaConci'], function () use($controll,$routxxxx)
 		'middleware' => ['permission:'.$routxxxx.'-editar']
 	])->name($routxxxx.'.editar');
 
+    Route::get('generate-excel', [
+		'uses' => $controll.'Controller@generateExcelGeneral',
+		//'middleware' => ['permission:'.$routxxxx.'-editar']
+	])->name($routxxxx.'.generate-excel');
+
+	Route::get('generate-final', [
+		'uses' => $controll.'Controller@generateExcelFinalizado',
+		//'middleware' => ['permission:'.$routxxxx.'-editar']
+	])->name($routxxxx.'.generate-final');
+
+
+	Route::get('generate-dias', [
+		'uses' => $controll.'Controller@generateExcelDias',
+		//'middleware' => ['permission:'.$routxxxx.'-editar']
+	])->name($routxxxx.'.generate-dias');
+
+
+	
+
+
 	Route::put('editar/{modeloxx}', [
 		'uses' => $controll.'Controller@update',
 		'middleware' => ['permission:'.$routxxxx.'-editar']
@@ -53,10 +82,10 @@ Route::group(['prefix' => 'ConsultaConci'], function () use($controll,$routxxxx)
 		'middleware' => ['permission:'.$routxxxx.'-leer']
 	])->name($routxxxx.'.ver');
 
-	Route::get('agregar/{modeloxx}', [
-		'uses' => $controll.'Controller@agregar',
+	Route::get('verificar/{modeloxx}', [
+		'uses' => $controll.'Controller@verificar',
 		'middleware' => ['permission:'.$routxxxx.'-leer']
-	])->name($routxxxx.'.agregar');
+	])->name($routxxxx.'.verificar');
 
 	Route::get('archivo/{id}', [
 		'uses' => $controll.'Controller@archivo',

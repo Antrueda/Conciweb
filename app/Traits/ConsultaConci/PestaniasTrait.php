@@ -6,7 +6,7 @@ namespace App\Traits\ConsultaConci;
 trait PestaniasTrait
 {
     public $pestanix = [
-        'consultac' => [true, []],
+        'consultac.indexgeneral' => [true, []],
         'consultac.indexFin' => [true, []],
         'consultac.indexdias' => [true, []],
         
@@ -40,7 +40,7 @@ trait PestaniasTrait
 
     public function setPestanias($dataxxxx)
     {
-        $pestania['consultac'] = [
+        $pestania['consultac.indexgeneral'] = [
             'routexxx' => '',
             'activexx' => '',
             'tituloxx' => 'CONSULTAR REGISTROS',

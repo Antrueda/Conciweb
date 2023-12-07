@@ -68,7 +68,7 @@ trait DataTablesTrait
             [
                 'titunuev' => 'NUEVO TEXTO',
                 'titulist' => 'LISTA DE CONCILIACIONES',
-                'archdttb' => $dataxxxx['rutacarp'] . 'Acomponentes.Adatatable.index',
+                'archdttb' => $dataxxxx['rutacarp'] . 'Acomponentes.Adatatable.finalizado',
                 'vercrear' => false,
                 'urlxxxxx' => route($dataxxxx['routxxxx'] . '.listafin', []),
                 'permtabl' => [
@@ -116,7 +116,7 @@ trait DataTablesTrait
             [
                 'titunuev' => 'NUEVO TEXTO',
                 'titulist' => 'LISTA DE CONCILIACIONES',
-                'archdttb' => $dataxxxx['rutacarp'] . 'Acomponentes.Adatatable.index',
+                'archdttb' => $dataxxxx['rutacarp'] . 'Acomponentes.Adatatable.dias',
                 'vercrear' => false,
                 'urlxxxxx' => route($dataxxxx['routxxxx'] . '.listadias', []),
                 'permtabl' => [

@@ -1,19 +1,11 @@
 <div class="card card-outline card-secondary">
 
     </style>
-    <div class="card-header">
 
-    </div>
     <div class="card-header">
         <h3 class="card-title">
-            {{ $todoxxxx['titulist'] }}
-            @if($todoxxxx['vercrear'])
-            @can($todoxxxx['permisox'].'-crear')
-            <a class="btn btn-sm btn-primary ml-2" title="{{$todoxxxx['titunuev']}}" href="{{ route($todoxxxx['routxxxx'].'.nuevo',$todoxxxx['parametr']) }}">
-                {{ $todoxxxx['titunuev'] }}
-            </a>
-            @endcan
-            @endif
+            
+            <a class="btn btn-sm btn-info ml-2" title="EXPORTAR" href="{{ route($todoxxxx['routxxxx'].'.generate-final',$todoxxxx['parametr']) }}">EXPORTAR EN EXCEL</a>
         </h3>
     </div>
     <div class="card-body">

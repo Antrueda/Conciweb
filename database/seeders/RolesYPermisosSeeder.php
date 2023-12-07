@@ -90,6 +90,8 @@ class RolesYPermisosSeeder extends Seeder
 
         $this->getPermisos(['permisox' => 'emaillist', 'permisos' => ['leer', 'crear', 'editar', 'borrar','activarx'], 'compleme' => 'Listado de correos no permitidos']);
 
+        $this->getPermisos(['permisox' => 'reportes', 'permisos' => ['leer', 'crear', 'editar', 'borrar','activarx'], 'compleme' => 'Reportes Conciliaciones']);
+
  
         Role::create(['name' => 'super-administrador',])->givePermissionTo(Permission::all());
         Role::create(['name' => 'administrador',])->givePermissionTo(Permission::all());

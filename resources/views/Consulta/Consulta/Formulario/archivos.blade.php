@@ -269,9 +269,9 @@
     @endforeach
   </div> --}}
 <center>
-  <a href="{{ route('consultac', $archivo->id) }}"class="btn btn-outline-danger mb-3">
+  <a href="{{ route('consultac.consultanum') }}"class="btn btn-outline-danger mb-3">
     
-     Volver al Listado</a>
+     Volver a Consulta</a>
      {{-- <a href="{{ route('imprimir', $archivo->num_solicitud) }}"class="btn btn-outline-danger mb-3">
     
       Imprimir</a> --}}

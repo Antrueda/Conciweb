@@ -1,4 +1,4 @@
-@extends('../mainUsrWeb')
+@extends('../modal')
 
 @section('title','LISTADO DE DOCUMENTOS')
 @section('content')
@@ -228,7 +228,7 @@
     @endforeach
   </div> --}}
 <center>
-  <a href="{{route('consultac') }}" class="btn btn-success" >Volver</a>
+  <a href="{{route('consultac.consultanum') }}" class="btn btn-success" >Volver</a>
     </center>
 
 <script>

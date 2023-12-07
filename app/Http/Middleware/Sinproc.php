@@ -8,6 +8,7 @@ use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use DB;
 
 class Sinproc
 {
@@ -35,7 +36,7 @@ class Sinproc
     
         $key = str_replace(" ", "+", $key);
         $acceso = $this->data($key);
-        
+
         if (count($acceso) == 5) {
             $user = User::where('consec', $acceso[1])
                 ->where('cedula', $acceso[0])

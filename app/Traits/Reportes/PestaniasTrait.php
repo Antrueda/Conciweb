@@ -6,7 +6,9 @@ namespace App\Traits\Reportes;
 trait PestaniasTrait
 {
     public $pestanix = [
-      //  'textos' => [true, []],
+        'reportes.general' => [true, []],
+        'reportes.finalizado' => [true, []],
+        'reportes.dias' => [true, []],
         
         
     ];
@@ -14,23 +16,37 @@ trait PestaniasTrait
     private function getCanany($dataxxxx)
     {
         $permisox = [
-
-        //    'textos' => ['leer', 'crear', 'editar', 'borrar', 'activar'],
-        
+         'leer', 'crear', 'editar','borrar'
         ];
-        $cananyxx = [];
-        foreach ($permisox[$dataxxxx['cananyxx']] as $key => $value) {
-            $cananyxx[] = $dataxxxx['cananyxx'] . '-' . $value;
+        $respuest = [];
+        foreach ($permisox as $key => $value) {
+            $respuest[] ='consultac-' . $value;
         }
-        return $cananyxx;
+        return $respuest;
     }
 
     public function setPestanias($dataxxxx)
     {
-        $pestania['textos'] = [
+        $pestania['reportes.general'] = [
             'routexxx' => '',
             'activexx' => '',
-            'tituloxx' => 'TEXTOS',
+            'tituloxx' => 'CONSULTAR REGISTROS',
+            'tablaxxx' => 'sis_pais',
+            'datablex' => [],
+            'cananyxx' => $this->getCanany($dataxxxx),
+        ];
+        $pestania['reportes.finalizado'] = [
+            'routexxx' => '',
+            'activexx' => '',
+            'tituloxx' => 'CONSULTAR FINALIZADOS',
+            'tablaxxx' => 'sis_pais',
+            'datablex' => [],
+            'cananyxx' => $this->getCanany($dataxxxx),
+        ];
+        $pestania['reportes.dias'] = [
+            'routexxx' => '',
+            'activexx' => '',
+            'tituloxx' => 'CONSULTAR DÍAS',
             'tablaxxx' => 'sis_pais',
             'datablex' => [],
             'cananyxx' => $this->getCanany($dataxxxx),

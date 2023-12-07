@@ -9,6 +9,10 @@
     <label for="end_date">Fecha de fin:</label>
     {{ Form::date('end_date', null, ['class' => $errors->first('end_date') ? 'form-control form-control-sm is-invalid validate' : 'form-control form-control-sm validate','id'=>'end_date','name'=>'end_date', 'onkeydown'=>"return false",  'max'=>$todoxxxx['Maxhoy']]) }}
 </div>
+<div class="col-4">
+    <label for="estado">Estado de Solicitud:</label>
+    {{ Form::select('estado', $todoxxxx['estado'], null, ['class' => $errors->first('estado') ? 'form-control form-control-sm is-invalid validate' : 'form-control form-control-sm validate','id'=>'estado','placeholder'=>'- Seleccione una opcion -']) }}
+</div>
     </div>
     <br>
     <div class="row justify-content-md-center">

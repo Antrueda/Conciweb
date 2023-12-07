@@ -8,7 +8,7 @@
         <title>@yield('title','Inicio')</title>
         <meta name="keywords" content="HTML5 Admin Template" />
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <meta name="description" content="Porto Admin - Responsive HTML5 Template">
+        <meta name="description" content="Conciweb - Conciliaciones en Línea">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         {{-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"> --}}
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">

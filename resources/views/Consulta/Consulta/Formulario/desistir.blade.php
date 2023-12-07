@@ -1,5 +1,5 @@
 
-@extends('../mainUsrWeb')
+@extends('../modal')
 
 @section('title','VER SOLICITUD')
 
@@ -9,7 +9,7 @@
 
 @section('content')
 
-
+<br><p style="width:90%;margin:auto;" class="alert alert-warning"><i class="fa-solid fa-triangle-exclamation fa-2xl"></i><span style="padding:8px;font-size: 1.2rem;"> Se realizo desistimiento a la Solicitud de Conciliación </span></p>;
 <div class="row">
   <div class="col-md-12">
     <div class="card" role="alert">
@@ -33,9 +33,9 @@
               <tbody>
                 <tr>
                   <th style="text-transform: uppercase"> {{$nombrecompleto}}</th>
-                  <td>{{$dato->fec_solicitud_tramite}}</td>
-                  <td>{{$dato->asuntos->nombre}}</td>
-                  <td>{{$dato->subasuntos->nombre}}</td>
+                  <td>{{$data->fec_solicitud_tramite}}</td>
+                  <td>{{$data->asuntos->nombre}}</td>
+                  <td>{{$data->subasuntos->nombre}}</td>
                   <td>{{$numero}}</td>
                 </tr>
               </tbody>
@@ -46,14 +46,7 @@
 
             <br>
 
-          <center>
-            <div class="row">
-              <div style="align-content: center;">
-                <a href="{{route('consultac') }}" class="btn btn-success" >Volver</a>
-              </div>
 
-            </div>
-          </center>
       </div>
       </small>
     </div>
@@ -62,6 +55,14 @@
 
 
 <br>
+<center>
+  <a href="{{ route('consultac.verificar', $data->num_solicitud) }}"class="btn btn-outline-danger mb-3">
+    
+     Ver Detallado</a>
+     {{-- <a href="{{ route('imprimir', $archivo->num_solicitud) }}"class="btn btn-outline-danger mb-3">
+    
+      Imprimir</a> --}}
+    </center>
 @endsection
 
 @section('AddScriptFooter')

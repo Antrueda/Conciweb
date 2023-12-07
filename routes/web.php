@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Administracion\AdministracionController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\ConsultaConci\ConsultaConciController;
 use App\Http\Controllers\Webcontroller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Composer;
@@ -79,6 +80,7 @@ Route::get('conciliacionWebUpdateDatos','App\Http\Controllers\Webcontroller@actu
 Route::post('registroActualizacionDatos','App\Http\Controllers\Webcontroller@registroActualizacionDatos');
 Route::get('downloadFileWord', 'App\Http\Controllers\Webcontroller@descargaWord');
 Route::get('search', [Webcontroller::class, 'autosearch'])->name('search');
+Route::get('consultasearch', [ConsultaConciController::class, 'consultanum'])->name('consultanum');
 Route::get('Adjuntar/{id}','App\Http\Controllers\Webcontroller@adjuntararchivos')->name('adjuntar');
 Route::get('Desistir/{id}','App\Http\Controllers\Webcontroller@Desistir')->name('desistir');
 Route::post('Test/{id}','App\Http\Controllers\Webcontroller@Test')->name('test');
@@ -120,6 +122,7 @@ require_once('Administracion/web_tiempod.php');
 require_once('Administracion/web_tema.php');
 require_once('Seguridad/web_usuario.php');
 require_once('Consulta/web_consulta.php');
+require_once('Consulta/web_reportes.php');
 require_once('AsignarUsuario/web_asignaruser.php');
 
 Route::get('/administracion', [AdministracionController::class, 'index'])->name('admin');

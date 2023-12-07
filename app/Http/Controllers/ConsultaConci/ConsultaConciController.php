@@ -49,6 +49,14 @@ class ConsultaConciController extends Controller
         return view($this->opciones['rutacarp'] . 'pestanias', ['todoxxxx' => $this->getTablas($this->opciones)]);
     }
 
+
+    public function indexgeneral()
+    {
+        
+        $this->opciones['pestania'] = $this->getPestanias($this->opciones);
+        return view($this->opciones['rutacarp'] . 'pestanias', ['todoxxxx' => $this->getTablas($this->opciones)]);
+    }
+
     public function indexFin()
     {
  
@@ -76,6 +84,49 @@ class ConsultaConciController extends Controller
 
 
 
+    public function consultanum(Request $request)
+    {
+        if ($request->ajax()) {
+           
+            $data = Tramiteusuario::where('num_solicitud', $request->num_solicitud)->where('vigencia', $request->codigo)->first();
+            
+            //se verifica el estado de documento
+            $output = '';
+            if ($data) {
+                $tiposolicitud= $data->tiposolicitud;
+                $Dfinalizacion=date("d/m/Y", strtotime($data->updated_at));
+                $nombrecompleto = $data->primernombre . ' ' . $data->segundonombre . ' ' . $data->primerapellido  . ' ' . $data->segundoapellido;
+                $detalleAbc = Subdescripcion::where('subasu_id', $data->subasunto)
+                    ->where('sis_esta_id', 1)
+                    ->orderBy('id')
+                    ->get();
+                    $numero=number_format($data->cuantia,0,'.','.');
+                if($data->estadodoc==''){
+                    return view('Consulta.Consulta.Formulario.incompleto', compact( 'data', 'nombrecompleto','tiposolicitud','numero','Dfinalizacion'))
+                //Validacion de estado "adjunto", devuelve mensaje y no deja ingresar al formulario de adjuntos
+            } else if($data->estadodoc=='Finalizado Adjuntos') {
+             
+                //$output .= '<br><p style="width:90%;margin:auto;" class="alert alert-success"><i class="fa-regular fa-circle-check fa-2xl"></i>' . '<span style="padding:8px;font-size: 1.2rem;"> El proceso de adjuntar documentos finalizó el día '.date("d/m/Y", strtotime($data->updated_at)) . '</span></p><br>';
+
+                return view('Consulta.Consulta.Formulario.finalizado', compact( 'data', 'nombrecompleto','tiposolicitud','numero','Dfinalizacion'))
+               ;
+
+                //Validacion de estado "Cancelado", devuelve mensaje y no deja ingresar al formulario de adjuntos
+            }else if($data->estadodoc=='Desistimiento Voluntario'||$data->estadodoc=='Desistimiento Automatico') {
+                return view('Consulta.Consulta.Formulario.desistir', compact( 'data', 'nombrecompleto','tiposolicitud','numero','Dfinalizacion'))
+            }
+            return $output;
+        }else{
+            $output .= '<br><p style="width:90%;margin:auto;" class="alert alert-warning"> <i class="fa-solid fa-triangle-exclamation fa-2xl"></i>' . '<span style="padding:8px;font-size: 1.2rem;">  No se encuentra información' . ' </span>   </p>';
+            return $output;
+        }
+    }
+        return view('Consulta.Consulta.Formulario.consultasearch');
+    }
+    
+    
+
+
     public function agrega($modeloxx)
     {
     
@@ -98,7 +149,7 @@ class ConsultaConciController extends Controller
         return view('Consulta.Consulta.Formulario.agregar', compact('dato', 'data', 'nombrecompleto','tiposolicitud','adjuntos','numero'));
     }
 
-    public function agregar($modeloxx)
+    public function verificar($modeloxx)
     {
     
         $tramite = Soportecon::where('num_solicitud', $modeloxx)->get();
