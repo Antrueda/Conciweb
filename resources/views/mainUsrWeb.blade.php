@@ -196,17 +196,17 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <div class="collapse navbar-collapse" id="navbarNavDropdown" style="    margin-left: 16px;">
    
               <ul class="navbar-nav">
                 <li class="nav-item">
-                  <a href="{{ route('consultac.indexdias') }}" class="nav-link">
+                  <a href="{{ route('consultac.consultanum') }}" class="nav-link">
                     <i class="fas fa-search"></i> Consulta
                 </a>
                 </li>
                 <li class="nav-item">
                   <a href="{{ route('reportes.general') }}" class="nav-link">
-                    <i class="fas fa-search"></i> Reportes
+                    <i class="fas fa-file-excel"></i> Reportes
                 </a>
                 </li>
                 <li class="nav-item">

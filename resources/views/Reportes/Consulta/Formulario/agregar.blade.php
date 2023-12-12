@@ -1,5 +1,5 @@
 
-@extends('../mainUsrWeb')
+@extends('../mainAdmin')
 
 @section('title','VER SOLICITUD')
 

@@ -670,6 +670,7 @@ class Webcontroller extends Controller
             return '|0| Problema al Insertar la informacion al sistema TRAMITEUSUARIO NUEVO ' . $e->getMessage();
         }
 
+          //1.b) Registrar informacion de metadata
         try {
             
             ConciMetadata::create([

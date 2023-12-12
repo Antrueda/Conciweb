@@ -82,7 +82,7 @@ Route::group(['prefix' => 'ConsultaConci'], function () use($controll,$routxxxx)
 		'middleware' => ['permission:'.$routxxxx.'-leer']
 	])->name($routxxxx.'.ver');
 
-	Route::get('verificar/{modeloxx}', [
+	Route::get('verificar/{modeloxx}/{vigencia}', [
 		'uses' => $controll.'Controller@verificar',
 		'middleware' => ['permission:'.$routxxxx.'-leer']
 	])->name($routxxxx.'.verificar');

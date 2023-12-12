@@ -28,6 +28,7 @@
                   <th scope="col">Asunto</th>
                   <th scope="col">Sub Asunto</th>
                   <th scope="col">Cuantia</th>
+                  <th scope="col">Estado</th>
                 </tr>
               </thead>
               <tbody>
@@ -37,6 +38,7 @@
                   <td>{{$data->asuntos->nombre}}</td>
                   <td>{{$data->subasuntos->nombre}}</td>
                   <td>{{$numero}}</td>
+                  <td>{{$data->estadodoc}}</td>
                 </tr>
               </tbody>
             </table>
@@ -49,21 +51,23 @@
 
       </div>
       </small>
+      <center>
+        <a href="{{ route('consultac.verificar', [$data->num_solicitud, $vigencia]) }}"class="btn btn-outline-danger mb-3">
+          
+           Ver Detallado</a>
+           {{-- <a href="{{ route('imprimir', $archivo->num_solicitud) }}"class="btn btn-outline-danger mb-3">
+          
+            Imprimir</a> --}}
+          </center>
     </div>
+
   </div>
 </div>
 
 
 <br>
 
-<center>
-  <a href="{{ route('consultac.verificar', $data->num_solicitud) }}"class="btn btn-outline-danger mb-3">
-    
-     Ver Detallado</a>
-     {{-- <a href="{{ route('imprimir', $archivo->num_solicitud) }}"class="btn btn-outline-danger mb-3">
-    
-      Imprimir</a> --}}
-    </center>
+
 @endsection
 
 @section('AddScriptFooter')

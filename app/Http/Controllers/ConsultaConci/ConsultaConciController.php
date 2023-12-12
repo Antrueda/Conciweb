@@ -49,6 +49,7 @@ class ConsultaConciController extends Controller
         return view($this->opciones['rutacarp'] . 'pestanias', ['todoxxxx' => $this->getTablas($this->opciones)]);
     }
 
+    //Consulta general
 
     public function indexgeneral()
     {
@@ -57,6 +58,7 @@ class ConsultaConciController extends Controller
         return view($this->opciones['rutacarp'] . 'pestanias', ['todoxxxx' => $this->getTablas($this->opciones)]);
     }
 
+        //Consulta Finalizado
     public function indexFin()
     {
  
@@ -67,6 +69,8 @@ class ConsultaConciController extends Controller
         return view($this->opciones['rutacarp'] . 'pestanias', ['todoxxxx' => $this->getTablasFinalizado($this->opciones)]);
     }
 
+
+          //Consulta Diferencia de días
     public function Dias()
     {
         // $this->pestanix[0]['activexx'] = "";
@@ -83,7 +87,7 @@ class ConsultaConciController extends Controller
     }
 
 
-
+      //Consulta solicitud individual
     public function consultanum(Request $request)
     {
         if ($request->ajax()) {
@@ -94,6 +98,7 @@ class ConsultaConciController extends Controller
             $output = '';
             if ($data) {
                 $tiposolicitud= $data->tiposolicitud;
+                $vigencia=$request->codigo;
                 $Dfinalizacion=date("d/m/Y", strtotime($data->updated_at));
                 $nombrecompleto = $data->primernombre . ' ' . $data->segundonombre . ' ' . $data->primerapellido  . ' ' . $data->segundoapellido;
                 $detalleAbc = Subdescripcion::where('subasu_id', $data->subasunto)
@@ -102,18 +107,19 @@ class ConsultaConciController extends Controller
                     ->get();
                     $numero=number_format($data->cuantia,0,'.','.');
                 if($data->estadodoc==''){
-                    return view('Consulta.Consulta.Formulario.incompleto', compact( 'data', 'nombrecompleto','tiposolicitud','numero','Dfinalizacion'))
+                    $data->estadodoc='Remitido';
+                    return view('Consulta.Consulta.Formulario.incompleto', compact( 'data', 'nombrecompleto','tiposolicitud','numero','Dfinalizacion','vigencia'));
                 //Validacion de estado "adjunto", devuelve mensaje y no deja ingresar al formulario de adjuntos
             } else if($data->estadodoc=='Finalizado Adjuntos') {
              
                 //$output .= '<br><p style="width:90%;margin:auto;" class="alert alert-success"><i class="fa-regular fa-circle-check fa-2xl"></i>' . '<span style="padding:8px;font-size: 1.2rem;"> El proceso de adjuntar documentos finalizó el día '.date("d/m/Y", strtotime($data->updated_at)) . '</span></p><br>';
 
-                return view('Consulta.Consulta.Formulario.finalizado', compact( 'data', 'nombrecompleto','tiposolicitud','numero','Dfinalizacion'))
+                return view('Consulta.Consulta.Formulario.finalizado', compact( 'data', 'nombrecompleto','tiposolicitud','numero','Dfinalizacion','vigencia'));
                ;
 
                 //Validacion de estado "Cancelado", devuelve mensaje y no deja ingresar al formulario de adjuntos
             }else if($data->estadodoc=='Desistimiento Voluntario'||$data->estadodoc=='Desistimiento Automatico') {
-                return view('Consulta.Consulta.Formulario.desistir', compact( 'data', 'nombrecompleto','tiposolicitud','numero','Dfinalizacion'))
+                return view('Consulta.Consulta.Formulario.desistir', compact( 'data', 'nombrecompleto','tiposolicitud','numero','Dfinalizacion','vigencia'));
             }
             return $output;
         }else{
@@ -149,13 +155,13 @@ class ConsultaConciController extends Controller
         return view('Consulta.Consulta.Formulario.agregar', compact('dato', 'data', 'nombrecompleto','tiposolicitud','adjuntos','numero'));
     }
 
-    public function verificar($modeloxx)
+    public function verificar($modeloxx,$vigencia)
     {
     
-        $tramite = Soportecon::where('num_solicitud', $modeloxx)->get();
+        $tramite = Soportecon::where('num_solicitud', $modeloxx)->where('vigencia',$vigencia)->get();
 
-        $dato = Tramiteusuario::where('num_solicitud', $modeloxx)->where('vigencia',Carbon::today()->isoFormat('YYYY'))->first();
-        $fecha = Tramiteusuario::where('num_solicitud', $modeloxx)->first()->fec_solicitud_tramite;
+        $dato = Tramiteusuario::where('num_solicitud', $modeloxx)->where('vigencia',$vigencia)->first();
+        $fecha = $dato->fec_solicitud_tramite;
         $newDate =    $newDate = Carbon::parse($fecha)->format('d/m/Y H:i:s'); 
         $tipodedocumento=Parametro::where('id', $dato->tipodocumento)->first()->nombre;
                

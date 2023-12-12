@@ -49,20 +49,21 @@
 
       </div>
       </small>
+      <center>
+        <a href="{{ route('consultac.verificar',[$data->num_solicitud$vigencia]) }}"class="btn btn-outline-danger mb-3">
+          
+           Ver Detallado</a>
+           {{-- <a href="{{ route('imprimir', $archivo->num_solicitud) }}"class="btn btn-outline-danger mb-3">
+          
+            Imprimir</a> --}}
+          </center>
     </div>
   </div>
 </div>
 
 
 <br>
-<center>
-  <a href="{{ route('consultac.verificar', $data->num_solicitud) }}"class="btn btn-outline-danger mb-3">
-    
-     Ver Detallado</a>
-     {{-- <a href="{{ route('imprimir', $archivo->num_solicitud) }}"class="btn btn-outline-danger mb-3">
-    
-      Imprimir</a> --}}
-    </center>
+
 @endsection
 
 @section('AddScriptFooter')

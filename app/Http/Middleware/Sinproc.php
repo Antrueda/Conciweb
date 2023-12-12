@@ -2,11 +2,8 @@
 
 namespace App\Http\Middleware;
 
-use App\Providers\RouteServiceProvider;
 use Closure;
-use Illuminate\Http\Response;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use DB;
 
@@ -36,13 +33,16 @@ class Sinproc
     
         $key = str_replace(" ", "+", $key);
         $acceso = $this->data($key);
+        
 
         if (count($acceso) == 5) {
-            $user = User::where('consec', $acceso[1])
+            
+            $user = DB::table('USUARIO_ROL')->where('consec',$acceso[1])
                 ->where('cedula', $acceso[0])
-                ->where('tipo', 'FU')
-                ->where('estado', 'A')
+                 ->where('tipo', 'FU')
+                 ->where('estado', 'A')
                 ->first();
+                //dd($user );
         } else {
               return redirect()->route('sinpermisos');
         }
