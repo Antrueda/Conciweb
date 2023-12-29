@@ -135,6 +135,10 @@
         <h1><span>4</span><span>0</span><span>4</span></h1>
       </div>
       <h2>Lo sentimos pero la ruta ingresada no se encuentra</h2>
+      <br>
+      <div style="display: none">
+        <p>{{$message}}</p>
+        </div>
     </div>
   </div>
 </body>

@@ -48,32 +48,20 @@ class Handler extends ExceptionHandler
         });
     }
 
-    function render($request, Throwable $exception)
-{
-
-    $message = $exception->getMessage();
-    $statusCode = $exception->getStatusCode();
-    //dd($exception);
-        if ($this->isHttpException($exception)) {
-
-            if ($exception->getStatusCode() == 404) {
-                return response()->view('errors.404', [
-                'message' => $message,
-                'status' => $statusCode,], 404);
-            }else{
-                return response()->view('errors.500', [
-                'message' => $message,
-                'status' => $statusCode,], 500);
-            }
+//     function render($request, Throwable $exception)
+// {
+//     //dd($exception);
+//         if ($this->isHttpException($exception)) {
+//             if ($exception->getStatusCode() == 404) {
+//                 return response()->view('errors.404', [], 404);
+//             }else{
+//                 return response()->view('errors.500', [], 500);
+//             }
             
             
-        }
-
-        return response()->view('errors.500', [
-            'message' => $message,
-            'status' => $statusCode,
-        ], $statusCode);
-     }
+//         }
+//         return response()->view('errors.500', [], 500);
+//      }
 
 //         public function render($request, Throwable $exception)
 //         {

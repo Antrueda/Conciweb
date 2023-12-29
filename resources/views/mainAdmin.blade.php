@@ -175,7 +175,7 @@
               <ul class="navbar-nav">
                 <li class="nav-item">
                   <a href="{{ route('consultac.consultanum') }}" class="nav-link">
-                    <i class="fas fa-file-excel"></i>Consulta
+                    <i class="fas fa-search-plus"></i> Consulta
                 </a>
                 </li>
                 <li class="nav-item">

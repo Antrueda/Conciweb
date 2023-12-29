@@ -1571,10 +1571,10 @@ class Webcontroller extends Controller
                 $nombreOriginalFile = $file->getClientOriginalName();
                 $filePath = $file->storeAs('Documentos/'.$id.'_'.$vigencia,$id.'_'. $nombreAleatorio.'.pdf','public');
                 $rutaFinalFile =$file->getRealPath();
-                $nombreencriptado = $id.'--Adjunto'. $key.'.pdf';
-                $rutastorage = $file->storeAs('Adjunto/', $nombreencriptado,'public');
+                // $nombreencriptado = $id.'--Adjunto'. $key.'.pdf';
+                // $rutastorage = $file->storeAs('Adjunto/', $nombreencriptado,'public');
 
-                $ddd = Soportecon::create(['NUM_SOLICITUD' => $id, 'descripcion' => $descripcion[$key], 'rutaFinalFile' => $filePath,  'rutastorage' => $rutastorage, 
+                $ddd = Soportecon::create(['NUM_SOLICITUD' => $id, 'descripcion' => $descripcion[$key], 'rutaFinalFile' => $filePath,   
                 'nombreOriginalFile' =>$id.'--'. $nombreOriginalFile,'vigencia'=>Carbon::today()->isoFormat('YYYY')]);
   
             }

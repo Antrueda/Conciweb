@@ -137,6 +137,7 @@ FROM CONCI_TRAMITEUSUARIOS WHERE UPDATED_AT IS NOT NULL and FEC_SOLICITUD_TRAMIT
                 'conci_tramiteusuarios.detalle',
                 DB::raw("conci_tramiteusuarios.primernombre || ' ' || conci_tramiteusuarios.segundonombre || ' ' || conci_tramiteusuarios.primerapellido|| ' ' || conci_tramiteusuarios.segundoapellido as nombre_completo"),
                 'conci_tramiteusuarios.fec_solicitud_tramite',
+                DB::raw("TO_CHAR(conci_tramiteusuarios.fec_solicitud_tramite, 'DD/MM/YYYY HH:MM:SS AM') as fecha_registro_formateada"),
                 'conci_tramiteusuarios.updated_at',
                 'conci_tramiteusuarios.estadodoc',
             ]
@@ -156,7 +157,7 @@ FROM CONCI_TRAMITEUSUARIOS WHERE UPDATED_AT IS NOT NULL and FEC_SOLICITUD_TRAMIT
         $nuevafecha = now();
         $nuevafecha = Carbon::parse($nuevafecha)->format('d/m/Y H:i:s');
         // Seleccionar la hoja activa
-        a;
+        
         $sheet = $spreadsheet->getActiveSheet();
 
           // Establecer estilos para los encabezados
@@ -202,7 +203,7 @@ FROM CONCI_TRAMITEUSUARIOS WHERE UPDATED_AT IS NOT NULL and FEC_SOLICITUD_TRAMIT
             ],
         ];
         // Aplicar estilos a los encabezados
-        $sheet->getStyle('A2:G2')->applyFromArray($headerStyle);
+        $sheet->getStyle('A2:H2')->applyFromArray($headerStyle);
         // Aplicar estilos al conteo
         $sheet->getStyle('A1:B1')->applyFromArray($Conteo);
         // Aplicar estilos a los encabezados
@@ -210,12 +211,13 @@ FROM CONCI_TRAMITEUSUARIOS WHERE UPDATED_AT IS NOT NULL and FEC_SOLICITUD_TRAMIT
         $sheet->setCellValue('A1', 'Numero de Registros: ');
         $sheet->setCellValue('B1', $oracleData->count());
         $sheet->setCellValue('A2', 'Numero Solicitud');
-        $sheet->setCellValue('B2', 'Nombre Completo');
+        $sheet->setCellValue('B2', 'Nombre Solicitante');
         $sheet->setCellValue('C2', 'Asunto');
         $sheet->setCellValue('D2', 'Sub Asunto');
-        $sheet->setCellValue('E2', 'Tipo de Solicitud');
-        $sheet->setCellValue('F2', 'Fecha de Solicitud');
-        $sheet->setCellValue('G2', 'Estado');
+        $sheet->setCellValue('E2', 'Pretensión');
+        $sheet->setCellValue('F2', 'Tipo de Solicitud');
+        $sheet->setCellValue('G2', 'Fecha de Solicitud');
+        $sheet->setCellValue('H2', 'Estado');
 
         $row = 3;
         
@@ -231,10 +233,15 @@ FROM CONCI_TRAMITEUSUARIOS WHERE UPDATED_AT IS NOT NULL and FEC_SOLICITUD_TRAMIT
             $sheet->setCellValue('B' . $row, $data->nombre_completo);
             $sheet->setCellValue('C' . $row, $data->asuntos->nombre);
             $sheet->setCellValue('D' . $row, $data->subasuntos->nombre);
-            $sheet->setCellValue('E' . $row, $tiposolicitud);
-            $sheet->setCellValue('F' . $row, $data->fec_solicitud_tramite);
-            $sheet->setCellValue('G' . $row, $data->estadodoc);
-            $sheet->getStyle('A' . $row . ':G' . $row)->applyFromArray($columstyle);
+            $sheet->setCellValue('E' . $row, $data->detalle);
+            $sheet->setCellValue('F' . $row, $tiposolicitud);
+            $sheet->setCellValue('G' . $row, $data->fecha_registro_formateada);
+            $sheet->setCellValue('H' . $row, $data->estadodoc);
+            $sheet->getStyle('A' . $row . ':H' . $row)->applyFromArray($columstyle);
+            $sheet->getStyle('D' . $row)->getAlignment()->setWrapText(true);
+            $sheet->getStyle('D' . $row)->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_TOP);
+            $sheet->getStyle('E' . $row)->getAlignment()->setWrapText(true);
+            $sheet->getStyle('E' . $row)->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_TOP);
             $row++;
         }
         // Congelar la primera fila (encabezados)
@@ -243,9 +250,9 @@ FROM CONCI_TRAMITEUSUARIOS WHERE UPDATED_AT IS NOT NULL and FEC_SOLICITUD_TRAMIT
         $sheet->getColumnDimension('A')->setWidth(25);
         $sheet->getColumnDimension('B')->setWidth(35);
         $sheet->getColumnDimension('C')->setWidth(35);
-        $sheet->getColumnDimension('D')->setWidth(25);
-        $sheet->getColumnDimension('E')->setWidth(30);
-        $sheet->getColumnDimension('F')->setWidth(25);
+        $sheet->getColumnDimension('D')->setWidth(35);
+        $sheet->getColumnDimension('E')->setWidth(40);
+        $sheet->getColumnDimension('F')->setWidth(35);
         $sheet->getColumnDimension('G')->setWidth(25);
         $sheet->getColumnDimension('H')->setWidth(25);
 
@@ -305,8 +312,9 @@ FROM CONCI_TRAMITEUSUARIOS WHERE UPDATED_AT IS NOT NULL and FEC_SOLICITUD_TRAMIT
                 'conci_tramiteusuarios.detalle',
                 DB::raw("conci_tramiteusuarios.primernombre || ' ' || conci_tramiteusuarios.segundonombre || ' ' || conci_tramiteusuarios.primerapellido|| ' ' || conci_tramiteusuarios.segundoapellido as nombre_completo"),
                 'conci_tramiteusuarios.fec_solicitud_tramite',
+                DB::raw("TO_CHAR(conci_tramiteusuarios.fec_solicitud_tramite, 'DD/MM/YYYY HH:MM:SS AM') as fecha_registro_formateada"),
                 'conci_tramiteusuarios.updated_at',
-                DB::raw("TO_CHAR(conci_tramiteusuarios.updated_at, 'YYYY-MM-DD HH24:MI:SS') as fecha_actualizacion_formateada"),
+                DB::raw("TO_CHAR(conci_tramiteusuarios.updated_at, 'DD/MM/YYYY HH:MM:SS AM') as fecha_actualizacion_formateada"),
                 'conci_tramiteusuarios.estadodoc',
             ]
         )
@@ -378,13 +386,14 @@ FROM CONCI_TRAMITEUSUARIOS WHERE UPDATED_AT IS NOT NULL and FEC_SOLICITUD_TRAMIT
         $sheet->setCellValue('A1', 'Numero de Registros: ');
         $sheet->setCellValue('B1', $oracleData->count());
         $sheet->setCellValue('A2', 'Numero Solicitud');
-        $sheet->setCellValue('B2', 'Nombre Completo');
+        $sheet->setCellValue('B2', 'Nombre Solicitante');
         $sheet->setCellValue('C2', 'Asunto');
         $sheet->setCellValue('D2', 'Sub Asunto');
-        $sheet->setCellValue('E2', 'Tipo de Solicitud');
-        $sheet->setCellValue('F2', 'Fecha de Solicitud');
-        $sheet->setCellValue('G2', 'Fecha de Actualización');
-        $sheet->setCellValue('H2', 'Estado');
+        $sheet->setCellValue('E2', 'Pretensión');
+        $sheet->setCellValue('F2', 'Tipo de Solicitud');
+        $sheet->setCellValue('G2', 'Fecha de Solicitud');
+        $sheet->setCellValue('H2', 'Fecha de Actualización');
+        $sheet->setCellValue('I2', 'Estado');
 
         $row = 3;
 
@@ -399,11 +408,16 @@ FROM CONCI_TRAMITEUSUARIOS WHERE UPDATED_AT IS NOT NULL and FEC_SOLICITUD_TRAMIT
             $sheet->setCellValue('B' . $row, $data->nombre_completo);
             $sheet->setCellValue('C' . $row, $data->asuntos->nombre);
             $sheet->setCellValue('D' . $row, $data->subasuntos->nombre);
-            $sheet->setCellValue('E' . $row, $tiposolicitud);
-            $sheet->setCellValue('F' . $row, $data->fec_solicitud_tramite);
-            $sheet->setCellValue('G' . $row, $data->fecha_actualizacion_formateada);
-            $sheet->setCellValue('H' . $row, $data->estadodoc);
-            $sheet->getStyle('A' . $row . ':H' . $row)->applyFromArray($columstyle);
+            $sheet->setCellValue('E' . $row, $data->detalle);
+            $sheet->setCellValue('F' . $row, $tiposolicitud);
+            $sheet->setCellValue('G' . $row, $data->fecha_registro_formateada);
+            $sheet->setCellValue('H' . $row, $data->fecha_actualizacion_formateada);
+            $sheet->setCellValue('I' . $row, $data->estadodoc);
+            $sheet->getStyle('A' . $row . ':I' . $row)->applyFromArray($columstyle);
+            $sheet->getStyle('D' . $row)->getAlignment()->setWrapText(true);
+            $sheet->getStyle('D' . $row)->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_TOP);
+            $sheet->getStyle('E' . $row)->getAlignment()->setWrapText(true);
+            $sheet->getStyle('E' . $row)->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_TOP);
             $row++;
         }
         $sheet->freezePane('A3');
@@ -412,10 +426,11 @@ FROM CONCI_TRAMITEUSUARIOS WHERE UPDATED_AT IS NOT NULL and FEC_SOLICITUD_TRAMIT
         $sheet->getColumnDimension('B')->setWidth(35);
         $sheet->getColumnDimension('C')->setWidth(35);
         $sheet->getColumnDimension('D')->setWidth(25);
-        $sheet->getColumnDimension('E')->setWidth(30);
-        $sheet->getColumnDimension('F')->setWidth(25);
+        $sheet->getColumnDimension('E')->setWidth(45);
+        $sheet->getColumnDimension('F')->setWidth(35);
         $sheet->getColumnDimension('G')->setWidth(25);
         $sheet->getColumnDimension('H')->setWidth(25);
+        $sheet->getColumnDimension('I')->setWidth(25);
 
         // Crear una respuesta HTTP para descargar el archivo Excel
         $response = response()->stream(
@@ -453,6 +468,11 @@ FROM CONCI_TRAMITEUSUARIOS WHERE UPDATED_AT IS NOT NULL and FEC_SOLICITUD_TRAMIT
             $query->whereBetween('conci_tramiteusuarios.fec_solicitud_tramite', [$formatofechain, $formatofechafin]);
         }
 
+        if($estado[0]==null){
+            $estado=[  'Desistimiento Automatico',
+            'Finalizado Adjuntos',
+            'Desistimiento Voluntario'];
+        };
         // Obtener datos desde Oracle (ajusta la consulta según tu esquema y necesidades)
         $oracleData =  Tramiteusuario::select(
             [
@@ -462,10 +482,12 @@ FROM CONCI_TRAMITEUSUARIOS WHERE UPDATED_AT IS NOT NULL and FEC_SOLICITUD_TRAMIT
                 'conci_tramiteusuarios.asunto',
                 'conci_tramiteusuarios.subasunto',
                 'conci_tramiteusuarios.tiposolicitud',
+                'conci_tramiteusuarios.detalle',
                 DB::raw("conci_tramiteusuarios.primernombre || ' ' || conci_tramiteusuarios.segundonombre || ' ' || conci_tramiteusuarios.primerapellido|| ' ' || conci_tramiteusuarios.segundoapellido as nombre_completo"),
                 'conci_tramiteusuarios.fec_solicitud_tramite',
+                DB::raw("TO_CHAR(conci_tramiteusuarios.fec_solicitud_tramite, 'DD/MM/YYYY HH:MM:SS AM') as fecha_registro_formateada"),
                 'conci_tramiteusuarios.updated_at',
-                DB::raw("TO_CHAR(conci_tramiteusuarios.updated_at, 'YYYY-MM-DD HH24:MI:SS') as fecha_actualizacion_formateada"),
+                DB::raw("TO_CHAR(conci_tramiteusuarios.updated_at, 'DD/MM/YYYY HH:MM:SS AM') as fecha_actualizacion_formateada"),
                 DB::raw('TRUNC((CAST(conci_tramiteusuarios.updated_at AS DATE) - fec_solicitud_tramite)) AS dias_de_diferencia'),
                 'conci_tramiteusuarios.estadodoc',
             ]
@@ -534,21 +556,22 @@ FROM CONCI_TRAMITEUSUARIOS WHERE UPDATED_AT IS NOT NULL and FEC_SOLICITUD_TRAMIT
             ],
         ];
         // Aplicar estilos a los encabezados
-        $sheet->getStyle('A2:I2')->applyFromArray($headerStyle);
+        $sheet->getStyle('A2:J2')->applyFromArray($headerStyle);
         // Aplicar estilos al conteo
         $sheet->getStyle('A1:B1')->applyFromArray($Conteo);
         // Agregar datos al informe
         $sheet->setCellValue('A1', 'Numero de Registros: ');
         $sheet->setCellValue('B1', $oracleData->count());
         $sheet->setCellValue('A2', 'Numero Solicitud');
-        $sheet->setCellValue('B2', 'Nombre Completo');
+        $sheet->setCellValue('B2', 'Nombre Solicitante');
         $sheet->setCellValue('C2', 'Asunto');
         $sheet->setCellValue('D2', 'Sub Asunto');
-        $sheet->setCellValue('E2', 'Tipo de Solicitud');
-        $sheet->setCellValue('F2', 'Fecha de Solicitud');
-        $sheet->setCellValue('G2', 'Días');
-        $sheet->setCellValue('H2', 'Fecha de Actualización');
-        $sheet->setCellValue('I2', 'Estado');
+        $sheet->setCellValue('E2', 'Pretensión');
+        $sheet->setCellValue('F2', 'Tipo de Solicitud');
+        $sheet->setCellValue('G2', 'Fecha de Solicitud');
+        $sheet->setCellValue('H2', 'Días');
+        $sheet->setCellValue('I2', 'Fecha de Actualización');
+        $sheet->setCellValue('J2', 'Estado');
 
         $row = 3;
 
@@ -559,16 +582,22 @@ FROM CONCI_TRAMITEUSUARIOS WHERE UPDATED_AT IS NOT NULL and FEC_SOLICITUD_TRAMIT
             }else{
                 $tiposolicitud='MEDIANTE APODERADO';
             }
+
             $sheet->setCellValue('A' . $row, $data->num_solicitud);
             $sheet->setCellValue('B' . $row, $data->nombre_completo);
             $sheet->setCellValue('C' . $row, $data->asuntos->nombre);
             $sheet->setCellValue('D' . $row, $data->subasuntos->nombre);
-            $sheet->setCellValue('E' . $row, $tiposolicitud);
-            $sheet->setCellValue('F' . $row, $data->fec_solicitud_tramite);
-            $sheet->setCellValue('G' . $row, $data->dias_de_diferencia);
-            $sheet->setCellValue('H' . $row, $data->fecha_actualizacion_formateada);
-            $sheet->setCellValue('I' . $row, $data->estadodoc);
-            $sheet->getStyle('A' . $row . ':I' . $row)->applyFromArray($columstyle);
+            $sheet->setCellValue('E' . $row, $data->detalle);
+            $sheet->setCellValue('F' . $row, $tiposolicitud);
+            $sheet->setCellValue('G' . $row, $data->fecha_registro_formateada);
+            $sheet->setCellValue('H' . $row, $data->dias_de_diferencia);
+            $sheet->setCellValue('I' . $row, $data->fecha_actualizacion_formateada);
+            $sheet->setCellValue('J' . $row, $data->estadodoc);
+            $sheet->getStyle('A' . $row . ':J' . $row)->applyFromArray($columstyle);
+            $sheet->getStyle('D' . $row)->getAlignment()->setWrapText(true);
+            $sheet->getStyle('D' . $row)->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_TOP);
+            $sheet->getStyle('E' . $row)->getAlignment()->setWrapText(true);
+            $sheet->getStyle('E' . $row)->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_TOP);
             $row++;
         }
 
@@ -579,11 +608,12 @@ FROM CONCI_TRAMITEUSUARIOS WHERE UPDATED_AT IS NOT NULL and FEC_SOLICITUD_TRAMIT
         $sheet->getColumnDimension('B')->setWidth(35);
         $sheet->getColumnDimension('C')->setWidth(35);
         $sheet->getColumnDimension('D')->setWidth(25);
-        $sheet->getColumnDimension('E')->setWidth(30);
-        $sheet->getColumnDimension('F')->setWidth(25);
+        $sheet->getColumnDimension('E')->setWidth(45);
+        $sheet->getColumnDimension('F')->setWidth(35);
         $sheet->getColumnDimension('G')->setWidth(25);
         $sheet->getColumnDimension('H')->setWidth(25);
         $sheet->getColumnDimension('I')->setWidth(25);
+        $sheet->getColumnDimension('J')->setWidth(25);
 
 
         // Crear una respuesta HTTP para descargar el archivo Excel

@@ -135,6 +135,10 @@
         <h1><span>5</span><span>0</span><span>0</span></h1>
       </div>
       <h2>Estamos trabajando para solucionar este incoveniente</h2>
+<br>
+<div style="display: none">
+<p>{{$message}}</p>
+</div>
     </div>
   </div>
 </body>
