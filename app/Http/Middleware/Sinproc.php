@@ -27,13 +27,13 @@ class Sinproc
         if ($key != $keyIgual) {
             return redirect()->route('sinpermisos');
         }
-
+     
      
         $key = urldecode($_GET['key']);
     
         $key = str_replace(" ", "+", $key);
         $acceso = $this->data($key);
-        
+      
 
         if (count($acceso) == 5) {
             

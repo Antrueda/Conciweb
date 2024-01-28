@@ -25,9 +25,10 @@ Route::get('/imprimir/{id}/{vigencia}', [DocumentsController::class, 'imprimir']
 Route::get('incompleto', [DocumentsController::class, 'incompleto'])->name('incompleto');
 Route::get('modalvalidacion/{id}', [DocumentsController::class, 'modalValidacion'])->name('modalvalidacion');
 Route::get('documentos/{id}/download', [DocumentsController::class, 'download'])->name('documentos.download');
+Route::get('/getDocumentos', [DocumentsController::class, 'getDocumentos' ]);
 Route::middleware(['Sinproc'])->group(function () {
     
-    Route::get('/getDocumentos', [DocumentsController::class, 'getDocumentos' ]);
+    //Route::get('/getDocumentos', [DocumentsController::class, 'getDocumentos' ]);
     //Route::get('/getDocumentos/{id}', [DocumentsController::class, 'getDocumentos' ]);
     Route::post('/getDocuments', [DocumentsController::class, 'getDocuments']);
     Route::get('/{id}/descargar', [DocumentsController::class, 'descargar'])->name('descargar');

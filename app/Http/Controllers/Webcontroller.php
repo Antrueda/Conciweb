@@ -611,6 +611,23 @@ class Webcontroller extends Controller
             $consecResponsable = $datosSolicitante->consec;
             $contador = $datosSolicitante->contador + 1;
    
+
+        //   //1.b) Registrar informacion de metadata
+        //   try {
+            
+        //     ConciMetadata::create([
+        //         'num_solicitud' => $numSolicitud,
+        //         'explorador' => $browser,
+        //         'ip' => $request->getClientIp(),
+        //         'pais' =>  $locationData['country_name'],
+        //         'ciudad' => $locationData['city'] ,
+        //         'plataforma' => $platform,
+        //     ]);
+        // } catch (\Exception $e) {
+        //     DB::rollback();
+        //     return '|0| Problema al Insertar la informacion de METADATA' . $e->getMessage();
+        // }
+
         //1.a) Registrar informacion en tramiteusuario Local
         try {
             $code = random_int(10000, 99999);
@@ -670,21 +687,7 @@ class Webcontroller extends Controller
             return '|0| Problema al Insertar la informacion al sistema TRAMITEUSUARIO NUEVO ' . $e->getMessage();
         }
 
-          //1.b) Registrar informacion de metadata
-        try {
-            
-            ConciMetadata::create([
-                'num_solicitud' => $numSolicitud,
-                'explorador' => $browser,
-                'ip' => $request->getClientIp(),
-                'pais' =>  $locationData['country_name'],
-                'ciudad' => $locationData['city'] ,
-                'plataforma' => $platform,
-            ]);
-        } catch (\Exception $e) {
-            DB::rollback();
-            return '|0| Problema al Insertar la informacion de METADATA' . $e->getMessage();
-        }
+
         //1.b) Registrar informacion en tramiteusuario SINPROC
         try {
            
@@ -1262,7 +1265,7 @@ class Webcontroller extends Controller
         
         $consulta=ModelsTramiteusuario::whereDate('fec_solicitud_tramite', '<=', now()->subWeekdays($diasParam))
         ->where('estado_tramite', 'Remitido')
-        ->where('vigencia', Carbon::today()->isoFormat('YYYY'))
+        //->where('vigencia', Carbon::today()->isoFormat('YYYY'))
         ->where('id_tramite', 335)
 
    
@@ -1505,7 +1508,7 @@ class Webcontroller extends Controller
     public function CargaArchivos(Request $request, $id)
     {
         //Se carga los datos del formulario 
-        $dato = ModelsTramiteusuario::where('num_solicitud', $id)->where('vigencia',Carbon::today()->isoFormat('YYYY'))->first();
+        $dato = ModelsTramiteusuario::where('num_solicitud', $id)->first();
         //Se realiza validacion por request
 
         $input_data = $request->all();
